@@ -9,7 +9,7 @@ var db = di.resolve('db');
 db.connect();
 
 app.get('/start', function(req,res){
-    res.end('<h1 style="color: red; text-align: center; margin: 200px auto 0px;">TEAM LAY - CHALLEGE2 - KICK OFF 24/5/2016-7/6/2016</h1>');
+    res.end('<h1 style="color: red; text-align: center; margin: 200px auto 0px;">TEAM LAY - CHALLENGE2 - KICK OFF 24/5/2016-7/6/2016</h1>');
 });
 
 http.createServer(app).listen(8080,function(){
