@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html>
+
+<!-- Mirrored from shamsoft.net/flaty/ui_button.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Sep 2015 07:24:39 GMT -->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Button - FLATY Admin</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+<!--base css styles-->
+<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+
+<!--page specific css styles-->
+
+<!--flaty css styles-->
+<link rel="stylesheet" href="css/flaty.css">
+<link rel="stylesheet" href="css/flaty-responsive.css">
+
+<link rel="shortcut icon" href="img/favicon.html">
+</head>
+<body>
+
+<!-- BEGIN Theme Setting -->
+<div id="theme-setting">
+<a href="#"><i class="fa fa-gears fa fa-2x"></i></a>
+<ul>
+<li>
+<span>Skin</span>
+<ul class="colors" data-target="body" data-prefix="skin-">
+<li class="active"><a class="blue" href="#"></a></li>
+<li><a class="red" href="#"></a></li>
+<li><a class="green" href="#"></a></li>
+<li><a class="orange" href="#"></a></li>
+<li><a class="yellow" href="#"></a></li>
+<li><a class="pink" href="#"></a></li>
+<li><a class="magenta" href="#"></a></li>
+<li><a class="gray" href="#"></a></li>
+<li><a class="black" href="#"></a></li>
+</ul>
+</li>
+<li>
+<span>Navbar</span>
+<ul class="colors" data-target="#navbar" data-prefix="navbar-">
+<li class="active"><a class="blue" href="#"></a></li>
+<li><a class="red" href="#"></a></li>
+<li><a class="green" href="#"></a></li>
+<li><a class="orange" href="#"></a></li>
+<li><a class="yellow" href="#"></a></li>
+<li><a class="pink" href="#"></a></li>
+<li><a class="magenta" href="#"></a></li>
+<li><a class="gray" href="#"></a></li>
+<li><a class="black" href="#"></a></li>
+</ul>
+</li>
+<li>
+<span>Sidebar</span>
+<ul class="colors" data-target="#main-container" data-prefix="sidebar-">
+<li class="active"><a class="blue" href="#"></a></li>
+<li><a class="red" href="#"></a></li>
+<li><a class="green" href="#"></a></li>
+<li><a class="orange" href="#"></a></li>
+<li><a class="yellow" href="#"></a></li>
+<li><a class="pink" href="#"></a></li>
+<li><a class="magenta" href="#"></a></li>
+<li><a class="gray" href="#"></a></li>
+<li><a class="black" href="#"></a></li>
+</ul>
+</li>
+<li>
+<span></span>
+<a data-target="navbar" href="#"><i class="fa fa-square-o"></i> Fixed Navbar</a>
+<a class="hidden-inline-xs" data-target="sidebar" href="#"><i class="fa fa-square-o"></i> Fixed Sidebar</a>
+</li>
+</ul>
+</div>
+<!-- END Theme Setting -->
+
+<!-- BEGIN Navbar -->
+<div id="navbar" class="navbar">
+<button type="button" class="navbar-toggle navbar-btn collapsed" data-toggle="collapse" data-target="#sidebar">
+<span class="fa fa-bars"></span>
+</button>
+<a class="navbar-brand" href="#">
+<small>
+<i class="fa fa-desktop"></i>
+FLATY Admin
+</small>
+</a>
+
+<!-- BEGIN Navbar Buttons -->
+<ul class="nav flaty-nav pull-right">
+<!-- BEGIN Button Tasks -->
+<li class="hidden-xs">
+<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+<i class="fa fa-tasks"></i>
+<span class="badge badge-warning">4</span>
+</a>
+
+<!-- BEGIN Tasks Dropdown -->
+<ul class="dropdown-navbar dropdown-menu">
+<li class="nav-header">
+<i class="fa fa-check"></i>
+4 Tasks to complete
+</li>
+
+<li>
+<a href="#">
+<div class="clearfix">
+<span class="pull-left">Software Update</span>
+<span class="pull-right">75%</span>
+</div>
+
+<div class="progress progress-mini">
+<div style="width:75%" class="progress-bar progress-bar-warning"></div>
+</div>
+</a>
+</li>
+
+<li>
+<a href="#">
+<div class="clearfix">
+<span class="pull-left">Transfer To New Server</span>
+<span class="pull-right">45%</span>
+</div>
+
+<div class="progress progress-mini">
+<div style="width:45%" class="progress-bar progress-bar-danger"></div>
+</div>
+</a>
+</li>
+
+<li>
+<a href="#">
+<div class="clearfix">
+<span class="pull-left">Bug Fixes</span>
+<span class="pull-right">20%</span>
+</div>
+
+<div class="progress progress-mini">
+<div style="width:20%" class="progress-bar"></div>
+</div>
+</a>
+</li>
+
+<li>
+<a href="#">
+<div class="clearfix">
+<span class="pull-left">Writing Documentation</span>
+<span class="pull-right">85%</span>
+</div>
+
+<div class="progress progress-mini progress-striped active">
+<div style="width:85%" class="progress-bar progress-bar-success"></div>
+</div>
+</a>
+</li>
+
+<li class="more">
+<a href="#">See tasks with details</a>
+</li>
+</ul>
+<!-- END Tasks Dropdown -->
+</li>
+<!-- END Button Tasks -->
+
+<!-- BEGIN Button Notifications -->
+<li class="hidden-xs">
+<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+<i class="fa fa-bell"></i>
+<span class="badge badge-important">5</span>
+</a>
+
+<!-- BEGIN Notifications Dropdown -->
+<ul class="dropdown-navbar dropdown-menu">
+<li class="nav-header">
+<i class="fa fa-warning"></i>
+5 Notifications
+</li>
+
+<li class="notify">
+<a href="#">
+<i class="fa fa-comment orange"></i>
+<p>New Comments</p>
+<span class="badge badge-warning">4</span>
+</a>
+</li>
+
+<li class="notify">
+<a href="#">
+<i class="fa fa-twitter blue"></i>
+<p>New Twitter followers</p>
+<span class="badge badge-info">7</span>
+</a>
+</li>
+
+<li class="notify">
+<a href="#">
+<img src="img/demo/avatar/avatar2.jpg" alt="Alex" />
+<p>David would like to become moderator.</p>
+</a>
+</li>
+
+<li class="notify">
+<a href="#">
+<i class="fa fa-bug pink"></i>
+<p>New bug in program!</p>
+</a>
+</li>
+
+<li class="notify">
+<a href="#">
+<i class="fa fa-shopping-cart green"></i>
+<p>You have some new orders</p>
+<span class="badge badge-success">+10</span>
+</a>
+</li>
+
+<li class="more">
+<a href="#">See all notifications</a>
+</li>
+</ul>
+<!-- END Notifications Dropdown -->
+</li>
+<!-- END Button Notifications -->
+
+<!-- BEGIN Button Messages -->
+<li class="hidden-xs">
+<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+<i class="fa fa-envelope"></i>
+<span class="badge badge-success">3</span>
+</a>
+
+<!-- BEGIN Messages Dropdown -->
+<ul class="dropdown-navbar dropdown-menu">
+<li class="nav-header">
+<i class="fa fa-comments"></i>
+3 Messages
+</li>
+
+<li class="msg">
+<a href="#">
+<img src="img/demo/avatar/avatar3.jpg" alt="Sarah's Avatar" />
+<div>
+<span class="msg-title">Sarah</span>
+<span class="msg-time">
+<i class="fa fa-clock-o"></i>
+<span>a moment ago</span>
+</span>
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+</a>
+</li>
+
+<li class="msg">
+<a href="#">
+<img src="img/demo/avatar/avatar4.jpg" alt="Emma's Avatar" />
+<div>
+<span class="msg-title">Emma</span>
+<span class="msg-time">
+<i class="fa fa-clock-o"></i>
+<span>2 Days ago</span>
+</span>
+</div>
+<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris ...</p>
+</a>
+</li>
+
+<li class="msg">
+<a href="#">
+<img src="img/demo/avatar/avatar5.jpg" alt="John's Avatar" />
+<div>
+<span class="msg-title">John</span>
+<span class="msg-time">
+<i class="fa fa-clock-o"></i>
+<span>8:24 PM</span>
+</span>
+</div>
+<p>Duis aute irure dolor in reprehenderit in ...</p>
+</a>
+</li>
+
+<li class="more">
+<a href="#">See all messages</a>
+</li>
+</ul>
+<!-- END Notifications Dropdown -->
+</li>
+<!-- END Button Messages -->
+
+<!-- BEGIN Button User -->
+<li class="user-profile">
+<a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
+<img class="nav-user-photo" src="img/demo/avatar/avatar1.jpg" alt="Penny's Photo" />
+<span id="user_info">
+Penny
+</span>
+<i class="fa fa-caret-down"></i>
+</a>
+
+<!-- BEGIN User Dropdown -->
+<ul class="dropdown-menu dropdown-navbar" id="user_menu">
+<li class="nav-header">
+<i class="fa fa-clock-o"></i>
+Logined From 20:45
+</li>
+
+<li>
+<a href="#">
+<i class="fa fa-cog"></i>
+Account Settings
+</a>
+</li>
+
+<li>
+<a href="#">
+<i class="fa fa-user"></i>
+Edit Profile
+</a>
+</li>
+
+<li>
+<a href="#">
+<i class="fa fa-question"></i>
+Help
+</a>
+</li>
+
+<li class="divider visible-xs"></li>
+
+<li class="visible-xs">
+<a href="#">
+<i class="fa fa-tasks"></i>
+Tasks
+<span class="badge badge-warning">4</span>
+</a>
+</li>
+<li class="visible-xs">
+<a href="#">
+<i class="fa fa-bell"></i>
+Notifications
+<span class="badge badge-important">8</span>
+</a>
+</li>
+<li class="visible-xs">
+<a href="#">
+<i class="fa fa-envelope"></i>
+Messages
+<span class="badge badge-success">5</span>
+</a>
+</li>
+
+<li class="divider"></li>
+
+<li>
+<a href="#">
+<i class="fa fa-off"></i>
+Logout
+</a>
+</li>
+</ul>
+<!-- BEGIN User Dropdown -->
+</li>
+<!-- END Button User -->
+</ul>
+<!-- END Navbar Buttons -->
+</div>
+<!-- END Navbar -->
+
+<!-- BEGIN Container -->
+<div class="container" id="main-container">
+<!-- BEGIN Sidebar -->
+<div id="sidebar" class="navbar-collapse collapse">
+<!-- BEGIN Navlist -->
+<ul class="nav nav-list">
+<!-- BEGIN Search Form -->
+<li>
+<form target="#" method="GET" class="search-form">
+<span class="search-pan">
+<button type="submit">
+<i class="fa fa-search"></i>
+</button>
+<input type="text" name="search" placeholder="Search ..." autocomplete="off" />
+</span>
+</form>
+</li>
+<!-- END Search Form -->
+<li>
+<a href="index-2.html">
+<i class="fa fa-dashboard"></i>
+<span>Dashboard</span>
+</a>
+</li>
+
+<li>
+<a href="typography.html">
+<i class="fa fa-text-width"></i>
+<span>Typography</span>
+</a>
+</li>
+
+<li class="active">
+<a href="#" class="dropdown-toggle">
+<i class="fa fa-desktop"></i>
+<span>UI Elements</span>
+<b class="arrow fa fa-angle-right"></b>
+</a>
+
+<!-- BEGIN Submenu -->
+<ul class="submenu">
+<li><a href="ui_general.html">General</a></li>
+<li class="active"><a href="ui_button.html">Button</a></li>
+<li><a href="ui_tabs.html">Tab & Accordion</a></li>
+<li><a href="ui_slider.html">Slider</a></li>
+<li><a href="ui_tile.html">Tile</a></li>
+<li><a href="ui_timeline.html">Timeline</a></li>
+<li><a href="ui_chart.html">Chart</a></li>
+<li><a href="ui_message.html">Conversation</a></li>
+<li><a href="ui_horizontal-menu.html">Horizontal Menu</a></li>
+<li><a href="ui_icon.html">Icon</a></li>
+</ul>
+<!-- END Submenu -->
+</li>
+
+<li>
+<a href="#" class="dropdown-toggle">
+<i class="fa fa-edit"></i>
+<span>Forms</span>
+<b class="arrow fa fa-angle-right"></b>
+</a>
+
+<!-- BEGIN Submenu -->
+<ul class="submenu">
+<li><a href="form_layout.html">Layout</a></li>
+<li><a href="form_component.html">Component</a></li>
+<li><a href="form_wizard.html">Wizard</a></li>
+<li><a href="form_validation.html">Validation</a></li>
+</ul>
+<!-- END Submenu -->
+</li>
+
+<li>
+<a href="#" class="dropdown-toggle">
+<i class="fa fa-list"></i>
+<span>Tables</span>
+<b class="arrow fa fa-angle-right"></b>
+</a>
+
+<!-- BEGIN Submenu -->
+<ul class="submenu">
+<li><a href="table_basic.html">Basic</a></li>
+<li><a href="table_advance.html">Advance</a></li>
+<li><a href="table_dynamic.html">Dynamic</a></li>
+</ul>
+<!-- END Submenu -->
+</li>
+
+<li>
+<a href="#" class="dropdown-toggle">
+<i class="fa fa-globe"></i>
+<span>Maps</span>
+<b class="arrow fa fa-angle-right"></b>
+</a>
+
+<!-- BEGIN Submenu -->
+<ul class="submenu">
+<li><a href="map_google.html">Google Maps</a></li>
+<li><a href="map_vector.html">Vector Maps</a></li>
+</ul>
+<!-- END Submenu -->
+</li>
+
+<li>
+<a href="box.html">
+<i class="fa fa-list-alt"></i>
+<span>Box</span>
+</a>
+</li>
+
+<li>
+<a href="calendar.html">
+<i class="fa fa-calendar"></i>
+<span>Calendar</span>
+</a>
+</li>
+
+<li>
+<a href="gallery.html">
+<i class="fa fa-picture-o"></i>
+<span>Gallery</span>
+</a>
+</li>
+
+<li>
+<a href="grid.html">
+<i class="fa fa-th"></i>
+<span>Griding System</span>
+</a>
+</li>
+
+<li>
+<a href="#" class="dropdown-toggle">
+<i class="fa fa-file-text-o"></i>
+<span>Sample Pages</span>
+<b class="arrow fa fa-angle-right"></b>
+</a>
+
+<!-- BEGIN Submenu -->
+<ul class="submenu">
+<li><a href="extra_login.html">Login &amp; Register</a></li>
+<li><span>Email</span>
+<ul>
+<li><a href="extra_mail-list.html">Inbox</a></li>
+<li><a href="extra_mail-msg.html">Mail Thread</a></li>
+<li><a href="extra_mail-compose.html">Compose</a></li>
+</ul>
+</li>
+<li><a href="extra_profile.html">User Profile</a></li>
+<li><a href="extra_invoice.html">Invoice</a></li>
+<li><a href="extra_search.html">Search Results</a></li>
+</ul>
+<!-- END Submenu -->
+</li>
+
+<li>
+<a href="#" class="dropdown-toggle">
+<i class="fa fa-file"></i>
+<span>Other Pages</span>
+<b class="arrow fa fa-angle-right"></b>
+</a>
+
+<!-- BEGIN Submenu -->
+<ul class="submenu">
+<li><a href="more_blank.html">Blank Page</a></li>
+<li><a href="more_full-width.html">Full Width Page</a></li>
+<li><span>Errors</span>
+<ul>
+<li><a href="more_error-404.html">Error 404</a></li>
+<li><a href="more_error-500.html">Error 500</a></li>
+</ul>
+</li>
+<li><a href="more_set-skin.html">Skin</a></li>
+<li><a href="more_set-sidebar-navbar-color.html">Sidebar &amp; Navbar</a></li>
+<li><a href="more_sidebar-collapsed.html">Collapsed Sidebar</a></li>
+</ul>
+<!-- END Submenu -->
+</li>
+</ul>
+<!-- END Navlist -->
+
+<!-- BEGIN Sidebar Collapse Button -->
+<div id="sidebar-collapse" class="visible-lg">
+<i class="fa fa-angle-double-left"></i>
+</div>
+<!-- END Sidebar Collapse Button -->
+</div>
+<!-- END Sidebar -->
+
+<!-- BEGIN Content -->
+<div id="main-content">
+<!-- BEGIN Page Title -->
+<div class="page-title">
+<div>
+<h1><i class="fa fa-file-o"></i> Button</h1>
+<h4>buttons, dropdowns and more</h4>
+</div>
+</div>
+<!-- END Page Title -->
+
+<!-- BEGIN Breadcrumb -->
+<div id="breadcrumbs">
+<ul class="breadcrumb">
+<li>
+<i class="fa fa-home"></i>
+<a href="index-2.html">Home</a>
+<span class="divider"><i class="fa fa-angle-right"></i></span>
+</li>
+<li class="active">Button</li>
+</ul>
+</div>
+<!-- END Breadcrumb -->
+
+<!-- BEGIN Main Content -->
+<div class="row">
+<div class="col-md-6">
+<div class="box">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Default Buttons</h3>
+</div>
+<div class="box-content">
+<p>
+<button class="btn">Button</button>
+</p>
+<p>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-info">Info</button>
+<button class="btn btn-warning">Warning</button>
+<button class="btn btn-danger">Danger</button>
+<button class="btn btn-inverse">Inverse</button>
+<button class="btn btn-success">Success</button>
+</p>
+<p>
+<button class="btn btn-pink">Pink</button>
+<button class="btn btn-magenta">Magenta</button>
+<button class="btn btn-lime">Lime</button>
+<button class="btn btn-gray">Gray</button>
+<button class="btn btn-yellow">Yellow</button>
+</p>
+<p>
+<button class="btn btn-link">Link</button>
+</p>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="box box-orange">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Button Sizing</h3>
+</div>
+<div class="box-content">
+<p>
+<button class="btn btn-xxlarge">xxLarge</button>
+<button class="btn btn-xlarge">xLarge</button>
+<button class="btn btn-lg">Large</button>
+<button class="btn">Default</button>
+<button class="btn btn-sm">Small</button>
+<button class="btn btn-xs">Mini</button>
+</p>
+<p>
+<button class="btn-block btn btn-lg">Block level</button>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-7">
+<div class="box box-black">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Disabled Buttons</h3>
+</div>
+<div class="box-content">
+<p>
+<button class="btn disabled">Button</button>
+</p>
+<p>
+<button class="btn disabled btn-primary">Primary</button>
+<button class="btn disabled btn-info">Info</button>
+<button class="btn disabled btn-warning">Warning</button>
+<button class="btn disabled btn-danger">Danger</button>
+<button class="btn disabled btn-inverse">Inverse</button>
+<button class="btn disabled btn-success">Success</button>
+</p>
+<p>
+<button class="btn disabled btn-pink">Pink</button>
+<button class="btn disabled btn-magenta">Magenta</button>
+<button class="btn disabled btn-lime">Lime</button>
+<button class="btn disabled btn-gray">Gray</button>
+<button class="btn disabled btn-yellow">Yellow</button>
+</p>
+<p>
+<button class="btn disabled btn-link">Link</button>
+</p>
+</div>
+</div>
+</div>
+<div class="col-md-5">
+<div class="box box-red">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Button Dropdown</h3>
+</div>
+<div class="box-content">
+<div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn dropdown-toggle">Action <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#">Action 4</a></li>
+</ul>
+</div>
+</div>
+<br/>
+<div>
+<div class="btn-group">
+<a href="#" class="btn">Default Action</a>
+<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#">Action 4</a></li>
+</ul>
+</div>
+</div>
+<br/>
+<div>
+<div class="btn-group dropup">
+<a href="#" class="btn">Dropup</a>
+<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#">Action 4</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-7">
+<div class="box box-green">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Only Icon</h3>
+</div>
+<div class="box-content">
+<p>
+<button class="btn"><i class="fa fa-bell"></i></button>
+<button class="btn btn-primary"><i class="fa fa-envelope"></i></button>
+<button class="btn btn-info"><i class="fa fa-warning"></i></button>
+<button class="btn btn-warning"><i class="fa fa-hdd-o"></i></button>
+<button class="btn btn-danger"><i class="fa fa-clock-o"></i></button>
+<button class="btn btn-inverse"><i class="fa fa-truck"></i></button>
+<button class="btn btn-success"><i class="fa fa-cloud"></i></button>
+<button class="btn btn-pink"><i class="fa fa-link"></i></button>
+<button class="btn btn-magenta"><i class="fa fa-italic"></i></button>
+<button class="btn btn-lime"><i class="fa fa-bold"></i></button>
+<button class="btn btn-yellow"><i class="fa fa-star"></i></button>
+<button class="btn btn-gray"><i class="fa fa-smile-o"></i></button>
+</p>
+<p>
+<button class="btn btn-success btn-xxlarge"><i class="fa fa-cloud"></i></button>
+<button class="btn btn-success btn-xlarge"><i class="fa fa-cloud"></i></button>
+<button class="btn btn-success btn-lg"><i class="fa fa-cloud"></i></button>
+<button class="btn btn-success"><i class="fa fa-cloud"></i></button>
+<button class="btn btn-success btn-sm"><i class="fa fa-cloud"></i></button>
+<button class="btn btn-success btn-xs"><i class="fa fa-cloud"></i></button>
+</p>
+<p>
+<button class="btn btn-success"><i class="fa fa-cloud"></i></button>
+<button class="btn btn-success"><i class="fa fa-cloud fa fa-2x"></i></button>
+<button class="btn btn-success"><i class="fa fa-cloud fa fa-3x"></i></button>
+<button class="btn btn-success"><i class="fa fa-cloud fa fa-4x"></i></button>
+<button class="btn btn-success"><i class="fa fa-cloud fa fa-5x"></i></button>
+</p>
+<div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><i class="fa fa-cog"></i> <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-primary">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#">Action 4</a></li>
+</ul>
+</div>
+
+<div class="btn-group">
+<a href="#" class="btn btn-pink"><i class="fa fa-user"></i></a>
+<a href="#" data-toggle="dropdown" class="btn btn-pink dropdown-toggle"><span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-pink">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#">Action 4</a></li>
+</ul>
+</div>
+
+<div class="btn-group dropup">
+<a href="#" class="btn btn-warning"><i class="fa fa-signal"></i></a>
+<a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-warning">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#">Action 4</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-5">
+<div class="box box-pink">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Button Toolbar</h3>
+</div>
+<div class="box-content">
+<h4>Horizontal</h4>
+<div class="btn-toolbar">
+<div class="btn-group">
+<button class="btn">1</button>
+<button class="btn">2</button>
+<button class="btn">3</button>
+</div>
+<div class="btn-group">
+<button class="btn">4</button>
+<button class="btn">5</button>
+</div>
+<div class="btn-group">
+<button class="btn">8</button>
+</div>
+</div>
+<br/>
+<div class="btn-toolbar">
+<div class="btn-group">
+<button class="btn">Prev</button>
+<button class="btn">Next</button>
+</div>
+<div class="btn-group">
+<button class="btn">Left</button>
+<button class="btn">Right</button>
+</div>
+</div>
+<br/>
+<div class="btn-group">
+<button class="btn"><i class="fa fa-fast-backward"></i></button>
+<button class="btn"><i class="fa fa-backward"></i></button>
+<button class="btn"><i class="fa fa-play"></i></button>
+<button class="btn"><i class="fa fa-pause"></i></button>
+<button class="btn"><i class="fa fa-stop"></i></button>
+<button class="btn"><i class="fa fa-forward"></i></button>
+<button class="btn"><i class="fa fa-fast-forward"></i></button>
+</div>
+
+<br/>
+<h4>Vertical</h4>
+<div class="btn-toolbar">
+<div class="btn-group btn-group-vertical">
+<button class="btn"><i class="fa fa-align-left"></i></button>
+<button class="btn"><i class="fa fa-align-center"></i></button>
+<button class="btn"><i class="fa fa-align-right"></i></button>
+<button class="btn"><i class="fa fa-align-justify"></i></button>
+</div>
+</div>
+
+<br>
+<h4>Checkbox</h4>
+<div data-toggle="buttons-checkbox" class="btn-group">
+<button class="btn"><i class="fa fa-bold"></i></button>
+<button class="btn"><i class="fa fa-italic"></i></button>
+<button class="btn"><i class="fa fa-underline"></i></button>
+</div>
+
+<br>
+<h4>Radio</h4>
+<div data-toggle="buttons-radio" class="btn-group">
+<button class="btn btn-primary"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-primary"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-primary"><i class="fa fa-align-right"></i></button>
+</div>
+<button class="btn btn-primary" data-toggle="button"><i class="fa fa-align-justify"></i></button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-12">
+<div class="box box-magenta">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Icon & Text</h3>
+</div>
+<div class="box-content">
+<p>
+<button class="btn btn-primary"><i class="fa fa-cog"></i> Left</button>
+<button class="btn btn-success">Right <i class="fa fa-user"></i></button>
+<button class="btn btn-info"><i class="fa fa-mail-forward"></i> 2 Side <i class="fa fa-reply"></i></button>
+</p>
+<p>
+<button class="btn btn-warning btn-xxlarge"><i class="fa fa-edit"></i> xxLarge</button>
+<button class="btn btn-warning btn-xlarge"><i class="fa fa-edit"></i> xLarge</button>
+<button class="btn btn-warning btn-lg"><i class="fa fa-edit"></i> Large</button>
+<button class="btn btn-warning"><i class="fa fa-edit"></i> Default</button>
+<button class="btn btn-warning btn-sm"><i class="fa fa-edit"></i> Small</button>
+<button class="btn btn-warning btn-xs"><i class="fa fa-edit"></i> Mini</button>
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6">
+<div class="box">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Dropdown Styles</h3>
+</div>
+<div class="box-content">
+<div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="fa fa-user"></i> Default <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><i class="fa fa-cog"></i> Primary <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-primary">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-warning dropdown-toggle"><i class="fa fa-cog"></i> Warning <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-warning">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-danger dropdown-toggle"><i class="fa fa-cog"></i> Danger <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-danger">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+</div>
+<br/>
+<div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-info dropdown-toggle"><i class="fa fa-cog"></i> Info <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-info">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-success dropdown-toggle"><i class="fa fa-cog"></i> Success <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-success">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-inverse dropdown-toggle"><i class="fa fa-cog"></i> Inverse <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-inverse">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-pink dropdown-toggle"><i class="fa fa-cog"></i> Pink <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-pink">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+</div>
+<br/>
+<div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-magenta dropdown-toggle"><i class="fa fa-cog"></i> Magenta <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-magenta">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-lime dropdown-toggle"><i class="fa fa-cog"></i> Lime <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-lime">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-yellow dropdown-toggle"><i class="fa fa-cog"></i> Yellow <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-yellow">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn btn-gray dropdown-toggle"><i class="fa fa-cog"></i> Gray <span class="caret"></span></a>
+<ul class="dropdown-menu dropdown-gray">
+<li><a href="#">Action 1</a></li>
+<li><a href="#">Action 2</a></li>
+<li><a href="#">Action 3</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="box box-green">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Dropdown - Icon & Text</h3>
+</div>
+<div class="box-content">
+<div>
+<div class="btn-group">
+<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="fa fa-align-left"></i> Action <span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#"><i class="fa fa-align-left"></i> Action 1</a></li>
+<li><a href="#"><i class="fa fa-align-center"></i> Action 2</a></li>
+<li><a href="#"><i class="fa fa-align-right"></i> Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#"><i class="fa fa-align-justify"></i> Action 4</a></li>
+</ul>
+</div>
+</div>
+<br/>
+<div>
+<div class="btn-group">
+<a href="#" class="btn"><i class="fa fa-align-left"></i> Default Action</a>
+<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#"><i class="fa fa-align-left"></i> Action 1</a></li>
+<li><a href="#"><i class="fa fa-align-center"></i> Action 2</a></li>
+<li><a href="#"><i class="fa fa-align-right"></i> Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#"><i class="fa fa-align-justify"></i> Action 4</a></li>
+</ul>
+</div>
+</div>
+<br/>
+<div>
+<div class="btn-group dropup">
+<a href="#" class="btn"><i class="fa fa-align-left"></i> Dropup</a>
+<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><span class="caret"></span></a>
+<ul class="dropdown-menu">
+<li><a href="#"><i class="fa fa-align-left"></i> Action 1</a></li>
+<li><a href="#"><i class="fa fa-align-center"></i> Action 2</a></li>
+<li><a href="#"><i class="fa fa-align-right"></i> Action 3</a></li>
+<li class="divider"></li>
+<li><a href="#"><i class="fa fa-align-justify"></i> Action 4</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6">
+<div class="box box-orange">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Circle Button</h3>
+</div>
+<div class="box-content">
+<p>
+<button class="btn btn-circle"><i class="fa fa-angle-up"></i></button>
+<button class="btn btn-circle btn-primary"><i class="fa fa-angle-right"></i></button>
+<button class="btn btn-circle btn-warning"><i class="fa fa-angle-down"></i></button>
+<button class="btn btn-circle btn-danger"><i class="fa fa-angle-left"></i></button>
+<button class="btn btn-circle btn-info"><i class="fa fa-save"></i></button>
+<button class="btn btn-circle btn-success"><i class="fa fa-star"></i></button>
+<button class="btn btn-circle btn-inverse"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-pink"><i class="fa fa-user"></i></button>
+<button class="btn btn-circle btn-magenta"><i class="fa fa-cog"></i></button>
+<button class="btn btn-circle btn-lime"><i class="fa fa-font"></i></button>
+<button class="btn btn-circle btn-yellow"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-gray"><i class="fa fa-cut"></i></button>
+</p>
+
+<br>
+<h4>Sizes</h4>
+<p>
+<button class="btn btn-circle btn-xxlarge"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-primary btn-xlarge"><i class="fa fa-angle-right"></i></button>
+<button class="btn btn-circle btn-success btn-lg"><i class="fa fa-bell"></i></button>
+<button class="btn btn-circle btn-pink"><i class="fa fa-times"></i></button>
+<button class="btn btn-circle btn-warning btn-sm"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-magenta btn-xs"><i class="fa fa-star"></i></button>
+</p>
+
+<br>
+<h4>Toolbar</h4>
+<div class="btn-toolbar">
+<div class="btn-group">
+<button class="btn btn-circle"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-circle"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-circle"><i class="fa fa-align-right"></i></button>
+<button class="btn btn-circle"><i class="fa fa-align-justify"></i></button>
+</div>
+<div class="btn-group">
+<button class="btn btn-circle"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle"><i class="fa fa-unlink"></i></button>
+</div>
+<div class="btn-group">
+<button class="btn btn-circle"><i class="fa fa-save"></i></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="box box-yellow">
+<div class="box-title">
+<h3><i class="fa fa-th-large"></i>Circle Bordered Button</h3>
+</div>
+<div class="box-content">
+<p>
+<button class="btn btn-circle btn-bordered"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-circle btn-bordered btn-primary"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-circle btn-bordered btn-warning"><i class="fa fa-align-right"></i></button>
+<button class="btn btn-circle btn-bordered btn-danger"><i class="fa fa-align-justify"></i></button>
+<button class="btn btn-circle btn-bordered btn-info"><i class="fa fa-save"></i></button>
+<button class="btn btn-circle btn-bordered btn-success"><i class="fa fa-star"></i></button>
+<button class="btn btn-circle btn-bordered btn-inverse"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-bordered btn-pink"><i class="fa fa-user"></i></button>
+<button class="btn btn-circle btn-bordered btn-magenta"><i class="fa fa-cog"></i></button>
+<button class="btn btn-circle btn-bordered btn-lime"><i class="fa fa-font"></i></button>
+<button class="btn btn-circle btn-bordered btn-yellow"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-bordered btn-gray"><i class="fa fa-cut"></i></button>
+</p>
+
+<br>
+<h4>Thick</h4>
+<p>
+<button class="btn btn-circle btn-bordered thick"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-primary"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-warning"><i class="fa fa-align-right"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-danger"><i class="fa fa-align-justify"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-info"><i class="fa fa-save"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-success"><i class="fa fa-star"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-inverse"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-pink"><i class="fa fa-user"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-magenta"><i class="fa fa-cog"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-lime"><i class="fa fa-font"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-yellow"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-bordered thick btn-gray"><i class="fa fa-cut"></i></button>
+</p>
+
+<br>
+<h4>To another color on hover</h4>
+<p>
+<button class="btn btn-circle btn-bordered"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-primary"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-warning"><i class="fa fa-align-right"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-danger"><i class="fa fa-align-justify"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-info"><i class="fa fa-save"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-success"><i class="fa fa-star"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-inverse"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-pink"><i class="fa fa-user"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-magenta"><i class="fa fa-cog"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-lime"><i class="fa fa-font"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-yellow"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-bordered btn-to-gray"><i class="fa fa-cut"></i></button>
+</p>
+<p>
+<button class="btn btn-circle btn-bordered"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-circle btn-bordered btn-inverse btn-to-primary"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-circle btn-bordered btn-pink btn-to-warning"><i class="fa fa-align-right"></i></button>
+<button class="btn btn-circle btn-bordered btn-danger btn-to-danger"><i class="fa fa-align-justify"></i></button>
+<button class="btn btn-circle btn-bordered btn-success btn-to-info"><i class="fa fa-save"></i></button>
+<button class="btn btn-circle btn-bordered btn-magenta btn-to-success"><i class="fa fa-star"></i></button>
+<button class="btn btn-circle btn-bordered btn-lime btn-to-inverse"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-bordered btn-primary btn-to-pink"><i class="fa fa-user"></i></button>
+<button class="btn btn-circle btn-bordered btn-yellow btn-to-magenta"><i class="fa fa-cog"></i></button>
+<button class="btn btn-circle btn-bordered btn-gray btn-to-lime"><i class="fa fa-font"></i></button>
+<button class="btn btn-circle btn-bordered btn-info btn-to-yellow"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-bordered btn-warning btn-to-gray"><i class="fa fa-cut"></i></button>
+</p>
+
+<br>
+<h4>To another color on hover and fill</h4>
+<p>
+<button class="btn btn-circle btn-fill btn-bordered"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-primary"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-warning"><i class="fa fa-align-right"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-danger"><i class="fa fa-align-justify"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-info"><i class="fa fa-save"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-success"><i class="fa fa-star"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-inverse"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-pink"><i class="fa fa-user"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-magenta"><i class="fa fa-cog"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-lime"><i class="fa fa-font"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-yellow"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-to-gray"><i class="fa fa-cut"></i></button>
+</p>
+<p>
+<button class="btn btn-circle btn-fill btn-bordered"><i class="fa fa-align-left"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-inverse btn-to-primary"><i class="fa fa-align-center"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-pink btn-to-warning"><i class="fa fa-align-right"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-danger btn-to-danger"><i class="fa fa-align-justify"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-success btn-to-info"><i class="fa fa-save"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-magenta btn-to-success"><i class="fa fa-star"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-lime btn-to-inverse"><i class="fa fa-home"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-primary btn-to-pink"><i class="fa fa-user"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-yellow btn-to-magenta"><i class="fa fa-cog"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-gray btn-to-lime"><i class="fa fa-font"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-info btn-to-yellow"><i class="fa fa-link"></i></button>
+<button class="btn btn-circle btn-fill btn-bordered btn-warning btn-to-gray"><i class="fa fa-cut"></i></button>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- END Main Content -->
+
+<footer>
+<p>2013 © FLATY Admin Template.</p>
+</footer>
+
+<a id="btn-scrollup" class="btn btn-circle btn-lg" href="#"><i class="fa fa-chevron-up"></i></a>
+</div>
+<!-- END Content -->
+</div>
+<!-- END Container -->
+
+<!--basic scripts-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="assets/jquery-cookie/jquery.cookie.js"></script>
+
+<!--page specific plugin scripts-->
+
+<!--flaty scripts-->
+<script src="js/flaty.js"></script>
+<script src="js/flaty-demo-codes.js"></script>
+
+</body>
+
+<!-- Mirrored from shamsoft.net/flaty/ui_button.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Sep 2015 07:24:39 GMT -->
+</html>
