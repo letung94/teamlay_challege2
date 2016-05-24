@@ -14,5 +14,6 @@ app.get('/start', function(req,res){
 
 http.createServer(app).listen(8080,function(){
     console.log("let's read first");
+    console.log("Trinh");
 	console.log("Server running http://localhost:8080/start");
 });
