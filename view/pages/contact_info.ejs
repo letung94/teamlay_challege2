@@ -1,13 +1,17 @@
 
 <div class="tab-pane fade in active" id="contact_info">
-     <form action="#" class="form-horizontal" id="validation-form" method="post">
+     <h4>
+        Contact Information
+     </h4>
+     <hr/>
+     <form class="form-horizontal" id="validation-form" >
         <div class="row">
             <div class="col-sm-8 col-lg-8">
                 <!-first name->
                 <div class="form-group row">
                     <label class="col-sm-3 col-lg-3 control-label">First Name</label>
                     <div class="col-sm-9 col-lg-9 controls">
-                        <input type="text" placeholder="Enter your first name" id="firstname" class="form-control" data-rule-required="true">
+                        <input type="text" placeholder="Enter your first name" id="firstname" class="form-control" data-rule-required="true" name="firstname">
                         <span for="firstname" class="help-block">This field is required.</span>
                     </div>
                 </div>
@@ -15,7 +19,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-lg-3 control-label">Last Name</label>
                     <div class="col-sm-9 col-lg-9 controls">
-                        <input type="text" id="lastname" placeholder="Enter your last name" class="form-control" data-rule-required="true">
+                        <input type="text" id="lastname" placeholder="Enter your last name" class="form-control" data-rule-required="true" name="lastname">
                         <span for="lastname" class="help-block">This field is required.</span>
                     </div>
                 </div>
@@ -28,7 +32,7 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label" for="email">Email Address</label>
             <div class="col-sm-9 col-lg-10 controls">
-            <input type="email" name="email" id="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email">
+            <input type="email" name="email" id="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email" name="email">
             <span for="email" class="help-block">This field is required.</span>
             </div>
         </div>
@@ -36,25 +40,65 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Phone</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" id="phone" data-rule-required="true" data-rule-phone="true">
+                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" id="phone"  data-rule-phone="true" name="phone">
             </div>
         </div>
         <!-website->
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Website</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="text" placeholder="Enter your website" class="form-control">
+                <input type="text" placeholder="Enter your website" class="form-control" name="website">
             </div>
         </div>
         <!-address->
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Address</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="text" placeholder="Enter your address" class="form-control">
+                <input type="text" placeholder="Enter your address" class="form-control" name="address">
             </div>
         </div>
-</form>   
+        <div class="form-group row">
+                <button type='button' id="btnSubmit">submit</button> 
+        </div>
+        <div>
+            <input type="file" accept="image/*" onchange="loadFile(event)">
+            <img id="output"  width="128" height="128"/>
+            <script>
+            var loadFile = function(event) {
+                var  src = URL.createObjectURL(event.target.files[0]);
+                var reader = new FileReader();
+                var imgfile = event.target.files[0];
+                alert(imgfile.size/(5*1024*1024));
+                reader.readAsDataURL(event.target.files[0]);
+                
+                reader.onload = function(){
+                    var output = document.getElementById('output');
+                    output.src = reader.result;
+                };
+                
+            };
+            </script>
+        </div>
+
+    
+        
+    </form>   
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#btnSubmit').click(function() {
+        
+        $.post("/ci/contact_info", null)
+        .done(function(data) {
+            
+        })
+        .fail(function(xhr, textStatus, errorThrown) { 
+           
+        });
+     });
+   }); 
+</script>
+
 
 
 
