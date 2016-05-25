@@ -23,7 +23,7 @@ app.get('/start', function(req,res){
 });
 
 app.get('/ci',function(req,res){
-    res.render('pages/contact_info');
+    res.render('pages/cv_index');
 })
 
 http.createServer(app).listen(8080,function(){
