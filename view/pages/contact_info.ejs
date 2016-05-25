@@ -1,5 +1,60 @@
 
-         <div class="tab-pane fade in active" id="contact_info">
-                    <p>Contact Information</p>
-         </div>
-   
+<div class="tab-pane fade in active" id="contact_info">
+     <form action="#" class="form-horizontal" id="validation-form" method="post">
+        <div class="row">
+            <div class="col-sm-8 col-lg-8">
+                <!-first name->
+                <div class="form-group row">
+                    <label class="col-sm-3 col-lg-3 control-label">First Name</label>
+                    <div class="col-sm-9 col-lg-9 controls">
+                        <input type="text" placeholder="Enter your first name" id="firstname" class="form-control" data-rule-required="true">
+                        <span for="firstname" class="help-block">This field is required.</span>
+                    </div>
+                </div>
+                <!-last name->
+                <div class="form-group row">
+                    <label class="col-sm-3 col-lg-3 control-label">Last Name</label>
+                    <div class="col-sm-9 col-lg-9 controls">
+                        <input type="text" id="lastname" placeholder="Enter your last name" class="form-control" data-rule-required="true">
+                        <span for="lastname" class="help-block">This field is required.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-lg-4">
+                <!-image->
+            </div>
+        </div>
+        <!-email->
+        <div class="form-group row">
+            <label class="col-sm-3 col-lg-2 control-label" for="email">Email Address</label>
+            <div class="col-sm-9 col-lg-10 controls">
+            <input type="email" name="email" id="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email">
+            <span for="email" class="help-block">This field is required.</span>
+            </div>
+        </div>
+        <!-phone->
+        <div class="form-group row">
+            <label class="col-sm-3 col-lg-2 control-label">Phone</label>
+            <div class="col-sm-9 col-lg-10 controls">
+                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" id="phone" data-rule-required="true" data-rule-phone="true">
+            </div>
+        </div>
+        <!-website->
+        <div class="form-group row">
+            <label class="col-sm-3 col-lg-2 control-label">Website</label>
+            <div class="col-sm-9 col-lg-10 controls">
+                <input type="text" placeholder="Enter your website" class="form-control">
+            </div>
+        </div>
+        <!-address->
+        <div class="form-group row">
+            <label class="col-sm-3 col-lg-2 control-label">Address</label>
+            <div class="col-sm-9 col-lg-10 controls">
+                <input type="text" placeholder="Enter your address" class="form-control">
+            </div>
+        </div>
+</form>   
+</div>
+
+
+
