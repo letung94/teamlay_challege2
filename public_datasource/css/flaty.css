@@ -257,6 +257,7 @@ hr.margin-0  {margin: 0;}
 .flaty-nav > li {
     line-height: 40px;
     max-height: 40px;
+    width: 120px;
     padding: 0;
     position: relative;
     display: inline-block !important;
@@ -6035,6 +6036,18 @@ Fixes for BS 3.2
     margin-left: 0;
     position: static;
 }
-
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #58b1fc;
+  text-align: center;
+  color: #fff;
+}
+.section {
+  margin-top: 50px;
+}
 
 
