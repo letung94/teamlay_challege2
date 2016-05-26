@@ -83,7 +83,7 @@ router.get('/templateReview/:name', function(req, res){
 	res.render('templates/' + name, demoInfo);
 });
 
-router.get('/templatelist/', function (req, res) {
+router.get('/template_list/', function (req, res) {
     var files = [];
 	var dir = __dirname + '../views/templates';
     console.log(dir);
@@ -98,8 +98,8 @@ router.get('/templatelist/', function (req, res) {
 			}
 		});
 	});
-    res.send('done');
-	//res.render('templates/templatelist', {files: files});
+    // res.send('done');
+	res.render('pages/template_list', {files: files});
 });
 
 router.get('/download', function (req, res) {

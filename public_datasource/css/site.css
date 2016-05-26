@@ -1,0 +1,20 @@
+#avatarsection #option{
+    position: absolute;
+    left:130px;
+    top: 0px;
+}
+#option > label, #option > #del_avatar {
+    display: block;
+    margin-bottom: 5px;
+}
+#imageshow{
+    width: 130px;
+    text-align: center;
+    margin-right: 2px;
+}
+img#preview{
+    border: 1px solid #888;
+    width:128;
+    height:128;
+    cursor: pointer;
+}
