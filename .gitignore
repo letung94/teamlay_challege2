@@ -192,10 +192,7 @@ $RECYCLE.BIN/
 # Packages
 *.egg
 *.egg-info
-<<<<<<< HEAD
-=======
 
->>>>>>> 4c76b21dd114d04d46d08ebd020ea63b9c1407f1
 build/
 eggs/
 parts/
