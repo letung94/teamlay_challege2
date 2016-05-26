@@ -4,6 +4,9 @@ var ejs = require('ejs');
 var app = express();
 var path = require('path');
 
+// require router.
+var template = require('./controller/ctrltemplate');
+
 //public file in the public_datasource
 app.use('/assets', express.static(__dirname + '/public_datasource/assets'));
 app.use('/css', express.static(__dirname + '/public_datasource/css'));
@@ -12,6 +15,8 @@ app.use('/img', express.static(__dirname + '/public_datasource/img'));
 app.set('views', path.join(__dirname, 'view')); 
 app.set('view engine', 'ejs'); 
 
+// declare router
+app.use('/template', template);
 
 //import dependency injection
 var di = require('./config/config');
