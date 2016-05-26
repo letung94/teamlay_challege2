@@ -30,6 +30,7 @@ app.use('/',ctrluser);
 
 
 
+
 app.get('/ci',function(req,res){
     res.render('pages/cv_index');
 })
