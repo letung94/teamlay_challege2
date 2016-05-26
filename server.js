@@ -24,22 +24,10 @@ app.get('/start', function(req,res){
 });
 
 /*----------This is Nhieu's code----------*/
+var ctrluser=require('./controller/ctrluser');
 app.use('/',ctrluser);
 /*--------------------*/
 
-<<<<<<< HEAD
-app.post('/ci/contact_info',jsonparser,function(req,res){
-    var i = req.body;
-    console.log('a');
-    res.status(200).end();
-});
-
-app.get('/ci',function(req,res){
-    res.render('pages/cv_index');
-})
-
-=======
->>>>>>> dev_examplesection_layout
 http.createServer(app).listen(8080,function(){
     console.log("let's read first");
 	console.log("Server running http://localhost:8080/start");
