@@ -5,7 +5,6 @@ var ctrluser = require("../controller/ctrluser");
 
 
 di.register('db').as(db).withConstructor().param().val("localhost").param().val("root").param().val("root").
-param().val("cv_maker").param().val(mysql)
-.register('ctrluser').as(ctrluser).withConstructor().param().ref('db');
+param().val("cv_maker").param().val(mysql);
 
 module.exports = di;
