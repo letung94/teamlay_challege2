@@ -44,6 +44,7 @@ app.post('/cv/:idcv/contact-info/update',jsonparser
 
 app.post('/ci/contact_info',jsonparser,function(req,res){
     var i = req.body;
+    console.log('a');
     res.status(200).end();
 });
 
