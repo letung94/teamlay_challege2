@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var fs = require('fs');
 var demoInfo = {
 	contact_info: {
 		FirstName: 'Lý Chấn',
@@ -78,5 +78,23 @@ router.get('/templateReview/:name', function(req, res){
 	// });
 	res.render('templates/' + name, demoInfo);
 });
+
+router.get('/templatelist/', function (req, res) {
+    var files = [];
+	var dir = __dirname + '/views/templates';
+	fs.readdir(dir, function (err, files) {
+		if (err) return;
+		files.forEach(function (f) {
+			var name = dir + '/' + f;
+			if (fs.statSync(name).isFile()) {
+                console.log('is File: ' + name);
+                files.push(f);
+			}
+		});
+	});
+    res.send('done');
+	//res.render('templates/templatelist', {files: files});
+});
+
 
 module.exports = router;
