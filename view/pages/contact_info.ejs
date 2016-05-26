@@ -25,7 +25,38 @@
                 </div>
             </div>
             <div class="col-sm-4 col-lg-4">
-                <!-image->
+                <div class="form-group row" id="avatarsection">
+                    <div id="imageshow">
+                        <img id="preview"  width="128" height="128" src="/img/default_avatar.jpg"/>
+                        <input type="file" accept="image/*" onchange="loadFile(event)" name="avatar" id="avatar" style="display: none;">
+                    </div>
+                    <div id="option" >
+                        <label for="avatar" class="btn btn-success  btn-circle">
+                        <i class="glyphicon glyphicon-cloud-upload"></i>
+                        </label>
+                        <span class="btn btn-danger btn-circle" id="del_avatar" style="opacity: 0;">
+                            <i class="fa fa-times"></i>
+                        </span>
+                    </div>
+                    <script>
+                    var preview = document.getElementById('preview');
+                    var del_avatar = $("#del_avatar");
+                    var loadFile = function(event) {
+                        var limitsize = 5*1024*1024;
+                        var reader = new FileReader();
+                        var imgfile = event.target.files[0];
+                        reader.readAsDataURL(event.target.files[0]);
+                        reader.onload = function(){
+                            preview.src = reader.result;
+                            del_avatar.css("opacity","1");
+                        };
+                    };
+                    $('#option').on('click','#del_avatar',function(){
+                        preview.src = "/img/default_avatar.jpg";
+                        del_avatar.css("opacity","0");
+                    });
+                    </script>
+                </div>
             </div>
         </div>
         <!-email->
@@ -60,27 +91,6 @@
         <div class="form-group row">
                 <button type='button' id="btnSubmit">submit</button> 
         </div>
-        <div>
-            <input type="file" accept="image/*" onchange="loadFile(event)">
-            <img id="output"  width="128" height="128"/>
-            <script>
-            var loadFile = function(event) {
-               
-                var reader = new FileReader();
-                var imgfile = event.target.files[0];
-                alert(imgfile.size/(5*1024*1024));
-                reader.readAsDataURL(event.target.files[0]);
-                
-                reader.onload = function(){
-                    var output = document.getElementById('output');
-                    output.src = reader.result;
-                };
-                
-            };
-            </script>
-        </div>
-
-    
         
     </form>   
 </div>
