@@ -8,8 +8,6 @@ function db(host, user,pass,dbname,mysql){
     this.mysql = mysql;
 };
 
-
-
 db.prototype.readCVById = function (req, callback) {
     var conn = this.mysql.createConnection({
         host: this.host,
@@ -21,7 +19,7 @@ db.prototype.readCVById = function (req, callback) {
         try {
             conn.connect();
             var idcv = req.params.idcv;
-            strquery='SELECT * FROM curriculum_vitae WHERE id=?';
+            strquery='SELECT * FROM curriculum_vitae WHERE Id=?';
             conn.query(strquery, [idcv], function (err, rows, fields) {
                 var data = null;
                 var flag=false;

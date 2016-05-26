@@ -8,12 +8,18 @@ var path = require('path');
 var template = require('./controller/ctrltemplate');
 
 //public file in the public_datasource
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9fee8fd1ab679929b08c4975720c9893be17d0a2
 app.use('*/assets', express.static(__dirname + '/public_datasource/assets'));
 app.use('*/css', express.static(__dirname + '/public_datasource/css'));
 app.use('*/js', express.static(__dirname + '/public_datasource/js'));
 app.use('*/img', express.static(__dirname + '/public_datasource/img'));
+<<<<<<< HEAD
 app.use('*/cover', express.static(__dirname + '/view/templates/cover'));
+=======
+>>>>>>> 9fee8fd1ab679929b08c4975720c9893be17d0a2
 app.set('views', path.join(__dirname, 'view')); 
 app.set('view engine', 'ejs'); 
 
