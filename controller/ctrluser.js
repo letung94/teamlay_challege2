@@ -13,7 +13,7 @@ var db = di.resolve('db');
 
 router.get('/cv/:idcv',function(req,res){
     db.readCVById(req,function(flag,data){
-        // res.render('pages/cv_index');
+        res.render('pages/cv_index');
         res.json(data);    
     });        
 });
