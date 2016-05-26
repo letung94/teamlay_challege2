@@ -3,12 +3,14 @@
 var express=require('express');
 var bodyparser=require('body-parser');
 var ejs = require('ejs');
+/*
 var di = require('../config/config');
 
 var app=express();
 var jsonparser=bodyparser.json();
 var router=express.Router();
 var db = di.resolve('db');
+
 
 
 router.get('/cv/:idcv',function(req,res){
