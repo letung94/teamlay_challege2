@@ -51,17 +51,17 @@ db.prototype.updateContactInfo=function(req,callback){
     if (conn) {
         try {
             conn.connect();
-            var idcv = req.params.idcv;
-            var firstname=req.body.firstname;
-            var lastname=req.body.lastname;
-            var email=req.body.email;
-            var phone=req.body.phone;
-            var website=req.body.website;
-            var address=req.body.address;
+            var idcv = req.params.idcv,
+            firstname=req.body.firstname,
+            lastname=req.body.lastname,
+            email=req.body.email,
+            phone=req.body.phone,
+            website=req.body.website,
+            address=req.body.address;
             strquery="INSERT INTO contact_info(FirstName,LastName,Email,Phone,Website,Address,CV_Id) VALUES(?,?,?,?,?,?,?)";
             conn.query(strquery, [firstname,lastname,email,phone,website,address,idcv], function (err, rows, fields) {
-                var data = null;
-                var flag=false;
+                var data = null,
+                flag=false;
                 if (!err) {
                     data = rows;
                     flag=true;
