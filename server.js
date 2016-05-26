@@ -12,6 +12,7 @@ app.use('/assets', express.static(__dirname + '/public_datasource/assets'));
 app.use('/css', express.static(__dirname + '/public_datasource/css'));
 app.use('/js', express.static(__dirname + '/public_datasource/js'));
 app.use('/img', express.static(__dirname + '/public_datasource/img'));
+app.use('/cover', express.static(__dirname + '/view/templates/cover'));
 app.set('views', path.join(__dirname, 'view')); 
 app.set('view engine', 'ejs'); 
 
