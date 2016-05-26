@@ -1,3 +1,4 @@
+/*----------This is Nhieu's code----------*/
 
 function db(host, user, pass, dbname, mysql) {
     var self = this;
@@ -16,13 +17,22 @@ function db(host, user, pass, dbname, mysql) {
 
 db.prototype.createCV=function(req,callback){
     var conn=this.createConnection;
+    
 };
 
 db.prototype.readCVById = function (req, callback) {
     var conn = this.createConnection;
     if (conn) {
         try {
-            conn.connect();
+            conn.connect(function(err) {            
+                if(err) {         
+                    var flag=false;
+                    var data=err;                           
+                    console.log('error when connecting to db:', err);
+                    callback(flag, data);
+                    conn.end();
+                }                                    
+            });   
             var idcv = req.params.idcv;
             strquery = 'SELECT * FROM curriculum_vitae WHERE Id=?';
             conn.query(strquery, [idcv], function (err, rows, fields) {
@@ -36,7 +46,7 @@ db.prototype.readCVById = function (req, callback) {
                     data = err;
                     console.log("There is error");
                 }
-                callback(flag, rows[0]);
+                callback(flag, data);
                 conn.end();
             });
         }
@@ -50,7 +60,15 @@ db.prototype.updateContactInfo = function (req, callback) {
     var conn = this.createConnection();
     if (conn) {
         try {
-            conn.connect();
+            conn.connect(function(err) {            
+                if(err) {         
+                    var flag=false;
+                    var data=err;                           
+                    console.log('error when connecting to db:', err);
+                    callback(flag, data);
+                    conn.end();
+                }                                    
+            });   
             // var schema = {
             //     'email': {
             //         notEmpty: true,
@@ -89,6 +107,7 @@ db.prototype.updateContactInfo = function (req, callback) {
     }
 };
 
+/*--------------------*/
 
 
 module.exports = db;
