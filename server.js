@@ -51,6 +51,9 @@ app.post('/ci/contact_info',jsonparser,function(req,res){
 app.get('/ci',function(req,res){
     res.render('pages/cv_index');
 })
+app.get('/login',function(req,res){
+    res.render('pages/login');
+})
 
 http.createServer(app).listen(8080,function(){
     console.log("let's read first");
