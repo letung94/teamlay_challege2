@@ -947,7 +947,7 @@ hr.margin-0  {margin: 0;}
 }
 .box .box-title .box-tool {
     position: absolute;
-	top: 10px;
+	top: 6px;
 	right: 10px;
     display: inline-block;
     float: right;
@@ -1591,7 +1591,7 @@ Bordered form layout
     text-shadow: none;
     -webkit-box-shadow: none;
             box-shadow: none;
-    border-radius: 0!important;
+    border-radius: 4!important;
 }
 .btn.active,
 .btn:active,
@@ -1695,7 +1695,7 @@ a.btn {
     background-color: #dcdcdc;
 }
 .btn.btn-primary {
-    background-color: #0090ff;
+    background-color: #58b1fc;
 }
 .btn.btn-primary:active,
 .btn.btn-primary.active,
@@ -2631,7 +2631,7 @@ a.tile:hover {
 }
 .tabbable.tabs-left .tab-content,
 .tabbable.tabs-right .tab-content {
-    overflow: auto;
+    overflow-x: hidden;
 }
 
 .tabbable .nav > li.active > .dropdown-toggle {

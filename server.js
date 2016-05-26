@@ -4,6 +4,10 @@ var ejs = require('ejs');
 var app = express();
 var path = require('path');
 
+var di =  require('./config/config');
+var db = di.resolve('db');
+db.getall();
+
 // require router.
 var template = require('./controller/ctrltemplate');
 
@@ -13,12 +17,11 @@ app.use('*/assets', express.static(__dirname + '/public_datasource/assets'));
 app.use('*/css', express.static(__dirname + '/public_datasource/css'));
 app.use('*/js', express.static(__dirname + '/public_datasource/js'));
 app.use('*/img', express.static(__dirname + '/public_datasource/img'));
-
 app.use('*/cover', express.static(__dirname + '/view/templates/cover'));
 
 app.set('views', path.join(__dirname, 'view')); 
 app.set('view engine', 'ejs'); 
-
+/*
 // declare router
 app.use('/template', template);
 
@@ -28,9 +31,10 @@ app.get('/start', function(req,res){
 });
 
 /*----------This is Nhieu's code----------*/
-var ctrluser=require('./controller/ctrluser');
+/*var ctrluser=require('./controller/ctrluser');
 app.use('/',ctrluser);
 /*--------------------*/
+
 
 
 

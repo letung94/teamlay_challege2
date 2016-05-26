@@ -1,7 +1,9 @@
 /*----------This is Nhieu's code----------*/
+
 var express=require('express');
 var bodyparser=require('body-parser');
 var ejs = require('ejs');
+/*
 var di = require('../config/config');
 
 var app=express();
@@ -10,10 +12,11 @@ var router=express.Router();
 var db = di.resolve('db');
 
 
+
 router.get('/cv/:idcv',function(req,res){
     db.readCVById(req,function(flag,data){
         res.render('pages/cv_index');
-        // res.end(JSON.stringify(data));    
+        res.json(data);    
     });        
 });
 
