@@ -1,14 +1,19 @@
 /*----------This is Nhieu's code----------*/
 var express=require('express');
 var bodyparser=require('body-parser');
+var ejs = require('ejs');
+var di = require('../config/config');
+
+var app=express();
 var jsonparser=bodyparser.json();
 var router=express.Router();
-var di = require('../config/config');
 var db = di.resolve('db');
+
 
 router.get('/cv/:idcv',function(req,res){
     db.readCVById(req,function(flag,data){
-        res.end(JSON.stringify(data));    
+        res.render('pages/cv_index');
+        // res.end(JSON.stringify(data));    
     });        
 });
 
