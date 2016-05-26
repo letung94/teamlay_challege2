@@ -6,6 +6,7 @@ function db(host, user,pass,dbname,mysql){
 	this.pass = pass;
 	this.dbname = dbname;
     this.mysql = mysql;
+    
 };
 
 db.prototype.readCVById = function (req, callback) {
@@ -31,8 +32,9 @@ db.prototype.readCVById = function (req, callback) {
                     data = err;
                     console.log("There is error");
                 }
-                callback(flag,rows[0]);
                 conn.end();
+                callback(flag,rows[0]);
+                
             });
         }
         catch (err) {
@@ -70,11 +72,13 @@ db.prototype.updateContactInfo=function(req,callback){
                     data = err;
                     console.log("There is error");
                 }
-                callback(flag,data);
                 conn.end();
+                callback(flag,data);
+                
             });
         }
         catch (err) {
+            
             console.log(err);
         }
     }           

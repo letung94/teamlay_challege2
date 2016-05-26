@@ -11,7 +11,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-lg-3 control-label">First Name</label>
                     <div class="col-sm-9 col-lg-9 controls">
-                        <input type="text" placeholder="Enter your first name" id="firstname" class="form-control" data-rule-required="true" name="firstname">
+                        <input type="text" id="firstname" placeholder="Enter your first name"  class="form-control" data-rule-required="true" name="firstname">
                         <span for="firstname" class="help-block">This field is required.</span>
                     </div>
                 </div>
@@ -27,8 +27,8 @@
             <div class="col-sm-4 col-lg-4">
                 <div class="form-group row" id="avatarsection">
                     <div id="imageshow">
-                        <img id="preview"  width="128" height="128" src="/img/default_avatar.jpg"/>
-                        <input type="file" accept="image/*" onchange="loadFile(event)" name="avatar" id="avatar" style="display: none;">
+                        <img id="preview" src="/img/default_avatar.jpg"/>
+                        <input type="file" id="avatar" accept="image/*" onchange="loadFile(event)"   style="display: none;" name="avatar">
                     </div>
                     <div id="option" >
                         <label for="avatar" class="btn btn-success  btn-circle">
@@ -71,7 +71,8 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Phone</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" id="phone"  data-rule-phone="true" name="phone">
+                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" id="phone" data-rule-required="true" data-rule-phone="true">
+                <span for="phone" class="help-block">This field is required.</span>
             </div>
         </div>
         <!-website->
@@ -89,7 +90,7 @@
             </div>
         </div>
         <div class="form-group row">
-                <button type='button' id="btnSubmit">submit</button> 
+            <button type="button" id="btnSubmit" class="btn btn-success">Save</button>
         </div>
         
     </form>   
@@ -97,8 +98,16 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('#btnSubmit').click(function() {
-        
-        $.post("/ci/contact_info", null)
+        var contact_info = {
+            "firstname":$("#firstname").val(),
+            "lastname":$("#lastname").val(),
+            "avatar":$("#preview").src,
+            "email":$("#email").val(),
+            "phone":$("#phone").val(),
+            "website":$("#website").val(),
+            "address":$("#address").val()
+        }
+        $.post("/cv/1/contact-info/update", JSON.stringify(contact_info))
         .done(function(data) {
             
         })
