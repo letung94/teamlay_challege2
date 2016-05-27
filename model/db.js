@@ -7,7 +7,15 @@
     this.pass = pass;
     this.dbname = dbname;
     this.mysql = mysql;
+<<<<<<< HEAD
+    
+};
+
+db.prototype.readCVById = function (req, callback) {
+    var conn = this.mysql.createConnection({
+=======
     this.createConnection=this.mysql.createConnection({
+>>>>>>> 92c05c26043729b12d6695cba2594a449de143a8
         host: this.host,
         user: this.user,
         password: this.pass,
@@ -46,8 +54,13 @@ db.prototype.readCVById = function (req, callback) {
                     data = err;
                     console.log("There is error");
                 }
+<<<<<<< HEAD
+=======
                 callback(flag, data);
+>>>>>>> 92c05c26043729b12d6695cba2594a449de143a8
                 conn.end();
+                callback(flag,rows[0]);
+                
             });
         }
         catch (err) {
@@ -97,11 +110,17 @@ db.prototype.updateContactInfo = function (req, callback) {
                     data = err;
                     console.log("There is error");
                 }
+<<<<<<< HEAD
+=======
                 callback(flag, data);
+>>>>>>> 92c05c26043729b12d6695cba2594a449de143a8
                 conn.end();
+                callback(flag,data);
+                
             });
         }
         catch (err) {
+            
             console.log(err);
         }
     }
