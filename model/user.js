@@ -1,12 +1,7 @@
-console.log('User.js');
-var di =  require('../config/config');
-var user = di.resolve("db").User;
-
-
 function User() {
-    
+    var dbuser = require('../config/config').resolve("db").User;
     this.getAllUser = function() {
-        user = new this.User();
+        user = new dbuser();
         user.find('all', function(err, rows, fields){
             console.log(rows[0]);
         });

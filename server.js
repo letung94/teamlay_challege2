@@ -4,9 +4,7 @@ var ejs = require('ejs');
 var app = express();
 var path = require('path');
 
-var di =  require('./config/config');
-var db = di.resolve('db');
-db.getall();
+
 
 // require router.
 var template = require('./controller/ctrltemplate');
@@ -31,8 +29,10 @@ app.get('/start', function(req,res){
 });
 
 /*----------This is Nhieu's code----------*/
-/*var ctrluser=require('./controller/ctrluser');
+var ctrluser=require('./controller/ctrluser');
 app.use('/',ctrluser);
+var ctrlcv=require('./controller/ctrlcv');
+app.use('/cv',ctrlcv);
 /*--------------------*/
 
 

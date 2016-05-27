@@ -145,7 +145,7 @@ function db(host, user, pass, dbname, mysqlmodel) {
         tableName: 'user'
     });
     this.CV = this.MyAppModel.extend({
-        tableName: 'cv'
+        tableName: 'curriculum_vitae'
     });
 };
 
