@@ -11,7 +11,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-lg-3 control-label">First Name</label>
                     <div class="col-sm-9 col-lg-9 controls">
-                        <input type="text" id="firstname" placeholder="Enter your first name"  class="form-control" data-rule-required="true" name="firstname">
+                        <input type="text"  placeholder="Enter your first name"  class="form-control" data-rule-required="true" name="firstname">
                         <span for="firstname" class="help-block">This field is required.</span>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-lg-3 control-label">Last Name</label>
                     <div class="col-sm-9 col-lg-9 controls">
-                        <input type="text" id="lastname" placeholder="Enter your last name" class="form-control" data-rule-required="true" name="lastname">
+                        <input type="text"  placeholder="Enter your last name" class="form-control" data-rule-required="true" name="lastname">
                         <span for="lastname" class="help-block">This field is required.</span>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                 <div class="form-group row" id="avatarsection">
                     <div id="imageshow">
                         <img id="preview" src="/img/default_avatar.jpg"/>
-                        <input type="file" id="avatar" accept="image/*" onchange="loadFile(event)"   style="display: none;" name="avatar">
+                        <input type="file"  accept="image/*" onchange="loadFile(event)" style="display: none;" name="avatar" id="avatar">
                     </div>
                     <div id="option" >
                         <label for="avatar" class="btn btn-success  btn-circle">
@@ -63,7 +63,7 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label" for="email">Email Address</label>
             <div class="col-sm-9 col-lg-10 controls">
-            <input type="email" name="email" id="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email" name="email">
+            <input type="email" name="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email" name="email">
             <span for="email" class="help-block">This field is required.</span>
             </div>
         </div>
@@ -71,7 +71,7 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Phone</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" id="phone" data-rule-required="true" data-rule-phone="true">
+                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" data-rule-required="true" data-rule-phone="true">
                 <span for="phone" class="help-block">This field is required.</span>
             </div>
         </div>
@@ -90,30 +90,43 @@
             </div>
         </div>
         <div class="form-group row">
-            <button type="button" id="btnSubmit" class="btn btn-success">Save</button>
+            <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
+            <div class="col-sm-9 col-lg-10 controls">
+                <button type="button" id="btnSubmit" class="btn btn-success"><i class="fa fa-save">&nbsp;Save</i></button>
+            </div>
+            
         </div>
         
     </form>   
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
+<!-- include BlockUI -->
+<script src="http://path/to/your/copy/of/jquery.blockUI.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $('#btnSubmit').click(function() {
         var contact_info = {
-            "firstname":$("#firstname").val(),
-            "lastname":$("#lastname").val(),
-            "avatar":$("#preview").src,
-            "email":$("#email").val(),
-            "phone":$("#phone").val(),
-            "website":$("#website").val(),
-            "address":$("#address").val()
+            "firstname":$("input[name='firstname']").val(),
+            "lastname":$("input[name='lastname']").val(),
+            "avatar":$("#preview").attr('src'),
+            "email":$("input[name='email']").val(),
+            "phone":$("input[name='phone']").val(),
+            "website":$("input[name='website']").val(),
+            "address":$("input[name='address']").val()
         }
-        $.post("/cv/1/contact-info/update", JSON.stringify(contact_info))
-        .done(function(data) {
-            
+        $.blockUI(); 
+        $.ajax({
+            type: "POST",
+            //the url where you want to sent the userName and password to
+            url: '/cv/1/contact-info/update',
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json',
+            //json object to sent to the authentication url
+            data: JSON.stringify(contact_info),
+            success: function () {
+            }
         })
-        .fail(function(xhr, textStatus, errorThrown) { 
-           
-        });
      });
    }); 
 </script>

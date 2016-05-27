@@ -3,13 +3,11 @@
 var express=require('express');
 var bodyparser=require('body-parser');
 var ejs = require('ejs');
-/*
-var di = require('../config/config');
 
-var app=express();
-var jsonparser=bodyparser.json();
+
+var app = express();
+var jsonparser = bodyparser.json();
 var router=express.Router();
-var db = di.resolve('db');
 
 
 
@@ -20,13 +18,9 @@ router.get('/cv/:idcv',function(req,res){
     });        
 });
 
-router.post('/cv/:idcv/contact-info/update',[jsonparser],function(req,res){
-    db.updateContactInfo(req,function(flag,data){
-        res.json(data);
-        res.end();            
-    });    
+router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
+    var ct = req.body;
+    res.end();
 });
 
 module.exports = router;
-
-/*--------------------*/

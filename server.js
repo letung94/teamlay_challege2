@@ -31,7 +31,7 @@ app.get('/start', function(req,res){
 });
 
 /*----------This is Nhieu's code----------*/
-/*var ctrluser=require('./controller/ctrluser');
+var ctrluser=require('./controller/ctrluser');
 app.use('/',ctrluser);
 /*--------------------*/
 
