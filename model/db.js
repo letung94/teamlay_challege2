@@ -116,23 +116,20 @@ function db(host, user, pass, dbname, mysqlmodel) {
     this.pass = pass;
     this.dbname = dbname;
     this.mysqlmodel = mysqlmodel;
-    this.getall = function(){
-        var MyAppModel = this.mysqlmodel.createConnection({
+    this.MyAppModel = this.mysqlmodel.createConnection({
         host     : this.host,
         user     :  this.user,
         password : this.pass,
         database : this.dbname,
-        });
-
-        var User = MyAppModel.extend({
-            tableName: "user",
-        });
-
-        var user = new User();
-        user.find('all', function(err, rows, fields){
-            console.log(rows[0]);
-        });
-    }
+    });
+    this.User = this.MyAppModel.extend({
+        tableName: 'user'
+    });
+    this.CV = this.MyAppModel.extend({
+        tableName: 'cv'
+    });
 };
+
+
 
 module.exports = db;
