@@ -1,12 +1,18 @@
-<%- include ../layouts/header.ejs %>
-<div class="container">
-     <%- include ../layouts/section.ejs %>   
-     <%- include contact_info.ejs %>
-     <%- include summary.ejs %>
-     <%- include experience.ejs %>
-     <%- include project.ejs %>
-     <%- include skill.ejs %>
-     <%- include certification.ejs %>
-     <%- include education.ejs %>
-</div>
-<%- include ../layouts/footer.ejs %>
+<header>
+    <%- include ../layouts/header.ejs %>
+</header>
+<main>
+    <div class="container">
+        <%- include ../layouts/section.ejs %>   
+            <%- include contact_info.ejs %>
+            <%- include summary.ejs %>
+            <%- include experience.ejs %>
+            <%- include project.ejs %>
+            <%- include skill.ejs %>
+            <%- include certification.ejs %>
+            <%- include education.ejs %>
+    </div>
+</main>
+<footer>
+    <%- include ../layouts/footer.ejs %>
+</footer>
