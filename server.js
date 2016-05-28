@@ -17,18 +17,14 @@ app.use('*/templatecss', express.static(__dirname + '/view/templates/css'));
 
 app.set('views', path.join(__dirname, 'view'));
 app.set('view engine', 'ejs');
-/*
-app.get('/start', function(req,res){
-    res.end('<h1 style="color: red; text-align: center; margin: 200px auto 0px;">TEAM LAY - CHALLENGE2 - KICK OFF 24/5/2016-7/6/2016</h1>');
-});
 
-/*----------This is Nhieu's code----------*/
+
+// Routing
 var ctrluser = require('./controller/ctrluser');
 app.use('/', ctrluser);
 var ctrlcv = require('./controller/ctrlcv');
 app.use('/cv', ctrlcv);
-/*--------------------*/
-/* Declare template router. */
+
 var ctrlTemplate = require('./controller/ctrltemplate');
 app.use('/template', ctrlTemplate);
 
@@ -38,7 +34,8 @@ app.get('/ci', function (req, res) {
 })
 
 
-http.createServer(app).listen(8080, function () {
+http.createServer(app).listen(8080, function() {
+    var port = this.address().port;
     console.log("let's read first");
-    console.log("Server running http://localhost:8080/start");
+    console.log("Server is listening at http://localhost:%s", port);
 });
