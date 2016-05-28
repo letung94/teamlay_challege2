@@ -1,12 +1,14 @@
-var createUnique = function(prefix, suffix){
+var fs = require('fs');
+var createUnique = function (prefix, suffix) {
     var time = (new Date()).getTime();
-    console.log(time);
     return time;
 }
 
-var say = function(){
-    console.log('say');
+var checkFileExisted = function (path) {
+    fs.exists(path, function (exists) {
+        console.log(exists);
+        return exists;
+    });
 }
 
 module.exports.createUnique = createUnique;
-module.exports.say = say;
