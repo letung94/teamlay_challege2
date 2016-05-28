@@ -5,9 +5,9 @@
 *.pydevproject
 .project
 .metadata
-bin/
-tmp/
-*.tmp
+## bin/
+## tmp/
+## *.tmp
 *.bak
 *.swp
 *~.nib
@@ -68,7 +68,7 @@ build/
 *.tlb
 *.tli
 *.tlh
-*.tmp
+## *.tmp
 *.tmp_proj
 *.log
 *.vspscc
