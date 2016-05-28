@@ -1,0 +1,160 @@
+/*html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {
+
+}*/
+
+.template-body  * {
+	border:0;
+	font:inherit;
+	font-size:100%;
+	margin:0;
+	padding:0;
+	vertical-align:baseline;
+}
+
+/*article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+display:block;
+}*/
+
+.template-body html, .template-body body {font-family: 'Lato', helvetica, arial, sans-serif; font-size: 16px; color: #222;}
+
+.template-body .clear {clear: both;}
+
+.template-body p {
+	font-size: 1em;
+	line-height: 1.4em;
+	margin-bottom: 20px;
+	color: #444;
+}
+
+.template-body #cv {
+	width: 90%;
+	max-width: 800px;
+	background: #f3f3f3;
+	margin: 30px auto;
+}
+
+.template-body .mainDetails {
+	padding: 25px 35px;
+	border-bottom: 2px solid #cf8a05;
+	background: #ededed;
+}
+
+.template-body #name h1 {
+	font-size: 2.5em;
+	font-weight: 700;
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	margin-bottom: -6px;
+}
+
+.template-body #name h2 {
+	font-size: 2em;
+	margin-left: 2px;
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+}
+
+.template-body #mainArea {
+	padding: 0 40px;
+}
+
+.template-body #headshot {
+	width: 12.5%;
+	float: left;
+	margin-right: 30px;
+}
+
+.template-body #headshot img {
+	width: 100%;
+	height: auto;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+}
+
+.template-body #name {
+	float: left;
+}
+
+.template-body #contactDetails {
+	float: right;
+}
+
+.template-body #contactDetails ul {
+	list-style-type: none;
+	font-size: 0.9em;
+	margin-top: 2px;
+}
+
+.template-body #contactDetails ul li {
+	margin-bottom: 3px;
+	color: #444;
+}
+
+.template-body #contactDetails ul li a, a[href^=tel] {
+	color: #444; 
+	text-decoration: none;
+	-webkit-transition: all .3s ease-in;
+	-moz-transition: all .3s ease-in;
+	-o-transition: all .3s ease-in;
+	-ms-transition: all .3s ease-in;
+	transition: all .3s ease-in;
+}
+
+.template-body #contactDetails ul li a:hover { 
+	color: #cf8a05;
+}
+
+
+.template-body section {
+	border-top: 1px solid #dedede;
+	padding: 20px 0 0;
+}
+
+.template-body section:first-child {
+	border-top: 0;
+}
+
+.template-body section:last-child {
+	padding: 20px 0 10px;
+}
+
+.template-body .sectionTitle {
+	float: left;
+	width: 25%;
+}
+
+.template-body .sectionContent {
+	float: right;
+	width: 72.5%;
+}
+
+.template-body .sectionTitle h1 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-style: italic;
+	font-size: 1.5em;
+	color: #cf8a05;
+}
+
+.template-body .sectionContent h2 {
+	font-family: 'Rokkitt', Helvetica, Arial, sans-serif;
+	font-size: 1.5em;
+	margin-bottom: -2px;
+}
+
+.template-body .subDetails {
+	font-size: 0.8em;
+	font-style: italic;
+	margin-bottom: 3px;
+}
+
+.template-body  .keySkills {
+	list-style-type: none;
+	-moz-column-count:3;
+	-webkit-column-count:3;
+	column-count:3;
+	margin-bottom: 20px;
+	font-size: 1em;
+	color: #444;
+}
+
+.template-body .keySkills ul li {
+	margin-bottom: 3px;
+}

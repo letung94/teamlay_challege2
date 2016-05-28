@@ -1,5 +1,93 @@
-<%- include ../layouts/header.ejs %>
-<div class="container">
-     
+<style>
+    #list-template {
+        padding-top: 45px;
+        border: 1px solid lavender
+    }
+    
+    #template-review {
+        padding-top: 10px;
+        border: 1px solid lavender
+    }
+    
+    #download-action {
+        padding-top: 10px;
+        border: 1px solid lavender;
+        padding-bottom: 5px;
+    }
+    
+    .caption {
+        text-align: center
+    }
+    
+    .thumbnail > hr {
+        margin-top: 2px;
+        margin-bottom: 2px;
+    }
+    
+    .template {
+        cursor: pointer
+    }
+</style>
+<script type="text/javascript">
+    function imgError(image) {
+                image.onerror = "";
+                image.src = "/cover/_Blank.png";
+                return true;
+      }
+
+</script>
+<%- include ../layouts/header.ejs %>   
+<div class="container" style="padding-top: 2px; margin-bottom: 50px">
+    <div class="col-xs-12 col-sm-3 col-md-2" id="list-template">
+        <% files.forEach(function(file) { %>
+            <div class="template" template-name="<%= file %>">
+                <div class="thumbnail">
+                    <a href='#'><img class="img-rounded image" src="/cover/<%= file.split('.')[0] %>.png" onerror="imgError(this)" alt="Template 1" style="height: 150px"></a>
+                    <hr />
+                    <div class="caption">
+                        <h4><%= file %></h4>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+    </div>
+    <div id="download-action" class="col-xs-12 col-sm-9 col-md-10">
+        <div class="btn-group pull-right">
+            <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="glyphicon glyphicon-download-alt"></span> Download <span class="caret"></span></a>
+            <ul class="dropdown-menu dropdown-primary">
+                <li><a href="#" class="exportPDF"><span class="glyphicon glyphicon-file"></span> PDF</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-print"></span> Print</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="template-review" class="col-xs-12 col-sm-9 col-md-10">
+    </div>
 </div>
 <%- include ../layouts/footer.ejs %>
+
+<script>
+    var getReview = function(templateName){
+                var name = templateName || '<%= files[0] %>';
+                $("#template-review").load("http://localhost:8080/template/templateReview/"+name);
+            }
+        
+            $(document).ready(function(){
+                getReview();
+                var currentTemplate = '';
+                $('.template').click(function(){
+                    currentTemplate = $(this).attr('template-name');
+                    getReview(currentTemplate);
+                });
+                
+                $('.exportPDF').click(function(){
+                    if(currentTemplate == ''){
+                        return false;
+                    } 
+      
+                    window.open('http://localhost:8080/template/download/' + currentTemplate.split('.')[0], '_blank'); 
+                    
+                    
+                });
+            });
+
+</script>

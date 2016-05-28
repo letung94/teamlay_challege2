@@ -4,9 +4,9 @@ var db = require("../model/db");
 
 
 var ctrluser = require("../controller/ctrluser");
-var user = require('../model/user');
-var cv = require('../model/cv');
 
+var user = require('../service/user');
+var cv = require('../service/cv');
 
 di
     .register('db')
