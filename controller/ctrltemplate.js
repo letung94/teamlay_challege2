@@ -129,7 +129,17 @@ router.get('/download/:name', function (req, res) {
 	var name = req.params.name; // Template file name.
 	var source =  req.headers.host + '/template/templateReview/' + name + '.ejs'; // Get from template review page.
 	var destination = path.join(__dirname + '/../tmp/', helper.createUnique() + '.pdf'); // Declare temporarily save folder.
-	var options = {}; // Options about the pdf that going to be exports.
+	var options = {
+		format:req.query.format,
+		orientation: req.query.orientation,
+		zoom : req.query.zoom,
+		marginTop : req.query.marginTop,
+		marginRight : req.query.marginRight,
+		marginBottom : req.query.marginBottom,
+		marginLeft : req.query.marginLeft
+	}; // Options about the pdf that going to be exports.
+
+	console.log(options);
 	var connected = true; // keep track of user connection.
 	req.on("close", function () { // Fire when user disconnect (normally or force).
 		connected = false;
@@ -139,7 +149,7 @@ router.get('/download/:name', function (req, res) {
 		if(code == 0){ // Convert HTML 2 PDF and save to disk successfully.
 			if (connected) { // If user still connected.
 				res.header('content-type', 'application/pdf'); // Set header so browser can display it as pdf.
-				// res.setHeader('Content-disposition', 'attachment; filename=' + 'demo.pdf'); 
+				// res.setHeader('Content-disposition', 'attachment; filename=' + 'demo.pdf');
 				var stream = fs.createReadStream(file); // Create stream for user to download.
 				stream.on('error', function () { // If Error delete the file in temporary folder.
 					fs.unlink(file);
