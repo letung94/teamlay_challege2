@@ -6,6 +6,7 @@ function User() {
             console.log(rows[0]);
         });
     }
+    
 }
 
 module.exports = User;

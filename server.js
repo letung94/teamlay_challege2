@@ -3,6 +3,8 @@ var http = require('http');
 var ejs = require('ejs');
 var app = express();
 var path = require('path');
+var bodyparser=require('body-parser');
+var jsonparser = bodyparser.json();
 
 
 
@@ -42,6 +44,10 @@ app.get('/ci',function(req,res){
     res.render('pages/cv_index');
 })
 
+
+/*contact info */
+var ctrlcontact_info = require('./controller/ctrlcontact_info');
+app.use('/cv/:id',jsonparser,ctrlcontact_info);
 
 http.createServer(app).listen(8080,function(){
     console.log("let's read first");

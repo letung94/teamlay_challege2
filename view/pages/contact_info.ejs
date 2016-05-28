@@ -38,24 +38,6 @@
                             <i class="fa fa-times"></i>
                         </span>
                     </div>
-                    <script>
-                    var preview = document.getElementById('preview');
-                    var del_avatar = $("#del_avatar");
-                    var loadFile = function(event) {
-                        var limitsize = 5*1024*1024;
-                        var reader = new FileReader();
-                        var imgfile = event.target.files[0];
-                        reader.readAsDataURL(event.target.files[0]);
-                        reader.onload = function(){
-                            preview.src = reader.result;
-                            del_avatar.css("opacity","1");
-                        };
-                    };
-                    $('#option').on('click','#del_avatar',function(){
-                        preview.src = "/img/default_avatar.jpg";
-                        del_avatar.css("opacity","0");
-                    });
-                    </script>
                 </div>
             </div>
         </div>
@@ -99,37 +81,10 @@
         
     </form>   
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-<!-- include BlockUI -->
-<script src="http://path/to/your/copy/of/jquery.blockUI.js"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#btnSubmit').click(function() {
-        var contact_info = {
-            "firstname":$("input[name='firstname']").val(),
-            "lastname":$("input[name='lastname']").val(),
-            "avatar":$("#preview").attr('src'),
-            "email":$("input[name='email']").val(),
-            "phone":$("input[name='phone']").val(),
-            "website":$("input[name='website']").val(),
-            "address":$("input[name='address']").val()
-        }
-        $.blockUI(); 
-        $.ajax({
-            type: "POST",
-            //the url where you want to sent the userName and password to
-            url: '/cv/1/contact-info/update',
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json',
-            //json object to sent to the authentication url
-            data: JSON.stringify(contact_info),
-            success: function () {
-            }
-        })
-     });
-   }); 
-</script>
+<script type="text/javascript" src="js/cv.js"></script>
+
+
+
 
 
 

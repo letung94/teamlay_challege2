@@ -15,6 +15,7 @@
     "express": "^4.13.0",
     "express-myconnection": "^1.0.4",
     "express-session": "^1.11.3",
+    "fs": "0.0.2",
     "http": "0.0.0",
     "morgan": "^1.6.0",
     "mysql": "^2.10.2",
