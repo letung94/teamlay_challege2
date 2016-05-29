@@ -108,13 +108,13 @@ var demoInfo = {
 router.get('/templateReview/:name', function (req, res) {
 	var name = req.params.name;
 	var templatePath = path.join(__dirname + '/../view/templates/' + name);
-	console.log(templatePath);
 	fs.exists(templatePath, function (exist) {
 		if(exist){
 			res.render('templates/' + name, demoInfo);
+		}else{
+			res.render('pages/generic_error', {Title:'CV Template not found',Code: '404',
+			Detail: 'The template you given is not exist or under maintenance, please try again later.'});
 		}
-		res.render('pages/generic_error', {Title:'CV Template not found',Code: '404',
-		Detail: 'The template you given is not exist or under maintenance, please try again later.'});
 	});
 });
 
