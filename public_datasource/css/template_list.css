@@ -1,0 +1,33 @@
+#list-template {
+  padding-top: 45px;
+  border: 1px solid lavender
+}
+
+#template-review {
+  padding-top: 10px;
+  border: 1px solid lavender
+}
+
+#download-action {
+  padding-top: 10px;
+  border: 1px solid lavender;
+  padding-bottom: 5px;
+  text-align: right
+}
+
+.caption {
+  text-align: center
+}
+
+.thumbnail > hr {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.template {
+  cursor: pointer
+}
+
+.default-value-section{
+    display: none;
+}
