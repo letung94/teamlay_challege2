@@ -19,7 +19,7 @@ $(document).ready(function(){
     });
 
     // User choose exportPDF, get options then send to download page.
-    $('.exportPDF').click(function(){
+    $('#exportPDF').click(function(){
         if(currentTemplate == ''){
             currentTemplate = $('#default-file').text();
         }
@@ -33,4 +33,8 @@ $(document).ready(function(){
         window.open('http://localhost:8080/template/download/' + currentTemplate.split('.')[0] + "?format=" + format +"&orientation=" + orientation + "&zoom=" + zoom
         + '&marginTop=' + marginTop + '&marginRight=' + marginRight + '&marginBottom=' + marginBottom + '&marginLeft=' + marginLeft,'_blank');
     });
+
+    $('#print').click(function(){
+        window.print();
+    })
 });

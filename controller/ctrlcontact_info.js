@@ -18,7 +18,7 @@ router.post('/contact_info/save', function(req, res) {
         res.send({flag: err, resdata: data});   
     });
     }else{
-        
+
         res.send({flag: 0, resdata: contact_info_save.attrvalidate});
     }
 });
