@@ -31,7 +31,7 @@ var ctrlTemplate = require('./controller/ctrltemplate');
 app.use('/template', ctrlTemplate);
 
 
-app.get('/ci', function (req, res) {
+app.get('/cv', function (req, res) {
     res.render('pages/cv_index');
 })
 

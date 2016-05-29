@@ -101,8 +101,6 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         {validate: null,attrname: "Website"},
         {validate: null,attrname: "Address"},
         {validate: null,attrname: "CV_Id"}];
-        
-        
         // spilt value of each attr into Name of table Contact_Info
     
     // return true if all attribute are valid if not false;

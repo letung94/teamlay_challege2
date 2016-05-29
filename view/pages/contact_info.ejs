@@ -25,10 +25,11 @@
                 </div>
             </div>
             <div class="col-sm-4 col-lg-4">
+                <!-avatar->
                 <div class="form-group row" id="avatarsection">
                     <div id="imageshow">
                         <img id="preview" src="/img/default_avatar.jpg"/>
-                        <input type="file"  accept="image/*" onchange="loadFile(event)" style="display: none;" name="avatar" id="avatar">
+                        <input type="file"  accept="image/*" onchange="loadFile(event)" style="opacity:0" name="avatar" id="avatar">
                     </div>
                     <div id="option" >
                         <label for="avatar" class="btn btn-success  btn-circle">
@@ -43,9 +44,9 @@
         </div>
         <!-email->
         <div class="form-group row">
-            <label class="col-sm-3 col-lg-2 control-label" for="email">Email Address</label>
+            <label class="col-sm-3 col-lg-2 control-label" for="email">Email</label>
             <div class="col-sm-9 col-lg-10 controls">
-            <input type="email" name="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email" name="email">
+            <input type="email" name="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email">
             <span for="email" class="help-block">This field is required.</span>
             </div>
         </div>
@@ -53,7 +54,7 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Phone</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" data-rule-required="true" data-rule-phone="true">
+                <input type="phone" placeholder="+84.11112222" class="form-control" name="phone" data-rule-required="true" data-rule-phone="true">
                 <span for="phone" class="help-block">This field is required.</span>
             </div>
         </div>
@@ -81,5 +82,5 @@
         
     </form>   
 </div>
-
+<script type="text/javascript" src="js/contact_info.validate.js"></script>
 <script type="text/javascript" src="js/cv.js"></script>
