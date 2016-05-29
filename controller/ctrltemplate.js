@@ -107,7 +107,8 @@ var demoInfo = {
 
 router.get('/templateReview/:name', function (req, res) {
 	var name = req.params.name;
-	var templatePath = path.join(__dirname + '/../view/templates/' + name + '.ejs');
+	var templatePath = path.join(__dirname + '/../view/templates/' + name);
+	console.log(templatePath);
 	fs.exists(templatePath, function (exist) {
 		if(exist){
 			res.render('templates/' + name, demoInfo);
