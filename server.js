@@ -40,6 +40,9 @@ app.get('/cv', function (req, res) {
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:id',jsonparser,ctrlcontact_info);
 
+app.use(function(req, res, next) {
+  res.status(404).render('pages/not_found_404');
+});
 
 http.createServer(app).listen(8080, function() {
     var port = this.address().port;

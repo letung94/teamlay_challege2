@@ -17,10 +17,10 @@ router.post('/contact_info/save', function(req, res) {
     var valid = contact_info_save.checkValidation();
     if(valid){
         contact_info_save.save(function(err,data){
-        res.send({flag: err, resdata: data});   
+        res.send({flag: err, resdata: data});
     });
     }else{
-        
+
         res.send({flag: 0, resdata: contact_info_save.attrvalidate});
     }
 });

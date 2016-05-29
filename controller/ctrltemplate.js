@@ -19,95 +19,102 @@ var demoInfo = {
 		Address: '280 An Dương Vương Quận 5, TPHCM',
 	},
 	experiences: [
-	{
-		Company: 'FPT Software.',
-		Designation: 'Software Engineer',
-		FromDate: '1/10/2016',
-		ToDate: '1/10/2018',
-		Details: 'I am an outgoing and energetic (ask anybody) young professional,' +
-		'seeking a career that fits my professional skills, personality, and' +
-		'murderous tendencies. My squid-like head is a masterful problem' +
-		'solver and inspires fear in who gaze upon it. I can bring world' +
-		'domination to your organization.'
-	},
-	{
-		Company: 'Global CyberSoft.',
-		Designation: 'Technical Architect',
-		FromDate: '01/01/2018',
-		ToDate: '10/1/2020',
-		Details: 'I am an outgoing and energetic (ask anybody) young professional,' +
-		'seeking a career that fits my professional skills, personality, and' +
-		'murderous tendencies. My squid-like head is a masterful problem' +
-		'solver and inspires fear in who gaze upon it. I can bring world' +
-		'domination to your organization.'
-	},
-	{
-		Company: 'Harveynash',
-		Designation: 'Project Manager',
-		FromDate: '01/01/2020',
-		ToDate: '01/01/9999',
-		Details: 'I am an outgoing and energetic (ask anybody) young professional,' +
-		'seeking a career that fits my professional skills, personality, and' +
-		'murderous tendencies. My squid-like head is a masterful problem' +
-		'solver and inspires fear in who gaze upon it. I can bring world' +
-		'domination to your organization.'
-	},
+		{
+			Company: 'FPT Software.',
+			Designation: 'Software Engineer',
+			FromDate: '1/10/2016',
+			ToDate: '1/10/2018',
+			Details: 'I am an outgoing and energetic (ask anybody) young professional,' +
+			'seeking a career that fits my professional skills, personality, and' +
+			'murderous tendencies. My squid-like head is a masterful problem' +
+			'solver and inspires fear in who gaze upon it. I can bring world' +
+			'domination to your organization.'
+		},
+		{
+			Company: 'Global CyberSoft.',
+			Designation: 'Technical Architect',
+			FromDate: '01/01/2018',
+			ToDate: '10/1/2020',
+			Details: 'I am an outgoing and energetic (ask anybody) young professional,' +
+			'seeking a career that fits my professional skills, personality, and' +
+			'murderous tendencies. My squid-like head is a masterful problem' +
+			'solver and inspires fear in who gaze upon it. I can bring world' +
+			'domination to your organization.'
+		},
+		{
+			Company: 'Harveynash',
+			Designation: 'Project Manager',
+			FromDate: '01/01/2020',
+			ToDate: '01/01/9999',
+			Details: 'I am an outgoing and energetic (ask anybody) young professional,' +
+			'seeking a career that fits my professional skills, personality, and' +
+			'murderous tendencies. My squid-like head is a masterful problem' +
+			'solver and inspires fear in who gaze upon it. I can bring world' +
+			'domination to your organization.'
+		},
 	],
 	skills: [
-	{
-		Name: 'Office skills',
-		Level: '5',
-		Maturity: 'Office and records management, database administration, event organization, customer support, travel coordination',
-		LastTime: 'Now',
-	},
-	{
-		Name: 'Computer skills',
-		Level: '5',
-		Maturity: 'Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows',
-		LastTime: 'Now',
-	},
-	{
-		Name: 'FPS',
-		Level: 'Over 9000.',
-		Maturity: 'I can shoot down multiple enemy at once even without using my eyes.',
-		LastTime: 'Now',
-	},
+		{
+			Name: 'Office skills',
+			Level: '5',
+			Maturity: 'Office and records management, database administration, event organization, customer support, travel coordination',
+			LastTime: 'Now',
+		},
+		{
+			Name: 'Computer skills',
+			Level: '5',
+			Maturity: 'Microsoft productivity software (Word, Excel, etc), Adobe Creative Suite, Windows',
+			LastTime: 'Now',
+		},
+		{
+			Name: 'FPS',
+			Level: 'Over 9000.',
+			Maturity: 'I can shoot down multiple enemy at once even without using my eyes.',
+			LastTime: 'Now',
+		},
 	],
 	educations: [
-	{
-		Institute: 'University of Pedagogy',
-		Degree: 'Bachelor\'s degree',
-		FromDate: '27/05/2010',
-		ToDate: '27/05/2015',
-		Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-	},
-	{
-		Institute: 'University of Science',
-		Degree: 'Bachelor\'s degree',
-		FromDate: '27/05/2010',
-		ToDate: '27/05/2015',
-		Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-	},
+		{
+			Institute: 'University of Pedagogy',
+			Degree: 'Bachelor\'s degree',
+			FromDate: '27/05/2010',
+			ToDate: '27/05/2015',
+			Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+		},
+		{
+			Institute: 'University of Science',
+			Degree: 'Bachelor\'s degree',
+			FromDate: '27/05/2010',
+			ToDate: '27/05/2015',
+			Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+		},
 	],
 	certifications: [
-	{
-		Title: 'ScrumMaster',
-		CertificateAuthority: '5',
-		Date: '27/05/2010',
-		Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-	},
-	{
-		Title: 'Project Manger',
-		CertificateAuthority: '4',
-		Date: '27/05/2010',
-		Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-	}
+		{
+			Title: 'ScrumMaster',
+			CertificateAuthority: '5',
+			Date: '27/05/2010',
+			Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+		},
+		{
+			Title: 'Project Manger',
+			CertificateAuthority: '4',
+			Date: '27/05/2010',
+			Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+		}
 	]
 }
 
 router.get('/templateReview/:name', function (req, res) {
 	var name = req.params.name;
-	res.render('templates/' + name, demoInfo);
+	var templatePath = path.join(__dirname + '/../view/templates/' + name + '.ejs');
+	fs.exists(templatePath, function (exist) {
+		if(exist){
+			res.render('templates/' + name, demoInfo);
+		}
+		res.render('pages/generic_error', {Title:'CV Template not found',Code: '404',
+		Detail: 'The template you given is not exist or under maintenance, please try again later.'});
+	});
 });
 
 router.get('/template_list/', function (req, res) {
