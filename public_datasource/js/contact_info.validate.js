@@ -28,23 +28,17 @@ function Contact_Info_Validate(){
             return this.valid;
         }, attrname: "LastName"},
         {validate: function(avatar){
-            
             this.valid = false;
             this.required = false;
-            this.datatype = "data:image";
+            this.datatype = "image/";
             this.maxsize = 5242880;
-            var default_link = "/img/default_avatar.jpg";
-            if(avatar == default_link || avatar == "" || avatar == null){
-                avatar = default_link;
+            if(avatar == undefined){
                 this.valid = true;
             }else{
-                var datatype_input = avatar.substring(0, 10);
-                if(this.datatype == datatype_input){
-                    var data = avatar.replace(/^data:image\/\w+;base64,/, '');
-                  var decodedData = window.atob(data);
-                    if(this.maxsize >= decodedData.length){
-                        this.valid = true;
-                    }
+                var datatypeavatar = avatar.type.substring(0, 6);
+                var sizeavatar = avatar.size;
+                if(this.datatype == datatypeavatar && this.maxsize >= sizeavatar){
+                    this.valid = true;
                 }
             }
             return this.valid;

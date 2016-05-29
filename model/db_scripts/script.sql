@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `cv_maker`.`contact_info` (
   `Phone` VARCHAR(13) NULL DEFAULT NULL,
   `Website` VARCHAR(100) NULL DEFAULT NULL,
   `Address` VARCHAR(255) NULL DEFAULT NULL,
-  `CV_Id` INT(11) NOT NULL,
+  `CV_Id` INT(11) NOT NULL,contact_info
   PRIMARY KEY (`Id`),
   INDEX `FK_ContactInfo_CV_Id_idx` (`CV_Id` ASC),
   CONSTRAINT `FK_ContactInfo_CV_Id`

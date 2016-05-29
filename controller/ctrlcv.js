@@ -22,7 +22,8 @@ router.get('/:idcv',function(req,res){
         // var obj=JSON.parse(data);
         // data['Name']=({"teamId":"4","status":"pending"});
         // res.render('pages/cv_index');
-        res.json(data[0]);    
+        res.render('pages/cv_index',{data:data[0]});
+        //res.json(data[0]);    
     });        
 });
 

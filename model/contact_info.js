@@ -47,37 +47,41 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             this.datatype = "data:image";
             this.maxsize = 5242880;
             var default_link = "/img/default_avatar.jpg";
-            if(avatar == default_link || avatar == "" || avatar == null){
-                avatar = default_link;
-                this.valid = true;
-            }else{
-                var datatype_input = avatar.substring(0, 10);
-                if(this.datatype == datatype_input){
-                    if(this.maxsize >= avatar.length){
-                        // getextension of image
-                        function getextension(image){
-                            var ext = ".";
-                            for(var i = 11; ; i++){
-                                if(image[i] == ';')break;
-                                ext+= image[i];
-                            }
-                            return ext;
+            
+            var datatype_input = avatar.substring(0, 10);
+            if(this.datatype == datatype_input){
+                if(this.maxsize >= avatar.length){
+                    // getextension of image
+                    function getextension(image){
+                        var ext = ".";
+                        for(var i = 11; ; i++){
+                            if(image[i] == ';')break;
+                            ext+= image[i];
                         }
-                        //http://stackoverflow.com/questions/20267939/nodejs-write-base64-image-file
-                        // get base64
-                        function decodeBase64Image(image) {
-                            //var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
-                            var data = image.replace(/^data:image\/\w+;base64,/, '');
-                            return new Buffer(data, 'base64');
-                        }
-                        self.attribute["Avatar"] = "avatars/avatar_" + self.attribute["CV_Id"] + getextension(avatar);
-                        var imageBuffer = decodeBase64Image(avatar);
-                        var fs = require('fs');
-                        fs.writeFileSync(self.attribute["Avatar"], imageBuffer, {encoding: 'base64'},function(err) { console.log(err); });
-                        this.valid = true;
+                        return ext;
                     }
+                    //http://stackoverflow.com/questions/20267939/nodejs-write-base64-image-file
+                    // get base64
+                    function decodeBase64Image(image) {
+                        //var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+                        var data = image.replace(/^data:image\/\w+;base64,/, '');
+                        return new Buffer(data, 'base64');
+                    }
+                    self.attribute["Avatar"] = "avatars/avatar_" + self.attribute["FirstName"] + self.attribute["CV_Id"] + getextension(avatar);
+                    var imageBuffer = decodeBase64Image(avatar);
+                    var fs = require('fs');
+                    fs.writeFileSync(self.attribute["Avatar"], imageBuffer, {encoding: 'base64'},function(err) { console.log(err); });
+                    this.valid = true;
+                }else{
+                    this.valid = false;
                 }
+            }else{
+                if(avatar != ""){
+                    avatar = default_link;
+                }
+                this.valid = true;
             }
+
             return this.valid;
         }, attrname: "Avatar"},
         {validate: function(email){
@@ -118,13 +122,25 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
     var contact_info = require('../config/config').resolve("db").contact_info;
     // the reqdata paramater is id of the CV
     // callback is a callback function data returned and status
-    self.get_Id = function(reqdata, callback) {
+    self.getByIdCV = function(reqdata, callback) {
+        var temp = new contact_info();
+        temp.find('all', {where: "CV_Id = " + reqdata},function(err,rows,fields){
+           if(err){
+                callback(-1, err)
+            }else{
+                if(rows.length == 0){
+                     callback(0, null);
+                }else{
+                    callback(1, rows[0]);
+                }
+               
+            }
+        });
         //var contact_info = require('../config/config').resolve("db").contact_info;
     }
     // the reqdata paramater is object
     // callback is a callback function data returned and status
-    self.save = function(callback){
-        //var contact_info = require('../config/config').resolve("db").contact_info;
+    self.save = function(reqdata, callback){
         /*
         `Id` INT(11) NOT NULL AUTO_INCREMENT,
         `FirstName` VARCHAR(50) NULL DEFAULT NULL,
@@ -135,18 +151,35 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         `Website` VARCHAR(100) NULL DEFAULT NULL,
         `Address` VARCHAR(255) NULL DEFAULT NULL,
         `CV_Id` INT(11) NOT NULL,
-        */
-        
-        var temp = new contact_info(
-           self.attribute
-        );
-        temp.save(function(err,data){
-            if(err){
-                callback(-1, err)
-            }else{
-                self.attribute.Id = data.insertId;
-                callback(1, self.attribute)
+        */ 
+        var gettemp = new contact_info();
+        var savetemp = new contact_info(reqdata);
+        gettemp.find('all', {where: "CV_Id = " + reqdata.CV_Id},function(err,rows,fields){
+            var id = null;
+            if(rows.length > 0){
+                id = rows[0].Id;
             }
+            if(id != null){
+                savetemp.set('id',id);
+                savetemp.save(function(err,data){
+                    if(err){
+                        callback(-1, err)
+                    }else{
+                        self.attribute.Id = data.insertId;
+                        callback(1, self.attribute)
+                    }
+                });
+            }else{
+                savetemp.save(function(err,data){
+                    if(err){
+                        callback(-1, err)
+                    }else{
+                        self.attribute.Id = data.insertId;
+                        callback(1, self.attribute)
+                    }
+                });
+            }
+            
         });
     }
 }

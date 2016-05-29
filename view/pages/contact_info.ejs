@@ -29,7 +29,8 @@
                 <div class="form-group row" id="avatarsection">
                     <div id="imageshow">
                         <img id="preview" src="/img/default_avatar.jpg"/>
-                        <input type="file"  accept="image/*" onchange="loadFile(event)" style="opacity:0" name="avatar" id="avatar">
+                        <span class="help-block filesize" style="display:none;">The limited file size is 5MB.</span>
+                        <input type="file"  accept="image/*" onchange="loadFile(event)" style="display:none;" name="avatar" id="avatar">
                     </div>
                     <div id="option" >
                         <label for="avatar" class="btn btn-success  btn-circle">
