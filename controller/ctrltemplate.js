@@ -139,7 +139,6 @@ router.get('/download/:name', function (req, res) {
 		marginLeft : req.query.marginLeft
 	}; // Options about the pdf that going to be exports.
 
-	console.log(options);
 	var connected = true; // keep track of user connection.
 	req.on("close", function () { // Fire when user disconnect (normally or force).
 		connected = false;
