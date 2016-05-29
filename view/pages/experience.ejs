@@ -1,3 +1,48 @@
 <div class="tab-pane fade" id="experience">
-                    <p>Exprience</p>              
+<div class="row">
+        <div class="box-section">
+            <div class="box-sectiontitle">
+                <h4> Experience</h4>
+                <div class="box-sectiontool">
+                    <a data-action="collapse" href="#"><i class="fa fa-chevron-down"></i></a>
+                    <a data-action="close" href="#"><i class="fa fa-times"></i></a>
+                </div>
+            </div>
+              <div class="box-sectioncontent">
+                 <form class="form-horizontal" id="validation-form" >
+                <div class="form-group row">
+                        <label class="col-sm-3 col-lg-2 control-label">Company</label>
+                            <div class="col-sm-9 col-lg-10 controls">
+                                <input type="text" placeholder="Enter your company" name="company" id="company" class="form-control">
+                            </div>    
+                </div>
+                <!-Designation->
+                <div class="form-group row">
+                        <label class="col-sm-3 col-lg-2 control-label">Designation</label>
+                            <div class="col-sm-9 col-lg-10 controls">
+                                <input type="text" placeholder="Enter your designation" name="designation" id="designation" class="form-control" >
+                            </div>    
+                </div>
+                <!-Date(s)->
+                <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Date(s)</label>
+                            <div class="col-sm-5 col-lg-10 controls">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" placeholder="From date To date" class="form-control date-range" />
+                                </div>
+                            </div>
+                </div>
+                <!-Details-> 
+                <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Details</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <textarea class="form-control col-md-12 wysihtml5" rows="6"></textarea>
+                        </div>
+                </div>
+                </form>  
+            </div>
+   </div> 
+</div>
+<button type="button" id="btnAddSection" class="btn btn-success"><i class="fa fa-plus">&nbsp;Add Another Experience</i></button>
 </div>
