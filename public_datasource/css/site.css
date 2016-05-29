@@ -18,3 +18,17 @@ img#preview{
     height:128;
     cursor: pointer;
 }
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .print-section * {
+        visibility: visible;
+    }
+    .print-section {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

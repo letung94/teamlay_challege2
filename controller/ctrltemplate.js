@@ -112,7 +112,7 @@ router.get('/templateReview/:name', function (req, res) {
 		if(exist){
 			res.render('templates/' + name, demoInfo);
 		}else{
-			res.render('pages/generic_error', {Title:'CV Template not found',Code: '404',
+			res.render('pages/generic_error', {ExcludeHeader: '1', Title:'CV Template not found',Code: '404',
 			Detail: 'The template you given is not exist or under maintenance, please try again later.'});
 		}
 	});
@@ -169,7 +169,7 @@ router.get('/download/:name', function (req, res) {
 				fs.unlink(file); // Delete the file without sending down to the user.
 			}
 		} else{ // Something wrong with HTML 2 PDF convert process.
-			res.render('pages/generic_error', {Title:"Maintenance", Code: "500", Detail: "Sorry the download feature is under maintenance<br/ > please try again later. "}); // Return maintenance page.
+			res.render('pages/generic_error', { Title:"Maintenance", Code: "500", Detail: "Sorry the download feature is under maintenance<br/ > please try again later. "}); // Return maintenance page.
 		}
 	});
 });
