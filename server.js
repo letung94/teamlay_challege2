@@ -12,10 +12,10 @@ var flash = require('express-flash');
 // Email sending config
 mailer.extend(app, {
     from: 'no-reply@cvmaker.com',
-    host: 'smtp.gmail.com', // hostname 
-    secureConnection: true, // use SSL 
-    port: 465, // port for secure SMTP 
-    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts 
+    host: 'smtp.gmail.com', // hostname
+    secureConnection: true, // use SSL
+    port: 465, // port for secure SMTP
+    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
     auth: {
         user: 'duybui.hcmit',
         pass: '01269848891'
@@ -71,14 +71,29 @@ app.get('/cv', function (req, res) {
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv', ctrlcontact_info);
 
+<<<<<<< HEAD
 app.use(function (req, res, next) {
     res.status(404).render('pages/not_found_404');
 });
+=======
+/**/
+
+/*experience*/
+var experience = require('./controller/ctrlexperience');
+app.use('/cv/:idcv',experience);
+>>>>>>> 9ac0b12de989d231b11f39925c8c795e08fe50d5
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
 cc = new c();
 cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
+    console.log(rows);
+})*/
+
+/*var di = require('./config/config');
+var c = di.resolve('certification');
+cc = new c();
+cc.removeCertification({id: 9}, function(rows){
     console.log(rows);
 })*/
 
@@ -89,10 +104,16 @@ cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
 //     console.log(code);
 //     console.log(res);
 // });
+<<<<<<< HEAD
 
 http.createServer(app).listen(8080, function () {
+=======
+app.use(function(req, res, next) {
+  res.status(404).render('pages/not_found_404');
+});
+http.createServer(app).listen(8080, function() {
+>>>>>>> 9ac0b12de989d231b11f39925c8c795e08fe50d5
     var port = this.address().port;
     console.log("let's read first");
     console.log("Server is listening at http://localhost:%s", port);
 });
-
