@@ -11,6 +11,16 @@ var app = express();
 var jsonparser = bodyparser.json();
 var router = express.Router();
 
+router.get('/list', function (req, res) {
+    var cvService = di.resolve('curriculum_vitae');
+    cvServiceIns = new cvService();
+    cvServiceIns.getEnableCV({}, function(code, rows){
+        var resObject = {
+            cvs: rows
+        };
+        res.render('pages/cv_list',resObject);
+    })
+});
 
 router.post('/', [jsonparser], function (req, res) {
     var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, req.body.UserId, req.body.Id);
@@ -33,6 +43,24 @@ router.post('/', [jsonparser], function (req, res) {
     }
 });
 
+router.post('/disableCV', [jsonparser], function (req, res) {
+    // var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, 1, req.body.Id);
+    var param = {
+        id: req.body.id
+    };
+    var cvService = di.resolve('curriculum_vitae');
+    cvServiceIns = new cvService();
+    cvServiceIns.disableCV(param, function(code, data){
+        var resData ={};
+        if(code == 1){
+            resData.IsSuccess = true;
+        }else {
+                resData.IsSuccess = false;
+        }
+        res.json(resData);
+    })
+});
+
 router.post('/:idcv', [jsonparser], function (req, res) {
     var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, req.body.UserId, req.params.Id);
     var valid = dbcv_save.checkValidation();
@@ -47,8 +75,14 @@ router.post('/:idcv', [jsonparser], function (req, res) {
 
 router.get('/:idcv', function (req, res) {
     var idcv = req.params.idcv;
-    dbcv.getByIdCV(idcv, function (err, data) {
-        if (err == 1) {
+    dbcv.getByIdCV(idcv, function (data) {
+        if (data.length > 0) {
+            res.render('pages/cv_index', { data: data[0] });
+        } else {
+            res.render('pages/not_found_404');
+        }
+        if(err==1)
+        {
             res.render('pages/cv_index', { data: data[0] });
         }
         if (err == 0) {
@@ -62,5 +96,7 @@ router.get('/', function (req, res) {
         res.json(data);
     });
 })
+
+
 
 module.exports = router;
