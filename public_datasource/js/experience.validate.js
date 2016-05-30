@@ -16,7 +16,7 @@
         }, attrname: "Company"}];
 }*/
 
-function experience(attribute){
+function Experience(attribute){
     this.attribute = attribute;
     var a = 10;
 }
@@ -33,11 +33,36 @@ function addlistexp(row){
     $(rowtable).appendTo("#list-experience tbody");
 }
 $('#btnAddListExp').click(function() {
-        var company = document.getElementById("company").value;
-        var designation = document.getElementById('designation').value;
-        var date = document.getElementById("date").value;
-        var detail = document.getElementById("detail").value; 
-        //.....
+        var dates = $('#date').val().split(" - ");
+        var fromdate = dates[0];
+        var todate = dates[1];
+        var experience = new Experience(
+            {
+                "Company": $("#company").val(),
+                "Designation": $("#designation").val(),
+                "FromDate": fromdate,
+                "ToDate": todate,
+                "Details": $("#detail").val(),
+            }
+        )
+        var urlpost = window.location.href + '/experience/save';
+         $.ajax({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: urlpost,
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        //json object to sent to the authentication url
+        data: JSON.stringify(experience.attribute),
+        success: function (res) {
+            console.log(res);
+        },
+        error: function(x,e){
+            
+        }
+    }); 
+        
         
 });
 //function delete current row on click
@@ -83,7 +108,7 @@ function getAll(){
         success: function (res) {   
                 clickedExperience = true;
                 $.each(res.resdata, function( index, value ) {
-                listexperience.push(new experience(value));          
+                listexperience.push(new Experience(value));          
                 addlistexp(value);
                 });
                 
