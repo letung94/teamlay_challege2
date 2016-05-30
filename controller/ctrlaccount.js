@@ -8,10 +8,58 @@ var user_model = di.resolve('user');
 var uuid = require('node-uuid');
 var mailer = require('express-mailer');
 var app = require('../server');
+var flash = require('express-flash');
+var async = require('async');
 
 
+router.get('/forgot', function (req, res) {
+    res.render('pages/forgot_password', {
+        title: 'Forgot Password',
+        error: req.flash('error'),
+        success: req.flash('success')
+    });
+});
 
+router.post('/forgot', function (req, res) {
+    var token = uuid.v1();
+    user_model.getByEmail(req.body.email, function (err, data) {
+        var user = data;
+        console.log(user);
+        if (!user) {
+            req.flash('error', 'No account with that email address exists.');
+            res.redirect('/forgot');
+        }
+        else
+        {
+        
+        var date = new Date();
+        date.setMinutes(date.getMinutes()+30);
+        user.Token = token;
+        user.ResetPasswordExpire = date; // 30 mins
+        
+        user_model.updateUser(user, function (err) {
 
+        });
+        var link = req.protocol + "://" + req.get('host') + "/reset/" + token;
+        app.mailer.send('pages/reset_password_email', {
+            to: 'duybui.hcmit@outlook.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+            subject: 'CV Maker Reset Password', // REQUIRED. 
+            link: link, // All additional properties are also passed to the template as local variables. 
+            email: req.body.email
+        }, function (err) {
+            if (err) {
+                // handle error 
+                console.log(err);
+                res.end('There was an error sending the email');
+                return;
+            }
+            
+        });
+        req.flash('success', 'Email sending.');
+            res.redirect('/forgot');
+        }
+    });
+});
 
 
 
@@ -59,19 +107,19 @@ router.get('/index', function (req, res) {
     user_model.getAllUser(function (data) {
         console.log(data);
     })
-    console.log(req.isAuthenticated());
+    
 })
 
 // Verify email
 router.get("/verify/:token", function (req, res, next) {
     var token = req.params.token;
-    user_model.getByToken(token,function (err,data) {
-        if(!data) res.end('Token is invalid or has been expired');
-        else{
+    user_model.getByToken(token, function (err, data) {
+        if (!data) res.end('Token is invalid or has been expired');
+        else {
             var user = data;
             user.Token = null;
             user.IsConfirmed = true;
-            user_model.updateUser(user,function(err){
+            user_model.updateUser(user, function (err) {
             });
             res.end('Confirmation success');
         }
@@ -101,7 +149,7 @@ router.post('/signup', authenticate.isEmailExisted, authenticate.isUsernameExist
             if (err) console.log('Error');
             else console.log('Success');
         });
-        
+
         // Create a link to verify email
         var link = req.protocol + "://" + req.get('host') + "/verify/" + verify_token;
 
@@ -119,7 +167,7 @@ router.post('/signup', authenticate.isEmailExisted, authenticate.isUsernameExist
             }
             res.end('Email Sent');
         });
-        
+
         user_model.getByUsername(req.body.username, function (err, data) {
             req.logIn(data, function (err) {
                 if (err) {

@@ -25,7 +25,7 @@ di
                 .param().val("cv_maker")
                 .param().val(mysqlmodel)
     .register('user')
-        .as(user_service)
+        .as(user)
     .register('certification')
         .instance(certification_service)
     .register('education')
