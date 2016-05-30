@@ -31,13 +31,13 @@ router.get('/:idcv', function (req, res) {
     var idcv = req.params.idcv;
     dbcv.getByIdCV(idcv, function (err, data) {
         res.json({ flag: err, data: data });
-        // res.render('pages/cv_index',{data});
+         //res.render('pages/cv_index',{data});
     });
 });
-
+/*
 router.get('/:idcv', function (req, res) {
-    dbcv.getCV(req, function (data) {
-
+    var idcv = req.params.idcv;
+    dbcv.getByIdCV(idcv, function (data) {
         if (data.length > 0) {
             res.render('pages/cv_index', { data: data[0] });
         } else {
@@ -45,7 +45,7 @@ router.get('/:idcv', function (req, res) {
         }
 
     });
-});
+});*/
 
 router.get('/', function (req, res) {
     dbcv.getAllCV(req, function (data) {

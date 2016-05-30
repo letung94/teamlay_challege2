@@ -72,9 +72,6 @@ app.get('/cv', function (req, res) {
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv', ctrlcontact_info);
 
-app.use(function (req, res, next) {
-    res.status(404).render('pages/not_found_404');
-});
 /**/
 
 /*experience*/

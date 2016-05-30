@@ -11,16 +11,16 @@
                 <div class="form-group row">
                     <label class="col-sm-3 col-lg-3 control-label">First Name</label>
                     <div class="col-sm-9 col-lg-9 controls">
-                        <input type="text"  placeholder="Enter your first name"  class="form-control" data-rule-required="true" data-rule-minlength="1"  data-rule-maxlength="49" name="firstname">
-                        <span for="firstname" class="help-block">This field is required.</span>
+                        <input type="text"  placeholder="Enter your first name"  class="form-control" name="firstname" id="firstname">
+                        
                     </div>
                 </div>
                 <!-last name->
                 <div class="form-group row">
                     <label class="col-sm-3 col-lg-3 control-label">Last Name</label>
                     <div class="col-sm-9 col-lg-9 controls">
-                        <input type="text"  placeholder="Enter your last name" class="form-control" data-rule-required="true" data-rule-minlength="1"  data-rule-maxlength="49" name="lastname">
-                        <span for="lastname" class="help-block">This field is required.</span>
+                        <input type="text"  placeholder="Enter your last name" class="form-control" name="lastname" id="lastname">
+                        
                     </div>
                 </div>
             </div>
@@ -29,7 +29,9 @@
                 <div class="form-group row" id="avatarsection">
                     <div id="imageshow">
                         <img id="preview" src="/img/default_avatar.jpg"/>
-                        <span class="help-block filesize" style="display:none;">The limited file size is 5MB.</span>
+                        <label  class="text-danger sizeimg" style="display:none;">The limited file size is 5MB.</label>
+                        <label  class="text-danger validimg" style="display:none;">Please enter an valid image.</label>
+                        <span class="help-block filesize" ></span>
                         <!-- The Modal -->
                         <div id="myModal" class="" data-keyboard="false" data-backdrop="static">
                             
@@ -55,17 +57,16 @@
         <!-email->
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label" for="email">Email</label>
-            <div class="col-sm-9 col-lg-10 controls">
-            <input type="email" name="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email">
-            <span for="email" class="help-block">This field is required.</span>
+                <div class="col-sm-9 col-lg-10 controls">
+                <input type="text" name="email" class="form-control" placeholder="Enter your email" id="email">
             </div>
         </div>
         <!-phone->
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Phone</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="phone" placeholder="+84.11112222" class="form-control" name="phone" data-rule-required="true" data-rule-phone="true">
-                <span for="phone" class="help-block">This field is required.</span>
+                <input type="text" placeholder="+84.11112222" class="form-control" name="phone" id="phone">
+                
             </div>
         </div>
         <!-website->
@@ -92,7 +93,7 @@
         
     </form>   
 </div>
-
-<script type="text/javascript" src="js/contact_info.validate.js"></script>
 <script type="text/javascript" src="js/cv.js"></script>
+<script type="text/javascript" src="js/contact_info.validate.js"></script>
+
 
