@@ -60,6 +60,13 @@ app.use(function(req, res, next) {
   res.status(404).render('pages/not_found_404');
 });
 
+/*var di = require('./config/config');
+var c = di.resolve('certification');
+cc = new c();
+cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
+    console.log(rows);
+})*/
+
 http.createServer(app).listen(8080, function() {
     var port = this.address().port;
     console.log("let's read first");

@@ -133,7 +133,6 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                 }else{
                     callback(1, rows[0]);
                 }
-               
             }
         });
         //var contact_info = require('../config/config').resolve("db").contact_info;

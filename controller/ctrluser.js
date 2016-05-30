@@ -9,15 +9,26 @@ var jsonparser = bodyparser.json();
 var router = express.Router();
 
 
+
 router.get('/login', function(req, res) {
     res.render('pages/login');
 });
 
 
+
+/*router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
+=======
 router.post('/cv/:idcv/contact-info/update', jsonparser, function(req, res) {
+>>>>>>> 012f4252e4a6f12de655237292fd409ae2cf0457
     var ct = req.body;
     res.end();
 });
+
+router.post('/cv/:idcv/contact-info/update', jsonparser, function(req, res) {
+    var ct = req.body;
+    res.end();
+});*/
+
 // router.get('/cv/:idcv',function(req,res){
 //     db.readCVById(req,function(flag,data){
 //         res.render('pages/cv_index');
@@ -31,5 +42,6 @@ router.post('/cv/:idcv/contact-info/update', jsonparser, function(req, res) {
 //         res.end();            
 //     });    
 // });
+
 
 module.exports = router;

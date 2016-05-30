@@ -1,6 +1,5 @@
 var di = require('../config/config');
 var user_model = di.resolve('user');
-var bcrypt = require('bcrypt-nodejs');
 
 var isEmailExisted = function (req, res, next) {
     user_model.getByEmail(req.body.email, function (err, data) {
@@ -20,7 +19,12 @@ var isUsernameExisted = function (req, res, next) {
     })
 }
 
+var requireAuthenticated = function (req,res,next) {
+    if(!req.isAuthenticated()) res.redirect('/login');
+}
+
 module.exports = {
+    requireAuthenticated: requireAuthenticated,
     isUsernameExisted: isUsernameExisted,
     isEmailExisted: isEmailExisted
 };
