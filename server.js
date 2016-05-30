@@ -7,16 +7,31 @@ var bodyparser=require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var passport = require('passport');
+var mailer = require('express-mailer');
+
+// Email sending config
+mailer.extend(app, {
+    from: 'no-reply@cvmaker.com',
+    host: 'smtp.gmail.com', // hostname 
+    secureConnection: true, // use SSL 
+    port: 465, // port for secure SMTP 
+    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts 
+    auth: {
+        user: 'duybui.hcmit',
+        pass: '01269848891'
+    }
+});
 
 //public file in the public_datasource
-
 app.use('*/assets', express.static(__dirname + '/public_datasource/assets'));
 app.use('*/css', express.static(__dirname + '/public_datasource/css'));
 app.use('*/js', express.static(__dirname + '/public_datasource/js'));
 app.use('*/img', express.static(__dirname + '/public_datasource/img'));
 app.use('*/avatars', express.static(__dirname + '/avatars'));
+
 /* Cover for template */
 app.use('*/cover', express.static(__dirname + '/view/templates/cover'));
+
 /* CSS for template */
 app.use('*/templatecss', express.static(__dirname + '/view/templates/css'));
 
@@ -34,6 +49,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+module.exports = app;
 
 // Routing
 var ctrluser = require('./controller/ctrluser');
@@ -78,3 +94,4 @@ http.createServer(app).listen(8080, function() {
     console.log("let's read first");
     console.log("Server is listening at http://localhost:%s", port);
 });
+
