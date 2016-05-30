@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Simple - Curriculum Vitae</title>
+  <link type="text/css" rel="stylesheet" href="templatecss/Simple.css">
+</head>
+
+<div class="template-body">
+  <div id="page-wrap">
+    <div id="contact-info" class="vcard">
+      <h1 class="fn"><%= contact_info.FirstName %> <%= contact_info.LastName %></h1>
+      <p>
+        <img src="http://vignette3.wikia.nocookie.net/half-life/images/6/62/Gaben.jpg/revision/latest?cb=20110615215913&path-prefix=en"
+        alt="CV's Image." id="pic" style="width: 120px; height: 160px" /> Cell: <span class="tel"><%= contact_info.Phone %></span><br
+        /> Email:
+        <a class="email" href="mailto:<%= contact_info.Email %>">
+          <%= contact_info.Email %>
+        </a><br /> Address: <span class="tel"><%= contact_info.Address %></span><br />
+        <%if(contact_info.Website != null){%>Website:
+          <a href="<%=contact_info.Website%>">
+            <%=contact_info.Website%>
+          </a>
+          <%}%>
+        </p>
+      </div>
+
+      <div id="objective">
+        <h2><%= summary.Headline %></h2>
+        <p>
+          <%= summary.ProfessionalSummary %>
+        </p>
+      </div>
+
+      <div class="clear"></div>
+
+      <dl>
+        <dd class="clear"></dd>
+
+        <dt>Education</dt>
+        <dd>
+          <h2>Withering Madness University - Planet Vhoorl</h2>
+          <p><strong>Major:</strong> Public Relations<br />
+            <strong>Minor:</strong> Scale Tending</p>
+          </dd>
+
+          <dd class="clear"></dd>
+
+          <dt>Skills</dt>
+          <dd>
+            <% skills.forEach(function(skill) { %>
+              <h2><%= skill.Name %> <span>Level: <%= skill.Level %> - LastUse: <%= skill.LastTime %></span></h2>
+              <p>
+              <%= skill.Maturity %>
+              </p>
+              <% }); %>
+            </dd>
+
+            <dd class="clear"></dd>
+
+            <dt>Experience</dt>
+            <dd>
+              <% experiences.forEach(function(exp) { %>
+                <h2><%= exp.Company %> <span><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></span></h2>
+                <p>
+                <%= exp.Details%>
+                </p>
+                <% }); %>
+              </dd>
+
+              <dd class="clear"></dd>
+
+              <dt>Educations</dt>
+              <dd>
+                <% educations.forEach(function(edu) { %>
+                  <h2><%= edu.Institute %><span><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></span></h2>
+                  <p>
+                  <%= edu.Details%>
+                  </p>
+                  <% }); %>
+                </dd>
+
+                <dd class="clear"></dd>
+
+                <dt>Certifications</dt>
+                <dd>
+                  <% certifications.forEach(function(cer) { %>
+                    <h2><%= cer.Title %><span><%= cer.CertificateAuthority %> - <%= cer.Date %></span></h2>
+                    <p>
+                    <%= cer.Details%>
+                    </p>
+                    <% }); %>
+                  </dd>
+
+                  <dd class="clear"></dd>
+                </dl>
+
+                <div class="clear"></div>
+
+              </div>
+
+            </div>
+
+            </html>

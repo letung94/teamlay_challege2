@@ -1,0 +1,24 @@
+<!-- This option to determine if this page have an header, default is yes, remove the header when you need to put it into modal, popup...-->
+<% if(locals.ExcludeHeader){ %>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/site.css">
+    <script type="text/javascript" src="assets/jquery/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="css/flaty.css">
+    <link rel="stylesheet" href="css/flaty-responsive.css">
+<%}else{%>
+    <% include ../layouts/header.ejs %>
+<%}%>
+<!-- BEGIN Main Content -->
+<div class="error-page">
+<div class="error-wrapper">
+    <h5><% if(locals.Title){ %> <%-Title%>  <%}%> <span><% if(locals.Code){ %> <%-Code%> <%}%></span></h5>
+    <p><% if(locals.Detail){ %> <%-Detail%>  <%}%></p>
+    <hr/>
+    <p class="clearfix">
+        <a href="javascript:history.back()" class="pull-left">← Back to previous page</a>
+        <a href="index-3.html" class="pull-right">Go to dashboard</a>
+    </p>
+</div>
+</div>
+<!-- END Main Content -->

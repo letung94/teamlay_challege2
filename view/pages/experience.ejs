@@ -1,3 +1,95 @@
-<div class="tab-pane fade" id="experience">
-                    <p>Exprience</p>              
+ <div class="tab-pane fade" id="experience">
+    <h4> Experience</h4>
+    <hr/>  
+         <form class="form-horizontal" id="validation-form" >
+                <div class="form-group row">
+                        <label class="col-sm-3 col-lg-2 control-label">Company</label>
+                            <div class="col-sm-9 col-lg-10 controls">
+                                <input type="text" placeholder="Enter your company" name="company" id="company" class="form-control">
+                            </div>    
+                </div>
+                <!-Designation->
+                <div class="form-group row">
+                        <label class="col-sm-3 col-lg-2 control-label">Designation</label>
+                            <div class="col-sm-9 col-lg-10 controls">
+                                <input type="text" placeholder="Enter your designation" name="designation" id="designation" class="form-control" >
+                            </div>    
+                </div>
+                <!-Date(s)->
+                <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Date(s)</label>
+                            <div class="col-sm-5 col-lg-10 controls">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                    <input type="text" placeholder="From date To date" class="form-control date-range" id="date" />
+                                </div>
+                            </div>
+                </div>
+                <!-Details-> 
+                <div class="form-group">
+                        <label class="col-sm-3 col-lg-2 control-label">Details</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <textarea class="form-control col-md-12 wysihtml5" rows="6" id="detail"></textarea>
+                        </div>
+                </div>
+                <div class="form-group row">
+                        <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <button type="button" id="btnAddList"  class="btn btn-success"><i class="fa fa-plus">&nbsp;Add In List</i></button>
+                        </div>      
+                </div>
+                
+                <div class="form-group row">
+                    <div class="box">
+                        <div class="box-title">
+                        <h4> List of Experience</h4>
+                        </div>
+                        <div class="box-content">
+                            <div class="table-big">
+                                <table class="table table-striped table-hover fill-head" id="list-experience">
+                                <thead>
+                                    <tr style="font-size: 13px">
+                                    <th>Company</th>
+                                    <th>Designation</th>
+                                    <th>Date(s)</th>
+                                    <th>Details</th>
+                                    <th>Action</th>
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                
+                                    </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>    
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+ $('#btnAddList').click(function() {  
+            var rows = "";
+            var company = document.getElementById("company").value;
+            var designation = document.getElementById('designation').value;
+            var date = document.getElementById("date").value;
+            var detail = document.getElementById("detail").value; 
+            var editAction = '<button class="btn btn-primary btn-sm" id="btnEdit"><i class="fa fa-edit"> Edit</i></button>'
+            var deleteAction = '<button type="button" class="btn btn-danger btn-sm" id="btnDelete"><i class="fa fa-trash-o"> Delete</i></button>'
+    rows += "<tr style='font-size:13px'><td>" + company + "</td><td>" + designation + "</td><td>" + date + "</td><td>" + detail + "</td><td>" + editAction + " " + deleteAction + "</td></tr>";
+    $(rows).appendTo("#list-experience tbody");
+ });
+ $('#list-experience').on('click', '#btnDelete' , function(e){
+      e.preventDefault();
+      $(this).closest('tr').remove();
+ });
+  $('#list-experience').on('click', '#btnEdit' , function(e){
+      e.preventDefault();
+      var cells = $(this).closest("tr").children("td");
+      $("#company").val(cells.eq(0).text()).focus();  
+      $("#designation").val(cells.eq(1).text());
+      $("#date").val(cells.eq(2).text());
+      $("#detail").data("wysihtml5").editor.setValue(cells.eq(3).text());
+ });
+});
+</script>

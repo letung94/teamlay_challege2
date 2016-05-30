@@ -1,5 +1,79 @@
 <%- include ../layouts/header.ejs %>
-<div class="container">
-     
+<!-- Default section The ejs viewengine can't not pass it value to external javascript so I declare the selector here then select it by jquery -->
+<div class="default-value-section">
+    <span id="default-file"><%=files[0]%></span>
 </div>
-<%- include ../layouts/footer.ejs %>
+<!-- End Default  -->
+<link rel="stylesheet" type="text/css" href="css/template_list.css">
+<div class="container" style="">
+    <div class="col-xs-12 col-sm-3 col-md-2" id="list-template">
+        <% files.forEach(function(file) { %>
+            <div class="template" template-name="<%= file %>">
+                <div class="thumbnail">
+                    <a href='#'><img class="img-rounded image" src="/cover/<%= file.split('.')[0] %>.png" alt="Template 1" style="height: 150px"></a>
+                    <hr />
+                    <div class="caption">
+                        <h4><%= file %></h4>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+
+        <div id="download-action" class="col-xs-12 col-sm-9 col-md-10">
+            <div class="form-inline" role="form">
+                <div class="form-group">
+                    <label for="format">Format:</label>
+                    <select id="format" class="form-control input-sm" tabindex="1">
+                        <option value="A0">A0</option>
+                        <option value="A1">A1</option>
+                        <option value="A2">A2</option>
+                        <option value="A3">A3</option>
+                        <option value="A4" selected="true">A4</option>
+                        <option value="A5">A5</option>
+                        <option value="Letter">Letter</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="orientation">Orientation:</label>
+                    <select id="orientation" class="form-control input-sm" tabindex="1">
+                        <option value="Portrait">Portrait</option>
+                        <option value="Landscape">Landscape</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="zoom">Zoom:</label>
+                    <input id="zoom" class="form-control input-sm" type="number" value="1" min="1" max="10" step="0.25" />
+                </div>
+                <div class="form-group">
+                    <label for="margin-top">Margin(mm) Top:</label>
+                    <input id="margin-top" class="form-control input-sm" type="number" value="2" min="0" max="50" step="0.25" />
+                </div>
+                <div class="form-group">
+                    <label for="margin-right">Right:</label>
+                    <input id="margin-right" class="form-control input-sm" type="number" value="2" min="0" max="50" step="0.25" />
+                </div>
+                <div class="form-group">
+                    <label for="margin-bottom">Bottom:</label>
+                    <input id="margin-bottom" class="form-control input-sm" type="number" value="2" min="0" max="50" step="0.25" />
+                </div>
+                <div class="form-group">
+                    <label for="margin-left">Left:</label>
+                    <input id="margin-left" class="form-control input-sm" type="number" value="2" min="0" max="50" step="0.25" />
+                </div>
+                <hr>
+                <div class="btn-group btn-group-sm">
+                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><span class="glyphicon glyphicon-download-alt"></span> Download <span class="caret"></span></a>
+                    <ul class="dropdown-menu dropdown-primary">
+                        <li id="exportPDF"><a href="#"><span class="glyphicon glyphicon-file"></span> PDF</a></li>
+                        <li id="print"><a href="#"><span class="glyphicon glyphicon-print"></span> Print</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div id="template-review" class="col-xs-12 col-sm-9 col-md-10 print-section">
+        </div>
+    </div>
+
+    <%- include ../layouts/footer.ejs %>
+    <script type="text/javascript" src="js/template_list.js"></script>

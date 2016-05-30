@@ -11,10 +11,19 @@ var jsonparser=bodyparser.json();
 var router=express.Router();
 
 
+router.post('/create',[jsonparser],function(req,res){
+    dbcv.createCV(req,function(data){
+        console.log(data);
+        res.end();
+    })        
+});
 router.get('/:idcv',function(req,res){
-    dbcv.getAllCV(function(data){
+    dbcv.getCV(req,function(data){
+        // var obj=JSON.parse(data);
+        // data['Name']=({"teamId":"4","status":"pending"});
         // res.render('pages/cv_index');
-        res.json(data);    
+        res.render('pages/cv_index',{data:data[0]});
+        //res.json(data[0]);    
     });        
 });
 

@@ -1,22 +1,26 @@
-/*----------This is Nhieu's code----------*/
-
-var express=require('express');
-var bodyparser=require('body-parser');
+var express = require('express');
+var bodyparser = require('body-parser');
 var ejs = require('ejs');
 
 var di = require('../config/config');
 
-
-
 var app = express();
 var jsonparser = bodyparser.json();
-var router=express.Router();
+var router = express.Router();
 
 
+router.get('/login', function(req, res) {
+    res.render('pages/login');
+});
 
 
 
 router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
+    var ct = req.body;
+    res.end();
+});
+
+router.post('/cv/:idcv/contact-info/update', jsonparser, function(req, res) {
     var ct = req.body;
     res.end();
 });
