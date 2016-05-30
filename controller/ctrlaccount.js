@@ -48,12 +48,11 @@ router.get('/logout', function (req, res) {
 });
 
 router.get('/login', function (req, res) {
+    console.log(req.isAuthenticated());
 	if (req.isAuthenticated()) res.redirect('/index');
-    
-	res.render('pages/login', {});
+	else res.render('pages/login', {});
     
 });
-
 
 router.post('/login', function (req, res, next) {
 	passport.authenticate('local', {
@@ -81,7 +80,7 @@ router.post('/login', function (req, res, next) {
 
 router.get('/index', function (req, res) {
 	if (!req.isAuthenticated()) res.redirect('/login');
-	res.send('<h2>Login successfull!</h2>');
+	res.end('Login successfull!');
 	user_model.getAllUser(function (data) {
 		console.log(data);
 	})
@@ -95,7 +94,16 @@ router.post('/signup', authenticate.isEmailExisted, authenticate.isUsernameExist
 		failureFlash: true
 	}, function (err, user, info) {
 		req.body.password = bcrypt.hashSync(req.body.password);
-		user_model.addUser(req, function (err) {
+        var date = new Date();
+		var user = {
+            Username: req.body.username,
+            Email: req.body.email,
+            PasswordHash: req.body.password,
+            CreatedDate: date,
+            IsConfirmed: false,
+            IsBlocked: false
+        };
+        user_model.addUser(user, function (err) {
 			if (err) console.log('Error');
 			else console.log('Success');
 		});

@@ -1,16 +1,8 @@
 function userModel() {
     var User = require('../config/config').resolve("db").User;
-    this.addUser = function (req, callback) {
-        var date = new Date();
-        user = new User({
-            Username: req.body.username,
-            Email: req.body.email,
-            PasswordHash: req.body.password,
-            CreatedDate: date,
-            IsConfirmed: false,
-            IsBlocked: false
-        });
-        user.save();
+    this.addUser = function (user, callback) {
+        var newUser = new User(user);
+        newUser.save();
         callback();
     }
     this.getAllUser = function (callback) {
