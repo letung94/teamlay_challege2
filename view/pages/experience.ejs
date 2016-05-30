@@ -5,7 +5,7 @@
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">Company</label>
                             <div class="col-sm-9 col-lg-10 controls">
-                                <input type="text" placeholder="Enter your company" name="company" id="company" class="form-control">
+                                <input type="text" placeholder="Enter your company" name="company" id="company" class="form-control" data-rule-required="true" data-rule-minlength="2" > 
                             </div>    
                 </div>
                 <!-Designation->
@@ -35,11 +35,13 @@
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <button type="button" id="btnAddList"  class="btn btn-success"><i class="fa fa-plus">&nbsp;Add In List</i></button>
+                            <button type="button" id="btnAddList"  class="btn btn-success"><i class="fa fa-plus">&nbsp;Add To List</i></button>
                         </div>      
                 </div>
                 
                 <div class="form-group row">
+                
+                
                     <div class="box">
                         <div class="box-title">
                         <h4> List of Experience</h4>
@@ -56,40 +58,61 @@
                                     <th>Action</th>
                                     </tr>
                                 </thead>
-                                    <tbody>
-                                
+                                    <tbody>                               
                                     </tbody>
                                     </table>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </div>         
+                        <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
+                        <div class="col-sm-9 col-lg-10 controls">
+                            <button type="button" id="btnSubmit" class="btn btn-success"><i class="fa fa-save">&nbsp;Save</i></button>
+                        </div>           
+                    </div>            
+                </div>    
         </form>    
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
- $('#btnAddList').click(function() {  
+ var flag = 0;
+ var rowId = '';
+ //function add input value to list
+ $('#btnAddList').click(function() {
+     //flag = 0 , add to list
+     if(flag == 0){
             var rows = "";
             var company = document.getElementById("company").value;
             var designation = document.getElementById('designation').value;
             var date = document.getElementById("date").value;
             var detail = document.getElementById("detail").value; 
-            var editAction = '<button class="btn btn-primary btn-sm" id="btnEdit"><i class="fa fa-edit"> Edit</i></button>'
+            var editAction = '<button class="btn btn-primary btn-xs" id="btnEdit"><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
             var deleteAction = '<button type="button" class="btn btn-danger btn-sm" id="btnDelete"><i class="fa fa-trash-o"> Delete</i></button>'
     rows += "<tr style='font-size:13px'><td>" + company + "</td><td>" + designation + "</td><td>" + date + "</td><td>" + detail + "</td><td>" + editAction + " " + deleteAction + "</td></tr>";
     $(rows).appendTo("#list-experience tbody");
+    } 
+    //flag = 1 , edit to current row base on rowId
+    else{
+            $('#list-experience tbody tr:eq(' + rowId + ') td:eq(0)').html($('#company').val());
+            $('#list-experience tbody tr:eq(' + rowId + ') td:eq(1)').html($('#designation').val());
+            $('#list-experience tbody tr:eq(' + rowId + ') td:eq(2)').html($('#date').val());
+            $('#list-experience tbody tr:eq(' + rowId + ') td:eq(3)').html($('#detail').val());
+            flag = 0;
+    }
  });
+ //function delete current row on click
  $('#list-experience').on('click', '#btnDelete' , function(e){
       e.preventDefault();
       $(this).closest('tr').remove();
  });
+ //function edit current row on click and show to input
   $('#list-experience').on('click', '#btnEdit' , function(e){
       e.preventDefault();
       var cells = $(this).closest("tr").children("td");
-      $("#company").val(cells.eq(0).text()).focus();  
-      $("#designation").val(cells.eq(1).text());
-      $("#date").val(cells.eq(2).text());
-      $("#detail").data("wysihtml5").editor.setValue(cells.eq(3).text());
+      $('#company').val(cells.eq(0).text()).focus();  
+      $('#designation').val(cells.eq(1).text());
+      $('#date').val(cells.eq(2).text());
+      $('#detail').data('wysihtml5').editor.setValue(cells.eq(3).text());
+      rowId = $(this).closest('td').parent()[0].sectionRowIndex;
+      flag = 1;
  });
 });
 </script>

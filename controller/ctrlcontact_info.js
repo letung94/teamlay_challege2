@@ -4,6 +4,8 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/contact_info/save', function(req, res) {
+    var idcv = req.baseUrl.split("/")[2];
+    req.body.CV_Id = idcv;
     var contact_info_save = new contact_info(req.body.FirstName,
     req.body.LastName,
     req.body.Avatar,
