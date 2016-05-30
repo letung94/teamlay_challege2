@@ -393,13 +393,13 @@
     $.fn.wysihtml5.Constructor = Wysihtml5;
 
     var defaultOptions = $.fn.wysihtml5.defaultOptions = {
-        "font-styles": true,
+        "font-styles": false,
         "color": false,
         "emphasis": true,
-        "lists": true,
+        "lists": false,
         "html": false,
-        "link": true,
-        "image": true,
+        "link": false,
+        "image": false,
         events: {},
         parserRules: {
             classes: {
@@ -458,7 +458,9 @@
                 "pre": 1
             }
         },
-        stylesheets: ["./lib/css/wysiwyg-color.css"], // (path_to_project/lib/css/wysiwyg-color.css)
+        
+        //Fix 
+        //stylesheets: ["./lib/css/wysiwyg-color.css"], // (path_to_project/lib/css/wysiwyg-color.css)
         locale: "en"
     };
 
