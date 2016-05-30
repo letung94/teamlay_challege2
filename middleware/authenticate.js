@@ -1,6 +1,7 @@
 var di = require('../config/config');
 var user_model = di.resolve('user');
 
+
 var isEmailExisted = function (req, res, next) {
     user_model.getByEmail(req.body.email, function (err, data) {
         if (data) {
@@ -17,6 +18,10 @@ var isUsernameExisted = function (req, res, next) {
         }
         next();
     })
+}
+
+var confirmEmailSending = function(req,res,next) {
+        
 }
 
 var requireAuthenticated = function (req,res,next) {
