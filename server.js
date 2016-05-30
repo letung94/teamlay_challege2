@@ -4,7 +4,9 @@ var ejs = require('ejs');
 var app = express();
 var path = require('path');
 var bodyparser=require('body-parser');
-//var jsonparser = bodyparser.json();
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var passport = require('passport');
 
 //public file in the public_datasource
 
@@ -24,16 +26,25 @@ app.set('view engine', 'ejs');
 /*http://stackoverflow.com/questions/19917401/node-js-express-request-entity-too-large */
 app.use(bodyparser.json({limit: '6mb'}));
 app.use(bodyparser.urlencoded({limit: '6mb', extended: true}));
+app.use(session({
+    secret: 'vidyapathaisalwaysrunning',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 // Routing
 var ctrluser = require('./controller/ctrluser');
-app.use('/', ctrluser);
-var ctrlcv = require('./controller/ctrlcv');
-app.use('/cv', ctrlcv);
-
 var ctrlTemplate = require('./controller/ctrltemplate');
+var ctrlcv = require('./controller/ctrlcv');
+var ctrlAccount = require('./controller/ctrlaccount');
+
+app.use('/cv', ctrlcv);
+app.use('/', ctrluser);
 app.use('/template', ctrlTemplate);
+app.use('/',ctrlAccount);
 
 
 app.get('/cv', function (req, res) {
