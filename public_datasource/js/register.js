@@ -52,17 +52,17 @@ $(document).ready(function() {
         },
         errorPlacement: function(error, element) {
             // console.log(error);
-            if (element.attr("name") == "accept")  {
+            if (element.attr("name") == "accept") {
                 error.insertAfter("#accept_error-message");
-            }else {
+            } else {
                 error.insertAfter(element);
             }
         }
     });
     // propose username by combining first- and lastname
-    $("username").focus(function() {
-        var firstname = $("firstname").val();
-        var lastname = $("lastname").val();
+    $("#username").focus(function() {
+        var firstname = $("#firstname").val();
+        var lastname = $("#lastname").val();
         if (firstname && lastname && !this.value) {
             this.value = firstname + "." + lastname;
         }
