@@ -65,6 +65,13 @@ cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
     console.log(rows);
 })*/
 
+var di = require('./config/config');
+var c = di.resolve('certification');
+cc = new c();
+cc.removeCertification({id: 9}, function(rows){
+    console.log(rows);
+})
+
 // var di = require('./config/config');
 // var c = di.resolve('contact_info');
 // cc = new c();
