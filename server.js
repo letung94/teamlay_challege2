@@ -85,14 +85,14 @@ app.use('/cv/:idcv', experience);
 var c = di.resolve('certification');
 cc = new c();
 cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
-    console.log(rows);
+console.log(rows);
 })*/
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
 cc = new c();
 cc.removeCertification({id: 9}, function(rows){
-    console.log(rows);
+console.log(rows);
 })*/
 
 // var di = require('./config/config');
@@ -103,11 +103,11 @@ cc.removeCertification({id: 9}, function(rows){
 //     console.log(res);
 // });
 
-http.createServer(app).listen(8080, function () {
-    app.use(function (req, res, next) {
-        res.status(404).render('pages/not_found_404');
-    });
+
+app.use(function (req, res, next) {
+    res.status(404).render('pages/not_found_404');
 });
+
 
 http.createServer(app).listen(8080, function () {
     var port = this.address().port;
