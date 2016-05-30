@@ -1,7 +1,7 @@
 $(document).ready(function() {
-    alert("afd");
     // validate register form on keyup and sumit
-    $("form-register").validate({
+    $("#form-register").validate({
+        errorClass: 'text-danger',
         focusInvalid: false,
         debug: true,
         rules: {
@@ -27,8 +27,10 @@ $(document).ready(function() {
             email: {
                 required: true,
                 email: true
+            },
+            accept: {
+                required: true
             }
-            // accept: "required"
         },
         messages: {
             firstname: "Please enter your firstname",
