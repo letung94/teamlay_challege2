@@ -8,7 +8,7 @@
     this.dbname = dbname;
     this.mysql = mysql;
 <<<<<<< HEAD
-    
+
 };
 
 db.prototype.readCVById = function (req, callback) {
@@ -25,22 +25,22 @@ db.prototype.readCVById = function (req, callback) {
 /*
 db.prototype.createCV=function(req,callback){
     var conn=this.createConnection;
-    
+
 };
 
 db.prototype.readCVById = function (req, callback) {
     var conn = this.createConnection;
     if (conn) {
         try {
-            conn.connect(function(err) {            
-                if(err) {         
+            conn.connect(function(err) {
+                if(err) {
                     var flag=false;
-                    var data=err;                           
+                    var data=err;
                     console.log('error when connecting to db:', err);
                     callback(flag, data);
                     conn.end();
-                }                                    
-            });   
+                }
+            });
             var idcv = req.params.idcv;
             strquery = 'SELECT * FROM curriculum_vitae WHERE Id=?';
             conn.query(strquery, [idcv], function (err, rows, fields) {
@@ -60,7 +60,7 @@ db.prototype.readCVById = function (req, callback) {
 >>>>>>> 92c05c26043729b12d6695cba2594a449de143a8
                 conn.end();
                 callback(flag,rows[0]);
-                
+
             });
         }
         catch (err) {
@@ -73,15 +73,15 @@ db.prototype.updateContactInfo = function (req, callback) {
     var conn = this.createConnection();
     if (conn) {
         try {
-            conn.connect(function(err) {            
-                if(err) {         
+            conn.connect(function(err) {
+                if(err) {
                     var flag=false;
-                    var data=err;                           
+                    var data=err;
                     console.log('error when connecting to db:', err);
                     callback(flag, data);
                     conn.end();
-                }                                    
-            });   
+                }
+            });
             // var schema = {
             //     'email': {
             //         notEmpty: true,
@@ -116,11 +116,11 @@ db.prototype.updateContactInfo = function (req, callback) {
 >>>>>>> 92c05c26043729b12d6695cba2594a449de143a8
                 conn.end();
                 callback(flag,data);
-                
+
             });
         }
         catch (err) {
-            
+
             console.log(err);
         }
     }
@@ -148,7 +148,10 @@ function db(host, user, pass, dbname, mysqlmodel) {
         tableName: 'curriculum_vitae'
     });
     this.contact_info = this.MyAppModel.extend({
-       tableName: 'contact_info' 
+       tableName: 'contact_info'
+    });
+    this.Certification = this.MyAppModel.extend({
+       tableName: 'certification'
     });
 };
 

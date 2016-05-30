@@ -13,25 +13,27 @@ var router=express.Router();
 
 router.post('/create',[jsonparser],function(req,res){
     dbcv.createCV(req,function(data){
-        console.log(data);
-        res.end();
+        var newid=data[0].newid;
+        res.redirect(newid);
     })        
 });
+
+router.post('/:idcv/update',[jsonparser],function(req,res){
+    dbcv.updateCV(req,function(data){
+        res.json(data);
+    })        
+});
+
 router.get('/:idcv',function(req,res){
     dbcv.getCV(req,function(data){
-        // var obj=JSON.parse(data);
-        // data['Name']=({"teamId":"4","status":"pending"});
-        // res.render('pages/cv_index');
         res.render('pages/cv_index',{data:data[0]});
-        //res.json(data[0]);    
     });        
 });
 
-router.post('/:idcv/contact-info/update',[jsonparser],function(req,res){
-    db.updateContactInfo(req,function(flag,data){
-        res.json(data);
-        res.end();            
-    });    
-});
+router.get('/',function(req,res){
+    dbcv.getAllCV(req,function(data){
+        res.json(data);    
+    });
+})
 
 module.exports = router;

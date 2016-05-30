@@ -9,6 +9,7 @@ var jsonparser = bodyparser.json();
 var router = express.Router();
 
 
+
 router.get('/login', function(req, res) {
     res.render('pages/login');
 });
@@ -16,6 +17,9 @@ router.get('/login', function(req, res) {
 
 
 /*router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
+=======
+router.post('/cv/:idcv/contact-info/update', jsonparser, function(req, res) {
+>>>>>>> 012f4252e4a6f12de655237292fd409ae2cf0457
     var ct = req.body;
     res.end();
 });
