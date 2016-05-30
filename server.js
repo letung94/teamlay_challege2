@@ -12,10 +12,10 @@ var mailer = require('express-mailer');
 // Email sending config
 mailer.extend(app, {
     from: 'no-reply@cvmaker.com',
-    host: 'smtp.gmail.com', // hostname 
-    secureConnection: true, // use SSL 
-    port: 465, // port for secure SMTP 
-    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts 
+    host: 'smtp.gmail.com', // hostname
+    secureConnection: true, // use SSL
+    port: 465, // port for secure SMTP
+    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
     auth: {
         user: 'duybui.hcmit',
         pass: '01269848891'
@@ -81,12 +81,12 @@ cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
     console.log(rows);
 })*/
 
-var di = require('./config/config');
+/*var di = require('./config/config');
 var c = di.resolve('certification');
 cc = new c();
 cc.removeCertification({id: 9}, function(rows){
     console.log(rows);
-})
+})*/
 
 // var di = require('./config/config');
 // var c = di.resolve('contact_info');
@@ -101,4 +101,3 @@ http.createServer(app).listen(8080, function() {
     console.log("let's read first");
     console.log("Server is listening at http://localhost:%s", port);
 });
-
