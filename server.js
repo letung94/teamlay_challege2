@@ -46,11 +46,9 @@ app.use('/', ctrluser);
 app.use('/template', ctrlTemplate);
 app.use('/',ctrlAccount);
 
-
 app.get('/cv', function (req, res) {
     res.render('pages/cv_index');
 })
-
 
 /*contact info */
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
@@ -66,6 +64,14 @@ cc = new c();
 cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
     console.log(rows);
 })*/
+
+// var di = require('./config/config');
+// var c = di.resolve('contact_info');
+// cc = new c();
+// cc.getByIdCV({CV_Id: 1}, function(code, res){
+//     console.log(code);
+//     console.log(res);
+// });
 
 http.createServer(app).listen(8080, function() {
     var port = this.address().port;
