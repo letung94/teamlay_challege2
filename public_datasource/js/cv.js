@@ -1,7 +1,8 @@
 //var $validation_form_contact_info = $('#validation_form_contact_info');
 $(function() {
     //validation
-    var valid = validateContact_Info();
+    var validate_contact_info = validateContact_Info("#validation_form_contact_info");
+    var validate_exp = validateContact_Info("#validation_form_exp");
     var urlget = window.location.href + "/contact_info/get";
     $.ajax({
         type: "GET",
@@ -40,12 +41,13 @@ $(function() {
 });
 
 // function validation
-function validateContact_Info(){
+function validateContact_Info(validid){
     if (jQuery().validate) {
     var removeSuccessClass = function(e) {
         $(e).closest('.form-group').removeClass('has-success');
     }
-    var $validation_form_contact_info = $('#validation_form_contact_info');
+    //'#validation_form_contact_info'
+    var $validation_form_contact_info = $(validid);
     $validation_form_contact_info.validate({
         errorElement: 'span', //default input error message container
         errorClass: 'help-block', // default input error message class

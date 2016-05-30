@@ -12,7 +12,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         "Address" : address,
         "CV_Id" : cv_id
     }
-    
+
     self.attrvalidate = [
         {validate: function(firstname){
             this.valid = false;
@@ -41,13 +41,13 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             return this.valid;
         }, attrname: "LastName"},
         {validate: function(avatar){
-            
+
             this.valid = false;
             this.required = false;
             this.datatype = "data:image";
             this.maxsize = 5242880;
             var default_link = "/img/default_avatar.jpg";
-            
+
             var datatype_input = avatar.substring(0, 10);
             if(this.datatype == datatype_input){
                 if(this.maxsize >= avatar.length){
@@ -106,11 +106,11 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         {validate: null,attrname: "Address"},
         {validate: null,attrname: "CV_Id"}];
         // spilt value of each attr into Name of table Contact_Info
-    
+
     // return true if all attribute are valid if not false;
     self.checkValidation = function(){
         var valid = true;
-        var attr_length = self.attrvalidate.length; 
+        var attr_length = self.attrvalidate.length;
         for(var i = 0; i < attr_length; i++){
             if(this.attrvalidate[i].validate != null){
                valid  &= self.attrvalidate[i].validate(self.attribute[self.attrvalidate[i].attrname]);
@@ -118,7 +118,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         }
         return valid;
     }
-    
+
     var contact_info = require('../config/config').resolve("db").contact_info;
     // the reqdata paramater is id of the CV
     // callback is a callback function data returned and status
@@ -150,7 +150,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         `Website` VARCHAR(100) NULL DEFAULT NULL,
         `Address` VARCHAR(255) NULL DEFAULT NULL,
         `CV_Id` INT(11) NOT NULL,
-        */ 
+        */
         var gettemp = new contact_info();
         var savetemp = new contact_info(reqdata);
         gettemp.find('all', {where: "CV_Id = " + reqdata.CV_Id},function(err,rows,fields){
@@ -178,7 +178,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                     }
                 });
             }
-            
+
         });
     }
 }

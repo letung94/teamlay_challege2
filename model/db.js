@@ -153,6 +153,9 @@ function db(host, user, pass, dbname, mysqlmodel) {
     this.Certification = this.MyAppModel.extend({
        tableName: 'certification'
     });
+    this.Education = this.MyAppModel.extend({
+       tableName: 'education'
+    });
 };
 
 
