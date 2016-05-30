@@ -54,11 +54,21 @@
 <!-- BEGIN Main Content -->
 
     <div class="login-wrapper">
-    <!-- BEGIN Reset-password Form -->
+    <!-- BEGIN Register Form -->
     
-    <form id="form-reset-password" action="/login" method="post">
-    <h3>Reset Your Password</h3>
+    <form id="form-register" action="/register" method="post">
+    <h3>Register</h3>
     <hr/>
+    <div class="form-group">
+    <div class="controls">
+    <input type="text" name="email" placeholder="Email" class="form-control" />
+    </div>
+    </div>
+    <div class="form-group">
+    <div class="controls">
+    <input type="text" name="username" placeholder="Username" class="form-control" />
+    </div>
+    </div>
     <div class="form-group">
     <div class="controls">
     <input type="password" name="password" placeholder="Password" class="form-control" />
@@ -71,25 +81,26 @@
     </div>
     <div class="form-group">
     <div class="controls">
-        <label class="note">
-            Please type your new password !
-        </label>
+    <label class="checkbox">
+    <input type="checkbox" name="remember" value="remember" /> I accept the <a href="#">user aggrement</a>
+    </label>
     </div>
     </div>
     <div class="form-group">
     <div class="controls">
-    <button type="submit" class="btn btn-primary form-control">Reset</button>
+    <button type="submit" class="btn btn-primary form-control">Register</button>
     </div>
     </div>
     <hr/>
     <p class="clearfix">
-    <a href="/forgot_password" class="goto-login pull-left">← Back to forgot password form</a>
+    <a href="/login" class="goto-login pull-left">← Back to login form</a>
     </p>
     </form>
     
-    <!-- END Reset-password Form -->
+    <!-- END Register Form -->
     </div>
     <!-- END Main Content -->
+
 </body>
 
 <!-- Mirrored from shamsoft.net/flaty/extra_login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Sep 2015 07:26:32 GMT -->
