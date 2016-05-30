@@ -6,7 +6,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         "IsDeleted": isdeleted,
         "UrlSlug": urlslug,
         "UserId": userid,
-        "Id": id
+        "Id": id 
     }
 
     self.attrvalidate = [
@@ -33,7 +33,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
                 this.valid = false;
                 this.required = false;
                 if (!isNaN(isdeleted)) {
-                    if (isdeleted == 0 && isdeleted == 1) {
+                    if (isdeleted == 0 || isdeleted == 1) {
                         this.valid = true;
                     }
                 }
@@ -57,7 +57,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
             validate: function (id) {
                 this.valid = false;
                 this.require = true;
-                if (!isNaN(isdeleted)) {
+                if (!isNaN(id)) {
                     this.valid = true;
                 }
                 return this.valid;
@@ -107,23 +107,26 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         */
         var gettemp = new Cv();
         var savetemp = new Cv(reqdata);
-        gettemp.find('all', { where: "Id = " + reqdata.Id }, function (err, rows, fields) {
-            var id = null;
+        var idtemp = null;
+        idtemp = reqdata.Id;
+        gettemp.find('all', { where: "Id = " + idtemp }, function (err, rows, fields) {
             if (rows.length > 0) {
-                id = rows[0].Id;
-            }
-            if (id != null) {
                 savetemp.set('id', id);
+            } else {
+                idtemp = null;
+                savetemp.set('Id', null);
             }
             savetemp.save(function (err, data) {
                 if (err) {
                     callback(-1, err);
                 } else {
-                    self.attribute.Id = data.insertId;
+                    if (idtemp == null) {
+                        self.attribute.Id = data.insertId;
+                    }
                     callback(1, self.attribute);
                 }
             });
-        });
+        }); 
     }
 }
 
