@@ -3908,6 +3908,7 @@ div.tagsinput .not_valid {
     background-color: #eee;
 }
 .daterangepicker .ranges input {
+    margin-top: 10px;
     height: 25px;
     padding: 2px;
     font-size: 12px;
