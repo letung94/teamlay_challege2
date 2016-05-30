@@ -496,7 +496,7 @@ $(function() {
     }
 
     //------------------------------ Form validation --------------------------//
-    if (jQuery().validate) {
+    /*if (jQuery().validate) {
         var removeSuccessClass = function(e) {
             $(e).closest('.form-group').removeClass('has-success');
         }
@@ -537,6 +537,6 @@ $(function() {
                 label.closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
             }
         });
-    }
+    }*/
 
 });
