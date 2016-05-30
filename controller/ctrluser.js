@@ -15,7 +15,7 @@ router.get('/login', function(req, res) {
 
 
 
-router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
+/*router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
     var ct = req.body;
     res.end();
 });
@@ -23,7 +23,7 @@ router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
 router.post('/cv/:idcv/contact-info/update', jsonparser, function(req, res) {
     var ct = req.body;
     res.end();
-});
+});*/
 
 // router.get('/cv/:idcv',function(req,res){
 //     db.readCVById(req,function(flag,data){

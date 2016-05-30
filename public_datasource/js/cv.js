@@ -1,4 +1,7 @@
+//var $validation_form_contact_info = $('#validation_form_contact_info');
 $(function() {
+    //validation
+    var valid = validateContact_Info();
     var urlget = window.location.href + "/contact_info/get";
     $.ajax({
         type: "GET",
@@ -19,10 +22,11 @@ $(function() {
                 $("input[name='phone']").val(res.resdata.Phone);
                 $("input[name='website']").val(res.resdata.Website);
                 $("input[name='address']").val(res.resdata.Address);
-                //$("#validation-form").validate().form();
-                var a = 10;
+                var validator = $( "#validation_form_contact_info" ).validate();
+                validator.resetForm();
             }else{
-                if(res.flag == 0 || res.flag == -1){
+                //|| res.flag == -1
+                if(res.flag == 0 ){
                     $('#btnSubmit').prop('disabled',true);
                 }
             }
@@ -31,7 +35,58 @@ $(function() {
             
         }
     });
+    
+    
 });
+
+// function validation
+function validateContact_Info(){
+    if (jQuery().validate) {
+    var removeSuccessClass = function(e) {
+        $(e).closest('.form-group').removeClass('has-success');
+    }
+    var $validation_form_contact_info = $('#validation_form_contact_info');
+    $validation_form_contact_info.validate({
+        errorElement: 'span', //default input error message container
+        errorClass: 'help-block', // default input error message class
+        errorPlacement: function(error, element) {
+            if(element.parent('.input-group').length) {
+                error.insertAfter(element.parent());
+            } else if (element.next('.chosen-container').length) {
+                error.insertAfter(element.next('.chosen-container'));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+        focusInvalid: false, // do not focus the last invalid input
+        ignore: "",
+
+        invalidHandler: function (event, validator) { //display error alert on form submit              
+            var el = $(validator.errorList[0].element);
+            if ($(el).hasClass('chosen')) {
+                $(el).trigger('chosen:activate');
+            } else {
+                $(el).focus();
+            }
+        },
+
+        highlight: function (element) { // hightlight error inputs
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
+        },
+
+        unhighlight: function (element) { // revert the change dony by hightlight
+            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+            setTimeout(function(){removeSuccessClass(element);}, 3000);
+        },
+
+        success: function (label) {
+            label.closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
+        }
+    });
+    return $validation_form_contact_info;
+}
+return null;
+}
 
 var contact_info = {
         "FirstName":"",
@@ -47,7 +102,7 @@ var contact_info_validate = new Contact_Info_Validate();
 var preview = document.getElementById('preview');
 var del_avatar = $("#del_avatar");
 var loadFile = function(event) {
-    var limitsize = 3*1024*1024;
+    var limitsize = 5242880;
     var reader = new FileReader();
     var imgfile = event.target.files[0];
     if(limitsize < imgfile.size){
@@ -120,3 +175,30 @@ $('#btnSubmit').click(function() {
         }
     });
 });
+
+
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById('preview');
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+    modal.style.display = "block";
+    modalImg.src = this.src;
+    modalImg.alt = this.alt;
+    
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+    modal.style.display = "none";
+}
+/*window.onclick = function(){
+    modal.style.display = "none";
+}*/
