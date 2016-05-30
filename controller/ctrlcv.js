@@ -1,38 +1,43 @@
-var express=require('express');
-var bodyparser=require('body-parser');
+var express = require('express');
+var bodyparser = require('body-parser');
 var ejs = require('ejs');
 
 var di = require('../config/config');
 
-var dbcv=di.resolve('cv');
-var dbuser=di.resolve('user');
-var app=express();
-var jsonparser=bodyparser.json();
-var router=express.Router();
+var dbcv = di.resolve('cv');
+var cvmodel = require('../model/cv');
+var dbuser = di.resolve('user');
+var app = express();
+var jsonparser = bodyparser.json();
+var router = express.Router();
 
 
-router.post('/create',[jsonparser],function(req,res){
-    dbcv.createCV(req,function(data){
-        var newid=data[0].newid;
-        res.redirect(newid);
-    })        
+router.post('/', [jsonparser], function (req, res) {
+    var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, 1, req.body.Id);
+    dbcv_save.save(dbcv_save.attribute, function (err, data) {
+        res.json({ flag: err, data: data });
+        // var newid = data[0].newid;
+        // res.redirect(newid);
+    })
 });
 
-router.post('/:idcv/update',[jsonparser],function(req,res){
-    dbcv.updateCV(req,function(data){
+router.post('/:idcv', [jsonparser], function (req, res) {
+    dbcv.updateCV(req, function (data) {
         res.json(data);
-    })        
+    })
 });
 
-router.get('/:idcv',function(req,res){
-    dbcv.getCV(req,function(data){
-        res.render('pages/cv_index',{data:data[0]});
-    });        
+router.get('/:idcv', function (req, res) {
+    var idcv = req.params.idcv;
+    dbcv.getByIdCV(idcv, function (err, data) {
+        res.json({ flag: err, data: data });
+        // res.render('pages/cv_index',{data});
+    });
 });
 
-router.get('/',function(req,res){
-    dbcv.getAllCV(req,function(data){
-        res.json(data);    
+router.get('/', function (req, res) {
+    dbcv.getAllCV(req, function (data) {
+        res.json(data);
     });
 })
 
