@@ -30,7 +30,7 @@ function Experience(attribute) {
         {validate: function(fromdate){
             this.require = true;
             this.regex = '[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]';
-            this.valid = fasle;
+            this.valid = false;
             if(fromdate !=null || fromdate !== ""){
                 this.valid = this.regex.test(fromdate);
             }
@@ -39,15 +39,19 @@ function Experience(attribute) {
         {validate: function(todate){
             this.require = true;
             this.regex = '[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]';
-            this.valid = fasle;
+            this.valid = false;
             if(todate !=null || todate !== ""){
                 this.valid = this.regex.test(todate);
             }
             return this.valid;
         }, attrname: "ToDate"},   
-        {validate: function(fromdate, todate){
-            
-        }, attrname: 'FromToDate'},
+        {validate: function(minusdate){
+           this.valid = false;
+           if(minusdate > 0){
+               this.valid = true;
+           }
+           return this.valid;
+        }, attrname: 'Minusdate'},
         {validate: null,attrname: "Details"}];
         // spilt value of each attr into Name of table Contact_Info
 
@@ -57,17 +61,22 @@ function Experience(attribute) {
         var attr_length = self.attrvalidate.length;
         for(var i = 0; i < attr_length; i++){
             if(this.attrvalidate[i].validate != null){
-               valid  &= self.attrvalidate[i].validate(self.attribute[self.attrvalidate[i].attrname]);
-            }
+                if(this.attrvalidate[i].attrname === "Minusdate"){
+                    var minusdate = Date.parse(self.attribute["ToDate"]) - Date.parse(self.attribute["FromDate"]) ;        
+                    valid  &= self.attrvalidate[i].validate(minusdate);
+                }else{
+                    valid  &= self.attrvalidate[i].validate(self.attribute[self.attrvalidate[i].attrname]);
+                }
+            } 
         }
         return valid;
     }
 
-    var contact_info = require('../config/config').resolve("db").contact_info;
+    var experience = require('../config/config').resolve("db").Experience;
     // the reqdata paramater is id of the CV
     // callback is a callback function data returned and status
-    self.getByIdCV = function(reqdata, callback) {
-        var temp = new contact_info();
+    self.getAllByIdCV = function(reqdata, callback) {
+        var temp = new experience();
         temp.find('all', {where: "CV_Id = " + reqdata},function(err,rows,fields){
            if(err){
                 callback(-1, err)
@@ -75,7 +84,7 @@ function Experience(attribute) {
                 if(rows.length == 0){
                      callback(0, null);
                 }else{
-                    callback(1, rows[0]);
+                    callback(1, rows);
                 }
             }
         });
@@ -127,4 +136,4 @@ function Experience(attribute) {
     }
 }
 
-module.exports = Contact_Info;
+module.exports = Experience;
