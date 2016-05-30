@@ -70,9 +70,11 @@ app.get('/cv', function (req, res) {
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv',ctrlcontact_info);
 
-app.use(function(req, res, next) {
-  res.status(404).render('pages/not_found_404');
-});
+/**/
+
+/*experience*/
+var experience = require('./controller/ctrlexperience');
+app.use('/cv/:idcv',experience);
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
@@ -95,7 +97,9 @@ cc.removeCertification({id: 9}, function(rows){
 //     console.log(code);
 //     console.log(res);
 // });
-
+app.use(function(req, res, next) {
+  res.status(404).render('pages/not_found_404');
+});
 http.createServer(app).listen(8080, function() {
     var port = this.address().port;
     console.log("let's read first");
