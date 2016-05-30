@@ -11,6 +11,16 @@ var app = express();
 var jsonparser = bodyparser.json();
 var router = express.Router();
 
+router.get('/list', function (req, res) {
+    var cvService = di.resolve('curriculum_vitae');
+    cvServiceIns = new cvService();
+    cvServiceIns.getEnableCV({}, function(code, rows){
+        var resObject = {
+            cvs: rows
+        };
+        res.render('pages/cv_list',resObject);
+    })
+});
 
 router.post('/', [jsonparser], function (req, res) {
     var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, 1, req.body.Id);
@@ -18,6 +28,24 @@ router.post('/', [jsonparser], function (req, res) {
         res.json({ flag: err, data: data });
         // var newid = data[0].newid;
         // res.redirect(newid);
+    })
+});
+
+router.post('/disableCV', [jsonparser], function (req, res) {
+    // var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, 1, req.body.Id);
+    var param = {
+        id: req.body.id
+    };
+    var cvService = di.resolve('curriculum_vitae');
+    cvServiceIns = new cvService();
+    cvServiceIns.disableCV(param, function(code, data){
+        var resData ={};
+        if(code == 1){
+            resData.IsSuccess = true;
+        }else {
+                resData.IsSuccess = false;
+        }
+        res.json(resData);
     })
 });
 
@@ -52,5 +80,7 @@ router.get('/', function (req, res) {
         res.json(data);
     });
 })
+
+
 
 module.exports = router;
