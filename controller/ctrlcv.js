@@ -35,6 +35,18 @@ router.get('/:idcv', function (req, res) {
     });
 });
 
+router.get('/:idcv', function (req, res) {
+    dbcv.getCV(req, function (data) {
+
+        if (data.length > 0) {
+            res.render('pages/cv_index', { data: data[0] });
+        } else {
+            res.render('pages/not_found_404');
+        }
+
+    });
+});
+
 router.get('/', function (req, res) {
     dbcv.getAllCV(req, function (data) {
         res.json(data);

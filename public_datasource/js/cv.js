@@ -120,6 +120,8 @@ var loadFile = function(event) {
 };
 
 $("input").change(function() {
+     var validator = $( "#validation_form_contact_info" ).validate();
+                validator.resetForm();
     contact_info["FirstName"]=$("input[name='firstname']").val();
     contact_info["LastName"]=$("input[name='lastname']").val();
     contact_info["Avatar"]= $("input[type='file']#avatar")[0].files[0];
@@ -204,3 +206,5 @@ span.onclick = function() {
 /*window.onclick = function(){
     modal.style.display = "none";
 }*/
+
+

@@ -4,7 +4,7 @@ function Contact_Info_Validate(){
         {validate: function(firstname){
             this.valid = false;
             this.required = true;
-            this.min = 5;
+            this.min = 1;
             this.max = 49;
             if(firstname !=null || firstname !== ""){
                     var length = firstname.length;
@@ -17,7 +17,7 @@ function Contact_Info_Validate(){
         {validate: function(lastname){
             this.valid = false;
             this.required = true;
-            this.min = 5;
+            this.min = 1;
             this.max = 49;
             if(lastname !=null || lastname !== ""){
                     var length = lastname.length;
