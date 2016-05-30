@@ -137,9 +137,9 @@ $("input").change(function() {
         }
     }
     if(valid){
-        $('#btnSubmit').prop('disabled',false);
+        $('#btnSaveContact_Info').prop('disabled',false);
     }else{
-        $('#btnSubmit').prop('disabled',true);
+        $('#btnSaveContact_Info').prop('disabled',true);
     }
 });
 
@@ -150,7 +150,7 @@ $('#option').on('click','#del_avatar',function(){
     $("#avatar")[0].value = '';
 });
 
-$('#btnSubmit').click(function() {
+$('#btnSaveContact_Info').click(function() {
     contact_info["FirstName"]=$("input[name='firstname']").val();
     contact_info["LastName"]=$("input[name='lastname']").val();
     contact_info["Avatar"]= $("#preview").attr('src');

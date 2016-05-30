@@ -84,7 +84,7 @@
                       '<input class="m-wrap input-mini" type="text" name="daterangepicker_start" value="" disabled="disabled" />' +
                     '</div>' +
                     '<div>' +
-                      '<label for="daterangepicker_end">' + this.locale.toLabel + '</label>' +
+                      '<label for="daterangepicker_end">' + this.locale.toLabel + '</label>' + '<br/>' +
                       '<input class="m-wrap input-mini" type="text" name="daterangepicker_end" value="" disabled="disabled" />' +
                     '</div>' +
                     '<button class="btn " disabled="disabled">' + this.locale.applyLabel + '</button>' +
