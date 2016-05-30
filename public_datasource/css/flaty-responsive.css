@@ -1,6 +1,4 @@
-@media (min-width: 1200px) {
-
-}
+@media (min-width: 1200px) {}
 
 @media (min-width: 980px) and (max-width: 1199px) {
     .tile .img > [class*="fa fa-"] {
@@ -8,9 +6,7 @@
     }
 }
 
-@media (min-width: 768px) and (max-width: 979px) {
-
-}
+@media (min-width: 768px) and (max-width: 979px) {}
 
 @media (max-width: 1199px) {
     #nav-horizontal > li > a > i[class*="fa fa-"] {
@@ -34,7 +30,6 @@
     .mail-msg-header .msg-options > br {
         display: none;
     }
-
     .navbar-toggle.for-nav-horizontal {
         display: inline-block;
     }
@@ -59,7 +54,6 @@
     #nav-horizontal > li {
         margin-bottom: 1px;
         vertical-align: baseline;
-
     }
     #nav-horizontal > li [class*="fa fa-"] {
         font-size: 18px;
@@ -120,7 +114,7 @@
         width: 9px;
         left: 25px;
         top: 17px;
-        border-top: 1px dashed rgba(255,255,255,0.5);
+        border-top: 1px dashed rgba(255, 255, 255, 0.5);
     }
     #nav-horizontal > li > .dropdown-menu > li > ul > li:before {
         width: 22px;
@@ -133,7 +127,7 @@
         bottom: 0;
         left: 22px;
         width: 0;
-        border-left: 1px dashed rgba(255,255,255,0.5);
+        border-left: 1px dashed rgba(255, 255, 255, 0.5);
     }
     #nav-horizontal > li > a > b[class*="fa fa-"] {
         float: right;
@@ -154,9 +148,11 @@
     }
     #theme-setting > a,
     #theme-setting ul {
-        background: rgba(255,255,255,1);
+        background: rgba(255, 255, 255, 1);
     }
-    .search-results.search-results-advance li > .info > a + .url {display: none;}
+    .search-results.search-results-advance li > .info > a + .url {
+        display: none;
+    }
     .bootstrap-duallistbox-container .box2 {
         margin-top: 20px;
     }
@@ -167,10 +163,12 @@
         font-weight: normal;
         margin-bottom: 0;
         -webkit-border-radius: 0;
-           -moz-border-radius: 0;
-                border-radius: 0;
+        -moz-border-radius: 0;
+        border-radius: 0;
     }
-    .nav-list > li.active > a:after {display: none;}
+    .nav-list > li.active > a:after {
+        display: none;
+    }
     #sidebar {
         width: 100%;
         z-index: 989;
@@ -178,7 +176,9 @@
     #sidebar:before {
         display: none;
     }
-    .user-profile img {margin-right: 0!important;}
+    .user-profile img {
+        margin-right: 0!important;
+    }
     .navbar-collapse .nav {
         margin: 9px;
     }
@@ -192,16 +192,14 @@
         width: 388px;
         border-bottom: 0;
     }
-
-
-
-
-
-    #main-content {margin-left: 0 !important;}
+    #main-content {
+        margin-left: 0 !important;
+    }
     label {
         font-weight: bold;
         padding-bottom: 5px;
     }
+    label.note,
     label.checkbox,
     label.checkbox-inline,
     label.radio,
@@ -209,7 +207,6 @@
         font-weight: normal;
         white-space: nowrap;
     }
-
     .mail-pagination > span {
         display: none;
     }
@@ -226,14 +223,13 @@
     .form-wizard .step .desc,
     .box-title > .nav-tabs > li,
     #form-login .goto-register,
-    .mail-msg-header .msg-sender-recver,
+    #form-register .mail-msg-header .msg-sender-recver,
     .mail-msg-header .msg-options,
     .error-wrapper > p > a,
     .tl-date-small > span,
     .dataTables_paginate .pagination > li {
         white-space: nowrap;
     }
-
     .daterangepicker {
         width: 418px;
     }
@@ -241,7 +237,6 @@
     .daterangepicker.opensright .calendar {
         float: left;
     }
-
 }
 
 @media (max-width: 480px) {
@@ -312,24 +307,20 @@
     .error-page h5 > span {
         font-size: 50px;
     }
-
     .fc-header .fc-header-right {
         padding-top: 40px;
         float: left;
         margin-left: -153px;
     }
-
     .daterangepicker {
         width: 210px;
     }
-
     .mail-nav {
         width: 30px;
     }
     .mail-content {
         margin-left: 40px;
     }
-
 }
 
 @media (max-width: 320px) {
@@ -346,20 +337,28 @@
     .error-page .error-wrapper {
         width: 300px;
     }
+    .register-page .register-wrapper form,
+    .error-page .error-wrapper {
+        width: 300px;
+    }
+    .forgot-password-page .forgot-password-wrapper form,
+    .error-page .error-wrapper {
+        width: 300px;
+    }
     .error-page h5 > span {
         font-size: 45px;
     }
 }
 
+@media (min-width: 980px) {}
 
-@media (min-width: 980px) {
-
-}
 
 /* Fix static min-width in bs 3.0.2 */
+
 .container {
     min-width: 100%;
 }
+
 
 /*
 @media (min-width: 1200px)
