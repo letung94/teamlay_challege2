@@ -26,19 +26,24 @@
 <body class="login-page">
 
 <!-- BEGIN Main Content -->
+
 <div class="login-wrapper">
+
 <!-- BEGIN Login Form -->
-<form id="form-login" action="http://shamsoft.net/flaty/index.html" method="get">
+<form id="form-login" action="login" method="post">
 <h3>Login to your account</h3>
+<% if(typeof(errorMessage) !== 'undefined') {%>
+            <span> <%= errorMessage %> </span>
+         <% } %>
 <hr/>
 <div class="form-group">
 <div class="controls">
-<input type="text" placeholder="Username" class="form-control" />
+<input type="text" name="username" placeholder="Username" class="form-control" />
 </div>
 </div>
 <div class="form-group">
 <div class="controls">
-<input type="password" placeholder="Password" class="form-control" />
+<input type="password" name="password" placeholder="Password" class="form-control" />
 </div>
 </div>
 <div class="form-group">
@@ -83,33 +88,33 @@
 <!-- END Forgot Password Form -->
 
 <!-- BEGIN Register Form -->
-<form id="form-register" action="http://shamsoft.net/flaty/index.html" method="get" style="display:none">
+<form id="form-register" action="/signup" method="post" style="display:none">
 <h3>Sign up</h3>
 <hr/>
 <div class="form-group">
 <div class="controls">
-<input type="text" placeholder="Email" class="form-control" />
+<input type="text" name="email" placeholder="Email" class="form-control" />
 </div>
 </div>
 <div class="form-group">
 <div class="controls">
-<input type="text" placeholder="Username" class="form-control" />
+<input type="text" name="username" placeholder="Username" class="form-control" />
 </div>
 </div>
 <div class="form-group">
 <div class="controls">
-<input type="password" placeholder="Password" class="form-control" />
+<input type="password" name="password" placeholder="Password" class="form-control" />
 </div>
 </div>
 <div class="form-group">
 <div class="controls">
-<input type="password" placeholder="Repeat Password" class="form-control" />
+<input type="password" name="repeat_password" placeholder="Repeat Password" class="form-control" />
 </div>
 </div>
 <div class="form-group">
 <div class="controls">
 <label class="checkbox">
-<input type="checkbox" value="remember" /> I accept the <a href="#">user aggrement</a>
+<input type="checkbox" name="remember" value="remember" /> I accept the <a href="#">user aggrement</a>
 </label>
 </div>
 </div>

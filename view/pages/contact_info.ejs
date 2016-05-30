@@ -25,10 +25,12 @@
                 </div>
             </div>
             <div class="col-sm-4 col-lg-4">
+                <!-avatar->
                 <div class="form-group row" id="avatarsection">
                     <div id="imageshow">
                         <img id="preview" src="/img/default_avatar.jpg"/>
-                        <input type="file"  accept="image/*" onchange="loadFile(event)" style="display: none;" name="avatar" id="avatar">
+                        <span class="help-block filesize" style="display:none;">The limited file size is 5MB.</span>
+                        <input type="file"  accept="image/*" onchange="loadFile(event)" style="display:none;" name="avatar" id="avatar">
                     </div>
                     <div id="option" >
                         <label for="avatar" class="btn btn-success  btn-circle">
@@ -38,32 +40,14 @@
                             <i class="fa fa-times"></i>
                         </span>
                     </div>
-                    <script>
-                    var preview = document.getElementById('preview');
-                    var del_avatar = $("#del_avatar");
-                    var loadFile = function(event) {
-                        var limitsize = 5*1024*1024;
-                        var reader = new FileReader();
-                        var imgfile = event.target.files[0];
-                        reader.readAsDataURL(event.target.files[0]);
-                        reader.onload = function(){
-                            preview.src = reader.result;
-                            del_avatar.css("opacity","1");
-                        };
-                    };
-                    $('#option').on('click','#del_avatar',function(){
-                        preview.src = "/img/default_avatar.jpg";
-                        del_avatar.css("opacity","0");
-                    });
-                    </script>
                 </div>
             </div>
         </div>
         <!-email->
         <div class="form-group row">
-            <label class="col-sm-3 col-lg-2 control-label" for="email">Email Address</label>
+            <label class="col-sm-3 col-lg-2 control-label" for="email">Email</label>
             <div class="col-sm-9 col-lg-10 controls">
-            <input type="email" name="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email" name="email">
+            <input type="email" name="email" class="form-control" data-rule-required="true" data-rule-email="true" placeholder="Enter your email">
             <span for="email" class="help-block">This field is required.</span>
             </div>
         </div>
@@ -71,7 +55,7 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Phone</label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="phone" placeholder="Enter your phone" class="form-control" name="phone" data-rule-required="true" data-rule-phone="true">
+                <input type="phone" placeholder="+84.11112222" class="form-control" name="phone" data-rule-required="true" data-rule-phone="true">
                 <span for="phone" class="help-block">This field is required.</span>
             </div>
         </div>
@@ -99,38 +83,5 @@
         
     </form>   
 </div>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.js"></script>
-<!-- include BlockUI -->
-<script src="http://path/to/your/copy/of/jquery.blockUI.js"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('#btnSubmit').click(function() {
-        var contact_info = {
-            "firstname":$("input[name='firstname']").val(),
-            "lastname":$("input[name='lastname']").val(),
-            "avatar":$("#preview").attr('src'),
-            "email":$("input[name='email']").val(),
-            "phone":$("input[name='phone']").val(),
-            "website":$("input[name='website']").val(),
-            "address":$("input[name='address']").val()
-        }
-        $.blockUI(); 
-        $.ajax({
-            type: "POST",
-            //the url where you want to sent the userName and password to
-            url: '/cv/1/contact-info/update',
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json',
-            //json object to sent to the authentication url
-            data: JSON.stringify(contact_info),
-            success: function () {
-            }
-        })
-     });
-   }); 
-</script>
-
-
-
-
+<script type="text/javascript" src="js/contact_info.validate.js"></script>
+<script type="text/javascript" src="js/cv.js"></script>

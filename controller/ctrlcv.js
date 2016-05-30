@@ -26,7 +26,7 @@ router.post('/:idcv/update',[jsonparser],function(req,res){
 
 router.get('/:idcv',function(req,res){
     dbcv.getCV(req,function(data){
-        res.render('pages/cv_index',data[0]);
+        res.render('pages/cv_index',{data:data[0]});
     });        
 });
 

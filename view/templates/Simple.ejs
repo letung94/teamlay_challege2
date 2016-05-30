@@ -4,212 +4,104 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    <title>One Page Resume</title>
-
-    <style type="text/css">
-        .template-body * {
-            margin: 0;
-            padding: 0;
-            font: 16px Helvetica, Sans-Serif;
-            line-height: 24px;
-        }
-        
-        .template-body .clear {
-            clear: both;
-        }
-        
-        .template-body #page-wrap {
-            width: 800px;
-            margin: 40px auto 60px;
-        }
-        
-        .template-body #pic {
-            float: right;
-            margin: 0 0 0 0;
-            border-radius: 3px
-        }
-        
-        .template-body h1 {
-            margin: 0 0 16px 0;
-            padding: 32px 0 16px 0;
-            font-size: 42px;
-            font-weight: bold;
-            letter-spacing: 0;
-            border-bottom: 1px solid #999;
-        }
-        
-        .template-body h2 {
-            font-size: 20px;
-            margin: 0 0 6px 0;
-            position: relative;
-        }
-        
-        .template-body h2 span {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            font-style: italic;
-            font-family: Georgia, Serif;
-            font-size: 16px;
-            color: #999;
-            font-weight: normal;
-        }
-        
-        .template-body p {
-            margin: 0 0 16px 0;
-        }
-        
-        .template-body #template-review a {
-            color: #999;
-            text-decoration: none;
-            border-bottom: 1px dotted #999;
-        }
-        
-        .template-body #template-review a:hover {
-            border-bottom-style: solid;
-            color: black;
-        }
-        
-        .template-body ul {
-            margin: 0 0 32px 17px;
-        }
-        
-        .template-body #objective {
-            width: 500px;
-            float: left;
-        }
-        
-       .template-body  #objective p {
-            font-family: Georgia, Serif;
-            font-style: italic;
-            color: #666;
-        }
-        
-        .template-body dt {
-            font-style: italic;
-            font-weight: bold;
-            font-size: 18px;
-            text-align: right;
-            padding: 0 26px 0 0;
-            width: 150px;
-            float: left;
-            height: 100px;
-            border-right: 1px solid #999;
-        }
-        
-        .template-body dd {
-            width: 600px;
-            float: right;
-        }
-        
-        .template-body dd.clear {
-            float: none;
-            margin: 0;
-            height: 15px;
-        }
-    </style>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Simple - Curriculum Vitae</title>
+  <link type="text/css" rel="stylesheet" href="templatecss/Simple.css">
 </head>
 
 <div class="template-body">
+  <div id="page-wrap">
+    <div id="contact-info" class="vcard">
+      <h1 class="fn"><%= contact_info.FirstName %> <%= contact_info.LastName %></h1>
+      <p>
+        <img src="http://vignette3.wikia.nocookie.net/half-life/images/6/62/Gaben.jpg/revision/latest?cb=20110615215913&path-prefix=en"
+        alt="CV's Image." id="pic" style="width: 120px; height: 160px" /> Cell: <span class="tel"><%= contact_info.Phone %></span><br
+        /> Email:
+        <a class="email" href="mailto:<%= contact_info.Email %>">
+          <%= contact_info.Email %>
+        </a><br /> Address: <span class="tel"><%= contact_info.Address %></span><br />
+        <%if(contact_info.Website != null){%>Website:
+          <a href="<%=contact_info.Website%>">
+            <%=contact_info.Website%>
+          </a>
+          <%}%>
+        </p>
+      </div>
 
-    <div id="page-wrap">
-        <div id="contact-info" class="vcard">
+      <div id="objective">
+        <h2><%= summary.Headline %></h2>
+        <p>
+          <%= summary.ProfessionalSummary %>
+        </p>
+      </div>
 
-            <!-- Microformats! -->
+      <div class="clear"></div>
 
-            <h1 class="fn"><%= contact_info.FirstName %> <%= contact_info.LastName %></h1>
+      <dl>
+        <dd class="clear"></dd>
 
-            <p>
-                <img src="http://vignette3.wikia.nocookie.net/half-life/images/6/62/Gaben.jpg/revision/latest?cb=20110615215913&path-prefix=en"
-                    alt="Photo of Cthulu" id="pic" style="width: 120px; height: 160px" /> Cell: <span class="tel"><%= contact_info.Phone %></span><br
-                /> Email:
-                <a class="email" href="mailto:<%= contact_info.Email %>">
-                    <%= contact_info.Email %>
-                </a><br /> Address: <span class="tel"><%= contact_info.Address %></span><br />
-                <%if(contact_info.Website != null){%>Website:
-                    <a href="<%=contact_info.Website%>">
-                        <%=contact_info.Website%>
-                    </a>
-                    <%}%>
-            </p>
-        </div>
+        <dt>Education</dt>
+        <dd>
+          <h2>Withering Madness University - Planet Vhoorl</h2>
+          <p><strong>Major:</strong> Public Relations<br />
+            <strong>Minor:</strong> Scale Tending</p>
+          </dd>
 
-        <div id="objective">
-            <h2><%= summary.Headline %></h2>
-            <p>
-                <%= summary.ProfessionalSummary %>
-            </p>
-        </div>
+          <dd class="clear"></dd>
 
-        <div class="clear"></div>
-
-        <dl>
-            <dd class="clear"></dd>
-
-            <dt>Education</dt>
-            <dd>
-                <h2>Withering Madness University - Planet Vhoorl</h2>
-                <p><strong>Major:</strong> Public Relations<br />
-                    <strong>Minor:</strong> Scale Tending</p>
-            </dd>
-
-            <dd class="clear"></dd>
-
-            <dt>Skills</dt>
-            <dd>
-                <% skills.forEach(function(skill) { %>
-                    <h2><%= skill.Name %> <span>Level: <%= skill.Level %> - LastUse: <%= skill.LastTime %></span></h2>
-                    <p>
-                        <%= skill.Maturity %>
-                    </p>
-                    <% }); %>
+          <dt>Skills</dt>
+          <dd>
+            <% skills.forEach(function(skill) { %>
+              <h2><%= skill.Name %> <span>Level: <%= skill.Level %> - LastUse: <%= skill.LastTime %></span></h2>
+              <p>
+              <%= skill.Maturity %>
+              </p>
+              <% }); %>
             </dd>
 
             <dd class="clear"></dd>
 
             <dt>Experience</dt>
             <dd>
-                <% experiences.forEach(function(exp) { %>
-                    <h2><%= exp.Company %> <span><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></span></h2>
-                    <p>
-                        <%= exp.Details%>
-                    </p>
-                    <% }); %>
-            </dd>
+              <% experiences.forEach(function(exp) { %>
+                <h2><%= exp.Company %> <span><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></span></h2>
+                <p>
+                <%= exp.Details%>
+                </p>
+                <% }); %>
+              </dd>
 
-            <dd class="clear"></dd>
+              <dd class="clear"></dd>
 
-            <dt>Educations</dt>
-            <dd>
+              <dt>Educations</dt>
+              <dd>
                 <% educations.forEach(function(edu) { %>
-                    <h2><%= edu.Institute %><span><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></span></h2>
-                    <p>
-                        <%= edu.Details%>
-                    </p>
-                    <% }); %>
-            </dd>
+                  <h2><%= edu.Institute %><span><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></span></h2>
+                  <p>
+                  <%= edu.Details%>
+                  </p>
+                  <% }); %>
+                </dd>
 
-            <dd class="clear"></dd>
+                <dd class="clear"></dd>
 
-            <dt>Certifications</dt>
-            <dd>
-                <% certifications.forEach(function(cer) { %>
+                <dt>Certifications</dt>
+                <dd>
+                  <% certifications.forEach(function(cer) { %>
                     <h2><%= cer.Title %><span><%= cer.CertificateAuthority %> - <%= cer.Date %></span></h2>
                     <p>
-                        <%= cer.Details%>
+                    <%= cer.Details%>
                     </p>
                     <% }); %>
-            </dd>
+                  </dd>
 
-            <dd class="clear"></dd>
-        </dl>
+                  <dd class="clear"></dd>
+                </dl>
 
-        <div class="clear"></div>
+                <div class="clear"></div>
 
-    </div>
+              </div>
 
-</div>
+            </div>
 
-</html>
+            </html>
