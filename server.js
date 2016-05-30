@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var mailer = require('express-mailer');
 var flash = require('express-flash');
+
 // Email sending config
 mailer.extend(app, {
     from: 'no-reply@cvmaker.com',
@@ -71,17 +72,14 @@ app.get('/cv', function (req, res) {
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv', ctrlcontact_info);
 
-<<<<<<< HEAD
 app.use(function (req, res, next) {
     res.status(404).render('pages/not_found_404');
 });
-=======
 /**/
 
 /*experience*/
 var experience = require('./controller/ctrlexperience');
-app.use('/cv/:idcv',experience);
->>>>>>> 9ac0b12de989d231b11f39925c8c795e08fe50d5
+app.use('/cv/:idcv', experience);
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
@@ -104,15 +102,14 @@ cc.removeCertification({id: 9}, function(rows){
 //     console.log(code);
 //     console.log(res);
 // });
-<<<<<<< HEAD
 
 http.createServer(app).listen(8080, function () {
-=======
-app.use(function(req, res, next) {
-  res.status(404).render('pages/not_found_404');
+    app.use(function (req, res, next) {
+        res.status(404).render('pages/not_found_404');
+    });
 });
-http.createServer(app).listen(8080, function() {
->>>>>>> 9ac0b12de989d231b11f39925c8c795e08fe50d5
+
+http.createServer(app).listen(8080, function () {
     var port = this.address().port;
     console.log("let's read first");
     console.log("Server is listening at http://localhost:%s", port);
