@@ -35,6 +35,9 @@ function userModel() {
             callback(err, row);
         });
     }
+    this.getAllUserList=function (params) {
+        
+    }
 }
 
 module.exports = userModel;
