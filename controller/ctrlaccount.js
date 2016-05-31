@@ -59,11 +59,18 @@ router.post('/forgot', function (req, res) {
         req.flash('success', 'Email sending.');
             res.redirect('/forgot');
         }
-        console.log(user);
     });
 });
 
-
+router.get('/reset_password', function(req, res) {
+    res.render('pages/reset_password');
+});
+router.get('/forgot_password', function(req, res) {
+    res.render('pages/forgot_password');
+});
+router.get('/register', function(req, res) {
+    res.render('pages/register');
+});
 
 // Logout
 router.get('/logout', function (req, res) {
@@ -72,29 +79,32 @@ router.get('/logout', function (req, res) {
 });
 // Sign in GET
 router.get('/login', function (req, res) {
-    console.log(req.isAuthenticated());
     if (req.isAuthenticated()) res.redirect('/index');
-    else res.render('pages/login', {});
-    console.log(req.get('host'));
+    else res.render('pages/login', {
+        error: req.flash('error')
+    });
 });
 // Sign in POST
 router.post('/login', function (req, res, next) {
+    console.log('dawdwawdw');
     passport.authenticate('local', {
         successRedirect: '/index',
         failureRedirect: '/login',
         failureFlash: true
     }, function (err, user, info) {
         if (err) {
-            return res.render('pages/login', { errorMessage: err.message });
+            console.log('err');
+            return res.render('pages/login', { error: req.flash('error',err.message) });
         }
 
         if (!user) {
-            return res.render('pages/login', { errorMessage: info.message });
+            console.log('!user');
+            return res.render('pages/login', { error: req.flash('error','dwadawawd') });
         }
 
         return req.logIn(user, function (err) {
             if (err) {
-                return res.render('pages/login', { errorMessage: err.message });
+                return res.render('pages/login', { error: req.flash('error',err.message) });
             } else {
                 return res.redirect('/index');
             }
@@ -129,7 +139,7 @@ router.get("/verify/:token", function (req, res, next) {
 });
 
 // Signup user POST
-router.post('/signup', authenticate.isEmailExisted, authenticate.isUsernameExisted, function (req, res) {
+router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExisted, function (req, res) {
     passport.authenticate('local', {
         successRedirect: '/index',
         failureRedirect: '/login',
@@ -173,7 +183,7 @@ router.post('/signup', authenticate.isEmailExisted, authenticate.isUsernameExist
         user_model.getByUsername(req.body.username, function (err, data) {
             req.logIn(data, function (err) {
                 if (err) {
-                    return res.render('pages/login', { errorMessage: err.message });
+                    return res.render('pages/login', { error: req.flash('error',err.message) });
                 } else {
                     return res.redirect('/index');
                 }

@@ -10,19 +10,8 @@ var router = express.Router();
 
 
 
-router.get('/login', function(req, res) {
-    res.render('pages/login');
-});
 
-router.get('/reset_password', function(req, res) {
-    res.render('pages/reset_password');
-});
-router.get('/forgot_password', function(req, res) {
-    res.render('pages/forgot_password');
-});
-router.get('/register', function(req, res) {
-    res.render('pages/register');
-});
+
 
 
 /*router.post('/cv/:idcv/contact-info/update',jsonparser,function(req,res){
