@@ -48,6 +48,8 @@ $(document).ready(function() {
                 minlength: "Your username must be at least 5 characters long",
                 equalTo: "Please enter the same password as above"
             },
+            accept: {
+                required: "Please accept our policy"
             accept: "Please accept our policy   "
         },
         errorPlacement: function(error, element) {
@@ -60,9 +62,9 @@ $(document).ready(function() {
         }
     });
     // propose username by combining first- and lastname
-    $("username").focus(function() {
-        var firstname = $("firstname").val();
-        var lastname = $("lastname").val();
+    $("#username").focus(function() {
+        var firstname = $("#firstname").val();
+        var lastname = $("#lastname").val();
         if (firstname && lastname && !this.value) {
             this.value = firstname + "." + lastname;
         }
