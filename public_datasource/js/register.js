@@ -49,6 +49,14 @@ $(document).ready(function() {
                 equalTo: "Please enter the same password as above"
             },
             accept: "Please accept our policy   "
+        },
+        errorPlacement: function(error, element) {
+            // console.log(error);
+            if (element.attr("name") == "accept")  {
+                error.insertAfter("#accept_error-message");
+            }else {
+                error.insertAfter(element);
+            }
         }
     });
     // propose username by combining first- and lastname

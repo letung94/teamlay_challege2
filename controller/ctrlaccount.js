@@ -25,6 +25,7 @@ router.post('/forgot', function (req, res) {
     user_model.getByEmail(req.body.email, function (err, data) {
         var user = data;
         console.log(user);
+        
         if (!user) {
             req.flash('error', 'No account with that email address exists.');
             res.redirect('/forgot');
@@ -58,6 +59,7 @@ router.post('/forgot', function (req, res) {
         req.flash('success', 'Email sending.');
             res.redirect('/forgot');
         }
+        console.log(user);
     });
 });
 
