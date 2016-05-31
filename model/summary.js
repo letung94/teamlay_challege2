@@ -1,3 +1,13 @@
+     /*
+    // Summary Model
+   */
+
+        /*
+        `Id` INT(11) NOT NULL,
+        `Headline` VARCHAR(50) NULL DEFAULT NULL,
+        `ProfessionalSummary` TEXT NULL DEFAULT NULL,
+        `CV_Id` INT(11) NOT NULL,
+        */ 
 function Summary(headLine, professionalsummary, cv_id, id) {
     var self = this;
     self.attribute = {
@@ -7,8 +17,8 @@ function Summary(headLine, professionalsummary, cv_id, id) {
     }
      
     var summary = require('../config/config').resolve("db").Summary;
-    // the reqdata paramater is id of the CV
-    // callback is a callback function data returned and status
+    
+    /* Function Get Summary By ID of CV*/
     self.getByIdCV = function(reqdata, callback) {
         var temp = new summary();
         temp.find('all', {where: "CV_Id = " + reqdata},function(err,rows,fields){
@@ -20,20 +30,12 @@ function Summary(headLine, professionalsummary, cv_id, id) {
                 }else{
                     callback(1, rows[0]);
                 }
-               
             }
         });
-        //var contact_info = require('../config/config').resolve("db").contact_info;
     }
-    // the reqdata paramater is object
-    // callback is a callback function data returned and status
+    
+    /* Function Save Summary By ID of CV*/
     self.save = function(reqdata, callback){
-        /*
-            `Id` INT(11) NOT NULL,
-            `Headline` VARCHAR(50) NULL DEFAULT NULL,
-            `ProfessionalSummary` TEXT NULL DEFAULT NULL,
-            `CV_Id` INT(11) NOT NULL,
-        */ 
         var gettemp = new summary();
         var savetemp = new summary(reqdata);
         gettemp.find('all', {where: "CV_Id = " + reqdata.CV_Id},function(err,rows,fields){
@@ -61,7 +63,6 @@ function Summary(headLine, professionalsummary, cv_id, id) {
                     }
                 });
             }
-            
         });
     }
 }

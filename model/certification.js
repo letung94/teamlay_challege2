@@ -14,9 +14,14 @@ function certificationModel() {
         // certification.set('id', 6);
         certification.save(function(errors, results){
             if(errors){
-                console.log(errors);
+                callback(-1, errors)
+            }else{
+                if(results.length == 0){
+                    callback(0, null);
+                }else{
+                    callback(1, results);
+                }
             }
-            callback(errors, results);
         });
     }
 

@@ -41,8 +41,8 @@ di
         .instance(exp_service)
     .register('summary')
         .instance(sum_service)
-    .register('skill')  
-        .instance(skill_service)      
+    .register('skill')
+        .instance(skill_service)
     .register('curriculum_vitae')
         .instance(curriculum_vitae_service);
 

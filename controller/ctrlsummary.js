@@ -1,8 +1,12 @@
-//var contact_info = require('../config/config').resolve('summary');
+     /*
+    //Summary Controller
+   */
+  
 var summary = require('../model/summary');
 var express = require('express');
 var router = express.Router();
 
+/*URL post for save summary */
 router.post('/summary/save', function(req, res) {
     var idcv = req.baseUrl.split("/")[2];
     req.body.CV_Id = idcv;
@@ -14,7 +18,7 @@ router.post('/summary/save', function(req, res) {
     });
 });
 
-
+/*URL get for get summary */
 router.get('/summary/get/:idsummary?',function(req,res){
     var summary_getByIdCV = new summary();
     var idcv = req.baseUrl.split("/")[2];
@@ -22,4 +26,5 @@ router.get('/summary/get/:idsummary?',function(req,res){
         res.send({flag: err, resdata: rows});
     });
 })
+
 module.exports = router;
