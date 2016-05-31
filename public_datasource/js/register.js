@@ -48,8 +48,19 @@ $(document).ready(function() {
                 minlength: "Your username must be at least 5 characters long",
                 equalTo: "Please enter the same password as above"
             },
+<<<<<<< HEAD
             accept: {
                 required: "Please accept our policy"
+=======
+            accept: "Please accept our policy   "
+        },
+        errorPlacement: function(error, element) {
+            // console.log(error);
+            if (element.attr("name") == "accept")  {
+                error.insertAfter("#accept_error-message");
+            }else {
+                error.insertAfter(element);
+>>>>>>> 7bb4c0df605e910d163cf30fa2bb9aba6a6c5bfd
             }
         }
     });
