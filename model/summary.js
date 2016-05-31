@@ -79,3 +79,5 @@ function summaryModel(){
 }
 module.exports = Summary;
 //module.exports = summaryModel;
+module.exports = Summary;
+
