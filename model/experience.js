@@ -39,7 +39,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         {validate: null, attrname: "Designation"},
         {validate: function(fromdate){
             this.require = true;
-            this.regex = /[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]/;
+            this.regex = /^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9])(?:( [0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
             this.valid = false;
             if(fromdate !=null || fromdate !== ""){
                 this.valid = this.regex.test(fromdate);
@@ -48,7 +48,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         }, attrname: "FromDate"},
         {validate: function(todate){
             this.require = true;
-            this.regex = /[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]/;
+            this.regex = /^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9])(?:( [0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
             this.valid = false;
             if(todate !=null || todate !== ""){
                 this.valid = this.regex.test(todate);

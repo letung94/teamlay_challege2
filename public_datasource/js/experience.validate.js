@@ -20,6 +20,9 @@ function Experience(attribute){
     this.attribute = attribute;
     var a = 10;
 }
+String.prototype.replaceAll = function(target, replacement) {
+  return this.split(target).join(replacement);
+};
 
 var listexperience = [];
 
@@ -34,8 +37,12 @@ function addlistexp(row){
 }
 $('#btnAddListExp').click(function() {
         var dates = $('#date').val().split(" - ");
-        var fromdate = dates[0];
-        var todate = dates[1];
+        var fromdateparse = new Date(dates[0]);
+        var fromdate = fromdateparse.getFullYear() + "-" + (fromdateparse.getMonth() + 1) + "-" + fromdateparse.getDate();
+        console.log(formdate);
+  
+        var todateparse = new Date(dates[1]);
+        var todate = todateparse.getFullYear() + "-" + (todateparse.getFullMonth() + 1) + "-" + todateparse.getDate();
         var experience = new Experience(
             {
                 "Company": $("#company").val(),
