@@ -1,4 +1,5 @@
-function getSumary(){
+/*Get summary of CV */
+function getSummary(){
     var urlget = window.location.href + "/summary/get";
     $.ajax({
         type: "GET",
@@ -18,5 +19,32 @@ function getSumary(){
     });
 };
 
-
-
+var summary = {
+        "Headline":"",
+        "ProfessionalSummary":"",
+        "CV_Id": 0
+}
+       
+$('#btnSaveSummary').click(function() {
+        summary["Headline"]=$("#validation_form_summary input[name='headline']").val();
+        summary["ProfessionalSummary"]=$("#validation_form_summary textarea[name='prosummary']").val();
+        summary["CV_Id"]=$("#validation_form_summary input[name='idcv']").val();
+        var urlpost = window.location.href + '/summary/save';
+        $.ajax({
+            type: "POST",
+            //the url where you want to sent the userName and password to
+            url: urlpost,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            //json object to sent to the authentication url
+            data: JSON.stringify(summary),
+            success: function (res) {
+                console.log(res);
+            },
+            error: function(x,e){
+                
+            }
+        });
+    return false;
+});
