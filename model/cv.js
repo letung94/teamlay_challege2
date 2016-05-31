@@ -6,7 +6,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         "IsDeleted": isdeleted,
         "UrlSlug": urlslug,
         "UserId": userid,
-        "Id": id 
+        "Id": id
     }
 
     self.attrvalidate = [
@@ -131,61 +131,19 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
                 IsDeleted: 1
             }
         }
-    }
-    // the reqdata paramater is object
-    // callback is a callback function data returned and status
-    self.save = function (reqdata, callback) {
-        /*
-        `Id` INT(11) NOT NULL AUTO_INCREMENT,
-        `Name` NVARCHAR(500) NULL DEFAULT NULL,
-        `CreatedDate` DATETIME NULL DEFAULT NULL,
-        `IsDeleted` BIT(1) NULL DEFAULT NULL,
-        `UrlSlug` NVARCHAR(600) NULL DEFAULT NULL,
-        `UserId` INT(11) NULL DEFAULT NULL
-        */
-        var gettemp = new Cv();
-        var savetemp = new Cv(reqdata);
-        var idtemp = null;
-        idtemp = reqdata.Id;
-        gettemp.find('all', { where: "Id = " + idtemp }, function (err, rows, fields) {
-            if (rows.length > 0) {
-                savetemp.set('id', id);
-            } else {
-                idtemp = null;
-                savetemp.set('Id', null);
-            }
-            savetemp.save(function (err, data) {
-                if (err) {
-                    callback(-1, err);
-                } else {
-                    if (idtemp == null) {
-                        self.attribute.Id = data.insertId;
-                    }
-                    callback(1, self.attribute);
-                }
-            });
-        }); 
-            console.log(newVal);
-            var temp = new Cv(newVal);
-            temp.save(function (err, data) {
-                if (err) {
-                    callback(-1, err);
-                } else {
-                    callback(1, data);
-                }
-            });
-        }
+
+
         // the reqdata paramater is object
         // callback is a callback function data returned and status
-        self.save = function (reqdata, callback) {
-            /*
-            `Id` INT(11) NOT NULL AUTO_INCREMENT,
-            `Name` NVARCHAR(500) NULL DEFAULT NULL,
-            `CreatedDate` DATETIME NULL DEFAULT NULL,
-            `IsDeleted` BIT(1) NULL DEFAULT NULL,
-            `UrlSlug` NVARCHAR(600) NULL DEFAULT NULL,
-            `UserId` INT(11) NULL DEFAULT NULL
-            */
+        /*self.save = function (reqdata, callback) {
+
+            // `Id` INT(11) NOT NULL AUTO_INCREMENT,
+            // `Name` NVARCHAR(500) NULL DEFAULT NULL,
+            // `CreatedDate` DATETIME NULL DEFAULT NULL,
+            // `IsDeleted` BIT(1) NULL DEFAULT NULL,
+            // `UrlSlug` NVARCHAR(600) NULL DEFAULT NULL,
+            // `UserId` INT(11) NULL DEFAULT NULL
+
             var gettemp = new Cv();
             var savetemp = new Cv(reqdata);
             gettemp.find('all', { where: "Id = " + reqdata.Id }, function (err, rows, fields) {
@@ -205,47 +163,91 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
                     }
                 });
             });
+        }*/
+
+        // the reqdata paramater is object
+        // callback is a callback function data returned and status
+        self.save = function (reqdata, callback) {
+            /*
+            `Id` INT(11) NOT NULL AUTO_INCREMENT,
+            `Name` NVARCHAR(500) NULL DEFAULT NULL,
+            `CreatedDate` DATETIME NULL DEFAULT NULL,
+            `IsDeleted` BIT(1) NULL DEFAULT NULL,
+            `UrlSlug` NVARCHAR(600) NULL DEFAULT NULL,
+            `UserId` INT(11) NULL DEFAULT NULL
+            */
+            var gettemp = new Cv();
+            var savetemp = new Cv(reqdata);
+            var idtemp = null;
+            idtemp = reqdata.Id;
+            gettemp.find('all', { where: "Id = " + idtemp }, function (err, rows, fields) {
+                if (rows.length > 0) {
+                    savetemp.set('id', id);
+                } else {
+                    idtemp = null;
+                    savetemp.set('Id', null);
+                }
+                savetemp.save(function (err, data) {
+                    if (err) {
+                        callback(-1, err);
+                    } else {
+                        if (idtemp == null) {
+                            self.attribute.Id = data.insertId;
+                        }
+                        callback(1, self.attribute);
+                    }
+                });
+            });
+            console.log(newVal);
+            var temp = new Cv(newVal);
+            temp.save(function (err, data) {
+                if (err) {
+                    callback(-1, err);
+                } else {
+                    callback(1, data);
+                }
+            });
         }
-    
+}
 
-    module.exports = CV;
+        module.exports = CV;
 
-    // function CVModel() {
-    //     var Cv = require('../config/config').resolve("db").CV;
-    //     this.createCV = function (req, callback) {
-    //         cv = new Cv({
-    //             Name: req.body.Name,
-    //             UserId: req.body.UserId
-    //         });
-    //         cv.save();
-    //         cv.query('SELECT LAST_INSERT_ID() as newid', function (err, rows, fields) {
-    //             callback(rows);
-    //         });
-    //     }
-    //     this.updateCV = function (req, callback) {
-    //         cv = new Cv({
-    //             Name: req.body.Name,
-    //             UserId: req.body.UserId
-    //         });
-    //         cv.set('id',req.params.idcv);
-    //         cv.save();
-    //         cv.find('all',{where: 'Id='+req.params.idcv}, function (err, rows, fields) {
-    //             callback(rows);
-    //         });
-    //     }
-    //     this.getAllCV = function (req, callback) {
-    //         cv = new Cv();
-    //         cv.find('all', function (err, rows, fields) {
-    //             callback(rows);
-    //         });
-    //     }
-    //     this.getCV = function (req, callback) {
-    //         cv = new Cv();
-    //         console.log(req.params.idcv);
-    //         cv.find('all', { where: 'Id=' + req.params.idcv }, function (err, rows, fields) {
-    //             callback(rows);
-    //         })
-    //     }
-    // }
+        // function CVModel() {
+        //     var Cv = require('../config/config').resolve("db").CV;
+        //     this.createCV = function (req, callback) {
+        //         cv = new Cv({
+        //             Name: req.body.Name,
+        //             UserId: req.body.UserId
+        //         });
+        //         cv.save();
+        //         cv.query('SELECT LAST_INSERT_ID() as newid', function (err, rows, fields) {
+        //             callback(rows);
+        //         });
+        //     }
+        //     this.updateCV = function (req, callback) {
+        //         cv = new Cv({
+        //             Name: req.body.Name,
+        //             UserId: req.body.UserId
+        //         });
+        //         cv.set('id',req.params.idcv);
+        //         cv.save();
+        //         cv.find('all',{where: 'Id='+req.params.idcv}, function (err, rows, fields) {
+        //             callback(rows);
+        //         });
+        //     }
+        //     this.getAllCV = function (req, callback) {
+        //         cv = new Cv();
+        //         cv.find('all', function (err, rows, fields) {
+        //             callback(rows);
+        //         });
+        //     }
+        //     this.getCV = function (req, callback) {
+        //         cv = new Cv();
+        //         console.log(req.params.idcv);
+        //         cv.find('all', { where: 'Id=' + req.params.idcv }, function (err, rows, fields) {
+        //             callback(rows);
+        //         })
+        //     }
+        // }
 
-    // module.exports = CVModel;
+        // module.exports = CVModel;

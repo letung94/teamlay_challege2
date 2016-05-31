@@ -15,6 +15,11 @@ function curriculum_vitae_service(){
         var c = new curriculum_vitae_model();
         c.disableCV(param, cb);
     }
+
+    this.getByIdCV = function(param, cb){
+        var c = new curriculum_vitae_model();
+        c.getByIdCV(param.id, cb);
+    }
 }
 
 module.exports = curriculum_vitae_service;

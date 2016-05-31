@@ -66,14 +66,14 @@ router.post('/:idcv', [jsonparser], function (req, res) {
     var valid = dbcv_save.checkValidation();
     if (valid) {
         dbcv_save.save(dbcv_save.attribute, function (err, data) {
-            res.send({ flag: err, data: data });    
+            res.send({ flag: err, data: data });
         });
     } else {
         res.send({ flag: 0, data: dbcv_save.attrvalidate });
     }
 });
 
-router.get('/:idcv', function (req, res) {
+/*router.get('/:idcv', function (req, res) {
     var idcv = req.params.idcv;
     dbcv.getByIdCV(idcv, function (data) {
         if (data.length > 0) {
@@ -89,7 +89,33 @@ router.get('/:idcv', function (req, res) {
             res.status(404).render('pages/not_found_404');
         }
     });
+});*/
+
+router.get('/:idcv', function (req, res) {
+    var param = {id: req.params.idcv};
+    dbcv.getByIdCV(param, function (code, row) {
+        if(code == 1){
+            res.render('pages/cv_index', { data: row })
+        }else if (code == 0){
+
+        }else if (code == -1){
+
+        }
+        // if (data.length > 0) {
+        //     res.render('pages/cv_index', { data: data[0] });
+        // } else {
+        //     res.render('pages/not_found_404');
+        // }
+        // if(err==1)
+        // {
+        //     res.render('pages/cv_index', { data: data[0] });
+        // }
+        // if (err == 0) {
+        //     res.status(404).render('pages/not_found_404');
+        // }
+    });
 });
+
 
 router.get('/', function (req, res) {
     dbcv.getAllCV(req, function (data) {
