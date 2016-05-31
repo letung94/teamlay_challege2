@@ -106,7 +106,6 @@ $(document).ready(function() {
             }
         },
         errorPlacement: function(error, element) {
-            // console.log(error);
             if (element.attr("name") == "accept")  {
                 error.insertAfter("#accept_error-message");
             }else {
@@ -114,8 +113,6 @@ $(document).ready(function() {
             }
         }
     });
-    
-    
 });
 
 $('#btnSaveContact_Info').click(function() {
@@ -138,12 +135,12 @@ $('#btnSaveContact_Info').click(function() {
         var urlpost = window.location.href + '/contact_info/save';
         $.ajax({
             type: "POST",
-            //the url where you want to sent the userName and password to
+            /*the url where you want to sent the userName and password to*/
             url: urlpost,
             dataType: 'json',
             async: false,
             contentType: 'application/json; charset=utf-8',
-            //json object to sent to the authentication url
+            /*json object to sent to the authentication url*/
             data: JSON.stringify(contact_info),
             success: function (res) {
                 console.log(res);
@@ -181,3 +178,11 @@ span.onclick = function() {
     modal.style.display = "none";
 }
 
+
+$(document).ready(function(){
+   $('div.container').click(function(e){
+       if(e.target.id != "preview"){
+           modal.style.display =  "none"; 
+       }
+   });
+});
