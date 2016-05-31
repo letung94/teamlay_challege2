@@ -78,8 +78,8 @@ app.use(function (req, res, next) {
 /**/
 
 /*experience*/
-var experience = require('./controller/ctrlexperience');
-app.use('/cv/:idcv', experience);
+var ctrlexperience = require('./controller/ctrlexperience');
+app.use('/cv/:idcv', ctrlexperience);
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
