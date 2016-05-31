@@ -13,7 +13,7 @@ var cv_service = require('../service/cv');
 var certification_service = require('../service/certification');
 var education_service = require('../service/education');
 var contact_info_service = require('../service/contact_info');
-
+var curriculum_vitae_service = require('../service/cv');
 
 di
     .register('db')
@@ -33,6 +33,8 @@ di
     .register('cv')
         .as(cv_service)
     .register('contact_info')
-        .instance(contact_info_service);
+        .instance(contact_info_service)
+    .register('curriculum_vitae')
+        .instance(curriculum_vitae_service);
 
 module.exports = di;

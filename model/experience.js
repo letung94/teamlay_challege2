@@ -1,6 +1,16 @@
-function Experience(attribute) {
+
+
+function Experience(company,designation,fromdate,todate,details,cv_id) {
     var self = this;
-    self.attribute = attribute
+    self.attribute = {
+        "Company" : company,
+        "Designation" : designation,
+        "FromDate" : fromdate,
+        "ToDate" : todate,
+        "Details" : details,
+        "CV_Id" : cv_id
+    }
+    
 
 /**
  * `Id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -18,8 +28,8 @@ function Experience(attribute) {
             this.required = true;
             this.min = 2;
             this.max = 49;
-            if(firstname !=null || firstname !== ""){
-                    var length = firstname.length;
+            if(company !=null || company !== ""){
+                    var length = company.length;
                     if(length >= this.min && length <= this.max ){
                         this.valid = true;
                     }
@@ -29,7 +39,7 @@ function Experience(attribute) {
         {validate: null, attrname: "Designation"},
         {validate: function(fromdate){
             this.require = true;
-            this.regex = '[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]';
+            this.regex = /[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]/;
             this.valid = false;
             if(fromdate !=null || fromdate !== ""){
                 this.valid = this.regex.test(fromdate);
@@ -38,7 +48,7 @@ function Experience(attribute) {
         }, attrname: "FromDate"},
         {validate: function(todate){
             this.require = true;
-            this.regex = '[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]';
+            this.regex = /[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]/;
             this.valid = false;
             if(todate !=null || todate !== ""){
                 this.valid = this.regex.test(todate);
@@ -93,27 +103,8 @@ function Experience(attribute) {
     // the reqdata paramater is object
     // callback is a callback function data returned and status
     self.save = function(reqdata, callback){
-        /*
-        `Id` INT(11) NOT NULL AUTO_INCREMENT,
-        `FirstName` VARCHAR(50) NULL DEFAULT NULL,
-        `LastName` VARCHAR(50) NULL DEFAULT NULL,
-        `Avatar` VARCHAR(255) NULL DEFAULT NULL,
-        `Email` VARCHAR(50) NULL DEFAULT NULL,
-        `Phone` VARCHAR(13) NULL DEFAULT NULL,
-        `Website` VARCHAR(100) NULL DEFAULT NULL,
-        `Address` VARCHAR(255) NULL DEFAULT NULL,
-        `CV_Id` INT(11) NOT NULL,
-        */
-        var gettemp = new contact_info();
         var savetemp = new contact_info(reqdata);
-        gettemp.find('all', {where: "CV_Id = " + reqdata.CV_Id},function(err,rows,fields){
-            var id = null;
-            if(rows.length > 0){
-                id = rows[0].Id;
-            }
-            if(id != null){
-                savetemp.set('id',id);
-                savetemp.save(function(err,data){
+        savetemp.save(function(err,data){
                     if(err){
                         callback(-1, err)
                     }else{
@@ -121,18 +112,6 @@ function Experience(attribute) {
                         callback(1, self.attribute)
                     }
                 });
-            }else{
-                savetemp.save(function(err,data){
-                    if(err){
-                        callback(-1, err)
-                    }else{
-                        self.attribute.Id = data.insertId;
-                        callback(1, self.attribute)
-                    }
-                });
-            }
-
-        });
     }
 }
 

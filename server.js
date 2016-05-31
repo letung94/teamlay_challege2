@@ -72,9 +72,6 @@ app.get('/cv', function (req, res) {
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv', ctrlcontact_info);
 
-app.use(function (req, res, next) {
-    res.status(404).render('pages/not_found_404');
-});
 /**/
 
 /*experience*/
@@ -85,14 +82,16 @@ app.use('/cv/:idcv', experience);
 var c = di.resolve('certification');
 cc = new c();
 cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
-    console.log(rows);
+console.log(rows);
 })*/
+
+
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
 cc = new c();
 cc.removeCertification({id: 9}, function(rows){
-    console.log(rows);
+console.log(rows);
 })*/
 
 // var di = require('./config/config');
@@ -103,7 +102,16 @@ cc.removeCertification({id: 9}, function(rows){
 //     console.log(res);
 // });
 
+<<<<<<< HEAD
 });
+=======
+
+app.use(function (req, res, next) {
+    res.status(404).render('pages/not_found_404');
+});
+
+
+>>>>>>> 67b700f1961c9057908801cf5aa197db94e52919
 http.createServer(app).listen(8080, function () {
     var port = this.address().port;
     console.log("let's read first");
