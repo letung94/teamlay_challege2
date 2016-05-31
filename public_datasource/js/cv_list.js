@@ -16,8 +16,14 @@ $(document).ready(function(){
             if(resp.IsSuccess){
                 $(self).closest('tr').remove();
             }else{
+                alert('The system is under maintenance, please try again later.');
                 // Some error if delete failed.
             }
         });
+    })
+
+    $('.btn-print').click(function(){
+        var id  = $(this).attr('cv-id');
+        window.open('../template/template_list/' + id, '_blank');
     })
 });

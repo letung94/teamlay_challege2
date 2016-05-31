@@ -44,18 +44,22 @@ router.post('/', [jsonparser], function (req, res) {
 });
 
 router.post('/disableCV', [jsonparser], function (req, res) {
+
     // var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, 1, req.body.Id);
     var param = {
         id: req.body.id
     };
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
+    console.log('in');
     cvServiceIns.disableCV(param, function(code, data){
+        console.log('done');
+        console.log(code);
         var resData ={};
         if(code == 1){
             resData.IsSuccess = true;
         }else {
-                resData.IsSuccess = false;
+            resData.IsSuccess = false;
         }
         res.json(resData);
     })
