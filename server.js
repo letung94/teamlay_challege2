@@ -41,8 +41,13 @@ app.set('view engine', 'ejs');
 
 /*http://stackoverflow.com/questions/19917401/node-js-express-request-entity-too-large */
 app.use(flash());
-app.use(bodyparser.json({ limit: '6mb' }));
-app.use(bodyparser.urlencoded({ limit: '6mb', extended: true }));
+app.use(bodyparser.json({
+    limit: '6mb'
+}));
+app.use(bodyparser.urlencoded({
+    limit: '6mb',
+    extended: true
+}));
 app.use(session({
     secret: 'vidyapathaisalwaysrunning',
     resave: true,
@@ -58,13 +63,16 @@ var ctrluser = require('./controller/ctrluser');
 var ctrlTemplate = require('./controller/ctrltemplate');
 var ctrlcv = require('./controller/ctrlcv');
 var ctrlAccount = require('./controller/ctrlaccount');
+var ctrlSummary = require('./controller/ctrlsummary');
+var ctrladmin = require('./controller/ctrladmin');
 
 app.use('/cv', ctrlcv);
 app.use('/', ctrluser);
 app.use('/template', ctrlTemplate);
 app.use('/', ctrlAccount);
+app.use('/', ctrladmin);
 
-app.get('/cv', function (req, res) {
+app.get('/cv', function(req, res) {
     res.render('pages/cv_index');
 })
 
@@ -72,11 +80,17 @@ app.get('/cv', function (req, res) {
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv', ctrlcontact_info);
 
-/**/
+/*summary */
+var ctrlsummary = require('./controller/ctrlsummary');
+app.use('/cv/:idcv', ctrlsummary);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
 app.use('/cv/:idcv', ctrlexperience);
+
+/*admin*/
+
+
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
@@ -103,12 +117,12 @@ console.log(rows);
 // });
 
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
     res.status(404).render('pages/not_found_404');
 });
 
 
-http.createServer(app).listen(8080, function () {
+http.createServer(app).listen(8080, function() {
     var port = this.address().port;
     console.log("let's read first");
     console.log("Server is listening at http://localhost:%s", port);
