@@ -29,4 +29,23 @@ router.get('/experience/getall',function(req,res){
         res.send({flag: err, resdata: rows});
     });
 })
+router.post('/experience/update', function(req, res) {
+    var experience_update = new experience(req.body.Company,
+    req.body.Designation,
+    req.body.FromDate,
+    req.body.ToDate,
+    req.body.Details,
+    req.body.CV_id
+    );
+    
+    var valid = experience_update.checkValidation();
+    if(valid){
+        experience_update.update(req.body.Id, function(err,data){
+        res.send({flag: err, resdata: data});   
+    });
+    }else{
+
+        res.send({flag: 0, resdata: experience_update.attrvalidate});
+    }
+});
 module.exports = router;
