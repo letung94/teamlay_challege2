@@ -36,15 +36,15 @@
 
             <tr>
                 <td colspan="3">
-                    <button class="btn btn-success pull-right btn-add" data-toggle="modal" data-target="#modalcreateCV"><span class="glyphicon glyphicon-plus"></span> Add New CV</button>
+                    <button class="btn btn-success pull-right btn-add" data-toggle="modal" data-target="#create-cv-modal"><span class="glyphicon glyphicon-plus"></span> Add New CV</button>
                 </td>
             </tr>
     </table>
-    <div id="modalcreateCV" class="modal fade" role="dialog">
+    <div id="create-cv-modal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Modal Header<button type="button" class="close" data-dismiss="modal">&times;</button></h4>
+                    <h4 class="modal-title">Create your CV<button type="button" style="float: right;font-size: 21px;font-weight: 700;line-height: 1;color: #000;text-shadow: 0 1px 0 #fff;" data-dismiss="modal">&times;</button></h4>
                 </div>
                 <div class="modal-body">
                 <form class="form-horizontal" id="validation_form_cv" autocomplete="off" action="/cv" method="POST">

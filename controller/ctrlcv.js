@@ -26,8 +26,12 @@ router.post('/', [jsonparser], function (req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
     cvServiceIns.createCV({ Name: req.body.cvname, UserId: 1 }, function (flag, data) {
-        var newidcv = data.Id;
-        res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
+        if (flag == 1) {
+            var newidcv = data.Id;
+            res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
+        } else {
+            res.render('pages/generic_error');
+        }
     });
 });
 
@@ -36,8 +40,12 @@ router.post('/:idcv/update', [jsonparser], function (req, res) {
     cvServiceIns = new cvService();
     var paramObject = req.body;
     paramObject["Id"] = req.params.idcv;
-    cvServiceIns.updateCV(paramObject, function (flag, data) {
-        res.redirect("http://127.0.0.1:8080/cv/");
+    cvServiceIns.updateCV({ Name: req.body.cvname, UserId: 1, Id:req.params.idcv }, function (flag, data) {
+        if (flag == 1) {
+            res.redirect("http://127.0.0.1:8080/cv/");
+        } else {
+            res.render('pages/generic_error');
+        }
     });
 });
 
@@ -63,67 +71,18 @@ router.post('/disableCV', [jsonparser], function (req, res) {
     })
 });
 
-// router.post('/:idcv', [jsonparser], function (req, res) {
-//     var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, req.body.UserId, req.params.Id);
-//     var valid = dbcv_save.checkValidation();
-//     if (valid) {
-//         dbcv_save.save(dbcv_save.attribute, function (err, data) {
-//             res.send({ flag: err, data: data });
-//         });
-//     } else {
-//         res.send({ flag: 0, data: dbcv_save.attrvalidate });
-//     }
-// });
-
-/*router.get('/:idcv', function (req, res) {
-    var idcv = req.params.idcv;
-    dbcv.getByIdCV(idcv, function (data) {
-        if (data.length > 0) {
-            res.render('pages/cv_index', { data: data[0] });
-        } else {
-            res.render('pages/not_found_404');
-        }
-        if(err==1)
-        {
-            res.render('pages/cv_index', { data: data[0] });
-        }
-        if (err == 0) {
-            res.status(404).render('pages/not_found_404');
-        }
-    });
-});*/
-
 router.get('/:idcv', function (req, res) {
     var param = { id: req.params.idcv };
     dbcv.getByIdCV(param, function (code, row) {
         if (code == 1) {
-            res.render('pages/cv_index', { data: row })
+            res.render('pages/cv_index', { data: row });
         } else if (code == 0) {
-
+            res.status(404).render('pages/not_found_404');
         } else if (code == -1) {
-
+            res.status(404).render('pages/not_found_404');
         }
-        // if (data.length > 0) {
-        //     res.render('pages/cv_index', { data: data[0] });
-        // } else {
-        //     res.render('pages/not_found_404');
-        // }
-        // if(err==1)
-        // {
-        //     res.render('pages/cv_index', { data: data[0] });
-        // }
-        // if (err == 0) {
-        //     res.status(404).render('pages/not_found_404');
-        // }
     });
 });
-
-
-// router.get('/', function (req, res) {
-//     dbcv.getAllCV(req, function (data) {
-//         res.json(data);
-//     });
-// })
 
 
 

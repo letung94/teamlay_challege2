@@ -31,7 +31,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         {
             validate: function (isdeleted) {
                 this.valid = false;
-                this.required = false;
+                this.required = true;
                 if (!isNaN(isdeleted)) {
                     if (isdeleted == 0 || isdeleted == 1) {
                         this.valid = true;

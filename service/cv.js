@@ -22,12 +22,14 @@ function curriculum_vitae_service() {
     }
 
     this.createCV = function (param, callback) {
-        var dbcv_create = new curriculum_vitae_model(param.Name, null, 0, null, param.UserId, null);
+        var date=new Date();
+        var paramCreatedDate=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours())+':'+(date.getMinutes()+1)+':'+(date.getSeconds()+1);
+        var dbcv_create = new curriculum_vitae_model(param.Name, paramCreatedDate, 0, null, param.UserId, null);
         var valid = dbcv_create.checkValidation();
         if (valid) {
             dbcv_create.save(dbcv_create.attribute, callback);
         } else {
-            callback(0,dbcv_save.attrvalidate);
+            callback(0,dbcv_create.attrvalidate);
         }
     }
     
