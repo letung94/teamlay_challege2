@@ -1,4 +1,4 @@
-function getSumary(){
+function getSummary(){
     var urlget = window.location.href + "/summary/get";
     $.ajax({
         type: "GET",
@@ -17,6 +17,4 @@ function getSumary(){
         }
     });
 };
-
-
 

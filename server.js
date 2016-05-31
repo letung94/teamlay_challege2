@@ -58,6 +58,7 @@ var ctrluser = require('./controller/ctrluser');
 var ctrlTemplate = require('./controller/ctrltemplate');
 var ctrlcv = require('./controller/ctrlcv');
 var ctrlAccount = require('./controller/ctrlaccount');
+var ctrlSummary = require('./controller/ctrlsummary');
 
 app.use('/cv', ctrlcv);
 app.use('/', ctrluser);
@@ -71,15 +72,14 @@ app.get('/cv', function (req, res) {
 /*contact info */
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv', ctrlcontact_info);
-/**/
+
+/*summary */
+var ctrlsummary = require('./controller/ctrlsummary');
+app.use('/cv/:idcv', ctrlsummary);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
 app.use('/cv/:idcv', ctrlexperience);
-
-/*certification*/
-var ctrlcertification = require('./controller/ctrlcertification');
-app.use('/cv/:idcv', ctrlcertification);
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
