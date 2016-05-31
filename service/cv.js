@@ -34,7 +34,10 @@ function curriculum_vitae_service() {
     }
 
     this.updateCV = function (param, callback) {
-        var dbcv_save = new curriculum_vitae_model(param.Name, param.CreatedDate, param.IsDeleted, param.UrlSlug, param.UserId, param.Id);
+        //only user date to test, after that delete param createddate
+        var date=new Date();
+        var paramCreatedDate=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours())+':'+(date.getMinutes()+1)+':'+(date.getSeconds()+1);
+        var dbcv_save = new curriculum_vitae_model(param.Name, paramCreatedDate, 0, null, param.UserId, param.Id);
         var valid = dbcv_save.checkValidation();
         if (valid) {
             dbcv_save.save(dbcv_save.attribute, callback);

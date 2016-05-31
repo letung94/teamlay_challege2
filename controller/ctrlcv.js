@@ -18,9 +18,9 @@ router.get('/', function (req, res) {
         var resObject = {
             cvs: rows
         };
-        if(flag==1){
+        if(flag!=-1){
             res.render('pages/cv_list', resObject);
-        }else if(flag==-1){
+        }else{
             res.status(500).render('pages/generic_error');
         }
     })
