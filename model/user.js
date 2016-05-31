@@ -8,7 +8,7 @@ function userModel() {
     this.updateUser = function (newUser) {
         var user = new User(newUser);
         user.save();
-        user.set('id',newUser.Id);
+        user.set('id', newUser.Id);
         user.save();
     }
     this.getAllUser = function (callback) {
@@ -26,7 +26,7 @@ function userModel() {
     this.getByEmail = function (email, callback) {
         user = new User();
         user.find('first', { where: "Email = '" + email + "'" }, function (err, row) {
-            callback(err, row);
+            callback(row);
         });
     }
     this.getByToken = function (token, callback) {
