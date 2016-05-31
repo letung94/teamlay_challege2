@@ -1,5 +1,7 @@
+/*
 // mandatory: firstname, lastname, avatar, email, phone, website, address, cv_id
 // optional: id
+*/
 function Contact_Info(firstname, lastname, avatar, email, phone, website, address, cv_id, id) {
     var self = this;
     self.attribute = {
@@ -60,10 +62,14 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                         }
                         return ext;
                     }
+                    /*
                     //http://stackoverflow.com/questions/20267939/nodejs-write-base64-image-file
                     // get base64
+                    */
                     function decodeBase64Image(image) {
+                        /*
                         //var matches = dataString.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/);
+                        */
                         var data = image.replace(/^data:image\/\w+;base64,/, '');
                         return new Buffer(data, 'base64');
                     }
@@ -105,9 +111,11 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         {validate: null,attrname: "Website"},
         {validate: null,attrname: "Address"},
         {validate: null,attrname: "CV_Id"}];
-        // spilt value of each attr into Name of table Contact_Info
+        
 
+        /*
     // return true if all attribute are valid if not false;
+    */
     self.checkValidation = function(){
         var valid = true;
         var attr_length = self.attrvalidate.length;
@@ -120,8 +128,10 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
     }
 
     var contact_info = require('../config/config').resolve("db").contact_info;
+    /*
     // the reqdata paramater is id of the CV
     // callback is a callback function data returned and status
+    */
     self.getByIdCV = function(reqdata, callback) {
         var temp = new contact_info();
         temp.find('all', {where: "CV_Id = " + reqdata},function(err,rows,fields){
@@ -135,22 +145,12 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                 }
             }
         });
-        //var contact_info = require('../config/config').resolve("db").contact_info;
     }
+    /*
     // the reqdata paramater is object
     // callback is a callback function data returned and status
+    */
     self.save = function(reqdata, callback){
-        /*
-        `Id` INT(11) NOT NULL AUTO_INCREMENT,
-        `FirstName` VARCHAR(50) NULL DEFAULT NULL,
-        `LastName` VARCHAR(50) NULL DEFAULT NULL,
-        `Avatar` VARCHAR(255) NULL DEFAULT NULL,
-        `Email` VARCHAR(50) NULL DEFAULT NULL,
-        `Phone` VARCHAR(13) NULL DEFAULT NULL,
-        `Website` VARCHAR(100) NULL DEFAULT NULL,
-        `Address` VARCHAR(255) NULL DEFAULT NULL,
-        `CV_Id` INT(11) NOT NULL,
-        */
         var gettemp = new contact_info();
         var savetemp = new contact_info(reqdata);
         gettemp.find('all', {where: "CV_Id = " + reqdata.CV_Id},function(err,rows,fields){
