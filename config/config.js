@@ -21,7 +21,7 @@ di
             .withConstructor()
                 .param().val("localhost")
                 .param().val("root")
-                .param().val("tungtung")
+                .param().val("root")
                 .param().val("cv_maker")
                 .param().val(mysqlmodel)
     .register('user')
