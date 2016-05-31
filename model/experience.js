@@ -44,7 +44,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         "FromDate" : fromdate,
         "ToDate" : todate,
         "Details" : details,
-        "CV_Id" : cv_id
+        "CV_id" : cv_id
     }
     
 
