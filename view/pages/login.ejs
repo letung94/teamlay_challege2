@@ -58,9 +58,12 @@
     <!-- BEGIN Login Form -->
     <form id="form-login" action="/login" method="post">
     <h3>Login to your account</h3>
-    <% if(error.length>0) {%>
-    <div class="alert alert-danger"><%= error %></div>
-            <% } %>
+            <% if(typeof(errorMessage) !== 'undefined') {%>
+            <% if(errorMessage.length>0) {%>
+            <div class="alert alert-danger"><%= errorMessage %></div>
+         <% } %>
+         <% } %>
+         
     <hr/>
     <div class="form-group">
     <div class="controls">

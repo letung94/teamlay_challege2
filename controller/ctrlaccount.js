@@ -11,80 +11,77 @@ var app = require('../server');
 var flash = require('express-flash');
 var async = require('async');
 
-
+// Forgot Password GET
 router.get('/forgot', function (req, res) {
     res.render('pages/forgot_password', {
         title: 'Forgot Password',
-        error: req.flash('error'),
-        success: req.flash('success')
+        errorMessage: req.flash('error'),
+        successMessage: req.flash('success')
     });
 });
 
-router.post('/forgot', function (req, res) {
-    var token = uuid.v1();
-    user_model.getByEmail(req.body.email, function (err, data) {
-        var user = data;
-        console.log(user);
-        
-        if (!user) {
-            req.flash('error', 'No account with that email address exists.');
-            res.redirect('/forgot');
-        }
-        else
-        {
-        
-        var date = new Date();
-        date.setMinutes(date.getMinutes()+30);
-        user.Token = token;
-        user.ResetPasswordExpire = date; // 30 mins
-        
-        user_model.updateUser(user, function (err) {
-
-        });
-        var link = req.protocol + "://" + req.get('host') + "/reset/" + token;
-        app.mailer.send('pages/reset_password_email', {
-            to: 'duybui.hcmit@outlook.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.  
-            subject: 'CV Maker Reset Password', // REQUIRED. 
-            link: link, // All additional properties are also passed to the template as local variables. 
-            email: req.body.email
-        }, function (err) {
-            if (err) {
+// Forgot Password POST
+router.post('/forgot', function (req, res, next) {
+    async.waterfall([
+        function (done) {
+            var token = uuid.v1();
+            done(null, token);
+        },
+        function (token, done) {
+            user_model.getByEmail(req.body.email, function (data) {
+                var user = data;
+                if (!user) {
+                    req.flash('error', 'Sorry, we couldn\'t find an account matching the email address you entered. Please try again or register a new account.');
+                    return res.redirect('/forgot');
+                }
+                console.log(user);
+                var date = new Date();
+                date.setMinutes(date.getMinutes() + 30);
+                user.Token = token;
+                user.ResetPasswordExpire = date; // 30 mins
+                user_model.updateUser(user);
+                done(null, token, user);
+            });
+        },
+        function (token, user, done) {
+            var link = req.protocol + "://" + req.get('host') + "/reset/" + token;
+            app.mailer.send('pages/reset_password_email', {
+                to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                subject: 'CV Maker Reset Password', // REQUIRED. 
+                link: link, // All additional properties are also passed to the template as local variables. 
+                email: req.body.email
+            }, function (err) {
                 // handle error 
-                console.log(err);
-                res.end('There was an error sending the email');
-                return;
-            }
-            
-        });
-        req.flash('success', 'Email sending.');
-            res.redirect('/forgot');
+                req.flash('success', 'Please check your email and follow the instructions to reset your password.');
+                done(err, 'done');
+            });
         }
+    ], function (err) {
+        if (err) return next(err);
+        res.redirect('/forgot');
     });
 });
 
-router.get('/reset_password', function(req, res) {
+
+// Reset Password GET
+router.get('/reset_password', function (req, res) {
     res.render('pages/reset_password');
 });
-router.get('/forgot_password', function(req, res) {
-    res.render('pages/forgot_password');
-});
-router.get('/register', function(req, res) {
+
+// User Registration GET
+router.get('/register', function (req, res) {
     res.render('pages/register');
 });
 
-// Logout
-router.get('/logout', function (req, res) {
-    req.logOut();
-    res.redirect('/login');
-});
-// Sign in GET
+// Login GET
 router.get('/login', function (req, res) {
     if (req.isAuthenticated()) res.redirect('/index');
     else res.render('pages/login', {
-        error: req.flash('error')
+        errorMessage: req.flash('error')
     });
 });
-// Sign in POST
+
+// Login POST
 router.post('/login', function (req, res, next) {
     console.log('dawdwawdw');
     passport.authenticate('local', {
@@ -94,17 +91,17 @@ router.post('/login', function (req, res, next) {
     }, function (err, user, info) {
         if (err) {
             console.log('err');
-            return res.render('pages/login', { error: req.flash('error',err.message) });
+            return res.render('pages/login', { errorMessage: err.message });
         }
 
         if (!user) {
             console.log('!user');
-            return res.render('pages/login', { error: req.flash('error','dwadawawd') });
+            return res.render('pages/login', { errorMessage: info.message });
         }
 
         return req.logIn(user, function (err) {
             if (err) {
-                return res.render('pages/login', { error: req.flash('error',err.message) });
+                return res.render('pages/login', { v: req.flash('error', err.message) });
             } else {
                 return res.redirect('/index');
             }
@@ -119,7 +116,7 @@ router.get('/index', function (req, res) {
     user_model.getAllUser(function (data) {
         console.log(data);
     })
-    
+
 })
 
 // Verify email
@@ -138,7 +135,7 @@ router.get("/verify/:token", function (req, res, next) {
     })
 });
 
-// Signup user POST
+// User Registration POST
 router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExisted, function (req, res) {
     passport.authenticate('local', {
         successRedirect: '/index',
@@ -152,44 +149,52 @@ router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExi
             Username: req.body.username,
             Email: req.body.email,
             PasswordHash: req.body.password,
+            //Firstname = req.body.firstname,
+            //Lastname = req.body.lastname,
             CreatedDate: date,
             IsConfirmed: false,
             IsBlocked: false,
             Token: verify_token
         };
         user_model.addUser(user, function (err) {
-            if (err) console.log('Error');
-            else console.log('Success');
-        });
-
-        // Create a link to verify email
-        var link = req.protocol + "://" + req.get('host') + "/verify/" + verify_token;
-
-        app.mailer.send('pages/confirmation_email', {
-            to: 'duybui.hcmit@outlook.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.  
-            subject: 'CV Maker Confimation Email', // REQUIRED. 
-            link: link, // All additional properties are also passed to the template as local variables. 
-            email: req.body.email
-        }, function (err) {
             if (err) {
-                // handle error 
                 console.log(err);
-                res.end('There was an error sending the email');
                 return;
             }
-            res.end('Email Sent');
-        });
+            // Create a link to verify email
+            var link = req.protocol + "://" + req.get('host') + "/verify/" + verify_token;
 
-        user_model.getByUsername(req.body.username, function (err, data) {
-            req.logIn(data, function (err) {
+            app.mailer.send('pages/confirmation_email', {
+                to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                subject: 'CV Maker Confimation Email', // REQUIRED. 
+                link: link, // All additional properties are also passed to the template as local variables. 
+                email: req.body.email
+            }, function (err) {
                 if (err) {
-                    return res.render('pages/login', { error: req.flash('error',err.message) });
-                } else {
-                    return res.redirect('/index');
+                    // handle error 
+                    console.log(err);
+                    res.end('There was an error sending the email');
+                    return;
                 }
+                res.end('Email Sent');
             });
-        })
+            user_model.getByUsername(req.body.username, function (err, data) {
+                req.logIn(data, function (err) {
+                    if (err) {
+                        return res.render('pages/login', { error: req.flash('error', err.message) });
+                    } else {
+                        return res.redirect('/index');
+                    }
+                });
+            })
+        });
     })(req, res);
+});
+
+// Logout
+router.get('/logout', function (req, res) {
+    req.logOut();
+    res.redirect('/login');
 });
 
 module.exports = router;
