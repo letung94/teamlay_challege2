@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 function Summary(headLine, professionalsummary, cv_id, id) {
     var self = this;
     self.attribute = {
@@ -67,3 +68,17 @@ function Summary(headLine, professionalsummary, cv_id, id) {
 }
 
 module.exports = Summary;
+=======
+function summaryModel(){
+    var Summary = require('../config/config').resolve("db").Summary;
+    this.getAllSummaryByCVId = function (params, callback) {
+        summary = new Summary();
+        summary.find('all', {fields: ['Headline', 'ProfessionalSummary'], where: 'CV_id = ' + params.CV_Id}, function (err, rows, fields) {
+           callback(rows); 
+        });
+    }
+        
+}
+
+module.exports = summaryModel;
+>>>>>>> 8971e05c961d5e46fd029a5d271b39c70cef4692
