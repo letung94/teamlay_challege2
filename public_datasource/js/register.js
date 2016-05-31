@@ -2,7 +2,7 @@ $(document).ready(function() {
     // validate register form on keyup and sumit
     $("#form-register").validate({
         errorClass: 'text-danger',
-        focusInvalid: false,
+        focusInvalid: true,
         debug: true,
         rules: {
             firstname: {
@@ -48,7 +48,7 @@ $(document).ready(function() {
                 minlength: "Your username must be at least 5 characters long",
                 equalTo: "Please enter the same password as above"
             },
-            accept: "Please accept our policy   "
+            accept: "Please accept our policy"
         },
         errorPlacement: function(error, element) {
             // console.log(error);
@@ -60,20 +60,20 @@ $(document).ready(function() {
         }
     });
     // propose username by combining first- and lastname
-    $("username").focus(function() {
-        var firstname = $("firstname").val();
-        var lastname = $("lastname").val();
+    $("#username").focus(function() {
+        var firstname = $("#firstname").val();
+        var lastname = $("#lastname").val();
         if (firstname && lastname && !this.value) {
             this.value = firstname + "." + lastname;
         }
     });
     $('#submit').click(function() {
-        /*$('#form-register').submit();
-        return false;*/
         var validator = $('#form-register').valid();
-        console.log(validator);
+        if(validator){
+            console.log(validator);
+             $('#form-register').submit();
+        }
         return false;
-        // event.preventDefault();
     });
 
 })
