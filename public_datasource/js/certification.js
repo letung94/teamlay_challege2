@@ -1,4 +1,31 @@
 $(document).ready(function(){
+    var self = this;
+    self.listCertification = [];
+
+    /*Get All Certification belong to this CV.*/
+    var getAllCertification = function(){
+        var url = window.location.href + "/certification/getall";
+        $.get(url, function(resp){
+            if(resp.code == 1){
+                $.each(resp.rows, function(index, value){
+                    self.listCertification.push(value);
+                });
+                //console.log(render)
+                renderTableBody();
+            }
+        });
+    }
+
+    /*Render list of certification*/
+    var renderTableBody = function(){
+        var html = '';
+        $.each(self.listCertification, function(index, value){
+            html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.Date + '</td>' + '<td>' + value.CertificateAuthority +
+            '</td><td><button class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span><button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
+        })
+        $('#certification_list').html(html);
+    }
+
     $('#btnAddListCertification').click(function(){
         var isValid = $('#certification-form').valid();
         if(isValid){ /*If the form is valid*/
@@ -47,4 +74,7 @@ $(document).ready(function(){
             }
         },
     });
+
+        /*initialize*/
+        getAllCertification();
 });
