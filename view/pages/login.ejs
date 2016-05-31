@@ -25,8 +25,7 @@
     <script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="js/login.js"></script>
-    <script src="assets/jquery-validation/dist/jquery.validate.js"></script>
+     <script src="assets/jquery-validation/dist/jquery.validate.js"></script>
     
     <script type="text/javascript">
     function goToForm(form)
@@ -57,10 +56,10 @@
     <div class="login-wrapper">
 
     <!-- BEGIN Login Form -->
-    <form id="form-login" action="login" method="post">
+    <form id="form-login" action="/login" method="post">
     <h3>Login to your account</h3>
-    <% if(typeof(errorMessage) !== 'undefined') {%>
-                <span> <%= errorMessage %> </span>
+    <% if(error.length>0) {%>
+    <div class="alert alert-danger"><%= error %></div>
             <% } %>
     <hr/>
     <div class="form-group">
@@ -76,7 +75,7 @@
     <div class="form-group">
     <div class="controls">
     <label class="checkbox">
-    <input type="checkbox" id="remember" value="remember" /> Remember me
+    <input type="checkbox" id="remember" name="remember" value="remember" /> Remember me
     </label>
     </div>
     </div>

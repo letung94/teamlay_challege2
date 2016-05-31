@@ -1,3 +1,39 @@
+function experienceModel(){
+    var Experience = require('../config/config').resolve("db").Experience;
+    this.getAllExperienceByCVId = function (params, callback) {
+        experience = new Experience();
+        experience.find('all', {fields: ['Company', 'Designation', 'Details', 'FromDate', 'ToDate'], where: 'CV_id = ' + params.CV_Id}, function (err, rows, fields) {
+            rows.forEach(function (item) {
+                item.FromDate = item.FromDate.toString().substring(4,15);
+                item.ToDate = item.ToDate.toString().substring(4,15);
+            });
+           callback(rows); 
+        });
+    }
+    
+    this.createExperience = function (params, callback) {        
+        //TODO: Validation
+        
+        experience = new Experience({
+            Company: params.company,
+            Designation: params.designation,
+            FromDate: params.fromDate,
+            ToDate: params.toDate,
+            Details: params.details,
+            CV_Id: '1'          //Get current logged in user here (Passport)
+        });
+        
+        experience.save(function(err, result){
+            if (err){
+                console.log(err);
+            } else {
+                callback(result);
+            }  
+        });
+    }
+        
+}
+
 
 
 function Experience(company,designation,fromdate,todate,details,cv_id) {
@@ -8,7 +44,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         "FromDate" : fromdate,
         "ToDate" : todate,
         "Details" : details,
-        "CV_Id" : cv_id
+        "CV_id" : cv_id
     }
     
 
@@ -39,7 +75,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         {validate: null, attrname: "Designation"},
         {validate: function(fromdate){
             this.require = true;
-            this.regex = /[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]/;
+            this.regex = /^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9])(?:( [0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
             this.valid = false;
             if(fromdate !=null || fromdate !== ""){
                 this.valid = this.regex.test(fromdate);
@@ -48,7 +84,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         }, attrname: "FromDate"},
         {validate: function(todate){
             this.require = true;
-            this.regex = /[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[1-2][0-9]|3[0-1])\s+(?:2[0-3]|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]/;
+            this.regex = /^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9])(?:( [0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
             this.valid = false;
             if(todate !=null || todate !== ""){
                 this.valid = this.regex.test(todate);

@@ -14,6 +14,9 @@ var certification_service = require('../service/certification');
 var education_service = require('../service/education');
 var contact_info_service = require('../service/contact_info');
 var curriculum_vitae_service = require('../service/cv');
+var exp_service = require('../service/experience');
+var sum_service = require('../service/summary');
+var skill_service = require('../service/skill');
 
 di
     .register('db')
@@ -34,6 +37,12 @@ di
         .as(cv_service)
     .register('contact_info')
         .instance(contact_info_service)
+    .register('experience')
+        .instance(exp_service)
+    .register('summary')
+        .instance(sum_service)
+    .register('skill')  
+        .instance(skill_service)      
     .register('curriculum_vitae')
         .instance(curriculum_vitae_service);
 
