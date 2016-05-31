@@ -176,6 +176,20 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         });
 
     }
+    
+    self.remove = function(reqdata, callback){
+        var removetemp = new experience(self.attribute);
+        removetemp.set("id",reqdata);
+        removetemp.remove(function(err,data){
+            if(err){
+                        callback(-1, err)
+                    }else{
+                        self.attribute.Id = reqdata;
+                        callback(1, self.attribute)
+                    }
+        });
+
+    }
 }
 
 module.exports = Experience;

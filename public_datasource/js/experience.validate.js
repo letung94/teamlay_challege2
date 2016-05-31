@@ -1,7 +1,6 @@
 
 function Experience(attribute){
     this.attribute = attribute;
-    var a = 10;
 }
 String.prototype.replaceAll = function(target, replacement) {
   return this.split(target).join(replacement);
@@ -63,7 +62,36 @@ $('#btnAddListExp').click(function() {
 //function delete current row on click
 $('#list-experience').on('click', '.btnDelete' , function(e){
     e.preventDefault();
-    $(this).closest('tr').remove();
+    var deletedexperience = new Experience();
+    var cells = $(this).closest("tr").children("td");
+    idexp = parseInt(cells.eq(0).text());
+    deletedexperience.Id = idexp;
+    indexcurrent = $(this).closest("tr").index();
+    console.log(this.rowIndex);
+    urlpost = window.location.href + '/experience/delete'
+     $.ajax({
+        type: "POST",
+        //the url where you want to sent the userName and password to
+        url: urlpost,
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        //json object to sent to the authentication url
+        data: JSON.stringify(deletedexperience),
+        success: function (res) {
+            if(res.flag==1){
+                listexperience.splice(indexcurrent, 1);    
+                $("#list-experience tbody > tr").remove();
+                $.each(listexperience, function( index, value2 ){
+                    addlistexp(value2.attribute);
+                });
+            }
+        },
+        error: function(x,e){
+            
+        }
+    }); 
+    
 });
 //function edit current row on click and show to input
 
