@@ -75,8 +75,8 @@ app.use('/cv/:idcv', ctrlcontact_info);
 /**/
 
 /*experience*/
-var experience = require('./controller/ctrlexperience');
-app.use('/cv/:idcv', experience);
+var ctrlexperience = require('./controller/ctrlexperience');
+app.use('/cv/:idcv', ctrlexperience);
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');

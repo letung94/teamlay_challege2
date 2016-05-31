@@ -1,3 +1,9 @@
 .container{
     padding: 0
 }
+th{
+    text-align: center
+}
+tr>td{
+    text-align: center
+}

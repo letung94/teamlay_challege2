@@ -14,12 +14,13 @@ $(document).ready(function() {
 
     });
     $('#submit').click(function() {
-        /*$('#form-register').submit();
-        return false;*/
         var validator = $('#form-forgot-password').valid();
         console.log(validator);
+        if(validator){
+            console.log(validator);
+            $('#form-forgot-password').submit();
+        }
         return false;
-        // event.preventDefault();
     });
 
 })

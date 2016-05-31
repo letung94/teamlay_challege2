@@ -2,7 +2,7 @@ $(document).ready(function() {
     // validate register form on keyup and sumit
     $("#form-login").validate({
         errorClass: 'text-danger',
-        focusInvalid: false,
+        focusInvalid: true,
         debug: true,
         rules: {
             username: {
@@ -26,12 +26,12 @@ $(document).ready(function() {
         },
     });
     $('#submit').click(function() {
-        /*$('#form-register').submit();
-        return false;*/
         var validator = $('#form-login').valid();
-        console.log(validator);
+        if(validator){
+            console.log('dwadwa');
+             $('#form-login').submit();
+        }
         return false;
-        // event.preventDefault();
     });
 
 })

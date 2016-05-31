@@ -10,25 +10,32 @@
                 Created Date
             </th>
             <th>
-                Edit
+                Action
             </th>
-            <th>
+            <!-- <th>
                 Delete
             </th>
+            <th>
+                Preview
+            </th> -->
         </tr>
         <% if(locals.cvs){ %>
             <% cvs.forEach(function(cv) { %>
                 <tr>
                 <td><%=cv.Name%></td>
                 <td><%=cv.CreatedDate%></td>
-                <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                <!-- <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-pencil"></span></button></td>
                 <td><button class="btn btn-danger btn-sm btn-delete" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-remove"></span></button></td>
+                <td><button class="btn btn-info btn-sm btn-print" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-print"></span></button></td> -->
+                <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-pencil"></span></button>
+                <button class="btn btn-danger btn-sm btn-delete" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-remove"></span></button>
+                <button class="btn btn-info btn-sm btn-print" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-print"></span></button></td>
                 </tr>
                 <% }); %>
         <%}%>
 
             <tr>
-                <td colspan="4">
+                <td colspan="3">
                     <button class="btn btn-success pull-right btn-add"><span class="glyphicon glyphicon-plus"></span> Add New CV</button>
                 </td>
             </tr>

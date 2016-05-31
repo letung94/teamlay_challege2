@@ -130,6 +130,14 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
                 id: param.id,
                 IsDeleted: 1
             }
+            var cv = new Cv(newVal);
+            cv.save(function (err, data) {
+                if (err) {
+                    callback(-1, err);
+                } else {
+                    callback(1, data);
+                }
+            });
         }
 
 
