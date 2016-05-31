@@ -66,5 +66,5 @@ function Summary(headLine, professionalsummary, cv_id, id) {
     }
 }
 
-module.exports = summary;
+module.exports = Summary;
 
