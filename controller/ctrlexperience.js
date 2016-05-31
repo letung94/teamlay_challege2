@@ -48,4 +48,10 @@ router.post('/experience/update', function(req, res) {
         res.send({flag: 0, resdata: experience_update.attrvalidate});
     }
 });
+router.post('/experience/delete', function(req, res) {
+    var experience_delete = new experience();
+        experience_delete.remove(req.body.Id, function(err,data){
+        res.send({flag: err, resdata: data});   
+    });
+});
 module.exports = router;
