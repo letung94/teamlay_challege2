@@ -102,16 +102,12 @@ console.log(rows);
 //     console.log(res);
 // });
 
-<<<<<<< HEAD
-});
-=======
 
 app.use(function (req, res, next) {
     res.status(404).render('pages/not_found_404');
 });
 
 
->>>>>>> 67b700f1961c9057908801cf5aa197db94e52919
 http.createServer(app).listen(8080, function () {
     var port = this.address().port;
     console.log("let's read first");
