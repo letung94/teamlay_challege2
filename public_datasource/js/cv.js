@@ -90,11 +90,13 @@ function validateContact_Info(validid){
 return null;
 }
 
-function showAnnoucement(flag){
+function showAnnoucement(flag, section, action){
+    section = section.toLowerCase();
+    action = action.toLowerCase();
     if(flag==1){
                     $.gritter.add({
                     title: 'Success',
-                    text: 'Your contact information has been saved!',
+                    text: 'Your ' + section + ' has been' + action + '!',
                     sticky: false,
                     time: '1500' 
                     });
