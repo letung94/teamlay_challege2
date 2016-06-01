@@ -206,6 +206,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         var query = "SELECT EXISTS(SELECT 1 FROM curriculum_vitae WHERE id = " + cv_id + " AND userid = " + userid + ") as Exist";
         var cv = new Cv();
         cv.query(query, function(err, rows, fields) {
+            cv.killConnection();
             if (err) {
                 callback(-1, err);
             } else {
