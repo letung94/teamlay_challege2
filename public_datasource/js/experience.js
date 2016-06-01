@@ -211,6 +211,7 @@ function switchMode(mode){
         //case button save    
         }else if (mode == 'save'){
             $('#btnSaveEditExp').hide();
+            $('#btnCancelEditExp').hide();
             $('#btnAddListExp').show(); 
             $("#experience-form")[0].reset();
         }
@@ -242,7 +243,7 @@ $(document).ready(function() {
             errorPlacement:
             function(error, element){
                 if(element.attr("name") == "date"){ 
-                    error.insertAfter('.input-group');
+                    error.insertAfter('#experience-form .input-group');
             }else{ 
                     error.insertAfter(element); 
                 }
