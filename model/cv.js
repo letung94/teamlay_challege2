@@ -203,13 +203,17 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
     }
 
     self.checkCVBelongToUser = function (cv_id, userid, callback) {
-        var query = "SELECT EXISTS(SELECT 1 FROM curriculum_vitae WHERE id = " + cv_id + " AND userid = " + userid + ") as Exist";
+        var query = "SELECT EXISTS(SELECT 1 FROM curriculum_vitae WHERE Id = " + cv_id + " AND UserId = " + userid + ") as Exist";
         var cv = new Cv();
         cv.query(query, function (err, rows, fields) {
             if (err) {
                 callback(-1, err);
             } else {
-                callback(1, rows);
+                if (rows.length == 0) {
+                    callback(0, null);
+                } else {
+                    callback(1, rows);
+                }
             }
         });
     }

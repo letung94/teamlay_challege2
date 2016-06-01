@@ -100,22 +100,25 @@ router.post('/disableCV', [jsonparser], function (req, res) {
 });
 
 router.get('/:idcv', function (req, res) {
-    var param = {
-        id: req.params.idcv
-    };
-    dbcv.getByIdCV(param, function (code, row) {
-        if (code == 1) {
-            res.render('pages/cv_index', {
-                data: row
-            });
-        } else if (code == 0) {
-            res.status(404).render('pages/not_found_404');
-        } else if (code == -1) {
-            res.status(500).render('pages/generic_error');
-        }
-    });
+    if(req.user){
+        var param = {
+            idcv: req.params.idcv,
+            userid: req.user.Id
+        };
+        dbcv.getByIdCV(param, function (code, row) {
+            if (code == 1) {
+                res.render('pages/cv_index', {
+                    data: row
+                });
+            } else if (code == 0) {
+                res.status(404).render('pages/not_found_404');
+            } else if (code == -1) {
+                res.status(500).render('pages/generic_error');
+            }
+        });
+    }else{
+        res.redirect('/login');
+    }    
 });
-
-
 
 module.exports = router;
