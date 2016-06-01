@@ -1,5 +1,9 @@
 /*Get summary of CV */
+var clickedSummary = false;
 function getSummary(){
+    if(clickedSummary==true){
+        return;
+    }
     var urlget = window.location.href + "/summary/get";
     $.ajax({
         type: "GET",
@@ -9,7 +13,8 @@ function getSummary(){
         async: false,
         contentType: 'application/json; charset=utf-8',
         //json object to sent to the authentication url
-        success: function (res) {   
+        success: function (res) {  
+                clickedSummary = true; 
                 $("input[name='headline']").val(res.resdata.Headline);
                 $("textarea[name='prosummary']").data('wysihtml5').editor.setValue(res.resdata.ProfessionalSummary);
                 },
@@ -46,5 +51,11 @@ $('#btnSaveSummary').click(function() {
                 
             }
         });
+    $.gritter.add({
+        title: 'Successfull!',
+        text: 'Your summary is saved.',
+        sticky: false,
+        time: '1500',
+    });
     return false;
 });
