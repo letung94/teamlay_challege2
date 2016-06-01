@@ -5,11 +5,12 @@ function userModel() {
         newUser.save();
         callback();
     }
-    this.updateUser = function (newUser) {
+    this.updateUser = function (newUser,callback) {
         var user = new User(newUser);
         user.save();
         user.set('id', newUser.Id);
         user.save();
+        callback();
     }
     this.getAllUser = function (callback) {
         user = new User();
