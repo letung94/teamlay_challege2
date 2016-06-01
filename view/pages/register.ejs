@@ -28,7 +28,7 @@
 
     <script src="js/register.js"></script>
     <script src="assets/jquery-validation/dist/jquery.validate.js"></script>
-
+    
     <script type="text/javascript">
     function goToForm(form)
     {
@@ -60,8 +60,14 @@
 
         <form id="form-register" action="register" method="post">
             <h3>Register</h3>
+            <% if(typeof(errorMessage) !== 'undefined') {%>
+            <% if(errorMessage.length>0) {%>
+            <div class="alert alert-danger"><%= errorMessage %></div>
+         <% } %>
+         <% } %>
+         
             <hr />
-
+            
             <div class="form-group">
                 <div class="controls">
                     <input type="text" id="firstname" name="firstname" placeholder="First name" class="form-control"  />
