@@ -143,7 +143,8 @@ $('#btnSaveContact_Info').click(function() {
             /*json object to sent to the authentication url*/
             data: JSON.stringify(contact_info),
             success: function (res) {
-                console.log(res);
+                showAnnoucement(res.flag);
+                //console.log(res);
             },
             error: function(x,e){
                 

@@ -90,4 +90,29 @@ function validateContact_Info(validid){
 return null;
 }
 
-
+function showAnnoucement(flag){
+    if(flag==1){
+                    $.gritter.add({
+                    title: 'Success',
+                    text: 'Your contact information has been saved!',
+                    sticky: false,
+                    time: '1500' 
+                    });
+                }else{
+                    if(flag==0){
+                        $.gritter.add({
+                        title: 'Human Error',
+                        text: 'The information is wrong!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }else{
+                        $.gritter.add({
+                        title: 'Server Error',
+                        text: 'The server is not working now. Sorry Opps!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }
+                }
+}
