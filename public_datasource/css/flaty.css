@@ -3414,7 +3414,7 @@ a.tile:hover {
 
 .tabbable.tabs-left .tab-content,
 .tabbable.tabs-right .tab-content {
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .tabbable .nav > li.active > .dropdown-toggle {

@@ -1,4 +1,8 @@
 //var $validation_form_contact_info = $('#validation_form_contact_info');
+function Contact_Info(attribute){
+    this.attribute = attribute;
+}
+var contact_info = null;
 $(function() {
     //validation
     //var validate_contact_info = validateContact_Info("#validation_form_contact_info");
@@ -14,23 +18,25 @@ $(function() {
         //json object to sent to the authentication url
         success: function (res) {
             if(res.flag == 1){
+                contact_info = new Contact_Info(res.resdata);
                 $('#btnSubmit').prop('disabled',false);
-                $("input[name='firstname']").val(res.resdata.FirstName);
-                $("input[name='lastname']").val(res.resdata.LastName);
+                $("input[name='firstname']").val(contact_info.attribute.FirstName);
+                $("input[name='lastname']").val(contact_info.attribute.LastName);
                 //must to public file;
-                $("#preview").attr('src',res.resdata.Avatar);
-                $("input[name='email']").val(res.resdata.Email);
-                $("input[name='phone']").val(res.resdata.Phone);
-                $("input[name='website']").val(res.resdata.Website);
-                $("input[name='address']").val(res.resdata.Address);
+                $("#preview").attr('src',contact_info.attribute.Avatar);
+                $("input[name='email']").val(contact_info.attribute.Email);
+                $("input[name='phone']").val(contact_info.attribute.Phone);
+                $("input[name='website']").val(contact_info.attribute.Website);
+                $("input[name='address']").val(contact_info.attribute.Address);
+                
                 /*var validator = $( "#validation_form_contact_info" ).validate();
                 validator.resetForm();*/
-            }else{
+            }/*else{
                 //|| res.flag == -1
                 if(res.flag == 0 ){
                     $('#btnSubmit').prop('disabled',true);
                 }
-            }
+            }*/
         },
         error: function(x,e){
             
@@ -90,4 +96,31 @@ function validateContact_Info(validid){
 return null;
 }
 
-
+function showAnnoucement(flag, section, action){
+    section = section.toLowerCase();
+    action = action.toLowerCase();
+    if(flag==1){
+                    $.gritter.add({
+                    title: 'Success',
+                    text: 'Your ' + section + ' has been' + action + '!',
+                    sticky: false,
+                    time: '1500' 
+                    });
+                }else{
+                    if(flag==0){
+                        $.gritter.add({
+                        title: 'Human Error',
+                        text: 'The information is wrong!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }else{
+                        $.gritter.add({
+                        title: 'Server Error',
+                        text: 'The server is not working now. Sorry Opps!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }
+                }
+}

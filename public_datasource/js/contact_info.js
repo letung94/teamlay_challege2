@@ -1,14 +1,3 @@
-var contact_info = {
-        "FirstName":"",
-        "LastName":"",
-        "Avatar":"",
-        "Email":"",
-        "Phone":"",
-        "Website":"",
-        "Address":"",
-        "CV_Id": 0
-}
-
 var preview = document.getElementById('preview');
 var del_avatar = $("#del_avatar");
 var loadFile = function(event) {
@@ -50,7 +39,7 @@ function validateImage(avatar){
 }
 
 $('#option').on('click','#del_avatar',function(){
-    preview.src = "/img/default_avatar.jpg";
+    preview.src = contact_info.attribute.Avatar;
     del_avatar.css("opacity","0");
     $("#avatar")[0].value = '';
 });
@@ -124,14 +113,17 @@ $('#btnSaveContact_Info').click(function() {
         $(".validimg").css('display','none');
     }
     if(validator&validimage){
-        contact_info["FirstName"]=$("input[name='firstname']").val();
-        contact_info["LastName"]=$("input[name='lastname']").val();
-        contact_info["Avatar"]= $("#preview").attr('src');
-        contact_info["Email"]=$("input[name='email']").val();
-        contact_info["Phone"]=$("input[name='phone']").val();
-        contact_info["Website"]=$("input[name='website']").val();
-        contact_info["Address"]=$("input[name='address']").val();
-        contact_info["CV_Id"]=$("input[name='idcv']").val();
+        var temp = {
+            FirstName:$("input[name='firstname']").val(),
+            LastName:$("input[name='lastname']").val(),
+            Avatar: $("#preview").attr('src'),
+            Email:$("input[name='email']").val(),
+            Phone:$("input[name='phone']").val(),
+            Website:$("input[name='website']").val(),
+            Address:$("input[name='address']").val(),
+            CV_Id:$("input[name='idcv']").val(),
+        };
+        var save_contact_info = new Contact_Info(temp);
         var urlpost = window.location.href + '/contact_info/save';
         $.ajax({
             type: "POST",
@@ -141,9 +133,14 @@ $('#btnSaveContact_Info').click(function() {
             async: false,
             contentType: 'application/json; charset=utf-8',
             /*json object to sent to the authentication url*/
-            data: JSON.stringify(contact_info),
+            data: JSON.stringify(save_contact_info.attribute),
             success: function (res) {
-                console.log(res);
+                showAnnoucement(res.flag);
+                contact_info = null;
+                contact_info = new Contact_Info(res.resdata.attribute);
+                $("#del_avatar").css("opacity","0");
+                $("#avatar")[0].value = '';
+                //console.log(res);
             },
             error: function(x,e){
                 

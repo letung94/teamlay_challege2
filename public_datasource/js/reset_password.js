@@ -2,8 +2,6 @@ $(document).ready(function() {
     // validate register form on keyup and sumit
     $("#form-reset-password").validate({
         errorClass: 'text-danger',
-        focusInvalid: false,
-        debug: true,
         rules: {
             password: {
                 required: true,
@@ -28,12 +26,13 @@ $(document).ready(function() {
         },
     });
     $('#submit').click(function() {
-        /*$('#form-register').submit();
-        return false;*/
         var validator = $('#form-reset-password').valid();
-        console.log(validator);
-        return false;
-        // event.preventDefault();
+        if (validator) {
+            console.log(validator);
+            console.log('reset password !');
+            $('#form-reset-password').submit();
+        } else {
+            return false;
+        }
     });
-
 })

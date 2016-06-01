@@ -2,8 +2,6 @@ $(document).ready(function() {
     // validate register form on keyup and sumit
     $("#form-register").validate({
         errorClass: 'text-danger',
-        focusInvalid: true,
-        debug: true,
         rules: {
             firstname: {
                 required: true
@@ -52,9 +50,9 @@ $(document).ready(function() {
         },
         errorPlacement: function(error, element) {
             // console.log(error);
-            if (element.attr("name") == "accept")  {
+            if (element.attr("name") == "accept") {
                 error.insertAfter("#accept_error-message");
-            }else {
+            } else {
                 error.insertAfter(element);
             }
         }
@@ -69,11 +67,12 @@ $(document).ready(function() {
     });
     $('#submit').click(function() {
         var validator = $('#form-register').valid();
-        if(validator){
+        if (validator) {
             console.log(validator);
-             $('#form-register').submit();
+            console.log('register !');
+            $('#form-register').submit();
+        } else {
+            return false;
         }
-        return false;
     });
-
 })

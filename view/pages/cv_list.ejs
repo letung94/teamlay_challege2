@@ -50,13 +50,13 @@
                                                 <td><button class="btn btn-danger btn-sm btn-delete" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-remove"></span></button></td>
                                                 <td><button class="btn btn-info btn-sm btn-print" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-print"></span></button></td> -->
                                                 <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>" data-toggle="modal" data-target="#rename-cv-modal" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-pencil"></span></button>
-                                                <button class="btn btn-danger btn-sm btn-delete" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-remove"></span></button>
-                                                <button class="btn btn-info btn-sm btn-print" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-print"></span></button></td>
+                                                <button class="btn btn-danger btn-sm btn-delete" cv-id="<%=cv.Id%>" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-remove"></span></button>
+                                                <button class="btn btn-info btn-sm btn-print" cv-id="<%=cv.Id%>" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-print"></span></button></td>
                                                 </tr>
                                                 <% }); %>
                                         <%}else{%>
                                         <tr>
-                                            <td colspan="4"><h3>You don't have any CV yet. Do you want to create new one ?</h3></td>
+                                            <td colspan="4"><h3>You don't have any CV yet. Do you want to create a new one ?</h3></td>
                                         </tr>
                                         <%}%>
                                     </tbody>
