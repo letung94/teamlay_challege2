@@ -94,7 +94,9 @@ var ctrlcertification = require('./controller/ctrlcertification');
 app.use('/cv/:idcv', ctrlcertification);
 
 /*admin*/
-
+app.get('/error/500',function(req, res){
+    res.render('pages/server_error_500');
+});
 
 
 /*var di = require('./config/config');

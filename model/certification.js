@@ -33,13 +33,19 @@ function certificationModel() {
         });
     }
 
-    this.removeCertification = function(param, callback){
-        certification = new Certification(param);
-        certification.remove(function(errors, results){
-            if(errors){
-                console.log(errors);
+    this.deleteCertification = function(id, callback){
+        console.log('asd: ' + id);
+        certification = new Certification({id: id});
+        certification.remove(function(err, rows){
+            if (err) {
+                callback(-1, err)
+            } else {
+                if (rows.length == 0) {
+                    callback(0, null);
+                } else {
+                    callback(1, rows);
+                }
             }
-            callback(results, errors);
         });
     }
 

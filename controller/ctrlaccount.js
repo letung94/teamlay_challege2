@@ -30,21 +30,30 @@ router.post('/forgot', function (req, res, next) {
         function (token, done) {
             user_model.getByEmail(req.body.email, function (data) {
                 var user = data;
+                var date = new Date();
                 if (!user) {
                     req.flash('error', 'Sorry, we couldn\'t find an account matching the email address you entered. Please try again or register a new account.');
                     return res.redirect('/forgot');
                 }
-                console.log(user);
-                var date = new Date();
+                var date_differ = user.ResetPasswordExpire.getMinutes() - date.getMinutes();
+                console.log(date_differ);
+                if (date_differ > 27) {
+                    req.flash('error', 'We\'ve received too many password reset attempts. Please try again a few minutes later.');
+                    return res.redirect('/forgot');
+                }
+
                 date.setMinutes(date.getMinutes() + 30);
                 user.Token = token;
                 user.ResetPasswordExpire = date; // 30 mins
-                user_model.updateUser(user);
-                done(null, token, user);
+
+                user_model.updateUser(user, function () {
+                    done(null, token, user);
+                });
+
             });
         },
         function (token, user, done) {
-            var link = req.protocol + "://" + req.get('host') + "/reset/" + token;
+            var link = req.protocol + "://" + req.get('host') + "/reset/    " + token;
             app.mailer.send('pages/reset_password_email', {
                 to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
                 subject: 'CV Maker Reset Password', // REQUIRED. 
@@ -64,8 +73,14 @@ router.post('/forgot', function (req, res, next) {
 
 
 // Reset Password GET
-router.get('/reset_password', function (req, res) {
-    res.render('pages/reset_password');
+router.get('/reset/:token', function (req, res) {
+    console.log(req.params.token);
+    res.render('/pages/reset_password');
+});
+
+// Reset Password POST
+router.post('/reset', function (req, res) {
+    console.log();
 });
 
 // User Registration GET
