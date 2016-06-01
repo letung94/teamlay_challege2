@@ -41,6 +41,30 @@ router.post('/certification/add', function (req, res) {
 	})
 });
 
+router.post('/certification/edit', function (req, res) {
+	var cv_id = req.baseUrl.split("/")[2];
+	var cvService = di.resolve('curriculum_vitae');
+	var cvServiceIns = new cvService();
+	cvServiceIns.checkCVBelongToUser(cv_id, userid, function(code, data){
+		if(code == 1){
+			if(data == true){ /*This cv_id belong to this user*/
+				var cerService = di.resolve('certification');
+				var cerServiceIns = new cerService();
+				var entity = req.body.entity;
+				console.log(entity);
+				cerServiceIns.saveCertification(entity, function(cerCode, rows){
+					return res.json({code: cerCode, rows: rows});
+				})
+			}else{/*This cv_id not belong to this user*/
+				return res.json({code : cerCode, msg: 'The CV you want to edit belong to another user.'} );
+			}
+		}else if (code == -1){ /*Somethong wrong with server*/
+			console.log(data);
+			return res.json({code: code});
+		}
+	});
+});
+
 router.post('/certification/delete', function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var cvService = di.resolve('curriculum_vitae');

@@ -19,7 +19,8 @@ function certificationModel() {
 
     this.saveCertification = function(param, callback){
         certification = new Certification(param);
-        // certification.set('id', 6);
+        console.log('model');
+        console.log(certification);
         certification.save(function(errors, results){
             if(errors){
                 callback(-1, errors)

@@ -27,8 +27,8 @@ $(document).ready(function(){
         var html = '';
         $.each(self.listCertification, function(index, value){
             html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.CertificateAuthority + '</td>' + '<td>' + value.Date +
-            '</td><td><button class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button>' +
-            '<button class="btn btn-danger btn-sm btn-delete-certificate" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
+            '</td><td><button class="btn btn-warning btn-sm btn-edit-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button>' +
+            '<button class="btn btn-danger btn-sm btn-delete-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
         })
         $('#certification_list').html(html);
     }
@@ -69,10 +69,10 @@ $(document).ready(function(){
     });
 
     /*Delete Certification - this button is dynamic so we write this way.*/
-    $(document).on('click', '.btn-delete-certificate', function() {
+    $(document).on('click', '.btn-delete-certification', function() {
         var confirmDelete = confirm("Are you sure you want to delete this certification? ");
         if(!confirmDelete)
-            return false;
+        return false;
         var certificationId = $(this).attr('certification-id');
         var param = {id: certificationId};
         var url = window.location.href + "/certification/delete";
@@ -116,6 +116,86 @@ $(document).ready(function(){
             }
         });
     });
+
+    /*Bind data to form to edit when user click edit button.*/
+    $(document).on('click', '.btn-edit-certification', function() {
+        var id = $(this).attr('certification-id');
+        var editingCertification;
+        $.each(self.listCertification, function(index, certification){
+            if(certification.Id == id){
+                editingCertification = certification;
+                return false;
+            }
+        });
+        $('#certification-form input[name=id]').val(editingCertification.Id);
+        $('#certification-form input[name=title]').val(editingCertification.Title);
+        $('#certification-form input[name=certificationAuthority]').val(editingCertification.CertificateAuthority);
+        $('#certification-form input[name=date]').val(editingCertification.Date);
+        $('#certification-form textarea[name=details]').data("wysihtml5").editor.setValue(editingCertification.Details);
+
+        self.switchMode('edit');
+    });
+
+    /*Check and send edit request to server*/
+    $('#btnSaveCertification').click(function(){
+        var isValid = $('#certification-form').valid();
+        if(isValid){ /*If the form is valid*/
+            entity =  {
+                id: $('#certification-form input[name=id]').val() || '',
+                Title: $('#certification-form input[name=title]').val() || '',
+                CertificateAuthority: $('#certification-form input[name=certificationAuthority]').val() || '',
+                Details: $('#certification-form textarea[name=details]').val() || ''
+            }
+            var param = {entity : entity};
+            var date = $('#certification-form input[name=date]').val();
+            if(date && date.trim() != ''){
+                entity.Date = date;
+            }
+            var url = window.location.href +  '/certification/edit';
+            $.post(url, param, function(resp){
+                var code = resp.code;
+                console.log(code);
+                if(code == 1){ /*add new certification success*/
+                    /*Show the success message*/
+                    $.gritter.add({
+                        title: 'Success',
+                        text: 'Your new certification has been updated.',
+                        sticky: false,
+                        time: '1500'
+                    });
+                }
+            });
+        }
+    });
+
+    /*Return index of object that match id in self.listCertification*/
+    self.getIndexOfListCertificationById = function(id){
+
+    }
+
+    /*When user is editting certification and want to cancel instead of save*/
+    $('#btnCancelEdit').click(function(){
+        self.switchMode('add');
+        self.clearForm();
+    });
+    /*Switch mode Add or delete*/
+    self.switchMode = function(mode){
+        mode = mode.toLowerCase();
+        if(mode == 'add'){
+            $('#btnSaveCertification').hide();
+            $('#btnCancelEdit').hide();
+            $('#btnAddListCertification').show();
+            $('.btn-delete-certification').prop('disabled', false);
+            $('.btn-edit-certification').prop('disabled', false);
+            btnAddListCertification
+        }else if (mode == 'edit'){
+            $('#btnSaveCertification').show();
+            $('#btnCancelEdit').show();
+            $('#btnAddListCertification').hide();
+            $('.btn-delete-certification').prop('disabled', true);
+            $('.btn-edit-certification').prop('disabled', true);
+        }
+    };
 
     /*Jquery Validation for #certification-form*/
     /*Custom jquery validation, input date must be before today.*/
