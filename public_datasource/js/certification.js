@@ -10,7 +10,19 @@ $(document).ready(function(){
             console.log(resp);
             if(resp.code == 1){
                 $.each(resp.rows, function(index, value){
-                    self.listCertification.push(value);
+                    if(value.Date){
+                        var  d = moment(value.Date);
+                        value.Date = d.format('YYYY/MM/DD');
+                    }
+
+                    var entity= {
+                        Id: value.Id,
+                        Title: value.Title,
+                        CertificateAuthority: value.CertificateAuthority || '',
+                        Date: value.Date || '',
+                        CV_Id: value.CV_Id || ''
+                    }
+                    self.listCertification.push(entity);
                 });
                 self.renderTableBody();
             }
@@ -26,7 +38,7 @@ $(document).ready(function(){
     self.renderTableBody = function(){
         var html = '';
         $.each(self.listCertification, function(index, value){
-            html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.CertificateAuthority + '</td>' + '<td>' + value.Date +
+            html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.CertificateAuthority + '</td>' + '<td>' + value.Date  +
             '</td><td><button class="btn btn-warning btn-sm btn-edit-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button>' +
             '<button class="btn btn-danger btn-sm btn-delete-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
         })
@@ -60,6 +72,9 @@ $(document).ready(function(){
                     });
                     var insertedId = resp.data.insertId;
                     entity.Id = insertedId
+                    if(!entity.Date) /*To prevent show undefined in grid*/
+                    entity.Date = '';
+                    console.log(entity);
                     self.listCertification.push(entity);
                     self.renderTableBody();
                     self.clearForm();
@@ -81,16 +96,9 @@ $(document).ready(function(){
             var code = resp.code;
             if(code == 1){ /*Delete Successful*/
                 /*Get index of deleted certification*/
-                var length = self.listCertification.length;
-                var index;
-                for(var i = 0; i < length; i++){
-                    var certification = self.listCertification[i];
-                    if(certification.Id == certificationId){ /*The Id in list match the deleted Id*/
-                        index = i;
-                        deletedCertification = certification;
-                        break;
-                    }
-                }
+                var index = self.getIndexOfListCertificationById(certificationId);
+                deletedCertification = self.listCertification[index];
+
                 /*Remove at index*/
                 self.listCertification.splice(index, 1);
 
@@ -100,7 +108,7 @@ $(document).ready(function(){
                 /*Show the success message*/
                 $.gritter.add({
                     title: 'Success',
-                    text: 'The Certification <b>' + deletedCertification.Title + '(' + deletedCertification.CertificationAuthority  + ')</b> has been deleted.',
+                    text: 'The Certification <b>' + deletedCertification.Title + '(' + deletedCertification.CertificateAuthority  + ')</b> has been deleted.',
                     sticky: false,
                     time: '1500'
                 });
@@ -119,6 +127,7 @@ $(document).ready(function(){
 
     /*Bind data to form to edit when user click edit button.*/
     $(document).on('click', '.btn-edit-certification', function() {
+        $("label.text-danger").hide(); /*Hide Error when user add before edit*/
         var id = $(this).attr('certification-id');
         var editingCertification;
         $.each(self.listCertification, function(index, certification){
@@ -154,8 +163,22 @@ $(document).ready(function(){
             var url = window.location.href +  '/certification/edit';
             $.post(url, param, function(resp){
                 var code = resp.code;
-                console.log(code);
                 if(code == 1){ /*add new certification success*/
+                    /*Find and change certification value at index*/
+                    var index = self.getIndexOfListCertificationById(entity.id);
+                    var certification = self.listCertification[index];
+                    certification.Title = entity.Title;
+                    certification.CertificateAuthority = entity.CertificateAuthority || '';
+                    certification.Details = entity.Details || '';
+                    certification.Date = entity.Date || '';
+
+                    /*Render the grid again*/
+                    self.renderTableBody();
+
+                    /*Switch back to add mode and clear data*/
+                    self.switchMode('add');
+                    self.clearForm();
+
                     /*Show the success message*/
                     $.gritter.add({
                         title: 'Success',
@@ -163,6 +186,10 @@ $(document).ready(function(){
                         sticky: false,
                         time: '1500'
                     });
+                }else if (code == 0){
+
+                }else{ /*code == -1*/
+
                 }
             });
         }
@@ -170,7 +197,16 @@ $(document).ready(function(){
 
     /*Return index of object that match id in self.listCertification*/
     self.getIndexOfListCertificationById = function(id){
-
+        var length = self.listCertification.length;
+        var index = -1;
+        for (var i = 0; i < length; i++) {
+            var certification =  self.listCertification[i];
+            if(certification.Id == id){
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
     /*When user is editting certification and want to cancel instead of save*/
@@ -222,6 +258,13 @@ $(document).ready(function(){
                 isBeforeToday: true
             }
         },
+        errorPlacement: function(error, element) {
+            if (element.attr("name") == "date")  {
+                error.insertAfter("#date-error-message");
+            }else {
+                error.insertAfter(element);
+            }
+        }
     });
 
     /*initialize*/

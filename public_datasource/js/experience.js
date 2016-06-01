@@ -52,13 +52,7 @@ $('#btnAddListExp').click(function() {
             $.each(listexperience, function(index,value ){
                 addlistexp(index + 1,value.attribute);
             });
-            //show popup on success
-            $.gritter.add({
-                   title: 'Success',
-                   text: 'Your experience has been added!',
-                   sticky: false,
-                   time: '1500' 
-                });
+            showAnnoucement(res.flag, 'experience', 'added');
         },
         error: function(x,e){
             
@@ -96,18 +90,13 @@ $('#list-experience').on('click', '.btnDeleteExp' , function(e){
                             $.each(listexperience, function( index, value ){
                                 addlistexp(index + 1,value.attribute);
                             });
+                             showAnnoucement(res.flag, 'experience', 'deleted');
                         }
                     },
                     error: function(x,e){
                         
                     }
-                }); 
-                $.gritter.add({
-                   title: 'Success',
-                   text: 'Your experience has been deleted!',
-                   sticky: false,
-                   time: '1500' 
-                });
+                });               
                 }else {
                     $("#experience-form")[0].reset();
                 }
@@ -148,13 +137,9 @@ $('#btnSaveEditExp').click(function() {
                 $.each(listexperience, function( index, value ){
                     addlistexp(index + 1,value.attribute);
                 });
+                showAnnoucement(res.flag, 'experience', 'edited');
             }
-            $.gritter.add({
-                   title: 'Success',
-                   text: 'Your experience has been edited!',
-                   sticky: false,
-                   time: '1500' 
-                });
+            
         },
         error: function(x,e){
             
@@ -211,6 +196,7 @@ function switchMode(mode){
         //case button save    
         }else if (mode == 'save'){
             $('#btnSaveEditExp').hide();
+            $('#btnCancelEditExp').hide();
             $('#btnAddListExp').show(); 
             $("#experience-form")[0].reset();
         }
@@ -242,10 +228,39 @@ $(document).ready(function() {
             errorPlacement:
             function(error, element){
                 if(element.attr("name") == "date"){ 
-                    error.insertAfter('.input-group');
+                    error.insertAfter('#experience-form .input-group');
             }else{ 
                     error.insertAfter(element); 
                 }
             }          
     });
 });
+
+function showAnnoucement(flag, section, action){
+    section = section.toLowerCase();
+    action = action.toLowerCase();
+    if(flag==1){
+                    $.gritter.add({
+                    title: 'Success',
+                    text: 'Your ' + section + ' has been' + action + '!',
+                    sticky: false,
+                    time: '1500' 
+                    });
+                }else{
+                    if(flag==0){
+                        $.gritter.add({
+                        title: 'Human Error',
+                        text: 'The information is wrong!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }else{
+                        $.gritter.add({
+                        title: 'Server Error',
+                        text: 'The server is not working now. Sorry Opps!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }
+                }
+}

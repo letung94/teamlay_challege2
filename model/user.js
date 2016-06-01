@@ -27,7 +27,7 @@ function userModel() {
     this.getByEmail = function (email, callback) {
         user = new User();
         user.find('first', { where: "Email = '" + email + "'" }, function (err, row) {
-            callback(row);
+            callback(err,row);
         });
     }
     this.getByToken = function (token, callback) {

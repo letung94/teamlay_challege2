@@ -26,29 +26,9 @@
     <script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
-    <script src="assets/jquery-validation/dist/jquery.validate.js"></script>
-    
-    <script type="text/javascript">
-    function goToForm(form)
-    {
-        $('.register-wrapper > form:visible').fadeOut(200, function(){
-            $('#form-' + form).fadeIn(200);
-        });
-    }
-    $(function() {
-        $('.goto-login').click(function(){
-            goToForm('login');
-        });
-        $('.goto-forgot').click(function(){
-            goToForm('forgot');
-        });
-        $('.goto-register').click(function(){
-            goToForm('register');
-        });
-    });
-    </script>
 
-
+    <script type="text/javascript" src="assets/jquery-validation/dist/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/register.js"></script>
 </head>
 <body class="login-page">
 

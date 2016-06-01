@@ -180,10 +180,10 @@ DROP TABLE IF EXISTS `cv_maker`.`skill` ;
 
 CREATE TABLE IF NOT EXISTS `cv_maker`.`skill` (
   `Id` INT(11) NOT NULL AUTO_INCREMENT,
-  `Name` NVARCHAR(50) NULL DEFAULT NULL,
-  `Level` INT(11) NULL DEFAULT NULL,
-  `Maturity` NVARCHAR(50) NULL DEFAULT NULL,
-  `LastTime` INT(11) NULL DEFAULT NULL,
+  `Name` NVARCHAR(50) NOT NULL ,
+  `Expertise` TINYINT(1) NOT NULL ,
+  `Experience` NVARCHAR(50) NOT NULL ,
+  `LastYearUsed` INT(4) NOT NULL,
   `CV_Id` INT(11) NOT NULL,
   PRIMARY KEY (`Id`),
   INDEX `FK_Skill_CV_Id_idx` (`CV_Id` ASC),

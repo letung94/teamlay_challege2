@@ -2,8 +2,6 @@ $(document).ready(function() {
     // validate register form on keyup and sumit
     $("#form-login").validate({
         errorClass: 'text-danger',
-        focusInvalid: true,
-        debug: true,
         rules: {
             username: {
                 required: true,
@@ -23,15 +21,17 @@ $(document).ready(function() {
                 required: "Please enter your password",
                 minlength: "Your password must be at least 5 characters long"
             }
-        },
+        }
     });
     $('#submit').click(function() {
         var validator = $('#form-login').valid();
-        if(validator){
-            console.log('dwadwa');
-             $('#form-login').submit();
+        if (validator) {
+            console.log(validator);
+            console.log('login !');
+            $('#form-login').submit();
+        } else {
+            return false;
         }
-        return false;
     });
 
 })
