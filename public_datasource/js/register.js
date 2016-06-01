@@ -48,13 +48,7 @@ $(document).ready(function() {
                 minlength: "Your username must be at least 5 characters long",
                 equalTo: "Please enter the same password as above"
             },
-<<<<<<< HEAD
             accept: "Please accept our policy"
-=======
-            accept: {
-                required: "Please accept our policy"
-            accept: "Please accept our policy   "
->>>>>>> 510ad0d6942b7f3501beef53d9481dc775d8569e
         },
         errorPlacement: function(error, element) {
             // console.log(error);

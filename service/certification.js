@@ -11,9 +11,9 @@ function certificate_service(){
         c.saveCertification(param, cb);
     }
 
-    this.removeCertification = function(param, cb){
+    this.deleteCertification = function(id, cb){
         var c = new certification();
-        c.removeCertification(param, cb);
+        c.deleteCertification(id, cb);
     }
 }
 

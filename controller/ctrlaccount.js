@@ -30,17 +30,26 @@ router.post('/forgot', function (req, res, next) {
         function (token, done) {
             user_model.getByEmail(req.body.email, function (data) {
                 var user = data;
+                var date = new Date();
                 if (!user) {
                     req.flash('error', 'Sorry, we couldn\'t find an account matching the email address you entered. Please try again or register a new account.');
                     return res.redirect('/forgot');
                 }
-                console.log(user);
-                var date = new Date();
+                var date_differ = user.ResetPasswordExpire.getMinutes() - date.getMinutes();
+                console.log(date_differ);
+                if (date_differ > 27) {
+                    req.flash('error', 'We\'ve received too many password reset attempts. Please try again a few minutes later.');
+                    return res.redirect('/forgot');
+                }
+
                 date.setMinutes(date.getMinutes() + 30);
                 user.Token = token;
                 user.ResetPasswordExpire = date; // 30 mins
-                user_model.updateUser(user);
-                done(null, token, user);
+
+                user_model.updateUser(user, function () {
+                    done(null, token, user);
+                });
+
             });
         },
         function (token, user, done) {
@@ -52,7 +61,7 @@ router.post('/forgot', function (req, res, next) {
                 email: req.body.email
             }, function (err) {
                 // handle error 
-                req.flash('success', 'Please check your email and follow the instructions to reset your password.');
+                req.flash('success', 'You should receive Password Reset instructions in a few moments. If you don\'t receive an email soon, please try again. If you continue to have problems after that, please contact support.');
                 done(err, 'done');
             });
         }
@@ -64,26 +73,79 @@ router.post('/forgot', function (req, res, next) {
 
 
 // Reset Password GET
-router.get('/reset_password', function (req, res) {
-    res.render('pages/reset_password');
+router.get('/reset/:token', function (req, res) {
+    user_model.getByToken(req.params.token, function (err, data) {
+        var user = data;
+        var now = new Date();
+        console.log(user);
+        if (!user) {
+            req.flash('error', 'Password reset token is invalid.');
+            return res.redirect('/forgot');
+        }
+        if (user.ResetPasswordExpire < now) {
+            req.flash('error', 'Password reset token has expired.');
+            return res.redirect('/forgot');
+        }
+
+        res.render('pages/reset_password');
+    })
+});
+
+// Reset Password POST
+router.post('/reset/:token', function (req, res) {
+    async.waterfall([
+        function (done) {
+            user_model.getByToken(req.params.token, function (err, data) {
+                var user = data;
+                console.log(user);
+                if (!user) {
+                    req.flash('error', 'Password reset token is invalid or has expired.');
+                    return res.redirect('/forgot');
+                }
+
+                user.PasswordHash = bcrypt.hashSync(req.body.password);
+                user.Token = '';
+
+                user_model.updateUser(user, function () {
+                    console.log(user);
+                    done(null, user);
+                });
+            })
+        },
+        function (user, done) {
+            app.mailer.send('pages/reset_password_success_email', {
+                to: user.Email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                subject: 'CV Maker - Password Changed'
+            }, function (err) {
+                // handle error 
+                req.flash('success', 'Your password was changed successfully. You may now login.');
+                console.log('success');
+                done(err);
+            });
+        }
+    ], function (err) {
+        res.redirect('/login');
+    });
 });
 
 // User Registration GET
 router.get('/register', function (req, res) {
-    res.render('pages/register');
+    res.render('pages/register',{
+        errorMessage:req.flash('error')
+    });
 });
 
 // Login GET
 router.get('/login', function (req, res) {
     if (req.isAuthenticated()) res.redirect('/index');
     else res.render('pages/login', {
-        errorMessage: req.flash('error')
+        errorMessage: req.flash('error'),
+        successMessage: req.flash('success')
     });
 });
 
 // Login POST
 router.post('/login', function (req, res, next) {
-    console.log('dawdwawdw');
     passport.authenticate('local', {
         successRedirect: '/index',
         failureRedirect: '/login',
@@ -123,10 +185,10 @@ router.get('/index', function (req, res) {
 router.get("/verify/:token", function (req, res, next) {
     var token = req.params.token;
     user_model.getByToken(token, function (err, data) {
-        if (!data) res.end('Token is invalid or has been expired');
+        if (!data) res.end('Token is invalid or has expired');
         else {
             var user = data;
-            user.Token = null;
+            user.Token = '';
             user.IsConfirmed = true;
             user_model.updateUser(user, function (err) {
             });
@@ -136,59 +198,120 @@ router.get("/verify/:token", function (req, res, next) {
 });
 
 // User Registration POST
-router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExisted, function (req, res) {
-    passport.authenticate('local', {
-        successRedirect: '/index',
-        failureRedirect: '/login',
-        failureFlash: true
-    }, function (err, user, info) {
-        req.body.password = bcrypt.hashSync(req.body.password);
-        var date = new Date();
-        var verify_token = uuid.v1();
-        var user = {
-            Username: req.body.username,
-            Email: req.body.email,
-            PasswordHash: req.body.password,
-            //Firstname = req.body.firstname,
-            //Lastname = req.body.lastname,
-            CreatedDate: date,
-            IsConfirmed: false,
-            IsBlocked: false,
-            Token: verify_token
-        };
-        user_model.addUser(user, function (err) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            // Create a link to verify email
-            var link = req.protocol + "://" + req.get('host') + "/verify/" + verify_token;
+// router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExisted, function (req, res) {
+//     passport.authenticate('local', {
+//         successRedirect: '/index',
+//         failureRedirect: '/login',
+//         failureFlash: true
+//     }, function (err, user, info) {
+//         req.body.password = bcrypt.hashSync(req.body.password);
+//         var date = new Date();
+//         var verify_token = uuid.v1();
+//         var user = {
+//             Username: req.body.username,
+//             Email: req.body.email,
+//             PasswordHash: req.body.password,
+//             //Firstname = req.body.firstname,
+//             //Lastname = req.body.lastname,
+//             CreatedDate: date,
+//             IsConfirmed: false,
+//             IsBlocked: false,
+//             Token: verify_token
+//         };
+//         user_model.addUser(user, function () {
+//             // Create a link to verify email
+//             var link = req.protocol + "://" + req.get('host') + "/verify/" + verify_token;
 
-            app.mailer.send('pages/confirmation_email', {
-                to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
-                subject: 'CV Maker Confimation Email', // REQUIRED. 
-                link: link, // All additional properties are also passed to the template as local variables. 
-                email: req.body.email
-            }, function (err) {
-                if (err) {
-                    // handle error 
-                    console.log(err);
-                    res.end('There was an error sending the email');
-                    return;
-                }
-                res.end('Email Sent');
-            });
-            user_model.getByUsername(req.body.username, function (err, data) {
-                req.logIn(data, function (err) {
-                    if (err) {
-                        return res.render('pages/login', { error: req.flash('error', err.message) });
-                    } else {
-                        return res.redirect('/index');
-                    }
+//             app.mailer.send('pages/confirmation_email', {
+//                 to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+//                 subject: 'CV Maker Confimation Email', // REQUIRED. 
+//                 link: link, // All additional properties are also passed to the template as local variables. 
+//                 email: req.body.email
+//             }, function (err) {
+//                 if (err) {
+//                     // handle error 
+//                     console.log(err);
+//                     res.end('There was an error sending the email');
+//                     return;
+//                 }
+//                 res.end('Email Sent');
+//             });
+//             user_model.getByUsername(req.body.username, function (err, data) {
+//                 req.logIn(data, function (err) {
+//                     if (err) {
+//                         return res.render('pages/login', { error: req.flash('error', err.message) });
+//                     } else {
+//                         return res.redirect('/index');
+//                     }
+//                 });
+//             });
+//         });
+//     })(req, res);
+// });
+router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExisted, function (req, res) {
+    user_model.getByEmail(req.body.email, function (err, data) {
+        if (data) {
+            req.flash('error', { errorMessage: 'Email already exists' });
+            return res.redirect('/register');
+        }
+        user_model.getByUsername(req.body.username, function (err, data) {
+            
+            if (data) {
+                req.flash('error', { errorMessage: 'Username already exists' });
+                return res.redirect('/register');
+            }
+            
+            passport.authenticate('local', {
+                successRedirect: '/index',
+                failureRedirect: '/login',
+                failureFlash: true
+            }, function (err, user, info) {
+                req.body.password = bcrypt.hashSync(req.body.password);
+                var date = new Date();
+                var verify_token = uuid.v1();
+                var user = {
+                    Username: req.body.username,
+                    Email: req.body.email,
+                    PasswordHash: req.body.password,
+                    //Firstname = req.body.firstname,
+                    //Lastname = req.body.lastname,
+                    CreatedDate: date,
+                    IsConfirmed: false,
+                    IsBlocked: false,
+                    Token: verify_token
+                };
+                user_model.addUser(user, function () {
+                    // Create a link to verify email
+                    var link = req.protocol + "://" + req.get('host') + "/verify/" + verify_token;
+
+                    app.mailer.send('pages/confirmation_email', {
+                        to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                        subject: 'CV Maker Confimation Email', // REQUIRED. 
+                        link: link, // All additional properties are also passed to the template as local variables. 
+                        email: req.body.email
+                    }, function (err) {
+                        if (err) {
+                            // handle error 
+                            console.log(err);
+                            res.end('There was an error sending the email');
+                            return;
+                        }
+                        res.end('Email Sent');
+                    });
+                    user_model.getByUsername(req.body.username, function (err, data) {
+                        req.logIn(data, function (err) {
+                            if (err) {
+                                req.flash('error', err.message);
+                                return res.redirect('/login');
+                            } else {
+                                return res.redirect('/index');
+                            }
+                        });
+                    });
                 });
-            })
+            })(req, res);
         });
-    })(req, res);
+    });
 });
 
 // Logout
