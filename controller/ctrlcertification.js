@@ -4,13 +4,11 @@ var di = require('../config/config');
 
 module.exports = router;
 
-var userid = 1;
-
 router.get('/certification/getAll', function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var cvService = di.resolve('curriculum_vitae');
 	var cvServiceIns = new cvService();
-	cvServiceIns.checkCVBelongToUser(cv_id, userid, function(code, data){
+	cvServiceIns.checkCVBelongToUser(cv_id, req.user.Id, function(code, data){
 		if(code == 1){
 			if(data == true){ /*This cv_id belong to this user*/
 				var cerService = di.resolve('certification');
@@ -19,7 +17,7 @@ router.get('/certification/getAll', function (req, res) {
 					return res.json({code: cerCode, rows: rows});
 				});
 			}else{/*This cv_id not belong to this user*/
-				return res.json({code : cerCode, msg: 'The CV you send belong to other user.'} );
+				return res.json({code : code, msg: 'The CV you send belong to other user.'} );
 			}
 		}else if (code == -1){ /*Somethong wrong with server*/
 			return res.json({code: code});
@@ -42,7 +40,7 @@ router.post('/certification/edit', function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var cvService = di.resolve('curriculum_vitae');
 	var cvServiceIns = new cvService();
-	cvServiceIns.checkCVBelongToUser(cv_id, userid, function(code, data){
+	cvServiceIns.checkCVBelongToUser(cv_id, req.user.Id, function(code, data){
 		if(code == 1){
 			if(data == true){ /*This cv_id belong to this user*/
 				var cerService = di.resolve('certification');
@@ -52,7 +50,7 @@ router.post('/certification/edit', function (req, res) {
 					return res.json({code: cerCode, rows: rows});
 				})
 			}else{/*This cv_id not belong to this user*/
-				return res.json({code : cerCode, msg: 'The CV you want to edit belong to another user.'} );
+				return res.json({code : code, msg: 'The CV you want to edit belong to another user.'} );
 			}
 		}else if (code == -1){ /*Something wrong with server*/
 			return res.json({code: code});
@@ -64,7 +62,7 @@ router.post('/certification/delete', function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var cvService = di.resolve('curriculum_vitae');
 	var cvServiceIns = new cvService();
-	cvServiceIns.checkCVBelongToUser(cv_id, userid, function(code, data){
+	cvServiceIns.checkCVBelongToUser(cv_id, req.user.Id, function(code, data){
 		if(code == 1){
 			if(data == true){ /*This cv_id belong to this user*/
 				var cerService = di.resolve('certification');
@@ -74,7 +72,7 @@ router.post('/certification/delete', function (req, res) {
 					return res.json({code: cerCode, rows: rows});
 				})
 			}else{/*This cv_id not belong to this user*/
-				return res.json({code : cerCode, msg: 'The CV you want to delete belong to another user.'} );
+				return res.json({code : code, msg: 'The CV you want to delete belong to another user.'} );
 			}
 		}else if (code == -1){ /*Somethong wrong with server*/
 			console.log(data);
