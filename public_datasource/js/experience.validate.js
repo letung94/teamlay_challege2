@@ -9,12 +9,11 @@ String.prototype.replaceAll = function(target, replacement) {
 var listexperience = [];
 
 var flag = 0;
-var rowId = '';
 //function add input value to list
-function addlistexp(row){
-    var editAction = '<button class="btn btn-primary btn-xs btnEdit"><span class="glyphicon glyphicon-pencil"></span> Edit</button>';
-        var deleteAction = '<button type="button" class="btn btn-danger btn-sm btnDelete"><i class="fa fa-trash-o"> Delete</i></button>';
-    var rowtable = "<tr style='font-size:13px'><td>" + row.Id + "</td><td>" + row.Company + "</td><td>" + row.Designation + "</td><td>" + row.FromDate + ' - ' + row.ToDate + "</td><td>" + row.Details + "</td><td>" + editAction + " " + deleteAction + "</td></tr>";
+function addlistexp(index,row){
+    var editAction = '<button class="btn btn-warning btn-sm btnEdit"><span class="glyphicon glyphicon-pencil"></span></button>';
+    var deleteAction = '<button class="btn btn-danger btn-sm btnDelete"><span class="glyphicon glyphicon-remove"></span></button>';
+    var rowtable = "<tr style='font-size:13px'><td>" + index + "</td><td>" + row.Company + "</td><td>" + row.Designation + "</td><td>" + row.FromDate + ' - ' + row.ToDate + "</td><td>" + editAction + " " + deleteAction + "</td></tr>";
     $(rowtable).appendTo("#list-experience tbody");
 }
 function getValueExp(){
@@ -48,8 +47,8 @@ $('#btnAddListExp').click(function() {
         success: function (res) {
             listexperience.push(new Experience(res.resdata)); 
             $("#list-experience tbody > tr").remove();
-            $.each(listexperience, function( index, value2 ){
-                addlistexp(value2.attribute);
+            $.each(listexperience, function(index,value ){
+                addlistexp(index + 1,value.attribute);
             });
         },
         error: function(x,e){
@@ -64,33 +63,40 @@ $('#list-experience').on('click', '.btnDelete' , function(e){
     e.preventDefault();
     var deletedexperience = new Experience();
     var cells = $(this).closest("tr").children("td");
-    idexp = parseInt(cells.eq(0).text());
-    deletedexperience.Id = idexp;
     indexcurrent = $(this).closest("tr").index();
-    console.log(this.rowIndex);
+    deletedexperience.Id = listexperience[indexcurrent].attribute.Id;
     urlpost = window.location.href + '/experience/delete'
-     $.ajax({
-        type: "POST",
-        //the url where you want to sent the userName and password to
-        url: urlpost,
-        dataType: 'json',
-        async: false,
-        contentType: 'application/json; charset=utf-8',
-        //json object to sent to the authentication url
-        data: JSON.stringify(deletedexperience),
-        success: function (res) {
-            if(res.flag==1){
-                listexperience.splice(indexcurrent, 1);    
-                $("#list-experience tbody > tr").remove();
-                $.each(listexperience, function( index, value2 ){
-                    addlistexp(value2.attribute);
-                });
+     BootstrapDialog.confirm('Are you sure?', function(result){
+            if(result) {
+                 $.ajax({
+                    type: "POST",
+                    //the url where you want to sent the userName and password to
+                    url: urlpost,
+                    dataType: 'json',
+                    async: false,
+                    contentType: 'application/json; charset=utf-8',
+                    //json object to sent to the authentication url
+                    data: JSON.stringify(deletedexperience),
+                    success: function (res) {
+                        if(res.flag==1){
+                            listexperience.splice(indexcurrent, 1);    
+                            $("#list-experience tbody > tr").remove();
+                            $.each(listexperience, function( index, value ){
+                                addlistexp(index + 1,value.attribute);
+                            });
+                        }
+                    },
+                    error: function(x,e){
+                        
+                    }
+                }); 
+                
+            }else {
+                $("#validation_form_exp")[0].reset();
             }
-        },
-        error: function(x,e){
-            
-        }
-    }); 
+        });
+
+    
     
 });
 //function edit current row on click and show to input
@@ -103,7 +109,7 @@ $('#list-experience').on('click', '.btnEdit' , function(e){
     $("#validation_form_exp input[name='company']").val(cells.eq(1).text()).focus();  
     $("#validation_form_exp input[name='designation']").val(cells.eq(2).text());
     $("#validation_form_exp input[name='date']").val(cells.eq(3).text());
-    $("#validation_form_exp textarea[name='detail']").data('wysihtml5').editor.setValue(cells.eq(4).text());
+    $("#validation_form_exp textarea[name='detail']").data('wysihtml5').editor.setValue(listexperience[indexcurrent].attribute.Details);
     rowId = $(this).closest('td').parent()[0].sectionRowIndex;
     $('#btnAddListExp').css('display', 'none');
     $('#btnSaveExp').css('display', 'inline');
@@ -127,8 +133,8 @@ $('#btnSaveExp').click(function() {
                 listexperience.splice(indexcurrent, 1);
                 listexperience.splice(indexcurrent, 0, new Experience(res.resdata));
                 $("#list-experience tbody > tr").remove();
-                $.each(listexperience, function( index, value2 ){
-                    addlistexp(value2.attribute);
+                $.each(listexperience, function( index, value ){
+                    addlistexp(index + 1,value.attribute);
                 });
             }
         },
@@ -160,7 +166,7 @@ function getExperience(){
                 clickedExperience = true;
                 $.each(res.resdata, function( index, value ) {
                 listexperience.push(new Experience(value));          
-                addlistexp(value);
+                addlistexp(index + 1,value);
                 });
                 
             },
