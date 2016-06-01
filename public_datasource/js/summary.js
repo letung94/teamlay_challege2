@@ -53,7 +53,7 @@ $('#btnSaveSummary').click(function() {
         });
     $.gritter.add({
         title: 'Successfull!',
-        text: 'Your summary is saved.',
+        text: 'Your summary has been saved.',
         sticky: false,
         time: '1500',
     });
