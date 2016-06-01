@@ -53,7 +53,7 @@ router.post('/forgot', function (req, res, next) {
             });
         },
         function (token, user, done) {
-            var link = req.protocol + "://" + req.get('host') + "/reset/    " + token;
+            var link = req.protocol + "://" + req.get('host') + "/reset/" + token;
             app.mailer.send('pages/reset_password_email', {
                 to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
                 subject: 'CV Maker Reset Password', // REQUIRED. 
@@ -61,7 +61,7 @@ router.post('/forgot', function (req, res, next) {
                 email: req.body.email
             }, function (err) {
                 // handle error 
-                req.flash('success', 'Please check your email and follow the instructions to reset your password.');
+                req.flash('success', 'You should receive Password Reset instructions in a few moments. If you don\'t receive an email soon, please try again. If you continue to have problems after that, please contact support.');
                 done(err, 'done');
             });
         }
@@ -74,13 +74,58 @@ router.post('/forgot', function (req, res, next) {
 
 // Reset Password GET
 router.get('/reset/:token', function (req, res) {
-    console.log(req.params.token);
-    res.render('/pages/reset_password');
+    user_model.getByToken(req.params.token, function (err, data) {
+        var user = data;
+        var now = new Date();
+        console.log(user);
+        if (!user) {
+            req.flash('error', 'Password reset token is invalid.');
+            return res.redirect('/forgot');
+        }
+        if (user.ResetPasswordExpire < now) {
+            req.flash('error', 'Password reset token has expired.');
+            return res.redirect('/forgot');
+        }
+
+        res.render('pages/reset_password');
+    })
 });
 
 // Reset Password POST
-router.post('/reset', function (req, res) {
-    console.log();
+router.post('/reset/:token', function (req, res) {
+    async.waterfall([
+        function (done) {
+            user_model.getByToken(req.params.token, function (err, data) {
+                var user = data;
+                console.log(user);
+                if (!user) {
+                    req.flash('error', 'Password reset token is invalid or has expired.');
+                    return res.redirect('/forgot');
+                }
+
+                user.PasswordHash = bcrypt.hashSync(req.body.password);
+                user.Token = '';
+
+                user_model.updateUser(user, function () {
+                    console.log(user);
+                    done(null,user);
+                });
+            })
+        },
+        function (user, done) {
+            app.mailer.send('pages/reset_password_success_email', {
+                to: user.Email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                subject: 'CV Maker - Password Changed'
+            }, function (err) {
+                // handle error 
+                req.flash('success', 'Your password was changed successfully. You may now login.');
+                console.log('success');
+                done(err);
+            });
+        }
+    ], function (err) {
+        res.redirect('/login');
+    });
 });
 
 // User Registration GET
@@ -92,13 +137,13 @@ router.get('/register', function (req, res) {
 router.get('/login', function (req, res) {
     if (req.isAuthenticated()) res.redirect('/index');
     else res.render('pages/login', {
-        errorMessage: req.flash('error')
+        errorMessage: req.flash('error'),
+        successMessage: req.flash('success')
     });
 });
 
 // Login POST
 router.post('/login', function (req, res, next) {
-    console.log('dawdwawdw');
     passport.authenticate('local', {
         successRedirect: '/index',
         failureRedirect: '/login',
@@ -138,10 +183,10 @@ router.get('/index', function (req, res) {
 router.get("/verify/:token", function (req, res, next) {
     var token = req.params.token;
     user_model.getByToken(token, function (err, data) {
-        if (!data) res.end('Token is invalid or has been expired');
+        if (!data) res.end('Token is invalid or has expired');
         else {
             var user = data;
-            user.Token = null;
+            user.Token = '';
             user.IsConfirmed = true;
             user_model.updateUser(user, function (err) {
             });
@@ -201,7 +246,7 @@ router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExi
                         return res.redirect('/index');
                     }
                 });
-            })
+            });
         });
     })(req, res);
 });
