@@ -11,39 +11,48 @@ var app = express();
 var jsonparser = bodyparser.json();
 var router = express.Router();
 
-router.get('/', function(req, res) {
-    // console.log("BIG: " + req.user.Id);
-    var cvService = di.resolve('curriculum_vitae');
-    cvServiceIns = new cvService();
-    cvServiceIns.getEnableCV({}, function(flag, rows) {
-        var resObject = {
-            cvs: rows
-        };
-        if (flag != -1) {
-            res.render('pages/cv_list', resObject);
-        } else {
-            res.status(500).render('pages/generic_error');
-        }
-    })
+router.get('/', function (req, res) {
+    if (req.user) {
+        var cvService = di.resolve('curriculum_vitae');
+        cvServiceIns = new cvService();
+        cvServiceIns.getEnableCV({
+            Id: req.user.Id
+        }, function (flag, rows) {
+            var resObject = {
+                cvs: rows
+            };
+            if (flag != -1) {
+                res.render('pages/cv_list', resObject);
+            } else {
+                res.status(500).render('pages/generic_error');
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
 });
 
-router.post('/', [jsonparser], function(req, res) {
-    var cvService = di.resolve('curriculum_vitae');
-    cvServiceIns = new cvService();
-    cvServiceIns.createCV({
-        Name: req.body.cvname,
-        UserId: 1
-    }, function(flag, data) {
-        if (flag == 1) {
-            var newidcv = data.Id;
-            res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
-        } else if (flag == -1) {
-            res.status(500).render('pages/generic_error');
-        }
-    });
+router.post('/', [jsonparser], function (req, res) {
+    if (req.user) {
+        var cvService = di.resolve('curriculum_vitae');
+        cvServiceIns = new cvService();
+        cvServiceIns.createCV({
+            Name: req.body.cvname,
+            UserId: req.user.Id
+        }, function (flag, data) {
+            if (flag == 1) {
+                var newidcv = data.Id;
+                res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
+            } else if (flag == -1) {
+                res.status(500).render('pages/generic_error');
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
 });
 
-router.post('/:idcv/update', [jsonparser], function(req, res) {
+router.post('/:idcv/update', [jsonparser], function (req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
     var paramObject = req.body;
@@ -52,7 +61,7 @@ router.post('/:idcv/update', [jsonparser], function(req, res) {
         Name: req.body.cvname,
         UserId: 1,
         Id: req.params.idcv
-    }, function(flag, data) {
+    }, function (flag, data) {
         var resData = {};
         if (flag == 1) {
             resData.IsSuccess = 1;
@@ -68,7 +77,7 @@ router.post('/:idcv/update', [jsonparser], function(req, res) {
     });
 });
 
-router.post('/disableCV', [jsonparser], function(req, res) {
+router.post('/disableCV', [jsonparser], function (req, res) {
 
     // var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, 1, req.body.Id);
     var param = {
@@ -77,7 +86,7 @@ router.post('/disableCV', [jsonparser], function(req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
     console.log('in');
-    cvServiceIns.disableCV(param, function(code, data) {
+    cvServiceIns.disableCV(param, function (code, data) {
         console.log('done');
         console.log(code);
         var resData = {};
@@ -90,11 +99,11 @@ router.post('/disableCV', [jsonparser], function(req, res) {
     })
 });
 
-router.get('/:idcv', function(req, res) {
+router.get('/:idcv', function (req, res) {
     var param = {
         id: req.params.idcv
     };
-    dbcv.getByIdCV(param, function(code, row) {
+    dbcv.getByIdCV(param, function (code, row) {
         if (code == 1) {
             res.render('pages/cv_index', {
                 data: row

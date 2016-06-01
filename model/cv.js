@@ -118,19 +118,23 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
 
     self.getEnableCV = function(param, callback) { // param:
         var temp = new Cv();
-        temp.find('all', {
-            where: "IsDeleted = 0"
-        }, function(err, rows, fields) {
-            if (err) {
-                callback(-1, err)
-            } else {
-                if (rows.length == 0) {
-                    callback(0, null);
+        try {
+            temp.find('all', {
+                where: "IsDeleted = 0 && UserId = " + param.Id
+            }, function(err, rows, fields) {
+                if (err) {
+                    callback(-1, err);
                 } else {
-                    callback(1, rows);
+                    if (rows.length == 0) {
+                        callback(0, null);
+                    } else {
+                        callback(1, rows);
+                    }
                 }
-            }
-        });
+            });
+        } catch (err) {
+            callback(-1, err);
+        }
     }
 
     self.disableCV = function(param, callback) { // param:

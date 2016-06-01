@@ -87,16 +87,16 @@ $(document).ready(function() {
         }
         ajax_rename_flag = true;
         $.post("../cv/" + cvid + "/update", param, function(resp) {
+            ajax_rename_flag = false;
             if (resp.IsSuccess == 1) {
                 $('#validation_form_cvname input[name=cvname]').attr('value', resp.Name);
                 $('#validation_form_cvname input[name=cvname]').val(resp.Name);
                 $('.cvname-link[cv-id=' + cvid + ']').html(resp.Name);
             } else {
-                console.log(resp.Error);
-                alert('The system is under maintenance, please try again later.');
+                window.location = ("../error/500");
+                // alert('The system is under maintenance, please try again later.');
                 // Some error if delete failed.
             }
-            ajax_rename_flag = false;
         });
     });
 });
