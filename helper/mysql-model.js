@@ -19,12 +19,11 @@ var createConnection  = function (options) {
 		// Function for creating custom queries
 		query: function(query, callback) {
 			connection.query(query, function(err, result, fields) {
-				connection.end();
 				if(callback){
 					callback(err, result, fields);
 				}
-			});
-		},
+			});	
+		},		
 		// Function returning one set of results and setting it to model it was used on
 		read: function(id, callback) {
 			root=this;
@@ -35,17 +34,15 @@ var createConnection  = function (options) {
 			} else if (typeof(id) == "function") {
 				callback=id;
 				id=this.attributes.id;
-			}
+			} 
 			var q = "SELECT * FROM "+tableName+" WHERE id="+id;
-
 			connection.query(q, root, function(err, result, fields) {
-				connection.end();
 				root.setSQL(result[0]);
 				if(callback){
 					callback(err, result[0], fields);
 				}
-			});
-		},
+			});		
+		},	
 		// Function with set of methods to return records from database
 		find: function(method, conditions, callback) {
 			if (typeof(method) == "function") {
@@ -63,69 +60,66 @@ var createConnection  = function (options) {
 			var fields='*';
 			if(conditions['fields']) {
 				fields=conditions['fields'];
-			}
+			}		
 			if(conditions['where']) {
 				qcond+=" WHERE "+conditions['where'];
-			}
+			}		
 			if(conditions['group']) {
 				qcond+=" GROUP BY "+conditions['group'];
 				if(conditions['groupDESC']) {
 				qcond+=" DESC";
 				}
-			}
+			}		
 			if(conditions['having']) {
 				qcond+=" HAVING "+conditions['having'];
-			}
+			}		
 			if(conditions['order']) {
 				qcond+=" ORDER BY "+conditions['order'];
 				if(conditions['orderDESC']) {
 					qcond+=" DESC";
 				}
-			}
+			}		
 			if(conditions['limit']) {
 				qcond+=" LIMIT "+conditions['limit'];
-			}
+			}		
+
 			switch (method) {
 				// default method
-				case 'all':
+				case 'all': 
 					var q = "SELECT "+fields+" FROM "+tableName+qcond;
 					connection.query(q, function(err, result, fields) {
-						connection.end();
 						if(callback){
 							callback(err, result, fields);
 						}
-					});
+					});	
 					break;
 				// method returning value of COUNT(*)
 				case 'count':
 					var q = "SELECT COUNT(*) FROM "+tableName+qcond;
 					connection.query(q, function(err, result, fields) {
-						connection.end();
 						if(callback){
 							callback(err, result[0]['COUNT(*)'], fields);
 						}
-					});
-					break;
-				// method returning only first result (to use when you expect only one result)
+					});				
+					break;		
+				// method returning only first result (to use when you expect only one result)				
 				case 'first':
 					var q = "SELECT "+fields+" FROM "+tableName+qcond;
 					connection.query(q, function(err, result, fields) {
-						connection.end();
 						if(callback){
 							callback(err, result[0], fields);
 						}
-					});
+					});				
 					break;
-				// method returning only value of one field (if specified in 'fields') form first result
+				// method returning only value of one field (if specified in 'fields') form first result 
 				case 'field':
 					var q = "SELECT "+fields+" FROM "+tableName+qcond;
 					connection.query(q, function(err, result, fields) {
-						connection.end();
 						for (var key in result[0]) break;
 						if(callback){
 							callback(err, result[0][key], fields);
 						}
-					});
+					});				
 					break;
 			}
 		},
@@ -151,18 +145,16 @@ var createConnection  = function (options) {
 				connection.query(check, function(err, result, fields) {
 					if(result[0]){
 						connection.query(q, function(err, result) {
-							connection.end();
 							if(callback){
 								callback(err, result, connection);
 							}
-						});
+						});	
 					} else {
-						connection.end();
 						err="ERROR: Record not found";
 						callback(err, result, connection);
 					}
-				});
-
+				});	
+				
 			} else {
 				if(this.has('id')) {
 					var id = this.get('id');
@@ -173,22 +165,19 @@ var createConnection  = function (options) {
 					connection.query(check, function(err, result, fields) {
 						if(result[0]){
 							connection.query(q, function(err, result) {
-								connection.end();
 								if(callback){
 									callback(err, result, connection);
 								}
-							});
+							});	
 						} else {
-							connection.end();
 							err="ERROR: Record not found";
 							callback(err, result, connection);
 						}
-					});
+					});			
 				} else {
 					// Create new record
 					var q = "INSERT INTO "+tableName+" SET "+ connection.escape(this.attributes);
 					connection.query(q, function(err, result) {
-						connection.end();
 						if(callback){
 							callback(err, result, connection);
 						}
@@ -210,17 +199,15 @@ var createConnection  = function (options) {
 				connection.query(check, function(err, result, fields) {
 					if(result[0]){
 						connection.query(q, function(err, result) {
-							connection.end();
 							if(callback){
 								callback(err, result, connection);
 							}
-						});
+						});	
 					} else {
-						connection.end();
 						err="ERROR: Record not found";
 						callback(err, result, connection);
 					}
-				});
+				});					
 			} else {
 				if(this.has('id')) {
 					var q = "DELETE FROM "+tableName+" WHERE id="+connection.escape(this.attributes.id);
@@ -229,25 +216,27 @@ var createConnection  = function (options) {
 					connection.query(check, function(err, result, fields) {
 						if(result[0]){
 							connection.query(q, function(err, result) {
-								connection.end();
 								if(callback){
 									callback(err, result, connection);
 								}
-							});
+							});	
 						} else {
-							connection.end();
 							err="ERROR: Record not found";
 							callback(err, result, connection);
 						}
-					});
+					});			
 				} else {
-					err="ERROR: Model has no specified ID, delete aborted";
+					err="ERROR: Model has no specified ID, delete aborted"; 
 					if(callback){
 						callback(err, result, connection);
 					}
 				}
-			}
+			}	
 		},
+		killConnection: function(cb) {
+			cb = cb || function(){};
+			connection.end(cb)
+		}
 	});
 	return SQLModel;
 }
