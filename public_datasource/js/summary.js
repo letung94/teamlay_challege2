@@ -1,5 +1,9 @@
 /*Get summary of CV */
+var clickedSummary = false;
 function getSummary(){
+    if(clickedSummary==true){
+        return;
+    }
     var urlget = window.location.href + "/summary/get";
     $.ajax({
         type: "GET",
@@ -46,5 +50,6 @@ $('#btnSaveSummary').click(function() {
                 
             }
         });
+    alert("Save your summary successfully.", 'Alert Dialog');
     return false;
 });
