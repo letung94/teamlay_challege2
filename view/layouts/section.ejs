@@ -3,10 +3,8 @@
     <div class="col-md-8 col-md-offset-2">
         <div class="box">
             <div class="box-title">
-                <h3><i data-toggle="modal" data-target="#rename-cv-modal" class="fa fa-edit"></i> Edit
                 <% if(locals.data){ %>
-                    <%=data.Name%>
-                </h3>
+                <h3><i data-toggle="modal" data-target="#rename-cv-modal" class="fa fa-edit" cv-id="<%=data.Id%>" cv-name="<%=data.Name%>"></i><span><%=data.Name%></span></h3>
                 <!--Modal update CV name-->
                 <div id="rename-cv-modal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -15,15 +13,14 @@
                                 <h4 class="modal-title">Rename your CV<button type="button" style="float: right;font-size: 21px;font-weight: 700;line-height: 1;color: #000;text-shadow: 0 1px 0 #fff;" data-dismiss="modal">&times;</button></h4>
                             </div>
                             <div class="modal-body">
-                            <form class="form-horizontal" id="validation_form_cvname" autocomplete="off" action="<%=data.Id%>/update" method="POST">
-                            <%}%>
+                            <form class="form-horizontal" id="validation_form_cvname" autocomplete="off" method="POST">
                                 <div class="row">
                                     <div class="col-sm-12 col-lg-12">
                                         <div class="form-group row">
                                             <label class="col-sm-3 col-lg-3 control-label">Your CV Name</label>
                                             <div class="col-sm-9 col-lg-9 controls">
-                                                <input type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname">
-
+                                                <input type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname" value="<%=data.Name%>"/>
+                                            <%}%>
                                             </div>
                                         </div>
                                     </div>
@@ -31,7 +28,7 @@
                             </div>
                             </form>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" id="btn-renamecv">Update CV name</button>
+                                <button type="button" class="btn btn-success" id="btn-renamecv" data-dismiss="modal">Update CV name</button>
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                             </div>
                         </div>

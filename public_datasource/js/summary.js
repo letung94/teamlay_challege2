@@ -51,6 +51,11 @@ $('#btnSaveSummary').click(function() {
                 
             }
         });
-    alert("Save your summary successfully.", 'Alert Dialog');
+    $.gritter.add({
+        title: 'Successfull!',
+        text: 'Your summary has been saved.',
+        sticky: false,
+        time: '1500',
+    });
     return false;
 });
