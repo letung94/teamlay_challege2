@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var mailer = require('express-mailer');
 var flash = require('express-flash');
+var helper = require('./helper/helper');
 
 // Email sending config
 mailer.extend(app, {
@@ -88,6 +89,10 @@ app.use('/cv/:idcv', ctrlsummary);
 var ctrlexperience = require('./controller/ctrlexperience');
 app.use('/cv/:idcv', ctrlexperience);
 
+/*certification*/
+var ctrlcertification = require('./controller/ctrlcertification');
+app.use('/cv/:idcv', ctrlcertification);
+
 /*admin*/
 
 
@@ -99,7 +104,15 @@ cc.getAllCertificationByCVId({CV_Id: 1}, function(rows){
 console.log(rows);
 })*/
 
-
+/*var di = require('./config/config');
+var c = di.resolve('curriculum_vitae');
+cc = new c();
+cc.checkCVBelongToUser(1,1, function(code, data){
+    console.log('----');
+    console.log(code);
+    console.log(data);
+})*/
+// console.log(rows);
 
 /*var di = require('./config/config');
 var c = di.resolve('certification');
@@ -120,7 +133,6 @@ console.log(rows);
 app.use(function(req, res, next) {
     res.status(404).render('pages/not_found_404');
 });
-
 
 http.createServer(app).listen(8080, function() {
     var port = this.address().port;

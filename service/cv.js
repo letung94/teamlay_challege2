@@ -32,15 +32,31 @@ function curriculum_vitae_service() {
             callback(0,dbcv_create.attrvalidate);
         }
     }
-    
+
     this.updateCV = function (param, callback) {
-        var dbcv_save = new curriculum_vitae_model(param.Name, param.CreatedDate, param.IsDeleted, param.UrlSlug, param.UserId, param.Id);
+        //only user date to test, after that delete param createddate
+        var date=new Date();
+        var paramCreatedDate=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours())+':'+(date.getMinutes()+1)+':'+(date.getSeconds()+1);
+        var dbcv_save = new curriculum_vitae_model(param.Name, paramCreatedDate, 0, null, param.UserId, param.Id);
         var valid = dbcv_save.checkValidation();
         if (valid) {
             dbcv_save.save(dbcv_save.attribute, callback);
         } else {
             callback(0,dbcv_save.attrvalidate);
         }
+    }
+
+    this.checkCVBelongToUser = function (cv_id, userid, callback) {
+        var c = new curriculum_vitae_model();
+        c.checkCVBelongToUser(cv_id, userid, function(code, data){
+            console.log(code);
+            if(code == 1){
+                var exist = data[0].Exist == 0 ? false : true;
+                callback(code, exist);
+            }else{
+                callback(code, data);
+            }
+        });
     }
 }
 

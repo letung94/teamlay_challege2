@@ -1,22 +1,54 @@
 $(document).ready(function(){
+    var self = this;
+    self.listCertification = [];
+
+    /*Get All Certification belong to this CV.*/
+    self.getAllCertification = function(){
+        var url = window.location.href + "/certification/getall";
+        $.get(url, function(resp){
+            console.log(resp);
+            if(resp.code == 1){
+                $.each(resp.rows, function(index, value){
+                    self.listCertification.push(value);
+                });
+                //console.log(render)
+                self.renderTableBody();
+            }
+        });
+    }
+
+    /*Render list of certification*/
+    self.renderTableBody = function(){
+        var html = '';
+        $.each(self.listCertification, function(index, value){
+            html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.CertificateAuthority + '</td>' + '<td>' + value.Date +
+            '</td><td><button class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></button>' +
+            '<button class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
+        })
+        $('#certification_list').html(html);
+    }
+
+    /*Create new Certification*/
     $('#btnAddListCertification').click(function(){
         var isValid = $('#certification-form').valid();
         if(isValid){ /*If the form is valid*/
-            var param = {
-                entity: {
-                    Title: $('#certification-form input[name=title]').val() || '',
-                    CertificateAuthority: $('#certification-form input[name=certificationAuthority]').val() || '',
-                    Details: $('#certification-form textarea[name=details]').val() || ''
-                }
-            };
+            entity =  {
+                Title: $('#certification-form input[name=title]').val() || '',
+                CertificateAuthority: $('#certification-form input[name=certificationAuthority]').val() || '',
+                Details: $('#certification-form textarea[name=details]').val() || ''
+            }
+            var param = {entity : entity};
             var date = $('#certification-form input[name=date]').val();
             if(date && date.trim() != ''){
-                param.entity.Date = date;
+                entity.Date = date;
             }
             var url = window.location.href +  '/certification/add';
             $.post(url, param, function(resp){
                 var code = resp.code;
                 var insertedId = resp.data.insertId;
+                entity.Id = insertedId
+                self.listCertification.push(entity);
+                self.renderTableBody();
             });
         }
     });
@@ -47,4 +79,7 @@ $(document).ready(function(){
             }
         },
     });
+
+        /*initialize*/
+        self.getAllCertification();
 });

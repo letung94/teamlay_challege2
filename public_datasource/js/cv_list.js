@@ -40,4 +40,12 @@ $(document).ready(function(){
         console.log("asdas");
         $('#validation_form_cvname').submit();
     });
+    
+    $('.fa-edit').click(function(){
+        var cvid=$(this).attr('cv-id');
+        var cvname=$(this).attr('cv-name');
+        $('#validation_form_cvname').attr('action','/cv/'+cvid+'/update');
+        $('#validation_form_cvname input[name=cvname]').attr('value',cvname);
+        console.log(cvid+cvname);
+    });
 });

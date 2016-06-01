@@ -155,11 +155,16 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         idtemp = reqdata.Id;
         if (idtemp != null) {
             gettemp.find('all', { where: "Id = " + idtemp }, function (err, rows, fields) {
-                if (rows.length > 0) {
-                    savetemp.set('id', id);
+                if (!err) {
+                    if (rows.length > 0) {
+                        savetemp.set('id', id);
+                        savetemp.set('Id', null);
+                    } else {
+                        idtemp = null;
+                        savetemp.set('Id', -1);
+                    }
                 } else {
-                    idtemp = null;
-                    savetemp.set('Id', -1);
+                    callback(-1, err);
                 }
             });
         }
@@ -171,6 +176,18 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
                     self.attribute.Id = data.insertId;
                 }
                 callback(1, self.attribute);
+            }
+        });
+    }
+
+    self.checkCVBelongToUser = function (cv_id, userid, callback) {
+        var query = "SELECT EXISTS(SELECT 1 FROM curriculum_vitae WHERE id = " + cv_id + " AND userid = " + userid + ") as Exist";
+        var cv = new Cv();
+        cv.query(query, function (err, rows, fields) {
+            if (err) {
+                callback(-1, err);
+            } else {
+                callback(1, rows);
             }
         });
     }

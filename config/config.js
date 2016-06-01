@@ -4,10 +4,7 @@ var db = require("../model/db");
 var ctrluser = require("../controller/ctrluser");
 var user = require('../model/user');
 var cv = require('../model/cv');
-
-
 var ctrluser = require("../controller/ctrluser");
-
 var user_service = require('../service/user');
 var cv_service = require('../service/cv');
 var certification_service = require('../service/certification');

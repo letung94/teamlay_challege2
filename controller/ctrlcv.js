@@ -14,11 +14,15 @@ var router = express.Router();
 router.get('/', function (req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
-    cvServiceIns.getEnableCV({}, function (code, rows) {
+    cvServiceIns.getEnableCV({}, function (flag, rows) {
         var resObject = {
             cvs: rows
         };
-        res.render('pages/cv_list', resObject);
+        if(flag!=-1){
+            res.render('pages/cv_list', resObject);
+        }else{
+            res.status(500).render('pages/generic_error');
+        }
     })
 });
 
@@ -29,8 +33,8 @@ router.post('/', [jsonparser], function (req, res) {
         if (flag == 1) {
             var newidcv = data.Id;
             res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
-        } else {
-            res.render('pages/generic_error');
+        } else if(flag==-1){
+            res.status(500).render('pages/generic_error');
         }
     });
 });
@@ -44,7 +48,7 @@ router.post('/:idcv/update', [jsonparser], function (req, res) {
         if (flag == 1) {
             res.redirect("http://127.0.0.1:8080/cv/");
         } else {
-            res.render('pages/generic_error');
+            res.status(500).render('pages/generic_error');
         }
     });
 });
@@ -79,7 +83,7 @@ router.get('/:idcv', function (req, res) {
         } else if (code == 0) {
             res.status(404).render('pages/not_found_404');
         } else if (code == -1) {
-            res.status(404).render('pages/not_found_404');
+            res.status(500).render('pages/generic_error');
         }
     });
 });
