@@ -7,13 +7,13 @@
 //                 item.FromDate = item.FromDate.toString().substring(4,15);
 //                 item.ToDate = item.ToDate.toString().substring(4,15);
 //             });
-//            callback(rows); 
+//            callback(rows);
 //         });
 //     }
-    
-//     this.createExperience = function (params, callback) {        
+
+//     this.createExperience = function (params, callback) {
 //         //TODO: Validation
-        
+
 //         experience = new Experience({
 //             Company: params.company,
 //             Designation: params.designation,
@@ -22,16 +22,16 @@
 //             Details: params.details,
 //             CV_Id: '1'          //Get current logged in user here (Passport)
 //         });
-        
+
 //         experience.save(function(err, result){
 //             if (err){
 //                 console.log(err);
 //             } else {
 //                 callback(result);
-//             }  
+//             }
 //         });
 //     }
-        
+
 // }
 
 
@@ -54,7 +54,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
     `ToDate` DATETIME NULL DEFAULT NULL,
     `Details` TEXT NULL DEFAULT NULL,
     `CV_id` INT(11) NOT NULL,
-    * 
+    *
     */
     self.attrvalidate = [
         {validate: function(company){
@@ -88,7 +88,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
                 this.valid = this.regex.test(todate);
             }
             return this.valid;
-        }, attrname: "ToDate"},   
+        }, attrname: "ToDate"},
         {validate: function(minusdate){
            this.valid = false;
            if(minusdate > 0){
@@ -106,12 +106,12 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         for(var i = 0; i < attr_length; i++){
             if(this.attrvalidate[i].validate != null){
                 if(this.attrvalidate[i].attrname === "Minusdate"){
-                    var minusdate = Date.parse(self.attribute["ToDate"]) - Date.parse(self.attribute["FromDate"]) ;        
+                    var minusdate = Date.parse(self.attribute["ToDate"]) - Date.parse(self.attribute["FromDate"]) ;
                     valid  &= self.attrvalidate[i].validate(minusdate);
                 }else{
                     valid  &= self.attrvalidate[i].validate(self.attribute[self.attrvalidate[i].attrname]);
                 }
-            } 
+            }
         }
         return valid;
     }
@@ -131,18 +131,18 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
                     function parseDate(date){
                         var res = "";
                         var currentdate = new Date(date);
-                        var digitalmonth=((currentdate.getMonth()+1)>=10) ? (currentdate.getMonth()+1) : '0' + (currentdate.getMonth()+1);  
+                        var digitalmonth=((currentdate.getMonth()+1)>=10) ? (currentdate.getMonth()+1) : '0' + (currentdate.getMonth()+1);
                         var digitaldate=((currentdate.getDate())>=10)? (currentdate.getDate()) : '0' + (currentdate.getDate());
                         res = currentdate.getFullYear() + "/" + digitalmonth + "/" +  digitaldate;
                         return res;
-                    }         
+                    }
                     var rowslength = rows.length;
-    
+
                     for(var i = 0; i < rowslength; i++){
                         rows[i].FromDate =  parseDate(rows[i].FromDate);
                         rows[i].ToDate = parseDate(rows[i].ToDate);
                     }
-                    
+
                     callback(1, rows);
                 }
             }
@@ -162,7 +162,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
                     }
                 });
     }
-    
+
     self.update = function(reqdata, callback){
         var updatetemp = new experience(self.attribute);
         updatetemp.set("id",reqdata);
@@ -176,7 +176,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         });
 
     }
-    
+
     self.remove = function(reqdata, callback){
         var removetemp = new experience(self.attribute);
         removetemp.set("id",reqdata);
