@@ -1,19 +1,19 @@
-var preview = document.getElementById('preview');
-var del_avatar = $("#del_avatar");
+var preview = $('#contact_info-form preview');
+var del_avatar = $("#contact_info-form #del_avatar");
 var loadFile = function(event) {
     var limitsize = 5242880;
     var reader = new FileReader();
     var avatar = event.target.files[0];
     var validimage = validateImage(avatar);
     if(!validimage){
-        $(".validimg").css('display','inline');
+        $("#contact_info-form .validimg").css('display','inline');
     }else{
-        $(".validimg").css('display','none');
+        $("#contact_info-form .validimg").css('display','none');
     }
     if(limitsize < avatar.size){
-        $(".sizeimg").css('display','inline');
+        $("#contact_info-form .sizeimg").css('display','inline');
     }else{
-        $(".sizeimg").css('display','none');
+        $("#contact_info-form .sizeimg").css('display','none');
         reader.readAsDataURL(avatar);
         reader.addEventListener("load",function(){
             preview.src = reader.result;
@@ -38,10 +38,10 @@ function validateImage(avatar){
             return valid;
 }
 
-$('#option').on('click','#del_avatar',function(){
+$('#contact_info-form #option').on('click','#contact_info-form #del_avatar',function(){
     preview.src = contact_info.attribute.Avatar;
     del_avatar.css("opacity","0");
-    $("#avatar")[0].value = '';
+    $("#contact_info-form #avatar")[0].value = '';
 });
 
 //================================= VALIDAZIONE FORM
@@ -50,7 +50,7 @@ $(document).ready(function() {
            return true;
     },"loi loi");
     
-    $('#validation_form_contact_info').validate({
+    $('#contact_info-form').validate({
         errorClass: 'text-danger',
         focusInvalid: false,
         debug: true,
@@ -67,6 +67,7 @@ $(document).ready(function() {
             },
             email: {
                 required: true,
+                maxlength:49,
                 email: true
             },
             phone:{
@@ -87,6 +88,7 @@ $(document).ready(function() {
             },
             email: {
                 required: "Please enter your email.",
+                maxlength:"Your email must consist of less than 50 characters.",
                 email: "Please enter a valid email address."
             },
             phone:{
@@ -104,24 +106,24 @@ $(document).ready(function() {
     });
 });
 
-$('#btnSaveContact_Info').click(function() {
-    var validator = $('#validation_form_contact_info').valid();
-    var validimage = validateImage($("input[type='file']#avatar")[0].files[0]);
+$('#contact_info-form #btnSaveContact_Info').click(function() {
+    var validator = $('#contact_info-form').valid();
+    var validimage = validateImage($("#contact_info-form input[type='file']#avatar")[0].files[0]);
     if(!validimage){
-        $(".validimg").css('display','inline');
+        $("#contact_info-form .validimg").css('display','inline');
     }else{
-        $(".validimg").css('display','none');
+        $("#contact_info-form .validimg").css('display','none');
     }
     if(validator&validimage){
         var temp = {
-            FirstName:$("input[name='firstname']").val(),
-            LastName:$("input[name='lastname']").val(),
-            Avatar: $("#preview").attr('src'),
-            Email:$("input[name='email']").val(),
-            Phone:$("input[name='phone']").val(),
-            Website:$("input[name='website']").val(),
-            Address:$("input[name='address']").val(),
-            CV_Id:$("input[name='idcv']").val(),
+            FirstName:$("#contact_info-form input[name='firstname']").val(),
+            LastName:$("#contact_info-form input[name='lastname']").val(),
+            Avatar: $("#contact_info-form #preview").attr('src'),
+            Email:$("#contact_info-form input[name='email']").val(),
+            Phone:$("#contact_info-form input[name='phone']").val(),
+            Website:$("#contact_info-form input[name='website']").val(),
+            Address:$("#contact_info-form input[name='address']").val(),
+            CV_Id:$("#contact_info-form input[name='idcv']").val(),
         };
         var save_contact_info = new Contact_Info(temp);
         var urlpost = window.location.href + '/contact_info/save';
@@ -135,7 +137,10 @@ $('#btnSaveContact_Info').click(function() {
             /*json object to sent to the authentication url*/
             data: JSON.stringify(save_contact_info.attribute),
             success: function (res) {
-                showAnnoucement(res.flag);
+                /*
+                //showAnnoucement(flag, section, action)
+                */
+                showAnnoucement(res.flag,'contact information', 'saved');
                 contact_info = null;
                 contact_info = new Contact_Info(res.resdata.attribute);
                 $("#del_avatar").css("opacity","0");

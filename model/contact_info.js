@@ -93,8 +93,10 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         {validate: function(email){
             this.valid = false;
             this.required = true;
+            this.max = 49;
             this.regex = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/;
-            if(email !=null || email !== ""){
+            var length = email.length;
+            if((email !=null || email !== "")&&length <= this.max){
                     this.valid = this.regex.test(email);
                 }
             return this.valid;
@@ -134,14 +136,14 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
     */
     self.getByIdCV = function(reqdata, callback) {
         var temp = new contact_info();
-        temp.find('all', {where: "CV_Id = " + reqdata},function(err,rows,fields){
+        temp.find('first', {fields: ['Id', 'FirstName', 'LastName','Avatar','Email','Phone','Website','Address','CV_Id'],where: "CV_Id = " + reqdata},function(err,row,fields){
            if(err){
                 callback(-1, err)
             }else{
-                if(rows.length == 0){
+                if(row == null){
                      callback(0, null);
                 }else{
-                    callback(1, rows[0]);
+                    callback(1, row);
                 }
             }
         });
@@ -153,10 +155,10 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
     self.save = function(reqdata, callback){
         var gettemp = new contact_info();
         var savetemp = new contact_info(reqdata);
-        gettemp.find('all', {where: "CV_Id = " + reqdata.CV_Id},function(err,rows,fields){
+        gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},function(err,row,fields){
             var id = null;
-            if(rows.length > 0){
-                id = rows[0].Id;
+            if(row != null){
+                id = row.Id;
             }
             if(id != null){
                 savetemp.set('id',id);
