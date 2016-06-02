@@ -17,16 +17,16 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th>
+                                            <th class="col-md-1">
                                                 #
                                             </th>
-                                            <th>
+                                            <th class="col-md-4">
                                                 CV's Name
                                             </th>
-                                            <th>
+                                            <th class="col-md-4">
                                                 Created Date
                                             </th>
-                                            <th>
+                                            <th class="col-md-3">
                                                 Actions
                                             </th>
                                             <!-- <th>
@@ -43,7 +43,7 @@
                                             <% cvs.forEach(function(cv) { %>
                                                 <tr>
                                                 <td><h5><%=i++%></h5></td>
-                                                <td><h5><a class="cvname-link" cv-id="<%=cv.Id%>" href="../cv/<%=cv.Id%>" target="_blank"><%=cv.Name%></a></h5></td>
+                                                <td><h5 class="col-md-12"><a style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;height: 20px;"  class="col-md-12 cvname-link" cv-id="<%=cv.Id%>" href="../cv/<%=cv.Id%>" target=""><%=cv.Name%></a></h5></td>
                                                 <td><h6><%=cv.CreatedDate%></h6></td>
                                                 <!-- <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>" data-toggle="modal" data-target="#rename-cv-modal" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-pencil"></span></button></td>
                                                 <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>" data-toggle="modal" data-target="#rename-cv-modal" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-pencil"></span></button></td>
@@ -75,7 +75,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-sm-3 col-lg-3 control-label">Your CV Name</label>
                                                             <div class="col-sm-9 col-lg-9 controls">
-                                                                <input type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname">
+                                                                <input type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname-create">
                                                                 
                                                             </div>
                                                         </div>
@@ -84,7 +84,7 @@
                                             </div>
                                             </form>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-success" id="btn-addnewcv" data-dismiss="modal">Add new</button>
+                                                <button type="button" class="btn btn-success" id="btn-addnewcv">Add new</button>
                                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
@@ -104,7 +104,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-sm-3 col-lg-3 control-label">Your CV Name</label>
                                                             <div class="col-sm-9 col-lg-9 controls">
-                                                                <input type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname">
+                                                                <input type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname-update">
 
                                                             </div>
                                                         </div>
