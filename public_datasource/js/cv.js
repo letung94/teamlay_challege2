@@ -50,27 +50,27 @@ function showAnnoucement(flag, section, action){
     section = section.toLowerCase();
     action = action.toLowerCase();
     if(flag==1){
-        $.gritter.add({
-        title: 'Success',
-        text: 'Your ' + section + ' has been ' + action + '!',
-        sticky: false,
-        time: '1500' 
-        });
-    }else{
-        if(flag==0){
-            $.gritter.add({
-            title: 'Human Error',
-            text: 'The information is wrong!',
-            sticky: false,
-            time: '1500' 
-            });
-        }else{
-            $.gritter.add({
-            title: 'Server Error',
-            text: 'The server is not working now. Sorry Opps!',
-            sticky: false,
-            time: '1500' 
-            });
-        }
-    }
+                    $.gritter.add({
+                    title: 'Success',
+                    text: 'Your ' + section + ' has been ' + action + '!',
+                    sticky: false,
+                    time: '1500' 
+                    });
+                }else{
+                    if(flag==0){
+                        $.gritter.add({
+                        title: 'Human Error',
+                        text: 'The information is wrong!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }else{
+                        $.gritter.add({
+                        title: 'Server Error',
+                        text: 'The server is not working now. Sorry Opps!',
+                        sticky: false,
+                        time: '1500' 
+                        });
+                    }
+                }
 }

@@ -28,10 +28,9 @@ router.post('/forgot', function (req, res, next) {
             done(null, token);
         },
         function (token, done) {
-            user_model.getByEmail(req.body.email, function (data) {
+            user_model.getByEmail(req.body.email, function (err,data) {
                 var user = data;
                 var date = new Date();
-
                 if (!user) {
                     req.flash('error', 'Sorry, we couldn\'t find an account matching the email address you entered. Please try again or register a new account.');
                     return res.redirect('/forgot');
@@ -74,13 +73,11 @@ router.post('/forgot', function (req, res, next) {
     });
 });
 
-
 // Reset Password GET
 router.get('/reset/:token', function (req, res) {
     user_model.getByToken(req.params.token, function (err, data) {
         var user = data;
         var now = new Date();
-        console.log(user);
         if (!user) {
             req.flash('error', 'Password reset token is invalid.');
             return res.redirect('/forgot');
@@ -100,7 +97,6 @@ router.post('/reset/:token', function (req, res) {
         function (done) {
             user_model.getByToken(req.params.token, function (err, data) {
                 var user = data;
-                console.log(user);
                 if (!user) {
                     req.flash('error', 'Password reset token is invalid or has expired.');
                     return res.redirect('/forgot');
@@ -110,7 +106,6 @@ router.post('/reset/:token', function (req, res) {
                 user.Token = '';
 
                 user_model.updateUser(user, function () {
-                    console.log(user);
                     done(null, user);
                 });
             })
@@ -122,7 +117,6 @@ router.post('/reset/:token', function (req, res) {
             }, function (err) {
                 // handle error 
                 req.flash('success', 'Your password was changed successfully. You may now login.');
-                console.log('success');
                 done(err);
             });
         }
@@ -155,12 +149,10 @@ router.post('/login', function (req, res, next) {
         failureFlash: true
     }, function (err, user, info) {
         if (err) {
-            console.log('err');
             return res.render('pages/login', { errorMessage: err.message });
         }
 
         if (!user) {
-            console.log('!user');
             return res.render('pages/login', { errorMessage: info.message });
         }
 
@@ -168,7 +160,7 @@ router.post('/login', function (req, res, next) {
             if (err) {
                 return res.render('pages/login', { v: req.flash('error', err.message) });
             } else {
-                return res.redirect('/index');
+                return res.redirect('/cv');
             }
         });
     })(req, res, next);
@@ -200,67 +192,12 @@ router.get("/verify/:token", function (req, res, next) {
 });
 
 // User Registration POST
-// router.post('/register', authenticate.isEmailExisted, authenticate.isUsernameExisted, function (req, res) {
-//     passport.authenticate('local', {
-//         successRedirect: '/index',
-//         failureRedirect: '/login',
-//         failureFlash: true
-//     }, function (err, user, info) {
-//         req.body.password = bcrypt.hashSync(req.body.password);
-//         var date = new Date();
-//         var verify_token = uuid.v1();
-//         var user = {
-//             Username: req.body.username,
-//             Email: req.body.email,
-//             PasswordHash: req.body.password,
-//             //Firstname = req.body.firstname,
-//             //Lastname = req.body.lastname,
-//             CreatedDate: date,
-//             IsConfirmed: false,
-//             IsBlocked: false,
-//             Token: verify_token
-//         };
-//         user_model.addUser(user, function () {
-//             // Create a link to verify email
-//             var link = req.protocol + "://" + req.get('host') + "/verify/" + verify_token;
-
-//             app.mailer.send('pages/confirmation_email', {
-//                 to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
-//                 subject: 'CV Maker Confimation Email', // REQUIRED. 
-//                 link: link, // All additional properties are also passed to the template as local variables. 
-//                 email: req.body.email
-//             }, function (err) {
-//                 if (err) {
-//                     // handle error 
-//                     console.log(err);
-//                     res.end('There was an error sending the email');
-//                     return;
-//                 }
-//                 res.end('Email Sent');
-//             });
-//             user_model.getByUsername(req.body.username, function (err, data) {
-//                 req.logIn(data, function (err) {
-//                     if (err) {
-//                         return res.render('pages/login', { error: req.flash('error', err.message) });
-//                     } else {
-//                         return res.redirect('/index');
-//                     }
-//                 });
-//             });
-//         });
-//     })(req, res);
-// });
 router.post('/register', function (req, res) {
-    // if (req.body.username == '' || req.body.email == '') {
-    //     req.flash('error', 'Please fill all the required.');
-    //     return res.redirect('/register');
-    // }
     async.waterfall([
         function (done) {
             user_model.getByEmail(req.body.email, function (err, data) {
                 if (data) {
                     req.flash('error', 'Email already exists');
-                    console.log('email trug');
                     return res.redirect('/register');
                 }
                 done(err);
@@ -276,7 +213,6 @@ router.post('/register', function (req, res) {
             });
         },
         function (done) {
-            console.log(done);
             req.body.password = bcrypt.hashSync(req.body.password);
             var date = new Date();
             var verify_token = uuid.v1();
@@ -284,8 +220,8 @@ router.post('/register', function (req, res) {
                 Username: req.body.username,
                 Email: req.body.email,
                 PasswordHash: req.body.password,
-                //Firstname = req.body.firstname,
-                //Lastname = req.body.lastname,
+                Firstname : req.body.firstname,
+                Lastname : req.body.lastname,
                 CreatedDate: date,
                 IsConfirmed: false,
                 IsBlocked: false,
@@ -306,7 +242,6 @@ router.post('/register', function (req, res) {
                 }, function (err) {
                     if (err) {
                         // handle error 
-                        console.log(err);
                         res.end('There was an error sending the email');
                         return;
                     }

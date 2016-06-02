@@ -1,34 +1,25 @@
 function Experience(company, designation, fromdate, todate, details, cv_id) {
     var self = this;
     self.attribute = {
-            "Company": company,
-            "Designation": designation,
-            "FromDate": fromdate,
-            "ToDate": todate,
-            "Details": details,
-            "CV_id": cv_id
-        }
-        /**
-         * `Id` INT(11) NOT NULL AUTO_INCREMENT,
-         `Company` NVARCHAR(100) NULL DEFAULT NULL,
-        `Designation` NVARCHAR(50) NULL DEFAULT NULL,
-        `FromDate` DATETIME NULL DEFAULT NULL,
-        `ToDate` DATETIME NULL DEFAULT NULL,
-        `Details` TEXT NULL DEFAULT NULL,
-        `CV_id` INT(11) NOT NULL,
-        * 
-        */
-    self.attrvalidate = [{
-        validate: function(company) {
+        "Company" : company,
+        "Designation" : designation,
+        "FromDate" : fromdate,
+        "ToDate" : todate,
+        "Details" : details,
+        "CV_id" : cv_id
+    }
+
+    self.attrvalidate = [
+        {validate: function(company){
             this.valid = false;
             this.required = true;
             this.min = 2;
-            this.max = 49;
-            if (company != null || company !== "") {
-                var length = company.length;
-                if (length >= this.min && length <= this.max) {
-                    this.valid = true;
-                }
+            this.max = 99;
+            if(company !=null || company !== ""){
+                    var length = company.length;
+                    if(length >= this.min && length <= this.max ){
+                        this.valid = true;
+                    }
             }
             return this.valid;
         },
@@ -56,25 +47,17 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
                 this.valid = this.regex.test(todate);
             }
             return this.valid;
-        },
-        attrname: "ToDate"
-    }, {
-        validate: function(minusdate) {
-            this.valid = false;
-            if (minusdate > 0) {
-                this.valid = true;
-            }
-            return this.valid;
-        },
-        attrname: 'Minusdate'
-    }, {
-        validate: null,
-        attrname: "Details"
-    }];
-    // spilt value of each attr into Name of table Contact_Info
+        }, attrname: "ToDate"},   
+        {validate: function(minusdate){
+           this.valid = false;
+           if(minusdate > 0){
+               this.valid = true;
+           }
+           return this.valid;
+        }, attrname: 'Minusdate'},
+        {validate: null,attrname: "Details"}];
 
-    // return true if all attribute are valid if not false;
-    self.checkValidation = function() {
+    self.checkValidation = function(){
         var valid = true;
         var attr_length = self.attrvalidate.length;
         for (var i = 0; i < attr_length; i++) {
@@ -91,8 +74,6 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
     }
 
     var experience = require('../config/config').resolve("db").Experience;
-    // the reqdata paramater is id of the CV
-    // callback is a callback function data returned and status
     self.getAllByIdCV = function(reqdata, callback) {
             var temp = new experience();
             temp.find('all', {
@@ -139,7 +120,19 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
         });
     }
 
-    self.update = function(reqdata, callback) {
+    self.save = function(reqdata, callback){
+        var savetemp = new experience(reqdata);
+        savetemp.save(function(err,data){
+                    if(err){
+                        callback(-1, err)
+                    }else{
+                        self.attribute.Id = data.insertId;
+                        callback(1, self.attribute)
+                    }
+                });
+    }
+    
+    self.update = function(reqdata, callback){
         var updatetemp = new experience(self.attribute);
         updatetemp.set("id", reqdata);
         updatetemp.save(function(err, data) {

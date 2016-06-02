@@ -1,12 +1,12 @@
-// Get the page from template review page and place it in #template-review
-var getReview = function(templateName){
-    var name = templateName || $('#default-file').text();
-    $("#template-review").load('http://localhost:8080/template/templateReview/' + name );
-}
-
 $(document).ready(function(){
+    // Get the page from template review page and place it in #template-review
+    var getReview = function(templateName){
+        var name = templateName || $('#default-file').text();
+        var url ='/template/templateReview/' + name + '/' + getCVId();
+        $("#template-review").load(url);
+    }
+
     // Call when complete rendering html to display the default review.
-    getReview();
     var currentTemplate = '';
     // Change review when user click into template.
     $('.template').click(function(){
@@ -30,11 +30,23 @@ $(document).ready(function(){
         var marginRight = $('#margin-right').val();
         var marginBottom= $('#margin-bottom').val();
         var marginLeft = $('#margin-left').val();
-        window.open('http://localhost:8080/template/download/' + currentTemplate.split('.')[0] + "?format=" + format +"&orientation=" + orientation + "&zoom=" + zoom
+
+        var url ='/template/download/' + currentTemplate + '/' + getCVId();
+        window.open(url + "?format=" + format +"&orientation=" + orientation + "&zoom=" + zoom
         + '&marginTop=' + marginTop + '&marginRight=' + marginRight + '&marginBottom=' + marginBottom + '&marginLeft=' + marginLeft,'_blank');
     });
 
     $('#print').click(function(){
         window.print();
     })
+
+    var getCVId = function(){
+        var fullUrl = window.location.href;
+        var arr = fullUrl.split('/');
+        return arr[5];
+    }
+
+    /*Initialize*/
+    getReview();
+    getCVId();
 });

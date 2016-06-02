@@ -1,5 +1,4 @@
 var certification = require('../model/certification');
-// checkCVBelongToUser
 function certificate_service(){
     this.getAllCertificationByCVId = function(param, cb){
         var c = new certification();

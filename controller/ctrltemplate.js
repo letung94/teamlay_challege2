@@ -4,6 +4,8 @@ var fs = require('fs');
 var path = require('path');
 var helper = require('../helper/helper');
 var pdf = require('../helper/pdf');
+var di = require('../config/config');
+var async = require('async');
 
 var demoInfo = {
 	summary:{
@@ -105,20 +107,103 @@ var demoInfo = {
 	]
 }
 
-router.get('/templateReview/:name', function (req, res) {
+router.get('/templateReview/:name/:cv_id', function (req, res) {
 	var name = req.params.name;
-	var templatePath = path.join(__dirname + '/../view/templates/' + name);
-	fs.exists(templatePath, function (exist) {
-		if(exist){
-			res.render('templates/' + name, demoInfo);
-		}else{
-			res.render('pages/generic_error', {ExcludeHeader: '1', Title:'CV Template not found',Code: '404',
-			Detail: 'The template you given is not exist or under maintenance, please try again later.'});
-		}
+	var cv_id = req.params.cv_id;
+	var info = {};
+	async.waterfall([
+		function(done){
+			/*Contact Info*/
+			var ContactInfoService = di.resolve('contact_info');
+			var contactInfoService = new ContactInfoService();
+			contactInfoService.getByIdCV({CV_Id: cv_id}, function(code, data){
+				info.contact_info = data;
+				done();
+			})
+		},
+		function(done){
+			/*Summary*/
+			var SummaryService = di.resolve('summary');
+			var summaryService = new SummaryService();
+			summaryService.getByIdCV({CV_Id: cv_id}, function(code, data){
+				info.summary = data;
+				done();
+			})
+		},
+		function(done){
+			/*Experience*/
+			var ExperienceService = di.resolve('experience');
+			var experienceService = new ExperienceService();
+			experienceService.getAllExperienceByCVId({CV_Id: cv_id}, function(code, data){
+				info.experiences = data;
+				done();
+			})
+		},
+		function(done){
+			/*Skill*/
+			var SkillService = di.resolve('skill');
+			var skillService = new SkillService();
+			skillService.getAllSkillByCVId({CV_Id: cv_id}, function(code, data){
+				info.skills = data;
+				done();
+			})
+		},
+		function(done){
+			/*Education*/
+			var EducationService = di.resolve('education');
+			var educationService = new EducationService();
+			educationService.getAllEducationByCVId({CV_Id: cv_id}, function(code, data){
+				if(code == 1){
+					/*Convert DB date to readable date*/
+					var length = data.length;
+					for (var i = 0; i < length; i++) {
+						var education = data[i];
+						if(education.FromDate){
+							education.FromDate = helper.parseDate(education.FromDate);
+						}
+						if(education.ToDate){
+							education.ToDate = helper.parseDate(education.ToDate);
+						}
+					}
+					info.educations = data;
+					done();
+				}
+			})
+		},
+		function(done){
+			/*Certificate*/
+			var CertificateionService = di.resolve('certification');
+			var certificateionService = new CertificateionService();
+			certificateionService.getAllCertificationByCVId(cv_id, function(code, data){
+					/*Convert DB date to readable date*/
+				var length = data.length;
+				for (var i = 0; i < length; i++) {
+					var certification = data[i];
+					if(certification.Date){
+						certification.Date = helper.parseDate(certification.Date);
+					}
+				}
+				info.certifications = data;
+				done();
+			});
+		},
+		function(done){
+			var templatePath = path.join(__dirname + '/../view/templates/' + name);
+			fs.exists(templatePath, function (exist) {
+				if(exist){
+					res.render('templates/' + name, info);
+				}else{
+					res.render('pages/generic_error', {ExcludeHeader: '1', Title:'CV Template not found',Code: '404',
+					Detail: 'The template you given is not exist or under maintenance, please try again later.'});
+				}
+			});
+		},
+	], function(err){
+		res.render('pages/server_error_505');
 	});
 });
 
-router.get('/template_list/', function (req, res) {
+router.get('/template_list/:cv_id', function (req, res) {
 	files = [];
 	var dir = __dirname + '/../view/templates';
 	fs.readdir(dir, function (err, filesFromDisk) {
@@ -133,9 +218,10 @@ router.get('/template_list/', function (req, res) {
 	});
 });
 
-router.get('/download/:name', function (req, res) {
+router.get('/download/:name/:cv_id', function (req, res) {
 	var name = req.params.name; // Template file name.
-	var source =  req.headers.host + '/template/templateReview/' + name + '.ejs'; // Get from template review page.
+	var cv_id = req.params.cv_id;
+	var source =  req.headers.host + '/template/templateReview/' + name + '/' + cv_id; // Get from template review page.
 	var destination = path.join(__dirname + '/../tmp/', helper.createUnique() + '.pdf'); // Declare temporarily save folder.
 	var options = {
 		format:req.query.format,
@@ -169,6 +255,7 @@ router.get('/download/:name', function (req, res) {
 				fs.unlink(file); // Delete the file without sending down to the user.
 			}
 		} else{ // Something wrong with HTML 2 PDF convert process.
+			fs.unlink(file);
 			res.render('pages/generic_error', { Title:"Maintenance", Code: "500", Detail: "Sorry the download feature is under maintenance<br/ > please try again later. "}); // Return maintenance page.
 		}
 	});
