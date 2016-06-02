@@ -50,18 +50,12 @@ var savePDFfromHTML = function (source, destination, options, cb) {
         destination,
     ];
     var pdfProcess = spawn(pdfExecutable, execOptions);
-    // pdfProcess.stdout.on('data', function (data) {
-    //     console.log('pdf out: ' + data);
-    // });
     pdfProcess.on('error', function (err) {
         // console.log('spawn error:', err);
         pdfProcess.kill();
+        cb(-1, err);
     });
-    // pdfProcess.stderr.on('data', function (data) {
-    //     console.error('pdf err: ' + data);
-    // });
     pdfProcess.on('close', function (code) {
-        // console.log('PDF Process close with code: ' + code);
         cb(code, destination);
     });
 
