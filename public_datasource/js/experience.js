@@ -240,4 +240,5 @@ $(document).ready(function() {
                 }
             }          
     });
+});
 

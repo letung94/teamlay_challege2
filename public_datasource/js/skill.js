@@ -17,7 +17,7 @@
             endofarray: "idontmatter",
             besidetext:"besidetext",
             fixed: false,
-			thisid: "#" + $(this)[0].id,
+			thisid: $(this).selector,
 			undertext: "undertext"
         }, options );
 		var style = "";
@@ -79,7 +79,7 @@
 			//change text inner of html
 			 */
             $(settings.thisid + " span." + settings.besidetext).html(settings.text[rating-1]);
-			//div.find("input").val(rating);	//if there is an input in the div lets set it's value
+			div.find("input[name='expertise']").val(rating);	//if there is an input in the div lets set it's value
 			div.find("span.ratingicon").each(function(){	//now paint the stars
 				
 				var rating = parseInt($(this).parent().attr('data-rating'));
@@ -100,81 +100,88 @@ $(document).ready(function(){
     var bottomyear = 1989;
     for(var i  = currentyear;i > bottomyear;i--){
         var option = '<option value="' + i + '">' + i  + '</option>';
-        $("select#skillyear").append(option);     
+        $("#skill-form select[name='lastyearused']").append(option);     
     }
 });
-
+var indexcurrentskill = null;
 var listskill = [];
-//set attribute for class Experience
+//set attribute for class Skill
 function Skill(attribute){
     this.attribute = attribute;
 }
-/*Add List Of Experience to Table*/ 
+/*Add List Of Skill to Table*/ 
 function addlistskill(index,row){
     // create edit & button acction
     var editAction = '<button class="btn btn-warning btn-sm btnEditSkill"><span class="glyphicon glyphicon-pencil"></span></button>';
     var deleteAction = '<button class="btn btn-danger btn-sm btnDeleteSkill"><span class="glyphicon glyphicon-remove"></span></button>';
     // add value of each attribute to row 
-    var rowtable = "<tr style='font-size:13px'><td>" + index + "</td><td>" + row.Company + "</td><td>" + row.Designation + "</td><td>" + row.FromDate + ' - ' + row.ToDate + "</td><td>" + editAction + " " + deleteAction + "</td></tr>";
+                      
+    var rowname =  '<img  src="/img/default_avatar.jpg" class="default_avatar" /> <div class="form-group row">' + row.Name + '</div>';
+    var indexpertise = 'stars-default' + index;
+    var rowexpertise = '<div id="' + indexpertise + '" data-rating="' + row.Expertise + '"></div>';
+    var rowtable = "<tr style='font-size:13px'><td>" + index + "</td><td>" + rowname + "</td><td>" + rowexpertise + "</td><td>" + row.Experience + "</td><td>" + row.LastYearUsed + "</td><td>" + editAction  + deleteAction + "</td></tr>";
     $(rowtable).appendTo("#list-skill tbody");
+    var idstarrating = "#" + indexpertise;
+    $(idstarrating).rating('create',{besidetext:"expertisetext",fixed:true});
+    
 }
 /*Get Value from Input on Edit case */
 function getValueSkill(){
-        //get dates and split to fromdate - todate
-        var dates = $("#skill-form input[name='date']").val().split(" - ");
-        var fromdate = dates[0];
-        var todate = dates[1];
-        //set value of each attribute to Experience
-        var experience = new Experience(
+        //set value of each attribute to Skill
+        var skill = new Skill(
             {
-                "Company": $("#skill-form input[name='company']").val(),
-                "Designation": $("#skill-form input[name='designation']").val(),
-                "FromDate": fromdate,
-                "ToDate": todate,
-                "Details": $("#skill-form textarea[name='detail']").val(),
+                "Name": $("#skill-form input[name='name']").val(),
+                "Expertise": $("#skill-form input[name='expertise']").val(),
+                "Experience": $("#skill-form select[name='experience']").val(),
+                "LastYearUsed": $("#skill-form select[name='lastyearused']").val()
             }
         );
-        return experience.attribute;
+        return skill.attribute;
         
 }
-/*Add Button Click Event for Add List Experience */
-$('#btnAddListExp').click(function() {
+/*Add Button Click Event for Add List Skill */
+$('#btnAddListSkill').click(function() {
         //check valid on click
         var isValid = $('#skill-form').valid();
-        var addedexprerience = getValueExp();
-        var urlpost = window.location.href + '/experience/save';
         if(isValid){
-         $.ajax({
-        type: "POST",
-        url: urlpost,
-        dataType: 'json',
-        async: false,
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(addedexprerience),
-        success: function (res) {
-            //update new value to table 
-            listexperience.push(new Experience(res.resdata)); 
-            $("#list-experience tbody > tr").remove();
-            $.each(listexperience, function(index,value ){
-                addlistexp(index + 1,value.attribute);
-            });
-            showAnnoucement(res.flag, 'experience', 'added');
-        },
-        error: function(x,e){
-            
-        }
-    }); 
+            var addedskill = getValueSkill();
+            var urlpost = window.location.href + '/skill/save';
+            $.ajax({
+            type: "POST",
+            url: urlpost,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(addedskill),
+            success: function (res) {
+                //update new value to table
+                if(res.flag==1){ 
+                    listskill.push(new Skill(res.resdata)); 
+                    $("#list-skill tbody > tr").remove();
+                    $.each(listskill, function(index,value ){
+                        addlistskill(index + 1,value.attribute);
+                    });
+                    switchMode("add");
+                }
+                showAnnoucement(res.flag, 'skill', 'added');
+            },
+            error: function(x,e){
+                
+            }
+        }); 
    }      
 });
+
+
 /*Delete Button Click Event for Delete Value */
-$('#list-experience').on('click', '.btnDeleteExp' , function(e){
+$('#list-Skill').on('click', '.btnDeleteExp' , function(e){
     e.preventDefault();
-    var deletedexperience = new Experience();
+    var deletedskill = new Skill();
     //get current index on row click
     var cells = $(this).closest("tr").children("td");
     indexcurrent = $(this).closest("tr").index();
-    deletedexperience.Id = listexperience[indexcurrent].attribute.Id;
-    urlpost = window.location.href + '/experience/delete'
+    deletedskill.Id = listskill[indexcurrent].attribute.Id;
+    urlpost = window.location.href + '/Skill/delete'
     //show popup confirm on click delete button
     BootstrapDialog.confirm({
             title: 'Confirm',
@@ -187,16 +194,16 @@ $('#list-experience').on('click', '.btnDeleteExp' , function(e){
                     dataType: 'json',
                     async: false,
                     contentType: 'application/json; charset=utf-8',            
-                    data: JSON.stringify(deletedexperience),
+                    data: JSON.stringify(deletedskill),
                     success: function (res) {
                         if(res.flag==1){
                             //remove value from array by index and update to table
-                            listexperience.splice(indexcurrent, 1);    
-                            $("#list-experience tbody > tr").remove();
-                            $.each(listexperience, function( index, value ){
+                            listskill.splice(indexcurrent, 1);    
+                            $("#list-Skill tbody > tr").remove();
+                            $.each(listskill, function( index, value ){
                                 addlistexp(index + 1,value.attribute);
                             });
-                             showAnnoucement(res.flag, 'experience', 'deleted');
+                             showAnnoucement(res.flag, 'skill', 'deleted');
                         }
                     },
                     error: function(x,e){
@@ -210,59 +217,62 @@ $('#list-experience').on('click', '.btnDeleteExp' , function(e){
         });  
 });
 /*Edit Button Click Event to Edit Value*/
-$('#list-experience').on('click', '.btnEditExp' , function(e){
+$('#list-skill').on('click', '.btnEditSkill' , function(e){
     e.preventDefault();
     var cells = $(this).closest("tr").children("td");
-    indexcurrent = parseInt(cells.eq(0).text())-1;  
-    $("#skill-form input[name='company']").val(cells.eq(1).text()).focus();  
-    $("#skill-form input[name='designation']").val(cells.eq(2).text());
-    $("#skill-form input[name='date']").val(cells.eq(3).text());
-    $("#skill-form textarea[name='detail']").data('wysihtml5').editor.setValue(listexperience[indexcurrent].attribute.Details);
-    rowId = $(this).closest('td').parent()[0].sectionRowIndex;
+    indexcurrentskill = parseInt(cells.eq(0).text())-1;  
+    $("#skill-form input[name='name']").val(cells.eq(1).text()).focus();  
+    $("#skill-form input[name='expertise']").val(cells.eq(2).text());
+    $("#skill-form select[name='experience']").val(cells.eq(3).text());
+    $("#skill-form select[name='lastyearused']").val(cells.eq(4).text());
     switchMode("edit");
 });
-$('#btnSaveEditExp').click(function() {      
-    var savedexprerience = getValueExp();
-    savedexprerience.Id = listexperience[indexcurrent].attribute.Id;
-    savedexprerience.CV_id = listexperience[indexcurrent].attribute.CV_id;
-    var urlpost = window.location.href + '/experience/update';
-         $.ajax({
-        type: "POST",
-        //the url where you want to sent the userName and password to
-        url: urlpost,
-        dataType: 'json',
-        async: false,
-        contentType: 'application/json; charset=utf-8',
-        //json object to sent to the authentication url
-        data: JSON.stringify(savedexprerience),
-        success: function (res) {
-            if(res.flag==1){
-                listexperience.splice(indexcurrent, 1);
-                listexperience.splice(indexcurrent, 0, new Experience(res.resdata));
-                $("#list-experience tbody > tr").remove();
-                $.each(listexperience, function( index, value ){
-                    addlistexp(index + 1,value.attribute);
-                });
-                showAnnoucement(res.flag, 'experience', 'edited');
+$('#btnSaveEditSkill').click(function() {
+    var isValid = $('#Skill-form').valid();
+    if(isValid){
+        var savedskill = getValueExp();
+        savedskill.Id = listSkill[indexcurrentskill].attribute.Id;
+        savedskill.CV_id = listSkill[indexcurrent].attribute.CV_id;
+        var urlpost = window.location.href + '/skill/update';
+            $.ajax({
+            type: "POST",
+            //the url where you want to sent the userName and password to
+            url: urlpost,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            //json object to sent to the authentication url
+            data: JSON.stringify(savedexprerience),
+            success: function (res) {
+                if(res.flag==1){
+                    listSkill.splice(indexcurrent, 1);
+                    listSkill.splice(indexcurrent, 0, new Skill(res.resdata));
+                    $("#list-Skill tbody > tr").remove();
+                    $.each(listSkill, function( index, value ){
+                        addlistexp(index + 1,value.attribute);
+                    });
+                    showAnnoucement(res.flag, 'Skill', 'edited');
+                }
+                
+            },
+            error: function(x,e){
+                
             }
-            
-        },
-        error: function(x,e){
-            
-        }
-    }); 
-    switchMode("save");
+        }); 
+        switchMode("add");
+    }      
+    
 });
-$('#btnCancelEditExp').click(function() {  
-    switchMode("cancel");
+$('#btnCancelEditSkill').click(function() {  
+    switchMode("add");
 });
 
-var clickedExperience = false;
-function getExperience(){
-    if(clickedExperience==true){
+var clickedSkill = false;
+function getSkill(){
+    if(clickedSkill==true){
         return;
     }
-    var urlget = window.location.href + "/experience/getall";
+    var urlget = window.location.href + "/Skill/getall";
     $.ajax({
         type: "GET",
         url: urlget,
@@ -270,9 +280,9 @@ function getExperience(){
         async: false,
         contentType: 'application/json; charset=utf-8',
         success: function (res) {   
-                clickedExperience = true;
+                clickedSkill = true;
                 $.each(res.resdata, function( index, value ) {
-                listexperience.push(new Experience(value));          
+                listSkill.push(new Skill(value));          
                 addlistexp(index + 1,value);
                 });              
             },
@@ -281,54 +291,49 @@ function getExperience(){
         }
     });
 }
-/*Switch Mode for case button click */
+/*Switch mode Add or delete*/
 function switchMode(mode){
-        mode = mode.toLowerCase();
-        //case button edit
-        if (mode == 'edit'){
-            $('#btnSaveEditExp').show();
-            $('#btnAddListExp').hide();
-            $('#btnCancelEditExp').show();
-            $('.btnDeleteExp').prop('disabled', true);
-            $('.btnEditExp').prop('disabled', true);
-        //case button cancel
-        }else if (mode == 'cancel'){
-            $('#btnSaveEditExp').hide();
-            $('#btnAddListExp').show();
-            $('#btnCancelEditExp').hide();
-            $('.btnDeleteExp').prop('disabled', false);
-            $('.btnEditExp').prop('disabled', false);
-            $("#skill-form")[0].reset();
-        //case button save    
-        }else if (mode == 'save'){
-            $('#btnSaveEditExp').hide();
-            $('#btnCancelEditExp').hide();
-            $('#btnAddListExp').show(); 
-            $("#skill-form")[0].reset();
-        }
+    mode = mode.toLowerCase();
+    if(mode == 'add'){
+        $('#btnSaveEditSkill').hide();
+        $('#btnCancelEditSkill').hide();
+        $('#btnAddListSkill').show();
+        $('.btnDeleteSkill').prop('disabled', false);
+        $('.btnEditSkill').prop('disabled', false);
+        btnAddListSkill
+    }else if (mode == 'edit'){
+        $('#btnSaveEditSkill').show();
+        $('#btnCancelEditSkill').show();
+        $('#btnAddListSkill').hide();
+         $('.btnDeleteSkill').prop('disabled', true);
+        $('.btnEditSkill').prop('disabled', true);
+    }
 }
+
 /*Jquery Validation for #skill-form*/
+/*
+ `Id` INT(11) NOT NULL AUTO_INCREMENT,
+  `Name` NVARCHAR(50) NOT NULL ,
+  `Expertise` TINYINT(1) NOT NULL ,
+  `Skill` NVARCHAR(50) NOT NULL ,
+  `LastYearUsed` INT(4) NOT NULL,
+  `CV_Id` INT(11) NOT NULL,
+*/
+
 $(document).ready(function() {
     $("#skill-form").validate({
             errorClass: 'text-danger',
             focusInvalid: true,
             rules: {
-                company: {
+                name: {
                     required: true,
-                    minlength: 2,
-                    maxlength: 100
-                },
-                date: {
-                    required: true
-                },        
+                    maxlength: 49
+                }     
             },
             messages: {
-                company: {
-                    required: "Please enter a company's name",
-                    minlength: "Your company's name  must be at least 2 characters long"
-                },
-                date: {
-                    required: "Please enter your working time for this company "
+                name: {
+                    required: "Please enter your skill",
+                    maxlength: "Your skill's name  must be less than 50 characters long"
                 } 
             },
             errorPlacement:

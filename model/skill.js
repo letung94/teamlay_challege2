@@ -35,7 +35,7 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
             this.min = 1;
             this.max = 5;
             var experience_Int = parseInt(expertise);
-            if(experience >= this.min && experience <= this.max){
+            if(experience_Int >= this.min && experience_Int <= this.max){
                 this.valid = true;
             }
             return this.valid;
@@ -54,7 +54,8 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
             this.valid = false;
             this.currentyear = (new Date()).getFullYear();
             this.bottomyear = 1989;
-            if(this.bottomyear > 1989 && lastyearused <= this.currentyear){
+            var lastyearused_Int = parseInt(lastyearused);
+            if(lastyearused_Int > this.bottomyear  && lastyearused_Int <= this.currentyear){
                 this.valid = true;
             }
             return this.valid;
@@ -98,14 +99,16 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
     */
     self.save = function(reqdata, callback){
         var savetemp = new skill(reqdata);
-        savetemp.save(function(err,data){
+        self.attribute.Id = 1;
+        callback(1, self.attribute)
+        /*savetemp.save(function(err,data){
                     if(err){
                         callback(-1, err)
                     }else{
                         self.attribute.Id = data.insertId;
                         callback(1, self.attribute)
                     }
-                });
+                });*/
     }
     
     self.update = function(reqdata, callback){
