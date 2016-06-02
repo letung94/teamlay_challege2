@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var Certification = require('../model/Certification');
 var di = require('../config/config');
 
 module.exports = router;
@@ -27,14 +28,28 @@ router.get('/certification/getAll', function (req, res) {
 });
 
 router.post('/certification/add', function (req, res) {
-	var cerService = di.resolve('certification');
-	var cerServiceIns = new cerService();
 	var idcv = req.baseUrl.split("/")[2];
 	var entity = req.body.entity;
-	entity.CV_Id = idcv;
-	cerServiceIns.saveCertification(entity, function(code, data){
-		res.json({code: code, data: data});
-	})
+	var certification = new Certification(
+		entity.Title,
+		entity.CertificateAuthority,
+		entity.Date,
+		entity.Details,
+		idcv
+	);
+	var valid = certification.checkValidation();
+	if(valid)
+	{
+		var cerService = di.resolve('certification');
+		var cerServiceIns = new cerService();
+
+		entity.CV_Id = idcv;
+		cerServiceIns.saveCertification(entity, function(code, data){
+			res.json({code: code, data: data});
+		})
+	}else{
+		res.json({code: 0});
+	}
 });
 
 router.post('/certification/edit', function (req, res) {
@@ -78,7 +93,6 @@ router.post('/certification/delete', function (req, res) {
 				return res.json({code : code, msg: 'The CV you want to delete belong to another user.'} );
 			}
 		}else if (code == -1){ /*Somethong wrong with server*/
-			console.log(data);
 			return res.json({code: code});
 		}
 	});
