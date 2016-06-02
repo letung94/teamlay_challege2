@@ -98,6 +98,12 @@ app.use('/cv/:idcv', ctrlcertification);
 var ctrlproject = require('./controller/ctrlproject');
 app.use('/cv/:idcv', ctrlproject);
 
+/*
+// skill
+ */
+var ctrlskill = require('./controller/ctrlskill');
+app.use('/cv/:idcv', ctrlskill);
+
 /*admin*/
 app.get('/error/500',function(req, res){
     res.render('pages/server_error_500');
