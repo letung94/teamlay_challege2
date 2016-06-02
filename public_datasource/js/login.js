@@ -5,7 +5,7 @@ $(document).ready(function() {
         rules: {
             username: {
                 required: true,
-                minlength: 1
+                minlength: 5
             },
             password: {
                 required: true,
@@ -15,7 +15,7 @@ $(document).ready(function() {
         messages: {
             username: {
                 required: "Please enter your username",
-                minlength: "Your username must consist of at least 1 character"
+                minlength: "Your username must consist of at least 5 characters"
             },
             password: {
                 required: "Please enter your password",
