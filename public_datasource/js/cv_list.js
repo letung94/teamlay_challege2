@@ -1,31 +1,30 @@
 $(document).ready(function() {
 
-    $('#validation_form_cv').validate({
-        errorClass: 'text-danger',
-        focusInvalid: false,
-        debug: true,
-        rules: {
-            "cvname": {
-                required: true,
-                minlength: 1
-            }
-        },
-        messages: {
-            cvname: {
-                required: "This field is required.",
-                minlength: "This field is required."
-            }
-        },
-        errorElement: "div",
-        errorPlacement: function(error, element) {
-            console.log("test");
-            if (element.attr("name") == "accept") {
-                error.insertAfter("#accept_error-message");
-            } else {
-                error.insertAfter(element);
-            }
-        }
-    });
+    // $('#curriculumvitae-form').validate({
+    //     errorClass: 'text-danger',
+    //     focusInvalid: false,
+    //     debug: true,
+    //     rules: {
+    //         "cvname": {
+    //             required: true,
+    //             minlength: 1
+    //         }
+    //     },
+    //     messages: {
+    //         cvname: {
+    //             required: "This field is required.",
+    //             minlength: "This field is required."
+    //         }
+    //     },
+    //     errorElement: "div",
+    //     errorPlacement: function(error, element) {
+    //         if (element.attr("name") == "accept") {
+    //             error.insertAfter("#accept_error-message");
+    //         } else {
+    //             error.insertAfter(element);
+    //         }
+    //     }
+    // });
 
 
 
@@ -50,13 +49,12 @@ $(document).ready(function() {
         $('#validation_form_cvname input[name=cvname]').val(cvname);
     });
 
-    $('#btn-addnewcv').click(function() {
-        var validator = $('#validation_form_cv').valid();
-        if (validator) {
-            $('#validation_form_cv').submit();
-        }
-        // $('#create-cv-modal').modal('toggle');
-    });
+    // $('#btn-addnewcv').click(function() {
+    //     // var validator = $('#validation_form_cv').valid();
+    //     // if (validator) {
+    //     $('#curriculumvitae-form').submit();
+    //     // }
+    // });
 
     $('.btn-delete').click(function() {
         var self = this;

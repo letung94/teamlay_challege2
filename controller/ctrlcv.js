@@ -41,6 +41,8 @@ router.post('/', [jsonparser], function(req, res) {
             if (flag == 1) {
                 var newidcv = data.Id;
                 res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
+            } else if (flag == 0) {
+                res.status(404).render('pages/generic_error');
             } else if (flag == -1) {
                 res.status(500).render('pages/generic_error');
             }
