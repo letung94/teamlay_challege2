@@ -3,6 +3,13 @@ var experience = require('../model/experience');
 var express = require('express');
 var router = express.Router();
 
+router.get('/experience/getall',function(req,res){
+    var experience_getAllByIdCV = new experience();
+    var idcv = req.baseUrl.split("/")[2];
+    experience_getAllByIdCV.getAllByIdCV(idcv,function(err,rows){
+        res.send({flag: err, resdata: rows});
+    });
+})
 router.post('/experience/save', function(req, res) {
     var idcv = req.baseUrl.split("/")[2];
     req.body.CV_Id = idcv;
@@ -22,13 +29,7 @@ router.post('/experience/save', function(req, res) {
         res.send({flag: 0, resdata: experience_save.attrvalidate});
     }
 });
-router.get('/experience/getall',function(req,res){
-    var experience_getAllByIdCV = new experience();
-    var idcv = req.baseUrl.split("/")[2];
-    experience_getAllByIdCV.getAllByIdCV(idcv,function(err,rows){
-        res.send({flag: err, resdata: rows});
-    });
-})
+
 router.post('/experience/update', function(req, res) {
     var experience_update = new experience(req.body.Company,
     req.body.Designation,
