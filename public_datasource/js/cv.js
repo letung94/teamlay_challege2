@@ -19,15 +19,15 @@ $(function() {
         success: function (res) {
             if(res.flag == 1){
                 contact_info = new Contact_Info(res.resdata);
-                $('#btnSubmit').prop('disabled',false);
-                $("input[name='firstname']").val(contact_info.attribute.FirstName);
-                $("input[name='lastname']").val(contact_info.attribute.LastName);
+                $('#contact_info-form #btnSubmit').prop('disabled',false);
+                $("#contact_info-form input[name='firstname']").val(contact_info.attribute.FirstName);
+                $("#contact_info-form input[name='lastname']").val(contact_info.attribute.LastName);
                 //must to public file;
-                $("#preview").attr('src',contact_info.attribute.Avatar);
-                $("input[name='email']").val(contact_info.attribute.Email);
-                $("input[name='phone']").val(contact_info.attribute.Phone);
-                $("input[name='website']").val(contact_info.attribute.Website);
-                $("input[name='address']").val(contact_info.attribute.Address);
+                $("#contact_info-form #preview").attr('src',contact_info.attribute.Avatar);
+                $("#contact_info-form input[name='email']").val(contact_info.attribute.Email);
+                $("#contact_info-form input[name='phone']").val(contact_info.attribute.Phone);
+                $("#contact_info-form input[name='website']").val(contact_info.attribute.Website);
+                $("#contact_info-form input[name='address']").val(contact_info.attribute.Address);
                 
                 /*var validator = $( "#validation_form_contact_info" ).validate();
                 validator.resetForm();*/
@@ -45,56 +45,6 @@ $(function() {
     
     
 });
-
-// function validation
-function validateContact_Info(validid){
-    if (jQuery().validate) {
-    var removeSuccessClass = function(e) {
-        $(e).closest('.form-group').removeClass('has-success');
-    }
-    //'#validation_form_contact_info'
-    var $validation_form_contact_info = $(validid);
-    $validation_form_contact_info.validate({
-        errorElement: 'span', //default input error message container
-        errorClass: 'help-block', // default input error message class
-        errorPlacement: function(error, element) {
-            if(element.parent('.input-group').length) {
-                error.insertAfter(element.parent());
-            } else if (element.next('.chosen-container').length) {
-                error.insertAfter(element.next('.chosen-container'));
-            } else {
-                error.insertAfter(element);
-            }
-        },
-        focusInvalid: false, // do not focus the last invalid input
-        ignore: "",
-
-        invalidHandler: function (event, validator) { //display error alert on form submit              
-            var el = $(validator.errorList[0].element);
-            if ($(el).hasClass('chosen')) {
-                $(el).trigger('chosen:activate');
-            } else {
-                $(el).focus();
-            }
-        },
-
-        highlight: function (element) { // hightlight error inputs
-            $(element).closest('.form-group').removeClass('has-success').addClass('has-error'); // set error class to the control group
-        },
-
-        unhighlight: function (element) { // revert the change dony by hightlight
-            $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
-            setTimeout(function(){removeSuccessClass(element);}, 3000);
-        },
-
-        success: function (label) {
-            label.closest('.form-group').removeClass('has-error').addClass('has-success'); // set success class to the control group
-        }
-    });
-    return $validation_form_contact_info;
-}
-return null;
-}
 
 function showAnnoucement(flag, section, action){
     section = section.toLowerCase();
