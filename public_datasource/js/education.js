@@ -1,65 +1,86 @@
 $(document).ready(function() {
-    $('#validation_form_education').validate({
+    $('#education_form').validate({
         errorClass: 'text-danger',
-        focusInvalid: false,
-        debug: true,
+        focusInvalid: true,
         rules: {
-            "institute": {
+            institute: {
                 required: true,
-                minlength:5
+                minlength: 5
+            },
+            degree: {
+                required: false,
+                maxlength: 100 
+            },
+            date: {
+                required: true
             }
+            
         },
         messages: {
             institute: {
                 required: "Please enter your institute.",
                 minlength:"Must be 5 characters."
-            }
+            },
+            degree: {
+                maxlength: "Must be under 100 characters"
+            },
+            date: {
+                    required: "Please enter your studying time for this degree "
+                } 
         },
-        errorElement: "div",
-        errorPlacement: function(error, element) {
-            console.log("test");
-            if (element.attr("name") == "accept")  {
-                error.insertAfter("#accept_error-message");
-            }else {
-                error.insertAfter(element);
-            }
-        }
+        errorPlacement:
+            function(error, element){
+                if(element.attr("name") == "date"){ 
+                    error.insertAfter('#education_form .input-group');
+            }else{ 
+                    error.insertAfter(element); 
+                }
+            }     
     });
 });
 
+var listEducation = [];
+var clickedEducation = false;
+function Education(attribute){
+    this.attribute = attribute;
+}
+
+function addListEdu(index,row){
+    // create edit & button acction
+    var editAction = '<button class="btn btn-warning btn-sm btnEditEdu"><span class="glyphicon glyphicon-pencil"></span></button>';
+    var deleteAction = '<button class="btn btn-danger btn-sm btnDeleteEdu"><span class="glyphicon glyphicon-remove"></span></button>';
+    // add value of each attribute to row 
+    var rowtable = "<tr style='font-size:13px'><td>" + index + "</td><td>" + row.Company + "</td><td>" + row.Designation + "</td><td>" + row.FromDate + ' - ' + row.ToDate + "</td><td>" + editAction + " " + deleteAction + "</td></tr>";
+    $(rowtable).appendTo("#list-experience tbody");
+}
+
+function getEducation(){
+    if(clickedEducation==true){
+        return;
+    }
+    var urlget = window.location.href + "/education/getall";
+    $.ajax({
+        type: "GET",
+        url: urlget,
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        success: function (res) {   
+                clickedEducation = true;
+                $.each(res.resdata, function( index, value ) {
+                listEducation.push(new Education(value));          
+                addListEdu(index + 1 , value);
+                });              
+            },
+        error: function(x,e){
+            
+        }
+    });
+}
+
 $('#btnAddListEdu').click(function() {
-    var validator = $('#validation_form_education').valid();
-    console.log(validator);
-    // if(validator){
-    //     contact_info["FirstName"]=$("input[name='firstname']").val();
-    //     contact_info["LastName"]=$("input[name='lastname']").val();
-    //     contact_info["Avatar"]= $("#preview").attr('src');
-    //     contact_info["Email"]=$("input[name='email']").val();
-    //     contact_info["Phone"]=$("input[name='phone']").val();
-    //     contact_info["Website"]=$("input[name='website']").val();
-    //     contact_info["Address"]=$("input[name='address']").val();
-    //     contact_info["CV_Id"]=$("input[name='idcv']").val();
-    //     var urlpost = window.location.href + '/contact_info/save';
-    //     $.ajax({
-    //         type: "POST",
-    //         /*the url where you want to sent the userName and password to*/
-    //         url: urlpost,
-    //         dataType: 'json',
-    //         async: false,
-    //         contentType: 'application/json; charset=utf-8',
-    //         /*json object to sent to the authentication url*/
-    //         data: JSON.stringify(contact_info),
-    //         success: function (res) {
-    //             console.log(res);
-    //         },
-    //         error: function(x,e){
-                
-    //         }
-    //     });
-    // }
-    
-    // return false;
-    
+    var validator = $('#education_form').valid();
+
 });
 
 

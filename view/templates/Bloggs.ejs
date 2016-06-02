@@ -18,98 +18,72 @@
 	<div class="template-body" id="cv" class="instaFade">
 		<div class="mainDetails">
 			<div id="headshot" class="quickFade">
-				<img src="https://d2m2lkhawsaq1u.cloudfront.net/uploads/trial/steamworkshop_webupload_previewfile_136080635_preview_1392466870.jpg" alt="Alan Smith" />
+				<%if(locals.contact_info){%>
+					<img src="<%=contact_info.Avatar ? contact_info.Avatar : '/img/default_avatar.jpg' %>" alt="Alan Smith" />
+				<%}else{%>
+					<img src="/img/default_avatar.jpg" alt="Alan Smith" />
+				<%}%>
 			</div>
-
 			<div id="name">
-				<h1 class="quickFade delayTwo"><%= contact_info.FirstName %> <%= contact_info.LastName %></h1>
-				<h2 class="quickFade delayThree">Job Title</h2>
-			</div>
-
-			<div id="contactDetails" class="quickFade delayFour">
-				<ul>
-					<li>e: <a href="mailto:<%= contact_info.Email %>" target="_blank">  <%= contact_info.Email %></a></li>
-					<li>w: <%= contact_info.Address %></li>
-					<li>m: <%= contact_info.Phone %></li>
-					<%if(contact_info.Website != null){%>
-						<li>
-							<a href="<%=contact_info.Website%>">
-								w: <%=contact_info.Website%>
-							</a>
-						</li>
+				<h1 class="quickFade delayTwo">
+					<%if(locals.contact_info){%>
+						<%= locals.contact_info.FirstName? locals.contact_info.FirstName : '' %>
+						<%= locals.contact_info.LastName? locals.contact_info.LastName : '' %>
 						<%}%>
-					</p>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
+					</h1>
+					<!-- <h2 class="quickFade delayThree">Job Title</h2> -->
+				</div>
 
-		<div id="mainArea" class="quickFade delayFive">
-			<section>
-				<article>
-					<div class="sectionTitle">
-						<h1><%= summary.Headline %></h1>
-					</div>
-
-					<div class="sectionContent">
-						<%= summary.ProfessionalSummary %>
-					</div>
-				</article>
+				<div id="contactDetails" class="quickFade delayFour">
+					<ul>
+						<%if(locals.contact_info) {%>
+							<%if(locals.contact_info.Email){%>
+								<li>e: <a href="mailto:<%= contact_info.Email %>" target="_blank">  <%= contact_info.Email %></a></li>
+							<%}%>
+							<%if(locals.contact_info.Address){%>
+								<li>a: <%= contact_info.Address %></li>
+							<%}%>
+							<%if(locals.contact_info.Phone){%>
+								<li>m: <%= contact_info.Phone %></li>
+							<%}%>
+							<%if(locals.contact_info.Website){%>
+								<li>w: 	<a href="<%=contact_info.Website%>"><%=contact_info.Website%></a></li>
+							<%}%>
+						<%}%>
+					</ul>
+				</div>
 				<div class="clear"></div>
-			</section>
+			</div>
 
-			<section>
-				<article>
-					<div class="sectionTitle">
-						<h1>Skills</h1>
-					</div>
+			<div id="mainArea" class="quickFade delayFive">
+				<section>
+					<article>
+						<%if(locals.summary){%>
+							<div class="sectionTitle">
+								<h1><%= locals.summary.Headline ? summary.Headline : '' %></h1>
+							</div>
 
-					<div class="sectionContent">
-						<% skills.forEach(function(skill) { %>
-							<article>
-								<h2><%= skill.Name %></h2>
-								<p class="subDetails">Level: <%= skill.Level %> - LastUse: <%= skill.LastTime %></p>
-								<p><%= skill.Maturity %>.</p>
-							</article>
-							<% }); %>
-						</div>
-						<div class="clear"></div>
+							<div class="sectionContent">
+								<%= locals.summary.ProfessionalSummary ? summary.ProfessionalSummary : ''%>
+							</div>
+						<%}%>
 					</article>
 					<div class="clear"></div>
 				</section>
 
-				<section>
-					<article>
-						<div class="sectionTitle">
-							<h1>Experience</h1>
-						</div>
-
-						<div class="sectionContent">
-							<% experiences.forEach(function(exp) { %>
-								<article>
-									<h2><%= exp.Company %> </h2>
-									<p class="subDetails"><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></p>
-									<p><%= exp.Details%></p>
-								</article>
-								<% }); %>
-							</div>
-							<div class="clear"></div>
-						</article>
-						<div class="clear"></div>
-					</section>
-
+				<%if(locals.skills && locals.skills.length > 0){%>
 					<section>
 						<article>
 							<div class="sectionTitle">
-								<h1>Educations</h1>
+								<h1>Skills</h1>
 							</div>
 
 							<div class="sectionContent">
-								<% educations.forEach(function(edu) { %>
+								<% skills.forEach(function(skill) { %>
 									<article>
-										<h2><%= edu.Institute %></h2>
-										<p class="subDetails"><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></p>
-										<p> <%= edu.Details%></p>
+										<h2><%= skill.Name %></h2>
+										<p class="subDetails">Level: <%= skill.Level %> - LastUse: <%= skill.LastTime %></p>
+										<p><%= skill.Maturity %>.</p>
 									</article>
 									<% }); %>
 								</div>
@@ -117,39 +91,21 @@
 							</article>
 							<div class="clear"></div>
 						</section>
+						<%}%>
 
-						<section>
-							<article>
-								<div class="sectionTitle">
-									<h1>Educations</h1>
-								</div>
-
-								<div class="sectionContent">
-									<% educations.forEach(function(edu) { %>
-										<article>
-											<h2><%= edu.Institute %></h2>
-											<p class="subDetails"><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></p>
-											<p> <%= edu.Details%></p>
-										</article>
-										<% }); %>
-									</div>
-									<div class="clear"></div>
-								</article>
-								<div class="clear"></div>
-							</section>
-
+						<%if(locals.experiences && locals.experiences.length > 0){%>
 							<section>
 								<article>
 									<div class="sectionTitle">
-										<h1>Certifications</h1>
+										<h1>Experience</h1>
 									</div>
 
 									<div class="sectionContent">
-										<% certifications.forEach(function(cer) { %>
+										<% experiences.forEach(function(exp) { %>
 											<article>
-												<h2><%= cer.Title %></h2>
-												<p class="subDetails"><%= cer.CertificateAuthority %> - <%= cer.Date %></p>
-												<p> <%= cer.Details%></p>
+												<h2><%= exp.Company %> </h2>
+												<p class="subDetails"><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></p>
+												<p><%= exp.Details%></p>
 											</article>
 											<% }); %>
 										</div>
@@ -157,8 +113,54 @@
 									</article>
 									<div class="clear"></div>
 								</section>
-							</div>
-						</div>
+								<%}%>
 
-					</body>
-					</html>
+								<% if(locals.educations && locals.educations.length > 0){%>
+									<section>
+										<article>
+											<div class="sectionTitle">
+												<h1>Educations</h1>
+											</div>
+
+											<div class="sectionContent">
+												<% educations.forEach(function(edu) { %>
+													<article>
+														<h2><%= edu.Institude %></h2>
+														<p class="subDetails"><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></p>
+														<p> <%= edu.Details%></p>
+													</article>
+													<% }); %>
+												</div>
+												<div class="clear"></div>
+											</article>
+											<div class="clear"></div>
+										</section>
+										<%}%>
+
+
+										<%if(locals.certifications && locals.certifications.length > 0){%>
+											<section>
+												<article>
+													<div class="sectionTitle">
+														<h1>Certifications</h1>
+													</div>
+
+													<div class="sectionContent">
+														<% certifications.forEach(function(cer) { %>
+															<article>
+																<h2><%= cer.Title %></h2>
+																<p class="subDetails"><%= cer.CertificateAuthority %> - <%= cer.Date %></p>
+																<p> <%= cer.Details%></p>
+															</article>
+															<% }); %>
+														</div>
+														<div class="clear"></div>
+													</article>
+													<div class="clear"></div>
+												</section>
+												<%}%>
+											</div>
+										</div>
+
+									</body>
+									</html>
