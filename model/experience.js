@@ -1,41 +1,3 @@
-// function experienceModel(){
-//     var Experience = require('../config/config').resolve("db").Experience;
-//     this.getAllExperienceByCVId = function (params, callback) {
-//         experience = new Experience();
-//         experience.find('all', {fields: ['Company', 'Designation', 'Details', 'FromDate', 'ToDate'], where: 'CV_id = ' + params.CV_Id}, function (err, rows, fields) {
-//             rows.forEach(function (item) {
-//                 item.FromDate = item.FromDate.toString().substring(4,15);
-//                 item.ToDate = item.ToDate.toString().substring(4,15);
-//             });
-//            callback(rows); 
-//         });
-//     }
-    
-//     this.createExperience = function (params, callback) {        
-//         //TODO: Validation
-        
-//         experience = new Experience({
-//             Company: params.company,
-//             Designation: params.designation,
-//             FromDate: params.fromDate,
-//             ToDate: params.toDate,
-//             Details: params.details,
-//             CV_Id: '1'          //Get current logged in user here (Passport)
-//         });
-        
-//         experience.save(function(err, result){
-//             if (err){
-//                 console.log(err);
-//             } else {
-//                 callback(result);
-//             }  
-//         });
-//     }
-        
-// }
-
-
-
 function Experience(company,designation,fromdate,todate,details,cv_id) {
     var self = this;
     self.attribute = {
@@ -46,22 +8,13 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         "Details" : details,
         "CV_id" : cv_id
     }
-    /**
-     * `Id` INT(11) NOT NULL AUTO_INCREMENT,
-     `Company` NVARCHAR(100) NULL DEFAULT NULL,
-    `Designation` NVARCHAR(50) NULL DEFAULT NULL,
-    `FromDate` DATETIME NULL DEFAULT NULL,
-    `ToDate` DATETIME NULL DEFAULT NULL,
-    `Details` TEXT NULL DEFAULT NULL,
-    `CV_id` INT(11) NOT NULL,
-    * 
-    */
+
     self.attrvalidate = [
         {validate: function(company){
             this.valid = false;
             this.required = true;
             this.min = 2;
-            this.max = 49;
+            this.max = 99;
             if(company !=null || company !== ""){
                     var length = company.length;
                     if(length >= this.min && length <= this.max ){
@@ -97,9 +50,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
            return this.valid;
         }, attrname: 'Minusdate'},
         {validate: null,attrname: "Details"}];
-        // spilt value of each attr into Name of table Contact_Info
 
-    // return true if all attribute are valid if not false;
     self.checkValidation = function(){
         var valid = true;
         var attr_length = self.attrvalidate.length;
@@ -117,8 +68,6 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
     }
 
     var experience = require('../config/config').resolve("db").Experience;
-    // the reqdata paramater is id of the CV
-    // callback is a callback function data returned and status
     self.getAllByIdCV = function(reqdata, callback) {
         var temp = new experience();
         temp.find('all', {where: "CV_Id = " + reqdata},function(err,rows,fields){
@@ -147,10 +96,8 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
                 }
             }
         });
-        //var contact_info = require('../config/config').resolve("db").contact_info;
     }
-    // the reqdata paramater is object
-    // callback is a callback function data returned and status
+
     self.save = function(reqdata, callback){
         var savetemp = new experience(reqdata);
         savetemp.save(function(err,data){

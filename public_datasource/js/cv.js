@@ -102,7 +102,7 @@ function showAnnoucement(flag, section, action){
     if(flag==1){
                     $.gritter.add({
                     title: 'Success',
-                    text: 'Your ' + section + ' has been' + action + '!',
+                    text: 'Your ' + section + ' has been ' + action + '!',
                     sticky: false,
                     time: '1500' 
                     });
