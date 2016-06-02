@@ -1,30 +1,28 @@
 $(document).ready(function() {
 
-    // $('#curriculumvitae-form').validate({
-    //     errorClass: 'text-danger',
-    //     focusInvalid: false,
-    //     debug: true,
-    //     rules: {
-    //         "cvname": {
-    //             required: true,
-    //             minlength: 1
-    //         }
-    //     },
-    //     messages: {
-    //         cvname: {
-    //             required: "This field is required.",
-    //             minlength: "This field is required."
-    //         }
-    //     },
-    //     errorElement: "div",
-    //     errorPlacement: function(error, element) {
-    //         if (element.attr("name") == "accept") {
-    //             error.insertAfter("#accept_error-message");
-    //         } else {
-    //             error.insertAfter(element);
-    //         }
-    //     }
-    // });
+    $('#curriculumvitae-form').validate({
+        errorClass: 'text-danger',
+        focusInvalid: false,
+        debug: true,
+        rules: {
+            cvnamecreate: {
+                required: true
+            }
+        },
+        messages: {
+            cvnamecreate: {
+                required: "This field is required."
+            }
+        },
+        errorElement: "div",
+        errorPlacement: function(error, element) {
+            if (element.attr("name") == "accept") {
+                error.insertAfter("#accept_error-message");
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
 
 
 
@@ -49,12 +47,23 @@ $(document).ready(function() {
         $('#validation_form_cvname input[name=cvname]').val(cvname);
     });
 
-    // $('#btn-addnewcv').click(function() {
-    //     // var validator = $('#validation_form_cv').valid();
-    //     // if (validator) {
-    //     $('#curriculumvitae-form').submit();
-    //     // }
-    // });
+    $('#btn-addnewcv').click(function() {
+        var isValid = $('#curriculumvitae-form').valid();
+        if (isValid) {
+            var cvname = $("input[name=cvnamecreate]").val();
+            var urlpost = window.location.href;
+            $.post(urlpost, {
+                cvname: cvname
+            }, function(resp) {
+                console.log("nhieu");
+                if (resp.flag == 1) {
+                    window.location = (window.location.href + '/' + resp.data.Id);
+                } else {
+                    window.location = "../error/500";
+                }
+            });
+        }
+    });
 
     $('.btn-delete').click(function() {
         var self = this;

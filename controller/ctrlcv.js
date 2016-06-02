@@ -33,14 +33,18 @@ router.post('/', [jsonparser], function(req, res) {
         Name: req.body.cvname,
         UserId: req.user.Id
     }, function(flag, data) {
-        if (flag == 1) {
-            var newidcv = data.Id;
-            res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
-        } else if (flag == 0) {
-            res.status(404).render('pages/generic_error');
-        } else if (flag == -1) {
-            res.status(500).render('pages/generic_error');
-        }
+        // if (flag == 1) {
+        //     var newidcv = data.Id;
+        //     res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
+        // } else if (flag == 0) {
+        //     res.status(404).render('pages/generic_error');
+        // } else if (flag == -1) {
+        //     res.status(500).render('pages/generic_error');
+        // }
+        res.json({
+            flag: flag,
+            data: data
+        });
     });
 });
 
