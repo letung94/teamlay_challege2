@@ -10,7 +10,8 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(username, done) {
-    user_model.getByUsername(username, function(err, user) {
+    var model = new user_model();
+    model.getByUsername(username, function(err, user) {
         done(null, user);
     })
 });
@@ -21,7 +22,8 @@ passport.use('local', new LocalStrategy({
         passReqToCallback: true
     },
     function(req, username, password, done) {
-        user_model.getByUsername(username, function(err, data) {
+        var model = new user_model();
+        model.getByUsername(username, function(err, data) {
             var user = data;
             if (user == null) {
                 return done(null, false, {

@@ -1,4 +1,4 @@
-function userModel(firstname, lastname, username, email, password, createddate, id) {
+function userModel(firstname, lastname, username, email, password, createddate, token, isconfirmed, isblocked, expired, id) {
     var self = this;
     self.attribute = {
         "Firstname": firstname,
@@ -7,6 +7,10 @@ function userModel(firstname, lastname, username, email, password, createddate, 
         "Email": email,
         "PasswordHash": password,
         "CreatedDate": createddate,
+        "Token": token,
+        "IsConfirmed": isconfirmed,
+        "IsBlocked": isblocked,
+        "ResetPasswordExpire": expired,
         "Id": id
     }
 
@@ -32,14 +36,10 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             validate: function (password) {
                 this.valid = false;
                 this.required = true;
-                try {
-                    if (password != null || password !== "" || password != undefined) {
-                        this.valid = true;
-                    }
-                    return this.valid;
-                } catch (err) {
-                    return false;
+                if (password != null || password !== "" || password != undefined) {
+                    this.valid = true;
                 }
+                return this.valid;
             }
         },
         {
@@ -79,7 +79,11 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             validate: null
         },
         {
-            attrname: "IsDeleted",
+            attrname: "IsBlocked",
+            validate: null
+        },
+        {
+            attrname: "IsConfirmed",
             validate: null
         },
         {
@@ -120,38 +124,85 @@ function userModel(firstname, lastname, username, email, password, createddate, 
     var User = require('../config/config').resolve("db").User;
     this.addUser = function (user, callback) {
         var newUser = new User(user);
-        newUser.save();
-        callback();
+        newUser.save(function (err, data) {
+            if (err) {
+                callback(-1, err);
+            } else {
+                self.attribute.Id = data.insertId;
+                callback(1, self.attribute)
+            }
+        });
     }
     this.updateUser = function (newUser, callback) {
         var user = new User(newUser);
         user.save();
         user.set('id', newUser.Id);
-        user.save();
+        user.save(function (err, data) {
+            if (err) {
+                callback(-1, err);
+            }
+            callback(1, data);
+        });
         callback();
     }
     this.getAllUser = function (callback) {
         user = new User();
         user.find('all', function (err, rows, fields) {
-            callback(rows);
+            if (err) {
+                console.log(err);
+                callback(-1, err)
+            } else {
+                if (rows == null) {
+                    callback(0, null);
+                } else {
+                    callback(1, rows);
+                }
+            }
         });
     }
     this.getByUsername = function (username, callback) {
         user = new User();
         user.find('first', { where: "Username = '" + username + "'" }, function (err, row) {
-            callback(err, row);
+            if (err) {
+                console.log(err);
+                callback(-1, err);
+            } else {
+                if (row == null) {
+                    callback(0, null);
+                } else {
+                    callback(1, row);
+                }
+            }
         });
     }
     this.getByEmail = function (email, callback) {
         user = new User();
         user.find('first', { where: "Email = '" + email + "'" }, function (err, row) {
-            callback(err, row);
+            if (err) {
+                console.log(err);
+                callback(-1, err)
+            } else {
+                if (row == null) {
+                    callback(0, null);
+                } else {
+                    callback(1, row);
+                }
+            }
         });
     }
     this.getByToken = function (token, callback) {
         user = new User();
         user.find('first', { where: "Token = '" + token + "'" }, function (err, row) {
-            callback(err, row);
+            if (err) {
+                console.log(err);
+                callback(-1, err)
+            } else {
+                if (row == null) {
+                    callback(0, null);
+                } else {
+                    callback(1, row);
+                }
+            }
         });
     }
 }
