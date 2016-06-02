@@ -41,8 +41,9 @@
                 <div >
                     <label class="col-sm-3 col-lg-3 control-label">&nbsp;</label>
                     <div class="col-sm-9 col-lg-9 controls">        
-                        <button type="button" id="btnAddListExp"  class="btn btn-success"><i class="fa fa-plus">&nbsp;Add To List</i></button>
-                        <button type="button" id="btnSaveExp" class="btn btn-success"><i class="fa fa-save">&nbsp;Save</i></button>
+                        <button type="button" id="btnAddListSkill"  class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add To List</button>
+                        <button type="button" id="btnSaveEditSkill" class="btn btn-success" style="display:none"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save</button>
+                        <button type="button" id="btnCancelEditSkill" class="btn" style="display:none"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;Cancel</button>
                     </div>               
                 </div>
             </div>
@@ -79,9 +80,17 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="stars-default1" data-rating="1"></div>
-                                        <div class="stars-default2" data-rating="2"></div>
-                                        <div class="stars-default3" data-rating="3"></div>
+                                        <div id="stars-default1" data-rating="1"></div>    
+                                    </td>
+                                    <td>
+                                        0 month    
+                                    </td>
+                                    <td>
+                                        2015    
+                                    </td>
+                                    <td>
+                                    <button class="btn btn-warning btn-sm btnEditExp"><span class="glyphicon glyphicon-pencil"></span></button>
+    <button class="btn btn-danger btn-sm btnDeleteExp"><span class="glyphicon glyphicon-remove"></span></button>
                                     </td>
                                   </tr>                          
                             </tbody>

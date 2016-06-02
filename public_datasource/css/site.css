@@ -133,9 +133,15 @@ img#preview:hover {opacity: 0.7;}
 
 .expertisetext{
     position: relative;
-    padding: 5px 20px;
     line-height: 1.42857143;
     color: #428bca;
     text-decoration: none;
-    background-color: #fff;
+    padding: 5px 20px;
+}
+.besidetext{
+    padding: 5px 20px;
+}
+.undertext{
+    display: block;
+    padding: 5px 0px;
 }

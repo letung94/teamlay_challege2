@@ -16,8 +16,10 @@
 			cursor: "default",
 			onClick: function () {},
             endofarray: "idontmatter",
-            spanclass:"starrating",
-            fixed: false
+            besidetext:"besidetext",
+            fixed: false,
+			thisid: "#" + $(this)[0].id,
+			undertext: "undertext"
         }, options );
 		var style = "";
 		style = style + "font-size:" + settings.size + "; ";
@@ -40,11 +42,11 @@
 				this.append('<span data-value="' + (i+1) + '" class="ratingicon glyphicon ' + settings.glyph + '" style="' + style + '" aria-hidden="true"></span>');
 			}
             if(!settings.fixed){
-                this.append('<span class="'+ settings.spanclass +'">'+ settings.text[settings.value] +'</span>');
+                this.append('<span class="'+ settings.besidetext +'">'+ settings.text[settings.value] +'</span>');
 			//paint
 			    
             }else{
-                this.append('<span class="'+ settings.spanclass +'">'+ settings.text[settings.value] +'</span>');
+                this.append('<span class="'+ settings.undertext + ' '+ settings.besidetext +'">'+ settings.text[settings.value] +'</span>');
 			//paint
 			    
             }
@@ -75,8 +77,11 @@
 		function paint(div)
 		{
 			rating = parseInt(div.attr('data-rating'));
-            $("span." + settings.spanclass).html(settings.text[rating-1]);
-			div.find("input").val(rating);	//if there is an input in the div lets set it's value
+			/*
+			//change text inner of html
+			 */
+            $(settings.thisid + " span." + settings.besidetext).html(settings.text[rating-1]);
+			//div.find("input").val(rating);	//if there is an input in the div lets set it's value
 			div.find("span.ratingicon").each(function(){	//now paint the stars
 				
 				var rating = parseInt($(this).parent().attr('data-rating'));
@@ -92,10 +97,10 @@
 
 
 $(document).ready(function(){
-	$("#stars-default").rating('create',{spanclass:"expertisetext"});
-    $(".stars-default1").rating('create',{spanclass:"expertisetext",fixed:true});
-    $(".stars-default2").rating('create',{spanclass:"expertisetext",fixed:true});
-    $(".stars-default3").rating('create',{spanclass:"expertisetext",fixed:true});
+	$("#stars-default").rating('create',{besidetext:"expertisetext"});
+    $("#stars-default1").rating('create',{besidetext:"expertisetext",fixed:true});
+	
+	
     var currentyear = (new Date()).getFullYear();
     var bottomyear = 1989;
     for(var i  = currentyear;i > bottomyear;i--){
