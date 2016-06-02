@@ -1,6 +1,37 @@
-$(document).ready(function () {
+$(document).ready(function() {
+
+    $('#validation_form_cv').validate({
+        errorClass: 'text-danger',
+        focusInvalid: false,
+        debug: true,
+        rules: {
+            "cvname": {
+                required: true,
+                minlength: 1
+            }
+        },
+        messages: {
+            cvname: {
+                required: "This field is required.",
+                minlength: "This field is required."
+            }
+        },
+        errorElement: "div",
+        errorPlacement: function(error, element) {
+            console.log("test");
+            if (element.attr("name") == "accept") {
+                error.insertAfter("#accept_error-message");
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
+
+
+
     //Nhieu change to use modal rename CV instead
-    $('.btn-edit').click(function () {
+    $('.btn-edit').click(function() {
         var cvid = $(this).attr('cv-id');
         var cvname = $(this).attr('cv-name');
         $('#validation_form_cvname input[name=cvname]').attr('value', cvname);
@@ -8,22 +39,26 @@ $(document).ready(function () {
         $('#validation_form_cvname input[name=cvname]').val(cvname);
     });
 
-    $('i[data-target=#rename-cv-modal]').hover(function () {
+    $('i[data-target=#rename-cv-modal]').hover(function() {
         $(this).css('cursor', 'pointer');
     });
 
-    $('i[data-target=#rename-cv-modal]').click(function () {
+    $('i[data-target=#rename-cv-modal]').click(function() {
         var cvid = $(this).attr('cv-id');
         var cvname = $(this).attr('cv-name');
         $('#validation_form_cvname input[name=cvname]').attr('value', cvname);
         $('#validation_form_cvname input[name=cvname]').val(cvname);
     });
 
-    $('#btn-addnewcv').click(function () {
-        $('#validation_form_cv').submit();
+    $('#btn-addnewcv').click(function() {
+        var validator = $('#validation_form_cv').valid();
+        if (validator) {
+            $('#validation_form_cv').submit();
+        }
+        // $('#create-cv-modal').modal('toggle');
     });
 
-    $('.btn-delete').click(function () {
+    $('.btn-delete').click(function() {
         var self = this;
         var id = $(this).attr('cv-id');
         var cvname = $(this).attr('cv-name');
@@ -31,7 +66,7 @@ $(document).ready(function () {
             id: id
         };
         if (confirm('Did you want to remove this CV ?')) {
-            $.post("../cv/disableCV", param, function (resp) {
+            $.post("../cv/disableCV", param, function(resp) {
                 if (resp.IsSuccess) {
                     $(self).closest('tr').remove();
                     $.gritter.add({
@@ -50,18 +85,18 @@ $(document).ready(function () {
         }
     });
 
-    $('.btn-print').click(function () {
+    $('.btn-print').click(function() {
         var id = $(this).attr('cv-id');
         window.open('../template/template_list/' + id, '_blank');
     });
 
-    $('#btn-renamecv').click(function () {
+    $('#btn-renamecv').click(function() {
         var cvid = $('i[data-target=#rename-cv-modal]').attr('cv-id');
         var cvname = $('#validation_form_cvname input[name=cvname]').val();;
         var param = {
             cvname: cvname
         };
-        $.post("../cv/" + cvid + "/update", param, function (resp) {
+        $.post("../cv/" + cvid + "/update", param, function(resp) {
             if (resp.IsSuccess) {
                 $('i[data-target=#rename-cv-modal]').attr('cv-name', resp.Name);
                 $('#validation_form_cvname input[name=cvname]').attr('value', resp.Name);
@@ -76,7 +111,7 @@ $(document).ready(function () {
 
     var ajax_rename_flag = false;
 
-    $('#btn-rename-cv-in-list').click(function () {
+    $('#btn-rename-cv-in-list').click(function() {
         var cvid = $('#validation_form_cvname input[name=cvname]').attr('cv-id');
         var cvname = $('#validation_form_cvname input[name=cvname]').val();;
         var param = {
@@ -87,9 +122,10 @@ $(document).ready(function () {
             return false;
         }
         ajax_rename_flag = true;
-        $.post("../cv/" + cvid + "/update", param, function (resp) {
+        $.post("../cv/" + cvid + "/update", param, function(resp) {
             ajax_rename_flag = false;
             if (resp.IsSuccess == 1) {
+                $('.btn-edit[cv-id=' + cvid + ']').attr('cv-name', resp.Name);
                 $('#validation_form_cvname input[name=cvname]').attr('value', resp.Name);
                 $('#validation_form_cvname input[name=cvname]').val(resp.Name);
                 $('.cvname-link[cv-id=' + cvid + ']').html(resp.Name);

@@ -21,14 +21,14 @@ function Summary(headLine, professionalsummary, cv_id, id) {
     /* Function Get Summary By ID of CV*/
     self.getByIdCV = function(reqdata, callback) {
         var temp = new summary();
-        temp.find('all', {where: "CV_Id = " + reqdata},function(err,rows,fields){
+        temp.find('first', {fields: ['Id', 'Headline', 'ProfessionalSummary', 'CV_Id'],where: "CV_Id = " + reqdata},function(err,row,fields){
            if(err){
                 callback(-1, err)
             }else{
-                if(rows.length == 0){
-                     callback(0, null);
+                if(row == null){
+                    callback(0, null);
                 }else{
-                    callback(1, rows[0]);
+                    callback(1, row);
                 }
             }
         });
@@ -38,10 +38,10 @@ function Summary(headLine, professionalsummary, cv_id, id) {
     self.save = function(reqdata, callback){
         var gettemp = new summary();
         var savetemp = new summary(reqdata);
-        gettemp.find('all', {where: "CV_Id = " + reqdata.CV_Id},function(err,rows,fields){
+        gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},function(err,row,fields){
             var id = null;
-            if(rows.length > 0){
-                id = rows[0].Id;
+           if(row != null){
+                id = row.Id;
             }
             if(id != null){
                 savetemp.set('id',id);

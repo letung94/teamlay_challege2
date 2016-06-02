@@ -5,33 +5,32 @@
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">Project</label>
                             <div class="col-sm-9 col-lg-10 controls">
-                                <input type="text" placeholder="Enter your Project Title" name="project-title" id="project-title" class="form-control" data-rule-required="true" data-rule-minlength="2" > 
-                                <span for="project-title" class="help-block">This field is required.</span>
+                                <input type="text" placeholder="Enter your Project Title" name="project_title" id="project-title" class="form-control" data-rule-required="true" data-rule-minlength="2" > 
+                                <!--<span for="project-title" class="help-block">This field is required.</span> -->
                             </div>    
                 </div>
                 <!-URL->
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">URL</label>
                             <div class="col-sm-9 col-lg-10 controls">
-                                <input type="text" placeholder="Enter your URL" name="project_url" id="project_url" class="form-control" >
+                                <input type="url" placeholder="Enter your URL" name="project_url" id="project_url" class="form-control" >
                             </div>    
                 </div>
                 <!-Date(s)->
-                <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Date(s)</label>
-                            <div class="col-sm-5 col-lg-10 controls">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" placeholder="From date To date" class="form-control date-range" id="date_project" data-rule-required="true" readonly="readonly"/>                            
-                                </div>
-                                <span for="firstname" class="help-block">This field is required.</span>
-                            </div>
+        <div class="form-group">
+            <label class="col-sm-3 col-lg-2 control-label">Date</label>
+            <div class="col-sm-5 col-lg-10 controls">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    <input name="project_date" type="text" placeholder="" class="form-control date-picker" readonly="readonly" id="date_project"/>
                 </div>
+            </div>
+        </div>
                 <!-Details-> 
                 <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Details</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <textarea class="form-control col-md-12 wysihtml5" rows="6" id="detail_project"></textarea>
+                            <textarea class="form-control col-md-12 wysihtml5" rows="6" id="detail_project" name="project_details"></textarea>
                         </div>
                 </div>
                 <div class="form-group row">
@@ -49,7 +48,7 @@
                 
                     <div class="box">
                         <div class="box-title">
-                        <h4> List of Experience</h4>
+                        <h4> List of Project</h4>
                         </div>
                         <div class="box-content">
                             <div class="table-big">
@@ -63,7 +62,7 @@
                                     <th>Action</th>
                                     </tr>
                                 </thead>             
-                                    <tbody>  
+                                    <tbody id="project_table">  
                                            <!-- data goes here -->                      
                                     </tbody>
                                     </table>
@@ -74,46 +73,4 @@
                 </div>    
         </form>    
 </div>
-<script type="text/javascript">
-$(document).ready(function(){
- var flag = 0;
- var rowId = '';
- //function add input value to list
- $('#btnAddListProject').click(function() {
-            var rows = "";
-            var project_title = document.getElementById("project-title").value;
-            var project_url = document.getElementById('project_url').value;
-            var date_project = document.getElementById("date_project").value;
-            var detail_project = document.getElementById("detail_project").value; 
-            var editAction = '<button class="btn btn-primary btn-xs" id="btnEdit"><span class="glyphicon glyphicon-pencil"></span> Edit</button>'
-            var deleteAction = '<button type="button" class="btn btn-danger btn-sm" id="btnDelete"><i class="fa fa-trash-o"> Delete</i></button>'
-    rows += "<tr style='font-size:13px'><td>" + project_title + "</td><td>" + project_url + "</td><td>" + date_project + "</td><td>" + detail_project + "</td><td>" + editAction + " " + deleteAction + "</td></tr>";
-    $(rows).appendTo("#list-project tbody");
- });
- //function delete current row on click
- $('#list-project').on('click', '#btnDelete' , function(e){
-      e.preventDefault();
-      $(this).closest('tr').remove();
- });
- //function edit current row on click and show to input
-  $('#list-project').on('click', '#btnEdit' , function(e){
-      e.preventDefault();
-      var cells = $(this).closest("tr").children("td");
-      $('#project-title').val(cells.eq(0).text()).focus();  
-      $('#project_url').val(cells.eq(1).text());
-      $('#date_project').val(cells.eq(2).text());
-      $('#detail_project').data('wysihtml5').editor.setValue(cells.eq(3).text());
-      rowId = $(this).closest('td').parent()[0].sectionRowIndex;
-      $('#btnAddListProject').css('display', 'none');
-      $('#btnSaveProject').css('display', 'inline');
- });
-  $('#btnSaveProject').click(function() {      
-        $('#list-project tbody tr:eq(' + rowId + ') td:eq(0)').html($('#project-title').val());
-        $('#list-project tbody tr:eq(' + rowId + ') td:eq(1)').html($('#project_url').val());
-        $('#list-project tbody tr:eq(' + rowId + ') td:eq(2)').html($('#date_project').val());
-        $('#list-project tbody tr:eq(' + rowId + ') td:eq(3)').html($('#detail_project').val());
-        $('#btnAddListProject').css('display', 'inline');
-        $('#btnSaveProject').css('display', 'none');
- });
-});
-</script>
+<script type="text/javascript" src="js/project.js"></script>

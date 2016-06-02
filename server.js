@@ -93,6 +93,10 @@ app.use('/cv/:idcv', ctrlexperience);
 var ctrlcertification = require('./controller/ctrlcertification');
 app.use('/cv/:idcv', ctrlcertification);
 
+/*project*/
+var ctrlproject = require('./controller/ctrlproject');
+app.use('/cv/:idcv', ctrlproject);
+
 /*admin*/
 app.get('/error/500',function(req, res){
     res.render('pages/server_error_500');
