@@ -66,8 +66,9 @@ var ctrlcv = require('./controller/ctrlcv');
 var ctrlAccount = require('./controller/ctrlaccount');
 var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
+var authenticate = require('./middleware/authenticate');
 
-app.use('/cv', ctrlcv);
+app.use('/cv',authenticate.requireAuthenticated, ctrlcv);
 app.use('/', ctrluser);
 app.use('/template', ctrlTemplate);
 app.use('/', ctrlAccount);
