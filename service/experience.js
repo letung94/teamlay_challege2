@@ -5,9 +5,13 @@ function experience_service() {
         var e = new experience();
         e.getAllByIdCV(params.CV_Id, callback);
     }
-    this.createExperience = function (params, callback) {
+    this.saveExperience = function (params, callback) {
         var e = new experience();
-        e.createExperience(params, callback);
+        e.saveExperience(params, callback);
+    }
+    this.deleteExperience = function(id, callback){
+        var e = new experience();
+        e.deleteExperience(id, callback);
     }
 }
 

@@ -34,10 +34,10 @@ function getValueExp(){
 /*Add Button Click Event for Add List Experience */
 $('#btnAddListExp').click(function() {
         //check valid on click
-        var isValid = $('#experience-form').valid();
+     var isValid = $('#experience-form').valid();
+     if(isValid){
         var addedexprerience = getValueExp();
         var urlpost = window.location.href + '/experience/save';
-        if(isValid){
          $.ajax({
         type: "POST",
         url: urlpost,
@@ -46,12 +46,15 @@ $('#btnAddListExp').click(function() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(addedexprerience),
         success: function (res) {
-            //update new value to table 
+            //update new value to table
+            if(res.flag==1){ 
             listexperience.push(new Experience(res.resdata)); 
-            $("#list-experience tbody > tr").remove();
-            $.each(listexperience, function(index,value ){
-                addlistexp(index + 1,value.attribute);
-            });
+                $("#list-experience tbody > tr").remove();
+                $.each(listexperience, function(index,value ){
+                    addlistexp(index + 1,value.attribute);
+                });
+                switchMode("add");
+            }
             showAnnoucement(res.flag, 'experience', 'added');
         },
         error: function(x,e){
@@ -90,15 +93,15 @@ $('#list-experience').on('click', '.btnDeleteExp' , function(e){
                             $.each(listexperience, function( index, value ){
                                 addlistexp(index + 1,value.attribute);
                             });
-                             showAnnoucement(res.flag, 'experience', 'deleted');
                         }
+                    showAnnoucement(res.flag, 'experience', 'deleted');
                     },
                     error: function(x,e){
                         
                     }
                 });               
                 }else {
-                    $("#experience-form")[0].reset();
+                   
                 }
             }
         });  
@@ -137,15 +140,15 @@ $('#btnSaveEditExp').click(function() {
                 $.each(listexperience, function( index, value ){
                     addlistexp(index + 1,value.attribute);
                 });
-                showAnnoucement(res.flag, 'experience', 'edited');
+                switchMode("save"); 
             }
-            
+             showAnnoucement(res.flag, 'experience', 'edited');
         },
         error: function(x,e){
             
         }
     }); 
-    switchMode("save");
+    
 });
 $('#btnCancelEditExp').click(function() {  
     switchMode("cancel");
@@ -199,6 +202,8 @@ function switchMode(mode){
             $('#btnCancelEditExp').hide();
             $('#btnAddListExp').show(); 
             $("#experience-form")[0].reset();
+        }else if (mode == 'add'){
+            $("#experience-form")[0].reset();
         }
 }
 /*Jquery Validation for #experience-form*/
@@ -219,7 +224,8 @@ $(document).ready(function() {
             messages: {
                 company: {
                     required: "Please enter a company's name",
-                    minlength: "Your company's name  must be at least 2 characters long"
+                    minlength: "Your company's name  must be at least 2 characters long",
+                    maxlength: "Your company's name must be under 100 characters"
                 },
                 date: {
                     required: "Please enter your working time for this company "
@@ -234,4 +240,4 @@ $(document).ready(function() {
                 }
             }          
     });
-});
+
