@@ -175,16 +175,22 @@ router.get('/templateReview/:name/:cv_id', function (req, res) {
 			var CertificateionService = di.resolve('certification');
 			var certificateionService = new CertificateionService();
 			certificateionService.getAllCertificationByCVId(cv_id, function(code, data){
+				if(code == 1){
 					/*Convert DB date to readable date*/
-				var length = data.length;
-				for (var i = 0; i < length; i++) {
-					var certification = data[i];
-					if(certification.Date){
-						certification.Date = helper.parseDate(certification.Date);
+					var length = data.length;
+					for (var i = 0; i < length; i++) {
+						var certification = data[i];
+						if(certification.Date){
+							certification.Date = helper.parseDate(certification.Date);
+						}
 					}
+					info.certifications = data;
+					done();
+				}else if (code == 0){
+					done();
+				}else{
+
 				}
-				info.certifications = data;
-				done();
 			});
 		},
 		function(done){

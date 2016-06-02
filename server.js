@@ -66,8 +66,9 @@ var ctrlcv = require('./controller/ctrlcv');
 var ctrlAccount = require('./controller/ctrlaccount');
 var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
+var authenticate = require('./middleware/authenticate');
 
-app.use('/cv', ctrlcv);
+app.use('/cv',authenticate.requireAuthenticated, ctrlcv);
 app.use('/', ctrluser);
 app.use('/template', ctrlTemplate);
 app.use('/', ctrlAccount);
@@ -96,6 +97,12 @@ app.use('/cv/:idcv', ctrlcertification);
 /*project*/
 var ctrlproject = require('./controller/ctrlproject');
 app.use('/cv/:idcv', ctrlproject);
+
+/*
+// skill
+ */
+var ctrlskill = require('./controller/ctrlskill');
+app.use('/cv/:idcv', ctrlskill);
 
 /*admin*/
 app.get('/error/500',function(req, res){

@@ -1,8 +1,11 @@
 function ProjectModel() {
+
     var Project = require('../config/config').resolve('db').Project;
     this.getAllProjectByCVId = function (params, callback) {
-        project = new Project();
+        project = new Project();            
         project.find('all', {fields: ['Id', 'Title', 'Url', 'Details', 'Date'], where: 'CV_Id = ' + params.CV_Id}, function (err, rows, fields) {
+            project.killConnection();          
+            console.log(err);
             if (err){
                 callback(-1, err);
             } else {
@@ -25,6 +28,7 @@ function ProjectModel() {
             CV_Id: params.CV_Id
         });
         project.save(function (err, result) {
+            project.killConnection();
             if (err){
                 callback(-1, err);
             } else {
@@ -39,25 +43,40 @@ function ProjectModel() {
     }
     
     this.updateProject = function (params, callback) {
-        project = new Project();
-        project.find('all', {where: "Id = " + params.Id}, function (err, rows, fields) {
-            if (err){
-                callback(-1, err);
-            } else {
-                if (rows.length == 0){
+        project = new Project(params);
+        project.save(function (err, result) {
+            console.log(err);
+            console.log(result);
+            project.killConnection();
+            if(err){
+                callback(-1, err)
+            }else{
+                if(result.length == 0){
                     callback(0, null);
-                } else {
-                    project.set('Title', params.Title);
-                    project.set('Details', params.Details);
-                    project.set('Url', params.Url);
-                    project.set('Date', params.Date);
-                    project.save();
-                    
-                    callback(1, rows); 
+                }else{
+                    callback(1, result);
                 }
             }            
         });
     }
+    
+    this.deleteProject = function (params, callback) {
+        console.log(`params : ${params}`);
+        project = new Project({id: params});
+        project.remove(function (err, rows) {
+            project.killConnection();
+            if (err) {
+                callback(-1, err)
+            } else {
+                if (rows.length == 0) {
+                    callback(0, null);
+                } else {
+                    callback(1, rows);
+                }
+            }            
+        });
+    }
+    
 }
 
 module.exports = ProjectModel;
