@@ -1,3 +1,20 @@
+$(document).ready(function() {
+    $('#validation_form_summary').validate({
+        errorClass: 'text-danger',
+        focusInvalid: false,
+        debug: true,
+        rules: {
+            headline: {
+                maxlength:50
+            }
+        },
+        messages: {
+            headline: {
+            maxlength: "Headline of your summary must consist of less than 50 characters"
+        }
+    }
+    })
+})
 /*Get summary of CV */
 var clickedSummary = false;
 function getSummary(){
@@ -31,6 +48,8 @@ var summary = {
 }
        
 $('#btnSaveSummary').click(function() {
+        var validator = $('#validation_form_summary').valid();
+        if(validator){
         summary["Headline"]=$("#validation_form_summary input[name='headline']").val();
         summary["ProfessionalSummary"]=$("#validation_form_summary textarea[name='prosummary']").val();
         summary["CV_Id"]=$("#validation_form_summary input[name='idcv']").val();
@@ -54,5 +73,6 @@ $('#btnSaveSummary').click(function() {
                 
             }
         });
+        }
     return false;
 });
