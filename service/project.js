@@ -10,8 +10,13 @@ function project_service() {
         p.createProject(params, callback);
     }
     this.updateProject = function (params, callback) {
-        var p = new Project();
+        var p = new project();
         p.updateProject(params, callback);
+    }
+    
+    this.deleteProject = function (params, callback) {
+        var p = new project();
+        p.deleteProject(params, callback);        
     }
 }
 
