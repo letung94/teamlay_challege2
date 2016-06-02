@@ -87,15 +87,24 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             validate: null
         },
         {
+            attrname: "ResetPasswordExpire",
+            validate: null
+        },
+        {
+            attrname: "Token",
+            validate: null
+        },
+        {
             attrname: "Id",
-            validate: function (id) {
-                this.valid = false;
-                this.require = true;
-                if (!isNaN(id) || id == null) {
-                    this.valid = true;
-                }
-                return this.valid;
-            }
+            // validate: function (id) {
+            //     this.valid = false;
+            //     this.require = true;
+            //     if (!isNaN(id) || id == null) {
+            //         this.valid = true;
+            //     }
+            //     return this.valid;
+            // }
+            validate:null
         },
         {
             attrname: "Email",

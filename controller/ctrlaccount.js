@@ -125,7 +125,7 @@ router.post('/reset/:token', function (req, res) {
                 user.Token = '';
 
                 model.updateUser(user, function () {
-                    if(err==-1){
+                    if (err == -1) {
                         res.render('pages/server_error_500');
                     }
                     done(null, user);
@@ -218,7 +218,10 @@ router.get("/verify/:token", function (req, res, next) {
             var user = data;
             user.Token = '';
             user.IsConfirmed = 1;
-            model.updateUser(user, function (err) {
+            model.updateUser(user, function (err, data) {
+                if (err == -1) {
+                    res.render('pages/server_error_500');
+                }
             });
             res.redirect('/cv');
         }
