@@ -93,6 +93,10 @@ app.use('/cv/:idcv', ctrlexperience);
 var ctrlcertification = require('./controller/ctrlcertification');
 app.use('/cv/:idcv', ctrlcertification);
 
+/*project*/
+var ctrlproject = require('./controller/ctrlproject');
+app.use('/cv/:idcv', ctrlproject);
+
 /*admin*/
 
 
