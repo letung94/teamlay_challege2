@@ -6,9 +6,10 @@ module.exports = router;
 
 router.get('/certification/getAll', function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
+	var userId = req.user.Id;
 	var cvService = di.resolve('curriculum_vitae');
 	var cvServiceIns = new cvService();
-	cvServiceIns.checkCVBelongToUser(cv_id, req.user.Id, function(code, data){
+	cvServiceIns.checkCVBelongToUser(cv_id, userId, function(code, data){
 		if(code == 1){
 			if(data == true){ /*This cv_id belong to this user*/
 				var cerService = di.resolve('certification');
@@ -20,7 +21,7 @@ router.get('/certification/getAll', function (req, res) {
 				return res.json({code : code, msg: 'The CV you send belong to other user.'} );
 			}
 		}else if (code == -1){ /*Somethong wrong with server*/
-			return res.json({code: code});
+			return res.json({code: code, msg:''});
 		}
 	})
 });
@@ -38,9 +39,10 @@ router.post('/certification/add', function (req, res) {
 
 router.post('/certification/edit', function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
+	var userId = req.user.Id;
 	var cvService = di.resolve('curriculum_vitae');
 	var cvServiceIns = new cvService();
-	cvServiceIns.checkCVBelongToUser(cv_id, req.user.Id, function(code, data){
+	cvServiceIns.checkCVBelongToUser(cv_id, userId, function(code, data){
 		if(code == 1){
 			if(data == true){ /*This cv_id belong to this user*/
 				var cerService = di.resolve('certification');
@@ -60,9 +62,10 @@ router.post('/certification/edit', function (req, res) {
 
 router.post('/certification/delete', function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
+	var userId = req.user.Id;
 	var cvService = di.resolve('curriculum_vitae');
 	var cvServiceIns = new cvService();
-	cvServiceIns.checkCVBelongToUser(cv_id, req.user.Id, function(code, data){
+	cvServiceIns.checkCVBelongToUser(cv_id, userId, function(code, data){
 		if(code == 1){
 			if(data == true){ /*This cv_id belong to this user*/
 				var cerService = di.resolve('certification');

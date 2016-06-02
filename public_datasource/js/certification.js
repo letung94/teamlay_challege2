@@ -5,16 +5,19 @@ $(document).ready(function(){
 
     /*Get All Certification belong to this CV.*/
     self.getAllCertification = function(){
+        $.blockUI();
         var url = window.location.href + "/certification/getall";
         $.get(url, function(resp){
-            console.log(resp);
+            $.unblockUI();
             if(resp.code == 1){
                 $.each(resp.rows, function(index, value){
+                    /*Change from server's date to readable YYYY/MM/DD*/
                     if(value.Date){
                         var  d = moment(value.Date);
                         value.Date = d.format('YYYY/MM/DD');
                     }
 
+                    /*Do this again to prevent list showing null or undefined*/
                     var entity= {
                         Id: value.Id,
                         Title: value.Title,
@@ -22,9 +25,11 @@ $(document).ready(function(){
                         Date: value.Date || '',
                         CV_Id: value.CV_Id || ''
                     }
+
+                    /*Push to list and render*/
                     self.listCertification.push(entity);
+                    self.renderTableBody();
                 });
-                self.renderTableBody();
             }
         });
     }
@@ -60,7 +65,9 @@ $(document).ready(function(){
                 entity.Date = date;
             }
             var url = window.location.href +  '/certification/add';
+            $.blockUI();
             $.post(url, param, function(resp){
+                $.unblockUI();
                 var code = resp.code;
                 if(code == 1){ /*add new certification success*/
                     /*Show the success message*/
@@ -92,7 +99,9 @@ $(document).ready(function(){
         var param = {id: certificationId};
         var url = window.location.href + "/certification/delete";
         var deletedCertification;
+        $.blockUI();
         $.post(url, param, function(resp){
+            $.unblockUI();
             var code = resp.code;
             if(code == 1){ /*Delete Successful*/
                 /*Get index of deleted certification*/
@@ -161,7 +170,9 @@ $(document).ready(function(){
                 entity.Date = date;
             }
             var url = window.location.href +  '/certification/edit';
+            $.blockUI();
             $.post(url, param, function(resp){
+                $.unblockUI();
                 var code = resp.code;
                 if(code == 1){ /*add new certification success*/
                     /*Find and change certification value at index*/
