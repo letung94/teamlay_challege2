@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `cv_maker`.`user` (
   `IsConfirmed` BIT(1) NULL DEFAULT NULL,
   `IsBlocked` BIT(1) NULL DEFAULT NULL,
   `Token` NVARCHAR(5000) NULL DEFAULT NULL,
-  `ResetPasswordExpire` DATE NULL DEFAULT NULL,
+  `ResetPasswordExpire` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE INDEX `Email_UNIQUE` (`Email` ASC),
   UNIQUE INDEX `Username_UNIQUE` (`Username` ASC))
