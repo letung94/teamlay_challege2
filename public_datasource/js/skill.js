@@ -54,7 +54,7 @@
 		if (method == 'set')
 		{
 			this.attr('data-rating',options);
-            alert(this.attr('data-rating'));
+            //alert(this.attr('data-rating'));
 			this.each(function() { paint($(this)); });
 		}
 		if (method == 'get')
@@ -174,14 +174,14 @@ $('#btnAddListSkill').click(function() {
 
 
 /*Delete Button Click Event for Delete Value */
-$('#list-Skill').on('click', '.btnDeleteExp' , function(e){
+$('#list-skill').on('click', '.btnDeleteExp' , function(e){
     e.preventDefault();
     var deletedskill = new Skill();
     //get current index on row click
     var cells = $(this).closest("tr").children("td");
     indexcurrent = $(this).closest("tr").index();
     deletedskill.Id = listskill[indexcurrent].attribute.Id;
-    urlpost = window.location.href + '/Skill/delete'
+    urlpost = window.location.href + '/skill/delete'
     //show popup confirm on click delete button
     BootstrapDialog.confirm({
             title: 'Confirm',
@@ -222,13 +222,13 @@ $('#list-skill').on('click', '.btnEditSkill' , function(e){
     var cells = $(this).closest("tr").children("td");
     indexcurrentskill = parseInt(cells.eq(0).text())-1;  
     $("#skill-form input[name='name']").val(cells.eq(1).text()).focus();  
-    $("#skill-form input[name='expertise']").val(cells.eq(2).text());
+    $("#stars-default").rating('set',{value: cells.eq(2).text(),besidetext:"expertisetext"});
     $("#skill-form select[name='experience']").val(cells.eq(3).text());
     $("#skill-form select[name='lastyearused']").val(cells.eq(4).text());
     switchMode("edit");
 });
 $('#btnSaveEditSkill').click(function() {
-    var isValid = $('#Skill-form').valid();
+    var isValid = $('#skill-form').valid();
     if(isValid){
         var savedskill = getValueExp();
         savedskill.Id = listSkill[indexcurrentskill].attribute.Id;
@@ -265,6 +265,7 @@ $('#btnSaveEditSkill').click(function() {
 });
 $('#btnCancelEditSkill').click(function() {  
     switchMode("add");
+    $("#skill-form")[0].reset();
 });
 
 var clickedSkill = false;
