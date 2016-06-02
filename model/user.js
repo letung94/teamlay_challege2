@@ -1,4 +1,4 @@
-function userModel(firstname, lastname, username, email, password, createddate, token, isconfirmed, isblocked, expired, id) {
+function userModel(firstname, lastname, username, email, password, createddate, token, isconfirmed, isblocked, expired) {
     var self = this;
     self.attribute = {
         "Firstname": firstname,
@@ -10,8 +10,7 @@ function userModel(firstname, lastname, username, email, password, createddate, 
         "Token": token,
         "IsConfirmed": isconfirmed,
         "IsBlocked": isblocked,
-        "ResetPasswordExpire": expired,
-        "Id": id
+        "ResetPasswordExpire": expired
     }
 
     self.attrvalidate = [
@@ -51,7 +50,7 @@ function userModel(firstname, lastname, username, email, password, createddate, 
                 this.max = 50;
                 if (firstname != null || firstname !== "" || username != undefined) {
                     var length = firstname.length;
-                    if (firstname > this.min && length <= this.max) {
+                    if (length > this.min && length <= this.max) {
                         this.valid = true;
                     }
                 }
@@ -83,20 +82,24 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             validate: null
         },
         {
-            attrname: "IsConfirmed",
+            attrname: "Token",
             validate: null
         },
         {
-            attrname: "Id",
-            validate: function (id) {
-                this.valid = false;
-                this.require = true;
-                if (!isNaN(id) || id == null) {
-                    this.valid = true;
-                }
-                return this.valid;
-            }
+            attrname: "IsConfirmed",
+            validate: null
         },
+        // {
+        //     attrname: "Id",
+        //     validate: function (id) {
+        //         this.valid = false;
+        //         this.require = true;
+        //         if (!isNaN(id) || id == null) {
+        //             this.valid = true;
+        //         }
+        //         return this.valid;
+        //     }
+        // },
         {
             attrname: "Email",
             validate: function (email) {
@@ -150,7 +153,7 @@ function userModel(firstname, lastname, username, email, password, createddate, 
         user.find('all', function (err, rows, fields) {
             if (err) {
                 console.log(err);
-                callback(-1, err)
+                callback(-1, err);
             } else {
                 if (rows == null) {
                     callback(0, null);
@@ -180,7 +183,7 @@ function userModel(firstname, lastname, username, email, password, createddate, 
         user.find('first', { where: "Email = '" + email + "'" }, function (err, row) {
             if (err) {
                 console.log(err);
-                callback(-1, err)
+                callback(-1, err);
             } else {
                 if (row == null) {
                     callback(0, null);

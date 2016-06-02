@@ -25,7 +25,17 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
         },
         attrname: "Company"
     }, {
-        validate: null,
+        validate: function(designation) {
+        this.valid = false;
+        this.max = 49;
+        if(designation !=null || designation !== ""){
+                    var length = designation.length;
+                    if(length <= this.max ){
+                        this.valid = true;
+                    }
+            }
+            return this.valid;           
+    },
         attrname: "Designation"
     }, {
         validate: function(fromdate) {
