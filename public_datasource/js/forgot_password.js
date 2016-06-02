@@ -2,25 +2,26 @@ $(document).ready(function() {
     // validate register form on keyup and sumit
     $("#form-forgot-password").validate({
         errorClass: 'text-danger',
-        focusInvalid: false,
-        debug: true,
         rules: {
             email: {
                 required: true,
                 email: true
             }
         },
-        messages: {}
+        messages: {
+
+        }
 
     });
     $('#submit').click(function() {
         var validator = $('#form-forgot-password').valid();
-        console.log(validator);
-        if(validator){
+        if (validator) {
             console.log(validator);
+            console.log('forgot password !');
             $('#form-forgot-password').submit();
+        } else {
+            return false;
         }
-        return false;
     });
 
 })

@@ -2,8 +2,6 @@ $(document).ready(function() {
     // validate register form on keyup and sumit
     $("#form-register").validate({
         errorClass: 'text-danger',
-        focusInvalid: true,
-        debug: true,
         rules: {
             firstname: {
                 required: true
@@ -48,19 +46,13 @@ $(document).ready(function() {
                 minlength: "Your username must be at least 5 characters long",
                 equalTo: "Please enter the same password as above"
             },
-<<<<<<< HEAD
             accept: "Please accept our policy"
-=======
-            accept: {
-                required: "Please accept our policy"
-            accept: "Please accept our policy   "
->>>>>>> 510ad0d6942b7f3501beef53d9481dc775d8569e
         },
         errorPlacement: function(error, element) {
             // console.log(error);
-            if (element.attr("name") == "accept")  {
+            if (element.attr("name") == "accept") {
                 error.insertAfter("#accept_error-message");
-            }else {
+            } else {
                 error.insertAfter(element);
             }
         }
@@ -75,11 +67,12 @@ $(document).ready(function() {
     });
     $('#submit').click(function() {
         var validator = $('#form-register').valid();
-        if(validator){
+        if (validator) {
             console.log(validator);
-             $('#form-register').submit();
+            console.log('register !');
+            $('#form-register').submit();
+        } else {
+            return false;
         }
-        return false;
     });
-
 })

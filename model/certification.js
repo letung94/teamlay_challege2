@@ -5,6 +5,7 @@ function certificationModel() {
     this.getAllCertificationByCVId = function (cv_id, callback) { // param: CV_Id,
         certification = new Certification();
         certification.find('all',{where:'CV_Id=' + cv_id},function(err,rows,fields){
+            certification.killConnection();
             if(err){
                 callback(-1, err)
             }else{
@@ -14,13 +15,13 @@ function certificationModel() {
                     callback(1, rows);
                 }
             }
-        })
+        });
     }
 
     this.saveCertification = function(param, callback){
         certification = new Certification(param);
-        // certification.set('id', 6);
         certification.save(function(errors, results){
+            certification.killConnection();
             if(errors){
                 callback(-1, errors)
             }else{
@@ -33,16 +34,21 @@ function certificationModel() {
         });
     }
 
-    this.removeCertification = function(param, callback){
-        certification = new Certification(param);
-        certification.remove(function(errors, results){
-            if(errors){
-                console.log(errors);
+    this.deleteCertification = function(id, callback){
+        certification = new Certification({id: id});
+        certification.remove(function(err, rows){
+            certification.killConnection();
+            if (err) {
+                callback(-1, err)
+            } else {
+                if (rows.length == 0) {
+                    callback(0, null);
+                } else {
+                    callback(1, rows);
+                }
             }
-            callback(results, errors);
         });
     }
-
 }
 
 module.exports = certificationModel;

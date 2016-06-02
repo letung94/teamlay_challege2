@@ -1,5 +1,5 @@
 var di = require("di4js");
-var mysqlmodel = require('mysql-model');
+var mysqlmodel = require('../helper/mysql-model');
 var db = require("../model/db");
 var ctrluser = require("../controller/ctrluser");
 var user = require('../model/user');

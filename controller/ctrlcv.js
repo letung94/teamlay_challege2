@@ -12,31 +12,44 @@ var jsonparser = bodyparser.json();
 var router = express.Router();
 
 router.get('/', function (req, res) {
-    var cvService = di.resolve('curriculum_vitae');
-    cvServiceIns = new cvService();
-    cvServiceIns.getEnableCV({}, function (flag, rows) {
-        var resObject = {
-            cvs: rows
-        };
-        if(flag!=-1){
-            res.render('pages/cv_list', resObject);
-        }else{
-            res.status(500).render('pages/generic_error');
-        }
-    })
+    if (req.user) {
+        var cvService = di.resolve('curriculum_vitae');
+        cvServiceIns = new cvService();
+        cvServiceIns.getEnableCV({
+            Id: req.user.Id
+        }, function (flag, rows) {
+            var resObject = {
+                cvs: rows
+            };
+            if (flag != -1) {
+                res.render('pages/cv_list', resObject);
+            } else {
+                res.status(500).render('pages/generic_error');
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
 });
 
 router.post('/', [jsonparser], function (req, res) {
-    var cvService = di.resolve('curriculum_vitae');
-    cvServiceIns = new cvService();
-    cvServiceIns.createCV({ Name: req.body.cvname, UserId: 1 }, function (flag, data) {
-        if (flag == 1) {
-            var newidcv = data.Id;
-            res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
-        } else if(flag==-1){
-            res.status(500).render('pages/generic_error');
-        }
-    });
+    if (req.user) {
+        var cvService = di.resolve('curriculum_vitae');
+        cvServiceIns = new cvService();
+        cvServiceIns.createCV({
+            Name: req.body.cvname,
+            UserId: req.user.Id
+        }, function (flag, data) {
+            if (flag == 1) {
+                var newidcv = data.Id;
+                res.redirect("http://127.0.0.1:8080/cv/" + newidcv);
+            } else if (flag == -1) {
+                res.status(500).render('pages/generic_error');
+            }
+        });
+    } else {
+        res.redirect('/login');
+    }
 });
 
 router.post('/:idcv/update', [jsonparser], function (req, res) {
@@ -44,12 +57,23 @@ router.post('/:idcv/update', [jsonparser], function (req, res) {
     cvServiceIns = new cvService();
     var paramObject = req.body;
     paramObject["Id"] = req.params.idcv;
-    cvServiceIns.updateCV({ Name: req.body.cvname, UserId: 1, Id:req.params.idcv }, function (flag, data) {
+    cvServiceIns.updateCV({
+        Name: req.body.cvname,
+        UserId: 1,
+        Id: req.params.idcv
+    }, function (flag, data) {
+        var resData = {};
         if (flag == 1) {
-            res.redirect("http://127.0.0.1:8080/cv/");
+            resData.IsSuccess = 1;
+            resData.Name = data.Name;
+        } else if (flag == 0) {
+            resData.IsSuccess = 0;
+            resData.Error = data;
         } else {
-            res.status(500).render('pages/generic_error');
+            resData.IsSuccess = -1;
+            resData.Error = data;
         }
+        res.json(resData);
     });
 });
 
@@ -76,18 +100,25 @@ router.post('/disableCV', [jsonparser], function (req, res) {
 });
 
 router.get('/:idcv', function (req, res) {
-    var param = { id: req.params.idcv };
-    dbcv.getByIdCV(param, function (code, row) {
-        if (code == 1) {
-            res.render('pages/cv_index', { data: row });
-        } else if (code == 0) {
-            res.status(404).render('pages/not_found_404');
-        } else if (code == -1) {
-            res.status(500).render('pages/generic_error');
-        }
-    });
+    if(req.user){
+        var param = {
+            idcv: req.params.idcv,
+            userid: req.user.Id
+        };
+        dbcv.getByIdCV(param, function (code, row) {
+            if (code == 1) {
+                res.render('pages/cv_index', {
+                    data: row
+                });
+            } else if (code == 0) {
+                res.status(404).render('pages/not_found_404');
+            } else if (code == -1) {
+                res.status(500).render('pages/generic_error');
+            }
+        });
+    }else{
+        res.redirect('/login');
+    }    
 });
-
-
 
 module.exports = router;

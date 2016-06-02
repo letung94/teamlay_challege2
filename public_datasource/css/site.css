@@ -13,12 +13,13 @@
     margin-right: 2px;
     position: relative;
 }
-img#preview{
+img#preview, img.default_avatar{
     border: 1px solid #888;
     width:128;
     height:128;
     cursor: pointer;
     transition: 0.3s;
+    margin-bottom: 5px;
 }
 
 /*model image*/
@@ -123,3 +124,24 @@ img#preview:hover {opacity: 0.7;}
 }
 
 
+/*
+// css for skill
+*/
+.skillname{
+    /*border-right: 2px solid black;*/
+} 
+
+.expertisetext{
+    position: relative;
+    line-height: 1.42857143;
+    color: #428bca;
+    text-decoration: none;
+    padding: 5px 20px;
+}
+.besidetext{
+    padding: 5px 20px;
+}
+.undertext{
+    display: block;
+    padding: 5px 0px;
+}

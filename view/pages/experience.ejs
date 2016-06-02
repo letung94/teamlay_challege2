@@ -1,7 +1,7 @@
  <div class="tab-pane fade" id="experience">
     <h4> Experience</h4>
     <hr/>  
-         <form class="form-horizontal" id="validation_form_exp" >
+         <form class="form-horizontal" id="experience-form" >
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">Company</label>
                             <div class="col-sm-9 col-lg-10 controls">
@@ -21,7 +21,7 @@
                             <div class="col-sm-5 col-lg-10 controls">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" placeholder="From date To date" class="form-control date-range" name="date"  readonly="readonly"/>                            
+                                    <input type="text" placeholder="Enter your working times" class="form-control date-range" name="date"  readonly="readonly"/>                            
                                 </div>  
                             </div>
                 </div>
@@ -29,19 +29,20 @@
                 <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Details</label>
                         <div class="col-sm-9 col-lg-10 controls">
-                            <textarea class="form-control col-md-12 wysihtml5" rows="6" name="detail"></textarea>
+                            <textarea class="form-control col-md-12 wysihtml5" placeholder="Enter your details" rows="6" name="detail"></textarea>
                         </div>
                 </div>
-                <div class="form-group row">
+                <div class="row">
                         <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
                         <div class="col-sm-9 col-lg-10 controls">        
-                            <button type="button" id="btnAddListExp"  class="btn btn-success"><i class="fa fa-plus">&nbsp;Add To List</i></button>
-                            <button type="button" id="btnSaveExp" class="btn btn-success" style="display:none"><i class="fa fa-save">&nbsp;Save</i></button>
+                            <button type="button" id="btnAddListExp"  class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add To List</button>
+                            <button type="button" id="btnSaveEditExp" class="btn btn-success" style="display:none"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save</button>
+                            <button type="button" id="btnCancelEditExp" class="btn" style="display:none"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;Cancel</button>
                         </div> 
                                 
-                </div>
-                
-                <div class="form-group row">
+                </div>  
+        </form>
+        <div class="form-group row">
                     <div class="box">
                         <div class="box-title">
                         <h4> List of Experience</h4>
@@ -55,7 +56,6 @@
                                     <th>Company</th>
                                     <th>Designation</th>
                                     <th>Date(s)</th>
-                                    <th>Details</th>
                                     <th>Action</th>
                                     </tr>
                                 </thead>
@@ -67,7 +67,6 @@
                         </div>         
                             
                     </div>            
-                </div>
-        </form>    
+                </div>    
 </div>
-<script type="text/javascript" src="js/experience.validate.js"></script>
+<script type="text/javascript" src="js/experience.js"></script>

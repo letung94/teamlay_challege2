@@ -25,29 +25,8 @@
     <script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 
-     <script src="assets/jquery-validation/dist/jquery.validate.js"></script>
-    
-    <script type="text/javascript">
-    function goToForm(form)
-    {
-    $('.login-wrapper > form:visible').fadeOut(200, function(){
-    $('#form-' + form).fadeIn(200);
-    });
-    }
-    $(function() {
-    $('.goto-login').click(function(){
-    goToForm('login');
-    });
-    $('.goto-forgot').click(function(){
-    goToForm('forgot');
-    });
-    $('.goto-register').click(function(){
-    goToForm('register');
-    });
-    });
-    </script>
-
-
+    <script type="text/javascript" src="assets/jquery-validation/dist/jquery.validate.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
 </head>
 <body class="login-page">
 
@@ -63,7 +42,11 @@
             <div class="alert alert-danger"><%= errorMessage %></div>
          <% } %>
          <% } %>
-         
+         <% if(typeof(successMessage) !== 'undefined') {%>
+            <% if(successMessage.length>0) {%>
+            <div class="alert alert-success"><%= successMessage %></div>
+         <% } %>
+         <% } %>
     <hr/>
     <div class="form-group">
     <div class="controls">
@@ -89,7 +72,7 @@
     </div>
     <hr/>
     <p class="clearfix">
-    <a href="/forgot_password" class="goto-login pull-left">Forgot Password?</a>
+    <a href="/forgot" class="goto-login pull-left">Forgot Password?</a>
     <a href="/register" class="goto-login pull-right">Register now!</a>
     </p>
     </form>

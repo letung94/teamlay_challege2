@@ -16,9 +16,12 @@ var async = require('async');
 router.get('/admin', function(req, res) {
 
     user_model.getAllUser(function(data) {
-        //console.log(data);
+        console.log(typeof(data));
+        var data_json = JSON.stringify(data);
+        var json = JSON.parse(data_json);
+        console.log(typeof(json));
         res.render('pages/admin', {
-            jsonData: JSON.stringify(data)
+            jsonData: json
         });
     })
 

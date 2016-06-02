@@ -19,7 +19,7 @@ mailer.extend(app, {
     port: 465, // port for secure SMTP
     transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
     auth: {
-        user: 'duybui.hcmit',
+        user: 'hvn.cvmaker',
         pass: '01269848891'
     }
 });
@@ -98,7 +98,9 @@ var ctrlproject = require('./controller/ctrlproject');
 app.use('/cv/:idcv', ctrlproject);
 
 /*admin*/
-
+app.get('/error/500',function(req, res){
+    res.render('pages/server_error_500');
+});
 
 
 /*var di = require('./config/config');
