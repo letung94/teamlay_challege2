@@ -78,6 +78,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
     self.getByIdCV = function(reqdata, callback) {
         var temp = new Cv();
         temp.find('all', {
+            
             where: "Id = " + reqdata + " && IsDeleted = 0"
         }, function(err, rows, fields) {
             if (err) {

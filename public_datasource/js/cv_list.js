@@ -1,24 +1,21 @@
 $(document).ready(function() {
 
-    $('#validation_form_cv').validate({
+    $('#curriculumvitae-form').validate({
         errorClass: 'text-danger',
         focusInvalid: false,
         debug: true,
         rules: {
-            "cvname": {
-                required: true,
-                minlength: 1
+            cvnamecreate: {
+                required: true
             }
         },
         messages: {
-            cvname: {
-                required: "This field is required.",
-                minlength: "This field is required."
+            cvnamecreate: {
+                required: "This field is required."
             }
         },
         errorElement: "div",
         errorPlacement: function(error, element) {
-            console.log("test");
             if (element.attr("name") == "accept") {
                 error.insertAfter("#accept_error-message");
             } else {
@@ -51,11 +48,21 @@ $(document).ready(function() {
     });
 
     $('#btn-addnewcv').click(function() {
-        var validator = $('#validation_form_cv').valid();
-        if (validator) {
-            $('#validation_form_cv').submit();
+        var isValid = $('#curriculumvitae-form').valid();
+        if (isValid) {
+            var cvname = $("input[name=cvnamecreate]").val();
+            var urlpost = window.location.href;
+            $.post(urlpost, {
+                cvname: cvname
+            }, function(resp) {
+                console.log("nhieu");
+                if (resp.flag == 1) {
+                    window.location = (window.location.href + '/' + resp.data.Id);
+                } else {
+                    window.location = "../error/500";
+                }
+            });
         }
-        // $('#create-cv-modal').modal('toggle');
     });
 
     $('.btn-delete').click(function() {
