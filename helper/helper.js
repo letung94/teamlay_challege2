@@ -46,7 +46,7 @@ var isPastOrCurrentDate = function(date){
     // else if (a[2] > now.getDate())
     //     return false;
     // return true;
-    
+}
 var parseDate = function(date){
     var res = "";
     var currentdate = new Date(date);
