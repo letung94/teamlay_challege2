@@ -45,17 +45,14 @@ $('#btnSaveSummary').click(function() {
             //json object to sent to the authentication url
             data: JSON.stringify(summary),
             success: function (res) {
-                console.log(res);
+                 /*
+                //showAnnoucement(flag, section, action)
+                */
+                showAnnoucement(res.flag, 'summary', 'saved'); 
             },
             error: function(x,e){
                 
             }
         });
-    $.gritter.add({
-        title: 'Successfull!',
-        text: 'Your summary has been saved.',
-        sticky: false,
-        time: '1500',
-    });
     return false;
 });
