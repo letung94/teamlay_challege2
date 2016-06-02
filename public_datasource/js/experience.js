@@ -53,7 +53,7 @@ $('#btnAddListExp').click(function() {
                 $.each(listExp, function(index,value ){
                     addListExp(index + 1,value.attribute);
                 });
-                switchMode("add");
+                switchModeExp("add");
             }
             showAnnoucement(res.flag, 'experience', 'added');
         },
@@ -116,7 +116,7 @@ $('#list-experience').on('click', '.btnEditExp' , function(e){
     $("#experience-form input[name='date']").val(cells.eq(3).text());
     $("#experience-form textarea[name='detail']").data('wysihtml5').editor.setValue(listExp[indexCurrentExp].attribute.Details);
     rowId = $(this).closest('td').parent()[0].sectionRowIndex;
-    switchMode("edit");
+    switchModeExp("edit");
 });
 $('#btnSaveEditExp').click(function() {
     var isValid = $('#experience-form').valid();
@@ -142,7 +142,7 @@ $('#btnSaveEditExp').click(function() {
                     $.each(listExp, function( index, value ){
                         addListExp(index + 1,value.attribute);
                     });
-                    switchMode("save"); 
+                    switchModeExp("save"); 
                 }
                 showAnnoucement(res.flag, 'experience', 'edited');
             },
@@ -153,7 +153,7 @@ $('#btnSaveEditExp').click(function() {
      }
 });
 $('#btnCancelEditExp').click(function() {  
-    switchMode("cancel");
+    switchModeExp("cancel");
 });
 
 var clickedExperience = false;
@@ -220,7 +220,14 @@ $(document).ready(function() {
         var inputDate = new Date(getTodate[1]);
         return inputDate <= today;
     }, "The ToDate should be before today.");
-    
+    $.validator.addMethod("notEqFromToDate", function(value, element) {
+        if(!value || value.trim() == '')
+        return true;
+        var splitDate = value.split(" - ");
+        var toDate = new Date(splitDate[1]);
+        var fromDate = new Date(splitDate[0]);  
+        return fromDate == toDate;
+    }, "The FromDate & ToDate should be different.");
     $("#experience-form").validate({
             errorClass: 'text-danger',
             focusInvalid: true,
@@ -235,7 +242,8 @@ $(document).ready(function() {
                 },
                 date: {
                     required: true,
-                    isBeforeTodayExp: true
+                    isBeforeTodayExp: true,
+                    notEqFromToDate: true
                 },        
             },
             messages: {

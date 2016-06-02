@@ -75,8 +75,7 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
         }
         return valid;
     }
-
-
+}
 
 function educationModel() {
     // console.log('in');
@@ -90,7 +89,7 @@ function educationModel() {
             }else{
                 callback(1, rows);
             }
-        })
+        });
     }
 }
 
