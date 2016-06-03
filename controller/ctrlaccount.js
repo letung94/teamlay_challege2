@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt-nodejs');
-var authenticate = require('../middleware/authenticate');
 var di = require('../config/config');
 var passport = require('../config/passport_authenticate');
 var user_model = di.resolve('user');
@@ -51,7 +50,7 @@ router.post('/forgot', function (req, res, next) {
                 }
 
                 date.setMinutes(date.getMinutes() + 30);
-                user.Token = token;
+                user.ResetPasswordToken = token;
                 user.ResetPasswordExpire = date; // 30 mins
 
                 model.updateUser(user, function (err, data) {
@@ -85,7 +84,7 @@ router.post('/forgot', function (req, res, next) {
 // Reset Password GET
 router.get('/reset/:token', function (req, res) {
     var model = new user_model();
-    model.getByToken(req.params.token, function (err, data) {
+    model.getByResetPassToken(req.params.token, function (err, data) {
         if (err == -1) {
             res.redirect('/error/500');
         }
@@ -110,7 +109,7 @@ router.post('/reset/:token', function (req, res) {
     var model = new user_model();
     async.waterfall([
         function (done) {
-            model.getByToken(req.params.token, function (err, data) {
+            model.getByResetPassToken(req.params.token, function (err, data) {
                 if (err == -1) {
                     res.redirect('/error/500');
                 }
@@ -122,13 +121,13 @@ router.post('/reset/:token', function (req, res) {
                 }
 
                 user.PasswordHash = bcrypt.hashSync(req.body.password);
-                user.Token = '';
+                user.ResetPasswordToken = '';
 
                 model.updateUser(user, function (err, data) {
                     if (err == -1) {
                         res.redirect('/error/500');
                     }
-                    
+
                 });
             })
             done(null, user);
@@ -207,7 +206,7 @@ router.get('/index', function (req, res) {
 router.get("/verify/:token", function (req, res, next) {
     var model = new user_model();
     var token = req.params.token;
-    model.getByToken(token, function (err, data) {
+    model.getByVerifyToken(token, function (err, data) {
         if (err == -1) {
             res.redirect('/error/500');
         }
@@ -217,14 +216,15 @@ router.get("/verify/:token", function (req, res, next) {
         }
         else {
             var user = data;
-            user.Token = '';
+            user.VerifyToken = '';
             user.IsConfirmed = 1;
             model.updateUser(user, function (err, data) {
                 if (err == -1) {
                     res.redirect('/error/500');
                 }
             });
-            res.redirect('/cv');
+            req.flash('success','Your email is verified. Now you can log in!');
+            res.redirect('/login');
         }
     })
 });
@@ -268,6 +268,7 @@ router.post('/register', function (req, res) {
                 verify_token,
                 0,
                 0,
+                null,
                 null);
             done(null, user);
         },
@@ -282,7 +283,7 @@ router.post('/register', function (req, res) {
                     };
 
                     // Create a link to verify email
-                    var link = req.protocol + "://" + req.get('host') + "/verify/" + user.attribute.Token;
+                    var link = req.protocol + "://" + req.get('host') + "/verify/" + user.attribute.VerifyToken;
 
                     app.mailer.send('pages/confirmation_email', {
                         to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
@@ -299,21 +300,12 @@ router.post('/register', function (req, res) {
                     });
                 });
             } else {
-                res.send({ flag: 0, resdata: user.attrvalidate });
+                res.redirect('/error/500');
             }
         },
-        function (done) {
-            model.getByUsername(req.body.username, function (err, data) {
-                req.logIn(data, function (err) {
-                    if (err) {
-                        req.flash('error', err.message);
-                        return res.redirect('/login');
-                    } else {
-                        return res.redirect('/email-verification');
-                    }
-                });
-                done();
-            });
+        function () {
+            req.flash('success', 'We emailed a link to you. Please check your email and click the link to verify your email address.');
+            return res.redirect('/login');
         }
     ]);
 });

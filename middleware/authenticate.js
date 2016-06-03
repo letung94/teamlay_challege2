@@ -1,14 +1,13 @@
 var di = require('../config/config');
 var user_model = di.resolve('user');
+var flash = require('express-flash');
 
 var isAvailable = function  (req, res, next) {
     if (req.user.IsConfirmed !== 1){
-        res.redirect('/email-verification');
-    } else if (req.user.IsBlocked !== 0) {
-        res.redirect('/account-locked');
-    }else{
-        return next();
+        req.flash('error','Please confirm your email!');
+        return res.redirect('/login');
     }
+      next();  
 }
 
 
