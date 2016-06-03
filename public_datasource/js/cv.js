@@ -8,6 +8,7 @@ $(function() {
     //var validate_contact_info = validateContact_Info("#validation_form_contact_info");
     //var validate_exp = validateContact_Info("#validation_form_exp");
     var urlget = window.location.href + "/contact_info/get";
+    $.blockUI();
     $.ajax({
         type: "GET",
         //the url where you want to sent the userName and password to
@@ -17,7 +18,7 @@ $(function() {
         contentType: 'application/json; charset=utf-8',
         //json object to sent to the authentication url
         success: function(res) {
-            
+            $.unblockUI();
             if (res.flag == 1) {
                 contact_info = new Contact_Info(res.resdata);
                 $('#contact_info-form #btnSubmit').prop('disabled', false);

@@ -31,9 +31,9 @@ img#preview:hover {opacity: 0.7;}
     position: absolute;
     z-index: 1;
     padding: 5px;
-    left: -300;
+    left: -300px;
     top: 0; 
-    width: 500;
+    width: 500px;
     height: auto;
     overflow: hidden;
     background-color: rgb(0,0,0);
