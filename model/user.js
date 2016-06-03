@@ -13,10 +13,9 @@ function userModel(firstname, lastname, username, email, password, createddate, 
         "ResetPasswordExpire": expired
     }
 
-    self.attrvalidate = [
-        {
+    self.attrvalidate = [{
             attrname: "Username",
-            validate: function (username) {
+            validate: function(username) {
                 this.valid = false;
                 this.required = true;
                 this.min = 5;
@@ -29,10 +28,9 @@ function userModel(firstname, lastname, username, email, password, createddate, 
                 }
                 return this.valid;
             }
-        },
-        {
+        }, {
             attrname: "PasswordHash",
-            validate: function (password) {
+            validate: function(password) {
                 this.valid = false;
                 this.required = true;
                 if (password != null || password !== "" || password != undefined) {
@@ -40,10 +38,9 @@ function userModel(firstname, lastname, username, email, password, createddate, 
                 }
                 return this.valid;
             }
-        },
-        {
+        }, {
             attrname: "Firstname",
-            validate: function (firstname) {
+            validate: function(firstname) {
                 this.valid = false;
                 this.required = true;
                 this.min = 1;
@@ -56,10 +53,9 @@ function userModel(firstname, lastname, username, email, password, createddate, 
                 }
                 return this.valid;
             }
-        },
-        {
+        }, {
             attrname: "Lastname",
-            validate: function (lastname) {
+            validate: function(lastname) {
                 this.valid = false;
                 this.required = true;
                 this.min = 1;
@@ -72,20 +68,16 @@ function userModel(firstname, lastname, username, email, password, createddate, 
                 }
                 return this.valid;
             }
-        },
-        {
+        }, {
             attrname: "CreatedDate",
             validate: null
-        },
-        {
+        }, {
             attrname: "IsBlocked",
             validate: null
-        },
-        {
+        }, {
             attrname: "Token",
             validate: null
-        },
-        {
+        }, {
             attrname: "IsConfirmed",
             validate: null
         },
@@ -102,7 +94,7 @@ function userModel(firstname, lastname, username, email, password, createddate, 
         // },
         {
             attrname: "Email",
-            validate: function (email) {
+            validate: function(email) {
                 this.valid = false;
                 this.required = true;
                 this.regex = /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/;
@@ -111,9 +103,10 @@ function userModel(firstname, lastname, username, email, password, createddate, 
                 }
                 return this.valid;
             }
-        }];
+        }
+    ];
 
-    self.checkValidation = function () {
+    self.checkValidation = function() {
         var valid = true;
         var attr_length = self.attrvalidate.length;
         for (var i = 0; i < attr_length; i++) {
@@ -125,9 +118,9 @@ function userModel(firstname, lastname, username, email, password, createddate, 
     }
 
     var User = require('../config/config').resolve("db").User;
-    this.addUser = function (user, callback) {
+    this.addUser = function(user, callback) {
         var newUser = new User(user);
-        newUser.save(function (err, data) {
+        newUser.save(function(err, data) {
             if (err) {
                 callback(-1, err);
             } else {
@@ -136,11 +129,11 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             }
         });
     }
-    this.updateUser = function (newUser, callback) {
+    this.updateUser = function(newUser, callback) {
         var user = new User(newUser);
         user.save();
         user.set('id', newUser.Id);
-        user.save(function (err, data) {
+        user.save(function(err, data) {
             if (err) {
                 callback(-1, err);
             }
@@ -148,9 +141,9 @@ function userModel(firstname, lastname, username, email, password, createddate, 
         });
         callback();
     }
-    this.getAllUser = function (callback) {
+    this.getAllUser = function(callback) {
         user = new User();
-        user.find('all', function (err, rows, fields) {
+        user.find('all', function(err, rows, fields) {
             if (err) {
                 console.log(err);
                 callback(-1, err);
@@ -163,9 +156,11 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             }
         });
     }
-    this.getByUsername = function (username, callback) {
+    this.getByUsername = function(username, callback) {
         user = new User();
-        user.find('first', { where: "Username = '" + username + "'" }, function (err, row) {
+        user.find('first', {
+            where: "Username = '" + username + "'"
+        }, function(err, row) {
             if (err) {
                 console.log(err);
                 callback(-1, err);
@@ -178,9 +173,11 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             }
         });
     }
-    this.getByEmail = function (email, callback) {
+    this.getByEmail = function(email, callback) {
         user = new User();
-        user.find('first', { where: "Email = '" + email + "'" }, function (err, row) {
+        user.find('first', {
+            where: "Email = '" + email + "'"
+        }, function(err, row) {
             if (err) {
                 console.log(err);
                 callback(-1, err);
@@ -193,9 +190,11 @@ function userModel(firstname, lastname, username, email, password, createddate, 
             }
         });
     }
-    this.getByToken = function (token, callback) {
+    this.getByToken = function(token, callback) {
         user = new User();
-        user.find('first', { where: "Token = '" + token + "'" }, function (err, row) {
+        user.find('first', {
+            where: "Token = '" + token + "'"
+        }, function(err, row) {
             if (err) {
                 console.log(err);
                 callback(-1, err)

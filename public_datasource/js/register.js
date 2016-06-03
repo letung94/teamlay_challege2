@@ -11,7 +11,7 @@ $(document).ready(function() {
             },
             username: {
                 required: true,
-                minlength: 5
+                minlength: 1
             },
             password: {
                 required: true,
@@ -35,7 +35,7 @@ $(document).ready(function() {
             lastname: "Please enter your lastname",
             username: {
                 required: "Please enter a username",
-                minlength: "Your username must consist of at least 5 characters"
+                minlength: "Your username must consist of at least 1 character"
             },
             password: {
                 required: "Please provide a password",
@@ -75,4 +75,5 @@ $(document).ready(function() {
             return false;
         }
     });
+
 })
