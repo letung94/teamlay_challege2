@@ -66,7 +66,7 @@ app.use(passport.session());
 module.exports = app;
 
 // Routing
-var ctrluser = require('./controller/ctrluser');
+
 var ctrlTemplate = require('./controller/ctrltemplate');
 var ctrlcv = require('./controller/ctrlcv');
 var ctrlAccount = require('./controller/ctrlaccount');
@@ -75,7 +75,7 @@ var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
 app.use('/cv', [authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
-app.use('/', ctrluser);
+
 app.use('/template', ctrlTemplate);
 app.use('/', ctrlAccount);
 app.use('/', ctrladmin);

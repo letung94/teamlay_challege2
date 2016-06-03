@@ -73,7 +73,16 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                         var data = image.replace(/^data:image\/\w+;base64,/, '');
                         return new Buffer(data, 'base64');
                     }
-                    self.attribute["Avatar"] = "avatars/avatar_" + self.attribute["FirstName"] + self.attribute["CV_Id"] + getextension(avatar);
+                    
+                    
+                    function makestringrandom(){
+                        var uuid = require('node-uuid');
+                        var text = uuid.v1();
+                        return text;
+                    }
+                    
+                    
+                    self.attribute["Avatar"] = "avatars/" + makestringrandom() + getextension(avatar);
                     var imageBuffer = decodeBase64Image(avatar);
                     var fs = require('fs');
                     fs.writeFileSync(self.attribute["Avatar"], imageBuffer, {encoding: 'base64'},function(err) { console.log(err); });
