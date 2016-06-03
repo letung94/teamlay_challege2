@@ -53,13 +53,14 @@ DROP TABLE IF EXISTS `contact_info`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contact_info` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `FirstName` varchar(50) DEFAULT NULL,
-  `LastName` varchar(50) DEFAULT NULL,
-  `Email` varchar(50) DEFAULT NULL,
-  `Phone` varchar(18) DEFAULT NULL,
+  `FirstName` varchar(50) NOT NULL,
+  `LastName` varchar(50) NOT NULL,
+  `Email` varchar(50) NOT NULL,
+  `Phone` varchar(18) NOT NULL,
   `Website` varchar(100) DEFAULT NULL,
   `Address` varchar(250) DEFAULT NULL,
   `CV_Id` int(11) NOT NULL,
+  `Avatar` text,
   PRIMARY KEY (`Id`),
   KEY `FK_ContactInfo_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_ContactInfo_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION

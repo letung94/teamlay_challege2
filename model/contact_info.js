@@ -110,8 +110,28 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             }
             return this.valid;
         }, attrname: "Phone"},
-        {validate: null,attrname: "Website"},
-        {validate: null,attrname: "Address"},
+        {validate: function(website){
+            this.valid = true;
+            this.max = 100;
+            if(website !=null || website !== ""){
+                var length = website.length;
+                if(length >= this.max ){
+                    this.valid = false;
+                }
+            }
+            return this.valid;
+        },attrname: "Website"},
+        {validate: function(address){
+            this.valid = true;
+            this.max = 200;
+            if(address !=null || address !== ""){
+                var length = address.length;
+                if(length >= this.max ){
+                    this.valid = false;
+                }
+            }
+            return this.valid;
+        },attrname: "Address"},
         {validate: null,attrname: "CV_Id"}];
         
 
