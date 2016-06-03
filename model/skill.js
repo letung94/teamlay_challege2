@@ -7,14 +7,6 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
         "LastYearUsed" : lastyearused,
         "CV_Id" : cv_id
     }
-    /*
-  `Id` INT(11) NOT NULL AUTO_INCREMENT,
-  `Name` NVARCHAR(50) NOT NULL ,
-  `Expertise` TINYINT(1) NOT NULL ,
-  `Experience` NVARCHAR(50) NOT NULL ,
-  `LastYearUsed` INT(4) NOT NULL,
-  `CV_Id` INT(11) NOT NULL,
-    */
     self.attrvalidate = [
         {validate: function(company){
             this.valid = false;
@@ -41,7 +33,6 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
             return this.valid;
         }, attrname: "Expertise"},
         {validate: function(experience){
-            //doso
             this.valid = false;
             this.required = true;
             if(experience != null && experience != undefined){
@@ -125,7 +116,7 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
         });
     }
     
-    self.remove = function(reqdata, callback){
+    self.delete = function(reqdata, callback){
         var removetemp = new skill(self.attribute);
         removetemp.set("id",reqdata);
         removetemp.remove(function(err,data){

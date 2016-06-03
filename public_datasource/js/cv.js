@@ -4,9 +4,6 @@ function Contact_Info(attribute) {
 }
 var contact_info = null;
 $(function() {
-    //validation
-    //var validate_contact_info = validateContact_Info("#validation_form_contact_info");
-    //var validate_exp = validateContact_Info("#validation_form_exp");
     var urlget = window.location.href + "/contact_info/get";
     $.blockUI();
     $.ajax({
@@ -16,30 +13,35 @@ $(function() {
         dataType: 'json',
         async: false,
         contentType: 'application/json; charset=utf-8',
-        //json object to sent to the authentication url
+        //json object to sent to the authentication url /img/default_avatar.jpg
         success: function(res) {
             $.unblockUI();
+            
+            
             if (res.flag == 1) {
                 contact_info = new Contact_Info(res.resdata);
                 $('#contact_info-form #btnSubmit').prop('disabled', false);
                 $("#contact_info-form input[name='firstname']").val(contact_info.attribute.FirstName);
                 $("#contact_info-form input[name='lastname']").val(contact_info.attribute.LastName);
-                //must to public file;
                 $("#contact_info-form #preview").attr('src', contact_info.attribute.Avatar);
                 $("#contact_info-form input[name='email']").val(contact_info.attribute.Email);
                 $("#contact_info-form input[name='phone']").val(contact_info.attribute.Phone);
                 $("#contact_info-form input[name='website']").val(contact_info.attribute.Website);
                 $("#contact_info-form input[name='address']").val(contact_info.attribute.Address);
-
-                /*var validator = $( "#validation_form_contact_info" ).validate();
-                validator.resetForm();*/
             }
-            /*else{
-                            //|| res.flag == -1
-                            if(res.flag == 0 ){
-                                $('#btnSubmit').prop('disabled',true);
-                            }
-                        }*/
+            if(res.flag == 0){
+                contact_info = new Contact_Info(
+                    {FirstName: "",
+                    LastName: "",
+                    Avatar: "/img/default_avatar.jpg",
+                    Email: "",
+                    Phone: "",
+                    Website:"",
+                    Address:"",
+                    CV_Id:0
+                }
+                );
+            }
         },
         error: function(x, e) {
 

@@ -31,15 +31,7 @@
                         <label  class="text-danger sizeimg" style="display:none;">The limited file size is 5MB.</label>
                         <label  class="text-danger validimg" style="display:none;">Please enter an valid image.</label>
                         <span class="help-block filesize" ></span>
-                        <!-- The Modal -->
-                        <div id="myModal" class="" data-keyboard="false" data-backdrop="static">
-                            
-                            <img class="modal-content" id="img01">
-                            <span class="close btn btn-danger btn-circle" id="cancelBtn">
-                                <i class="fa fa-times"></i>
-                            </span>
-                            <div id="caption"></div>
-                        </div>
+                        
                         <input type="file"  accept="image/*" onchange="loadFile(event)" style="display:none;" name="avatar" id="avatar">
                     </div>
                     <div id="option" >
@@ -64,7 +56,7 @@
         <div class="form-group row">
             <label class="col-sm-3 col-lg-2 control-label">Phone<span class="text-danger">*</span></label>
             <div class="col-sm-9 col-lg-10 controls">
-                <input type="text" placeholder="+84.11112222" class="form-control" name="phone">
+                <input type="text" placeholder="+84.11111111100000" class="form-control" name="phone">
                 
             </div>
         </div>
@@ -95,9 +87,20 @@
             </div>
         </div>
         
-    </form>   
+    </form>  
+    <!-- The Modal data-keyboard="false" data-backdrop="static" -->
+                        <div id="myModal" class="modal" >
+                            
+                            <img class="modal-content" id="img01">
+                            <span class="close btn btn-danger btn-circle" id="cancelBtn">
+                                <i class="fa fa-times"></i>
+                            </span>
+                            <div id="caption"></div>
+                        </div>
+     
 </div>
 <script type="text/javascript" src="js/cv.js"></script>
 <script type="text/javascript" src="js/contact_info.js"></script>
+
 
 

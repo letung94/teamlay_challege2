@@ -3,12 +3,14 @@ var del_avatar = $("#del_avatar");
 var loadFile = function(event) {
     var reader = new FileReader();
     var avatar = event.target.files[0];
-    showInValidImage(avatar);
+var checked = showInValidImage(avatar);
+if(checked){
     reader.readAsDataURL(avatar);
     reader.addEventListener("load",function(){
         preview.attr("src",reader.result);
         del_avatar.css("opacity","1");
     },false);
+}
 };
 
 function validateImage(avatar){
@@ -47,6 +49,7 @@ function showInValidImage(image,option){
         settings.sizebool = false;
     }
     switchImage(settings.typebool,settings.sizebool);
+    return settings.typebool & settings.sizebool;
 }
 function switchImage(type,size){
     if(type && size){
@@ -249,13 +252,23 @@ var span = $(".close");
 // When the user clicks on <span> (x), close the modal
 span.click(function(){
     modal.css("display","none");
+    /*modal.css({
+        "-webkit-animation-name": "zoom-in",
+    "-webkit-animation-duration": "0.6s",
+    "animation-name": "zoom-in",
+    "animation-duration": "0.6s",
+    "display":"none"
+    });*/
 });
 
 
 $(document).ready(function(){
-   $('div.container').click(function(e){
-       if(e.target.id != "preview"){
+   $(window).click(function(e){
+       if(e.target.id != "preview" && e.target.id != "img01"){
            modal.css("display","none"); 
        }
    });
 });
+
+
+$("#myModal").css("left","" + ($(window).width()/2 - 250)+ "px");
