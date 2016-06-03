@@ -226,7 +226,7 @@ $(document).ready(function() {
         var splitDate = value.split(" - ");
         var toDate = new Date(splitDate[1]);
         var fromDate = new Date(splitDate[0]);  
-        return fromDate == toDate;
+        return fromDate != toDate;
     }, "The FromDate & ToDate should be different.");
     $("#experience-form").validate({
             errorClass: 'text-danger',
