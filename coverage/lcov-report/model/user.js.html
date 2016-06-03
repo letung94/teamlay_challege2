@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">14.29% </span>
+        <span class="strong">13.27% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>16/112</span>
+        <span class='fraction'>15/113</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>2/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">14.29% </span>
+        <span class="strong">13.27% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>16/112</span>
+        <span class='fraction'>15/113</span>
       </div>
     </div>
   </div>
@@ -267,7 +267,8 @@
 222
 223
 224
-225</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+225
+226</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,17 +386,19 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -404,7 +407,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -609,7 +611,8 @@
     var User = require('../config/config').resolve("db").User;
     this.addUser = function (user, callback) {
         var newUser = new User(user);
-        newUser.save(<span class="fstat-no" title="function not covered" >function (err, data) {</span>
+<span class="cstat-no" title="statement not covered" >        newUser.save(<span class="fstat-no" title="function not covered" >function (err, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >            newUser.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err);</span>
             } else {
@@ -623,18 +626,18 @@
 <span class="cstat-no" title="statement not covered" >        user.save();</span>
 <span class="cstat-no" title="statement not covered" >        user.set('id', newUser.Id);</span>
 <span class="cstat-no" title="statement not covered" >        user.save(<span class="fstat-no" title="function not covered" >function (err, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >            user.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err);</span>
             }
-<span class="cstat-no" title="statement not covered" >            callback(1, data);</span>
+<span class="cstat-no" title="statement not covered" >            callback(1, err);</span>
         });
-<span class="cstat-no" title="statement not covered" >        callback();</span>
     }
     this.getAllUser = <span class="fstat-no" title="function not covered" >function (callback) {</span>
 <span class="cstat-no" title="statement not covered" >        user = new User();</span>
 <span class="cstat-no" title="statement not covered" >        user.find('all', <span class="fstat-no" title="function not covered" >function (err, rows, fields) {</span></span>
+<span class="cstat-no" title="statement not covered" >            user.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err);</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                if (rows == null) {</span>
@@ -650,8 +653,8 @@
 <span class="cstat-no" title="statement not covered" >        user.find('first', {</span>
             where: "Username = '" + username + "'"
         }, <span class="fstat-no" title="function not covered" >function (err, row) {</span>
+<span class="cstat-no" title="statement not covered" >            user.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err);</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                if (row == null) {</span>
@@ -667,8 +670,8 @@
 <span class="cstat-no" title="statement not covered" >        user.find('first', {</span>
             where: "Email = '" + email + "'"
         }, <span class="fstat-no" title="function not covered" >function (err, row) {</span>
+<span class="cstat-no" title="statement not covered" >            user.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err);</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                if (row == null) {</span>
@@ -684,8 +687,8 @@
 <span class="cstat-no" title="statement not covered" >        user.find('first', {</span>
             where: "VerifyToken = '" + token + "'"
         }, <span class="fstat-no" title="function not covered" >function (err, row) {</span>
+<span class="cstat-no" title="statement not covered" >            user.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err)</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                if (row == null) {</span>
@@ -701,8 +704,8 @@
 <span class="cstat-no" title="statement not covered" >        user.find('first', {</span>
             where: "ResetPasswordToken = '" + token + "'"
         }, <span class="fstat-no" title="function not covered" >function (err, row) {</span>
+<span class="cstat-no" title="statement not covered" >            user.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
-<span class="cstat-no" title="statement not covered" >                console.log(err);</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err)</span>
             } else {
 <span class="cstat-no" title="statement not covered" >                if (row == null) {</span>
@@ -721,7 +724,7 @@ module.exports = userModel;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 16:44:04 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

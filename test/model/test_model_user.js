@@ -2,7 +2,7 @@ var chai = require('chai');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 
-var di = require('../../config/config');
+var di = require('../../config/test_config');
 var user_model = di.resolve('user');
 
 
@@ -28,6 +28,7 @@ var ResetPasswordExpire = "";
 describe('TEST-MODEL-USER -- addUser Function!', function() {
     var user_01 = new user_model(Firstname, Lastname, Username, Email, PasswordHash, CreatedDate, VerifyToken, IsConfirmed, IsBlocked, ResetPasswordToken, ResetPasswordExpire);
 
+    console.log('\n' + 'THIS IS SOMETHING');
     user_01.addUser(user_01.attribute, function(flag, err) {
         if (flag == -1) {
             console.log(err);
@@ -35,6 +36,7 @@ describe('TEST-MODEL-USER -- addUser Function!', function() {
             console.log('successful');
         }
     });
+    
     beforeEach(function() {
         this.console = {
             log: sinon.spy()

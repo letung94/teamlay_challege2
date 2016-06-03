@@ -106,6 +106,25 @@
                         <dd class="clear"></dd>
                     </dl>
                 <%}%>
+
+                <%if(locals.projects && locals.projects.length > 0){ %>
+                    <dt>Projects</dt>
+                    <dd>
+                        <% projects.forEach(function(p) { %>
+                            <h2><%= p.Title %><span><%= p.FromDate%> - <%=p.ToDate %> </span></h2>
+                            <h4>
+                                <%if(p.Url){%>
+                                    <a href="<%= p.Url %>"><%= p.Url %></a>
+                                <%}%>
+                            </h4>
+                            <p>
+                                <%- p.Details %>
+                            </p>
+                            <% }); %>
+                        </dd>
+                        <dd class="clear"></dd>
+                    </dl>
+                <%}%>
                     </div>
 
                 </div>

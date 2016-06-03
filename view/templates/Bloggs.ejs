@@ -159,6 +159,33 @@
 													<div class="clear"></div>
 												</section>
 												<%}%>
+
+												<%if(locals.projects && locals.projects.length > 0){%>
+													<section>
+														<article>
+															<div class="sectionTitle">
+																<h1>Projects</h1>
+															</div>
+
+															<div class="sectionContent">
+																<% projects.forEach(function(p) { %>
+																	<article>
+																		<h2><%= p.Title %></h2>
+																		<p class="subDetails"><%= p.FromDate%> - <%=p.ToDate %></p>
+																		<p class="subDetails">
+																			<%if(p.Url){%>
+											                                    <a href="<%= p.Url %>"><%= p.Url %></a>
+											                                <%}%>
+																		</p>
+																		<p> <%- p.Details %></p>
+																	</article>
+																	<% }); %>
+																</div>
+																<div class="clear"></div>
+															</article>
+															<div class="clear"></div>
+														</section>
+														<%}%>
 											</div>
 										</div>
 
