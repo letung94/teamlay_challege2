@@ -51,8 +51,6 @@ var summary = {
 }
        
 $('#btnSaveSummary').click(function() {
-        var validator = $('#validation_form_summary').valid();
-        if(validator){
         summary["Headline"]=$("#summary-form input[name='headline']").val();
         summary["ProfessionalSummary"]=$("#summary-form textarea[name='prosummary']").val();
         summary["CV_Id"]=$("#summary-form input[name='idcv']").val();
@@ -76,6 +74,6 @@ $('#btnSaveSummary').click(function() {
                 
             }
         });
-        }
+        
     return false;
 });
