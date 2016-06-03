@@ -93,7 +93,7 @@ CREATE TABLE `curriculum_vitae` (
   PRIMARY KEY (`Id`),
   KEY `UserId_idx` (`UserId`),
   CONSTRAINT `FK_CV_UserId` FOREIGN KEY (`UserId`) REFERENCES `user` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
