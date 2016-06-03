@@ -1,18 +1,33 @@
 <div id="skillguide">
-    <h4><i class="fa fa-star yellow"></i>Expertise</h4>
-    <ol>
-        <li class="text-info">Beginner - Understanding of basic techniques and concepts</li>
-        <li class="text-info">Basic - Need help when performing this skill</li>
-        <li class="text-info">Intermediate - Need help from others sometimes, but usually perform this skill independently</li>
-        <li class="text-info">Advanced - Perform the actions associated with this skill without assistance</li>
-        <li class="text-info">Expert - Provide guidance, troubleshoot and answer question related to this area of expertise</li>
-    </ol>
-    <h4><i class="fa fa-bell orange"></i>Experience</h4>
-    <ol>
-        <li class="text-info">0 month</li>
-        <li class="text-info">1-6 month</li>
-        <li class="text-info">6-12 month</li>
-        <li class="text-info">1-2 years</li>
-        <li class="text-info">2-5 years</li>
-    </ol>
+    <button class="btn btn-circle btn-primary option"><i class="fa fa-angle-left"></i></button>
+    <div id="content-guide">
+        <h4><i class="fa fa-star yellow"></i>Expertise</h4>
+        <ol>
+            <li class="text-info">Beginner - Understanding of basic techniques and concepts</li>
+            <li class="text-info">Basic - Need help when performing this skill</li>
+            <li class="text-info">Intermediate - Need help from others sometimes, but usually perform this skill independently</li>
+            <li class="text-info">Advanced - Perform the actions associated with this skill without assistance</li>
+            <li class="text-info">Expert - Provide guidance, troubleshoot and answer question related to this area of expertise</li>
+        </ol>
+        <h4><i class="fa fa-bell orange"></i>Experience</h4>
+        <ol>
+            <li class="text-info">0 month</li>
+            <li class="text-info">1-6 month</li>
+            <li class="text-info">6-12 month</li>
+            <li class="text-info">1-2 years</li>
+            <li class="text-info">2-5 years</li>
+        </ol>
+    </div>
 </div>
+<script>
+    $("#skillguide .option").click(function(){
+        if($("#content-guide").css('display') == "none"){
+            $("#content-guide").css('display','block');
+        }else{
+            if($("#content-guide").css('display') == "block"){
+                $("#content-guide").css('display','none');
+            }
+        }
+        
+    })
+</script>

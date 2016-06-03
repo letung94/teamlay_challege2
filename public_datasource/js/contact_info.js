@@ -1,25 +1,14 @@
-var preview = $('#contact_info-form preview');
-var del_avatar = $("#contact_info-form #del_avatar");
+var preview = $('#preview');
+var del_avatar = $("#del_avatar");
 var loadFile = function(event) {
-    var limitsize = 5242880;
     var reader = new FileReader();
     var avatar = event.target.files[0];
-    var validimage = validateImage(avatar);
-    if(!validimage){
-        $("#contact_info-form .validimg").css('display','inline');
-    }else{
-        $("#contact_info-form .validimg").css('display','none');
-    }
-    if(limitsize < avatar.size){
-        $("#contact_info-form .sizeimg").css('display','inline');
-    }else{
-        $("#contact_info-form .sizeimg").css('display','none');
-        reader.readAsDataURL(avatar);
-        reader.addEventListener("load",function(){
-            preview.src = reader.result;
-            del_avatar.css("opacity","1");
-        },false);
-    }
+    showInValidImage(avatar);
+    reader.readAsDataURL(avatar);
+    reader.addEventListener("load",function(){
+        preview.attr("src",reader.result);
+        del_avatar.css("opacity","1");
+    },false);
 };
 
 function validateImage(avatar){
@@ -38,12 +27,46 @@ function validateImage(avatar){
             return valid;
 }
 
-$('#contact_info-form #option').on('click','#contact_info-form #del_avatar',function(){
-    preview.src = contact_info.attribute.Avatar;
+function showInValidImage(image,option){
+    var settings = {
+        datatype: "image/",
+        size : 5242880,
+        typebool: true,
+        sizebool:true
+        };
+    if(option != undefined && option!=null){
+        settings.datatype = option.datatype;
+        setting.size = optioin.size;
+    }
+    var datatypeimage = image.type.substring(0, 6);
+    var sizeimage = image.size;
+    if(settings.datatype != datatypeimage){
+        settings.typebool = false;
+    }
+    if(settings.size <= sizeimage){
+        settings.sizebool = false;
+    }
+    switchImage(settings.typebool,settings.sizebool);
+}
+function switchImage(type,size){
+    if(type && size){
+        $("#contact_info-form .validimg").css('display','none');
+        $("#contact_info-form .sizeimg").css('display','none');
+    }
+    if(!type){
+        $("#contact_info-form .validimg").css('display','inline');
+    }
+    if(!size){
+        $("#contact_info-form .sizeimg").css('display','inline');
+    }
+}
+
+$('#contact_info-form #del_avatar').on('click',function(){
+    preview.attr("src",contact_info.attribute.Avatar);
     del_avatar.css("opacity","0");
     $("#contact_info-form #avatar")[0].value = '';
+    switchImage(true,true);
 });
-
 //================================= VALIDAZIONE FORM
 $(document).ready(function() {
     $.validator.addMethod('avatarimg',function(value,element){
@@ -73,6 +96,12 @@ $(document).ready(function() {
             phone:{
                 required: true,
                 phone:true
+            },
+            website:{
+                maxlength:100
+            },
+            address:{
+                maxlength:100
             }
         },
         messages: {
@@ -94,6 +123,12 @@ $(document).ready(function() {
             phone:{
                 required: "Please enter your phone.",
                 phone: "Please enter a valid phone address."
+            },
+            website:{
+                maxlength:"Your website must consist of less than 100 characters."
+            },
+            address:{
+                maxlength:"Your address must consist of less than 250 characters."
             }
         },
         errorPlacement: function(error, element) {
@@ -158,7 +193,7 @@ $('#contact_info-form #btnSaveContact_Info').click(function() {
 });
 
 
-
+/*
 // Get the modal
 var modal = document.getElementById('myModal');
 
@@ -185,6 +220,35 @@ $(document).ready(function(){
    $('div.container').click(function(e){
        if(e.target.id != "preview"){
            modal.style.display =  "none"; 
+       }
+   });
+});*/
+
+// Get the modal
+var modal = $('#myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = $('#preview');
+var modalImg = $("#img01");
+img.click(function(){
+    modal.css("display","block");
+    modalImg.attr("src",this.src);
+    modalImg.attr("alt",this.alt);
+});
+
+// Get the <span> element that closes the modal
+var span = $(".close");
+
+// When the user clicks on <span> (x), close the modal
+span.click(function(){
+    modal.css("display","none");
+});
+
+
+$(document).ready(function(){
+   $('div.container').click(function(e){
+       if(e.target.id != "preview"){
+           modal.css("display","none"); 
        }
    });
 });

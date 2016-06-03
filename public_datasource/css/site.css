@@ -156,3 +156,8 @@ img#preview:hover {opacity: 0.7;}
     border-top-left-radius: 4px;
     border-bottom-left-radius:4px;
 }
+
+#skillguide .option{
+    display: block;
+    float:right;
+}
