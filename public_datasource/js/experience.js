@@ -1,10 +1,10 @@
 var listExp = [];
 //set attribute for class Experience
-function Experience(attribute) {
+function Experience(attribute){
     this.attribute = attribute;
 }
-/*Add List Of Experience to Table*/
-function addListExp(index, row) {
+/*Add List Of Experience to Table*/ 
+function addListExp(index,row){
     // create edit & button acction
     var editAction = '<button class="btn btn-warning btn-sm btnEditExp"><span class="glyphicon glyphicon-pencil"></span></button>';
     var deleteAction = '<button class="btn btn-danger btn-sm btnDeleteExp"><span class="glyphicon glyphicon-remove"></span></button>';
@@ -36,27 +36,28 @@ $('#btnAddListExp').click(function() {
     if (isValid) {
         var addedexprerience = getValueExp();
         var urlpost = window.location.href + '/experience/save';
-        $.ajax({
-            type: "POST",
-            url: urlpost,
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(addedexprerience),
-            success: function(res) {
-                //update new value to table
-                if (res.flag == 1) {
-                    listExp.push(new Experience(res.resdata));
-                    $("#list-experience tbody > tr").remove();
-                    $.each(listExp, function(index, value) {
-                        addListExp(index + 1, value.attribute);
-                    });
-                    switchModeExp("add");
+         $.ajax({
+        type: "POST",
+        url: urlpost,
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(addedexprerience),
+        success: function (res) {
+            //update new value to table
+            if(res.flag==1){ 
+            listExp.push(new Experience(res.resdata)); 
+                $("#list-experience tbody > tr").remove();
+                $.each(listExp, function(index,value ){
+                    addListExp(index + 1,value.attribute);
+                });
+                switchModeExp("add");
+                $("#experience-form")[0].reset();
                 }
                 showAnnoucement(res.flag, 'experience', 'added');
             },
             error: function(x, e) {
-
+                
             }
         });
     }
@@ -118,6 +119,7 @@ $('#list-experience').on('click', '.btnEditExp', function(e) {
     $("#experience-form textarea[name='detail']").data('wysihtml5').editor.setValue(listExp[indexCurrentExp].attribute.Details);
     rowId = $(this).closest('td').parent()[0].sectionRowIndex;
     switchModeExp("edit");
+    $('#experience-form').validate().resetForm();
 });
 $('#btnSaveEditExp').click(function() {
     var isValid = $('#experience-form').valid();
@@ -143,7 +145,8 @@ $('#btnSaveEditExp').click(function() {
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
                     });
-                    switchModeExp("save");
+                    switchModeExp("add");
+                    $("#experience-form")[0].reset(); 
                 }
                 showAnnoucement(res.flag, 'experience', 'edited');
             },
@@ -153,11 +156,11 @@ $('#btnSaveEditExp').click(function() {
         });
     }
 });
-$('#btnCancelEditExp').click(function() {
-    switchModeExp("cancel");
-});
 
-             
+$('#btnCancelEditExp').click(function() {  
+    switchModeExp("add");
+    $("#experience-form")[0].reset();
+});         
 var clickedExperience = false;
 
 function getExperience() {
@@ -185,61 +188,33 @@ function getExperience() {
         },
         error: function(x, e) {
 
-=======
-        success: function (res) {
-                if(res.flag == 1){
-                    $("#list-experience tbody > tr").remove();
-                    clickedExperience = true;
-                    $.each(res.resdata, function( index, value ) {
-                    listExp.push(new Experience(value));          
-                    addListExp(index + 1,value);
-                    });
-     
-                }
-            },
-        error: function(x,e){
-            
->>>>>>> bd582077f5f908970abc58a6b0d52439f26c67dd
         }
     });
 }
 /*Switch Mode for case button click */
-function switchModeExp(mode) {
-    mode = mode.toLowerCase();
-    //case button edit
-    if (mode == 'edit') {
-        $('#btnSaveEditExp').show();
-        $('#btnAddListExp').hide();
-        $('#btnCancelEditExp').show();
-        $('.btnDeleteExp').prop('disabled', true);
-        $('.btnEditExp').prop('disabled', true);
-        //case button cancel
-    } else if (mode == 'cancel') {
+function switchModeExp(mode){
+        mode = mode.toLowerCase();
+
+        if(mode == 'add'){
         $('#btnSaveEditExp').hide();
-        $('#btnAddListExp').show();
         $('#btnCancelEditExp').hide();
+        $('#btnAddListExp').show();
         $('.btnDeleteExp').prop('disabled', false);
         $('.btnEditExp').prop('disabled', false);
-        $("#experience-form")[0].reset();
-        //case button save    
-    } else if (mode == 'save') {
-        $('#btnSaveEditExp').hide();
-        $('#btnCancelEditExp').hide();
-        $('#btnAddListExp').show();
-        $("#experience-form")[0].reset();
-    } else if (mode == 'add') {
-        $("#experience-form")[0].reset();
+        $("#stars-default").rating('set',{value: 1,besidetext:"expertisetext"});
+    }else if (mode == 'edit'){
+        $('#btnSaveEditExp').show();
+        $('#btnCancelEditExp').show();
+        $('#btnAddListExp').hide();
+        $('.btnDeleteExp').prop('disabled', true);
+        $('.btnEditExp').prop('disabled', true);
     }
 }
 /*Jquery Validation for #experience-form*/
 
 $(document).ready(function() {
-<<<<<<< HEAD
 
-    useWysihtml5('textarea[name=detail]');
-=======
     useWysihtml5("#experience-form textarea[name='detail']"); 
->>>>>>> bd582077f5f908970abc58a6b0d52439f26c67dd
     $.validator.addMethod("isBeforeTodayExp", function(value, element) {
         var today = new Date();
         var getTodate = value.split(" - ");
