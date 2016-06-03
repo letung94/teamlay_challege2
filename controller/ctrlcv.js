@@ -13,13 +13,15 @@ router.get('/', function(req, res) {
     cvServiceIns.getEnableCV({
         Id: req.user.Id
     }, function(flag, rows) {
-        for (var i = 0; i < rows.length; i++) {
-            rows[i].CreatedDate = helper.parseDate(rows[i].CreatedDate);
-        }
         var resObject = {
             cvs: rows
         };
         if (flag != -1) {
+            if (flag == 1) {
+                for (var i = 0; i < rows.length; i++) {
+                    rows[i].CreatedDate = helper.parseDate(rows[i].CreatedDate);
+                }
+            }
             res.render('pages/cv_list', resObject);
         } else {
             res.status(500).render('pages/generic_error');
