@@ -1,5 +1,5 @@
-var preview = $('#contact_info-form preview');
-var del_avatar = $("#contact_info-form #del_avatar");
+var preview = $('#preview');
+var del_avatar = $("#del_avatar");
 var loadFile = function(event) {
     var limitsize = 5242880;
     var reader = new FileReader();
@@ -16,7 +16,8 @@ var loadFile = function(event) {
         $("#contact_info-form .sizeimg").css('display','none');
         reader.readAsDataURL(avatar);
         reader.addEventListener("load",function(){
-            preview.src = reader.result;
+            preview.attr("src",reader.result);
+            //preview.src = reader.result;
             del_avatar.css("opacity","1");
         },false);
     }
@@ -37,13 +38,17 @@ function validateImage(avatar){
             }
             return valid;
 }
-
+/*
 $('#contact_info-form #option').on('click','#contact_info-form #del_avatar',function(){
     preview.src = contact_info.attribute.Avatar;
     del_avatar.css("opacity","0");
     $("#contact_info-form #avatar")[0].value = '';
+});*/
+$('#contact_info-form #del_avatar').on('click',function(){
+    preview.attr("src",contact_info.attribute.Avatar);
+    del_avatar.css("opacity","0");
+    $("#contact_info-form #avatar")[0].value = '';
 });
-
 //================================= VALIDAZIONE FORM
 $(document).ready(function() {
     $.validator.addMethod('avatarimg',function(value,element){
@@ -73,6 +78,12 @@ $(document).ready(function() {
             phone:{
                 required: true,
                 phone:true
+            },
+            website:{
+                maxlength:100
+            },
+            address:{
+                maxlength:100
             }
         },
         messages: {
@@ -94,6 +105,12 @@ $(document).ready(function() {
             phone:{
                 required: "Please enter your phone.",
                 phone: "Please enter a valid phone address."
+            },
+            website:{
+                maxlength:"Your website must consist of less than 100 characters."
+            },
+            address:{
+                maxlength:"Your address must consist of less than 250 characters."
             }
         },
         errorPlacement: function(error, element) {
