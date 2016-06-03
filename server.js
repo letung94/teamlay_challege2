@@ -78,12 +78,22 @@ var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
+app.use(function(req,res,next){    
+    if (req.user != null){
+        res.locals.user = req.user;         
+    } else {
+        res.locals.user = {Firstname: "Lầy-er", Lastname: ""};
+    }
+   next();
+});
 
 app.use('/cv', [authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
 app.use('/template', ctrlTemplate);
 
 app.use('/', ctrlAccount);
 app.use('/', ctrladmin);
+
+
 
 app.get('/cv', function(req, res) {
     res.render('pages/cv_index');
