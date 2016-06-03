@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">3.64% </span>
+        <span class="strong">3.57% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/55</span>
+        <span class='fraction'>2/56</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/11</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">3.64% </span>
+        <span class="strong">3.57% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/55</span>
+        <span class='fraction'>2/56</span>
       </div>
     </div>
   </div>
@@ -154,7 +154,8 @@
 109
 110
 111
-112</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+112
+113</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,9 +186,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -223,20 +222,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -248,6 +233,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -295,10 +297,8 @@
             validate: <span class="fstat-no" title="function not covered" >function(date){</span>
                 /*Validate smaller than today*/
 <span class="cstat-no" title="statement not covered" >                if(!date | date == ''){</span>
-<span class="cstat-no" title="statement not covered" >                    console.log('false 1');</span>
 <span class="cstat-no" title="statement not covered" >                    return false;</span>
                 }
-<span class="cstat-no" title="statement not covered" >                console.log('return end');</span>
 <span class="cstat-no" title="statement not covered" >                var today = new Date();</span>
 <span class="cstat-no" title="statement not covered" >                var inputDate = new Date(date);</span>
 <span class="cstat-no" title="statement not covered" >                return inputDate &lt;= today;</span>
@@ -332,6 +332,7 @@
 <span class="cstat-no" title="statement not covered" >    self.getAllCertificationByCVId = <span class="fstat-no" title="function not covered" >function (cv_id, callback) {</span> // param: CV_Id,</span>
 <span class="cstat-no" title="statement not covered" >        var certification = new self.Certification();</span>
 <span class="cstat-no" title="statement not covered" >        certification.find('all',{where:'CV_Id=' + cv_id},<span class="fstat-no" title="function not covered" >function(err,rows,fields){</span></span>
+<span class="cstat-no" title="statement not covered" >            certification.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if(err){</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err)</span>
             }else{
@@ -347,6 +348,7 @@
 <span class="cstat-no" title="statement not covered" >    self.saveCertification = <span class="fstat-no" title="function not covered" >function(param, callback){</span></span>
 <span class="cstat-no" title="statement not covered" >        certification = new self.Certification(param);</span>
 <span class="cstat-no" title="statement not covered" >        certification.save(<span class="fstat-no" title="function not covered" >function(errors, results){</span></span>
+<span class="cstat-no" title="statement not covered" >            certification.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if(errors){</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, errors)</span>
             }else{
@@ -362,6 +364,7 @@
 <span class="cstat-no" title="statement not covered" >    self.deleteCertification = <span class="fstat-no" title="function not covered" >function(id, callback){</span></span>
 <span class="cstat-no" title="statement not covered" >        certification = new self.Certification({id: id});</span>
 <span class="cstat-no" title="statement not covered" >        certification.remove(<span class="fstat-no" title="function not covered" >function(err, rows){</span></span>
+<span class="cstat-no" title="statement not covered" >            certification.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err)</span>
             } else {
@@ -382,7 +385,7 @@ module.exports = certificationModel;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 16:44:04 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
