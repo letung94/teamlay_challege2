@@ -17,6 +17,7 @@ $(function() {
         contentType: 'application/json; charset=utf-8',
         //json object to sent to the authentication url
         success: function(res) {
+            
             if (res.flag == 1) {
                 contact_info = new Contact_Info(res.resdata);
                 $('#contact_info-form #btnSubmit').prop('disabled', false);
@@ -66,7 +67,12 @@ function showAnnoucement(flag, section, action) {
                 time: '1500'
             });
         } else {
-            window.location = ("../error/500");
+            $.gritter.add({
+                title: 'Server Error',
+                text: 'The server is not working now. Sorry Opps!',
+                sticky: false,
+                time: '1500'
+            });
         }
     }
 }
