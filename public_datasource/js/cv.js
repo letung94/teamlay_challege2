@@ -66,7 +66,7 @@ function showAnnoucement(flag, section, action) {
                 time: '1500'
             });
         } else {
-            window.location = ("../error/500");
+            window.location = ("../error/500");   
         }
     }
 }
