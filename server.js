@@ -87,8 +87,8 @@ app.use(function(req,res,next){
    next();
 });
 
-app.use('/cv',[authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
-app.use('/template',ctrlTemplate);
+app.use('/cv', [authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
+app.use('/template', ctrlTemplate);
 
 app.use('/', ctrlAccount);
 app.use('/', ctrladmin);
@@ -106,6 +106,10 @@ app.use('/cv/:idcv', ctrlcontact_info);
 /*summary */
 var ctrlsummary = require('./controller/ctrlsummary');
 app.use('/cv/:idcv', ctrlsummary);
+
+/*education*/
+var ctrleducation = require('./controller/ctrleducation');
+app.use('/cv/:idcv', ctrleducation);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
@@ -126,7 +130,7 @@ var ctrlskill = require('./controller/ctrlskill');
 app.use('/cv/:idcv', ctrlskill);
 
 /*admin*/
-app.get('/error/500',function(req, res){
+app.get('/error/500', function(req, res) {
     res.render('pages/server_error_500');
 });
 

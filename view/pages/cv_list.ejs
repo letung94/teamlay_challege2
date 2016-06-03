@@ -20,10 +20,10 @@
                                             <th class="col-md-1">
                                                 #
                                             </th>
-                                            <th class="col-md-4">
+                                            <th class="col-md-5">
                                                 CV's Name
                                             </th>
-                                            <th class="col-md-4">
+                                            <th class="col-md-3">
                                                 Created Date
                                             </th>
                                             <th class="col-md-3">
@@ -42,14 +42,14 @@
                                         <% var i=1; %>
                                             <% cvs.forEach(function(cv) { %>
                                                 <tr>
-                                                <td><h5><%=i++%></h5></td>
-                                                <td><h5 class="col-md-12"><a style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;height: 20px;"  class="col-md-12 cvname-link" cv-id="<%=cv.Id%>" href="../cv/<%=cv.Id%>" target=""><%=cv.Name%></a></h5></td>
-                                                <td><h6><%=cv.CreatedDate%></h6></td>
+                                                <td class="col-md-1"><h5><%=i++%></h5></td>
+                                                <td class="col-md-5"><h5 class="col-md-12"><a style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;height: 20px;"  class="col-md-12 cvname-link" cv-id="<%=cv.Id%>" href="../cv/<%=cv.Id%>" target=""><%=cv.Name%></a></h5></td>
+                                                <td class="col-md-3"><h6><%=cv.CreatedDate%></h6></td>
                                                 <!-- <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>" data-toggle="modal" data-target="#rename-cv-modal" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-pencil"></span></button></td>
                                                 <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>" data-toggle="modal" data-target="#rename-cv-modal" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-pencil"></span></button></td>
                                                 <td><button class="btn btn-danger btn-sm btn-delete" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-remove"></span></button></td>
                                                 <td><button class="btn btn-info btn-sm btn-print" cv-id="<%=cv.Id%>"><span class="glyphicon glyphicon-print"></span></button></td> -->
-                                                <td><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>" data-toggle="modal" data-target="#rename-cv-modal" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-pencil"></span></button>
+                                                <td class="col-md-3"><button class="btn btn-warning btn-sm btn-edit" cv-id="<%=cv.Id%>" data-toggle="modal" data-target="#rename-cv-modal" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-pencil"></span></button>
                                                 <button class="btn btn-danger btn-sm btn-delete" cv-id="<%=cv.Id%>" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-remove"></span></button>
                                                 <button class="btn btn-info btn-sm btn-print" cv-id="<%=cv.Id%>" cv-name="<%=cv.Name%>"><span class="glyphicon glyphicon-print"></span></button></td>
                                                 </tr>
@@ -75,7 +75,7 @@
                                                             <div class="form-group row">
                                                                 <label class="col-sm-3 col-lg-3 control-label">Your CV Name</label>
                                                                 <div class="col-sm-9 col-lg-9 controls">
-                                                                    <input maxlength="50" type="text"  placeholder="Enter your CV name"  class="form-control" name="cvnamecreate" id="cvnamecreate">
+                                                                    <input maxlength="49" type="text"  placeholder="Enter your CV name"  class="form-control" name="cvnamecreate" id="cvnamecreate">
                                                                     
                                                                 </div>
                                                             </div>
@@ -104,7 +104,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-sm-3 col-lg-3 control-label">Your CV Name</label>
                                                             <div class="col-sm-9 col-lg-9 controls">
-                                                                <input maxlength="50" type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname">
+                                                                <input maxlength="49" type="text"  placeholder="Enter your CV name"  class="form-control" name="cvname" id="cvname">
 
                                                             </div>
                                                         </div>

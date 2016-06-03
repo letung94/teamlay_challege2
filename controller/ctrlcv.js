@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var ejs = require('ejs');
-
+var helper = require('../helper/helper')
 var di = require('../config/config');
 
 var jsonparser = bodyparser.json();
@@ -17,6 +17,11 @@ router.get('/', function(req, res) {
             cvs: rows
         };
         if (flag != -1) {
+            if (flag == 1) {
+                for (var i = 0; i < rows.length; i++) {
+                    rows[i].CreatedDate = helper.parseDate(rows[i].CreatedDate);
+                }
+            }
             res.render('pages/cv_list', resObject);
         } else {
             res.status(500).render('pages/generic_error');
