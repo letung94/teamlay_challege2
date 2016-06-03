@@ -11,7 +11,7 @@ $(document).ready(function() {
             },
             username: {
                 required: true,
-                minlength: 1
+                minlength: 6
             },
             password: {
                 required: true,
