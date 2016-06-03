@@ -5,7 +5,7 @@ $(document).ready(function() {
             rules: {
                 name: {
                     required: true,
-                    maxlength: 49
+                    maxlength: 50
                 }     
             },
             messages: {
@@ -225,7 +225,7 @@ $('#list-skill').on('click', '.btnDeleteSkill' , function(e){
                         if(res.flag==1){
                             //remove value from array by index and update to table
                             listskill.splice(indexcurrentskill, 1);    
-                            $("#list-Skill tbody > tr").remove();
+                            $("#list-skill tbody > tr").remove();
                             $.each(listskill, function( index, value ){
                                 addlistskill(index + 1,value.attribute);
                             });

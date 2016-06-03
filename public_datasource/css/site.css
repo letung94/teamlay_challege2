@@ -15,8 +15,8 @@
 }
 img#preview, img.default_avatar{
     border: 1px solid #888;
-    width:128;
-    height:128;
+    width:128px;
+    height:128px;
     cursor: pointer;
     transition: 0.3s;
     margin-bottom: 5px;
@@ -150,7 +150,7 @@ img#preview:hover {opacity: 0.7;}
     position: fixed;
     top: 162px;
     right: 0;
-    width: 250px;
+    width: 237px;
     padding: 0 2px;
     z-index: auto;
 }
@@ -162,4 +162,15 @@ img#preview:hover {opacity: 0.7;}
 #skillguide .option{
     display: block;
     float:right;
+}
+
+.container-non-responsive {
+  /* Margin/padding copied from Bootstrap */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  /* Set width to your desired site width */
+  width: 890px;
 }

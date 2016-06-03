@@ -76,7 +76,7 @@ $(document).ready(function() {
     {
         return this.optional(element) || /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/.test(value);
     },
-        "Please enter a valid phone address."
+        "Please enter a valid phone."
     );
     
     $('#contact_info-form').validate({
@@ -87,16 +87,16 @@ $(document).ready(function() {
             firstname: {
                 required: true,
                 minlength:1,
-                maxlength:49
+                maxlength:50
             },
             lastname: {
                 required: true,
                 minlength:1,
-                maxlength:49
+                maxlength:50
             },
             email: {
                 required: true,
-                maxlength:49,
+                maxlength:50,
                 email: true
             },
             phone:{
@@ -107,7 +107,7 @@ $(document).ready(function() {
                 maxlength:100
             },
             address:{
-                maxlength:100
+                maxlength:250
             }
         },
         messages: {
