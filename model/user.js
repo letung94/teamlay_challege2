@@ -185,6 +185,7 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
                     callback(1, row);
                 }
             }
+            
         });
     }
     this.getByVerifyToken = function (token, callback) {
