@@ -69,9 +69,15 @@ $('#contact_info-form #del_avatar').on('click',function(){
 });
 //================================= VALIDAZIONE FORM
 $(document).ready(function() {
-    $.validator.addMethod('avatarimg',function(value,element){
-           return true;
-    },"loi loi");
+    
+    
+    
+    $.validator.addMethod("phone", function (value, element)
+    {
+        return this.optional(element) || /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/.test(value);
+    },
+        "Please enter a valid phone address."
+    );
     
     $('#contact_info-form').validate({
         errorClass: 'text-danger',
