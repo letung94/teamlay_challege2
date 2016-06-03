@@ -73,8 +73,7 @@ var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
 app.use('/cv',[authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
-app.use('/', ctrluser);
-app.use('/template', ctrlTemplate);
+app.use('/template',ctrlTemplate);
 app.use('/', ctrlAccount);
 app.use('/', ctrladmin);
 
