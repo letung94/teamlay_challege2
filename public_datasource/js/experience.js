@@ -1,10 +1,10 @@
 var listExp = [];
 //set attribute for class Experience
-function Experience(attribute) {
+function Experience(attribute){
     this.attribute = attribute;
 }
-/*Add List Of Experience to Table*/
-function addListExp(index, row) {
+/*Add List Of Experience to Table*/ 
+function addListExp(index,row){
     // create edit & button acction
     var editAction = '<button class="btn btn-warning btn-sm btnEditExp"><span class="glyphicon glyphicon-pencil"></span></button>';
     var deleteAction = '<button class="btn btn-danger btn-sm btnDeleteExp"><span class="glyphicon glyphicon-remove"></span></button>';
@@ -36,6 +36,25 @@ $('#btnAddListExp').click(function() {
     if (isValid) {
         var addedexprerience = getValueExp();
         var urlpost = window.location.href + '/experience/save';
+<<<<<<< HEAD
+         $.ajax({
+        type: "POST",
+        url: urlpost,
+        dataType: 'json',
+        async: false,
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(addedexprerience),
+        success: function (res) {
+            //update new value to table
+            if(res.flag==1){ 
+            listExp.push(new Experience(res.resdata)); 
+                $("#list-experience tbody > tr").remove();
+                $.each(listExp, function(index,value ){
+                    addListExp(index + 1,value.attribute);
+                });
+                switchModeExp("add");
+                $("#experience-form")[0].reset();
+=======
         $.ajax({
             type: "POST",
             url: urlpost,
@@ -57,6 +76,7 @@ $('#btnAddListExp').click(function() {
             },
             error: function(x, e) {
 
+>>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
             }
         });
     }
@@ -118,6 +138,7 @@ $('#list-experience').on('click', '.btnEditExp', function(e) {
     $("#experience-form textarea[name='detail']").data('wysihtml5').editor.setValue(listExp[indexCurrentExp].attribute.Details);
     rowId = $(this).closest('td').parent()[0].sectionRowIndex;
     switchModeExp("edit");
+    $('#experience-form').validate().resetForm();
 });
 $('#btnSaveEditExp').click(function() {
     var isValid = $('#experience-form').valid();
@@ -143,7 +164,12 @@ $('#btnSaveEditExp').click(function() {
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
                     });
+<<<<<<< HEAD
+                    switchModeExp("add");
+                    $("#experience-form")[0].reset(); 
+=======
                     switchModeExp("save");
+>>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
                 }
                 showAnnoucement(res.flag, 'experience', 'edited');
             },
@@ -153,8 +179,14 @@ $('#btnSaveEditExp').click(function() {
         });
     }
 });
+<<<<<<< HEAD
+$('#btnCancelEditExp').click(function() {  
+    switchModeExp("add");
+    $("#experience-form")[0].reset();
+=======
 $('#btnCancelEditExp').click(function() {
     switchModeExp("cancel");
+>>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
 });
 
              
@@ -204,6 +236,24 @@ function getExperience() {
     });
 }
 /*Switch Mode for case button click */
+<<<<<<< HEAD
+function switchModeExp(mode){
+        mode = mode.toLowerCase();
+
+        if(mode == 'add'){
+        $('#btnSaveEditExp').hide();
+        $('#btnCancelEditExp').hide();
+        $('#btnAddListExp').show();
+        $('.btnDeleteExp').prop('disabled', false);
+        $('.btnEditExp').prop('disabled', false);
+        $("#stars-default").rating('set',{value: 1,besidetext:"expertisetext"});
+    }else if (mode == 'edit'){
+        $('#btnSaveEditExp').show();
+        $('#btnCancelEditExp').show();
+        $('#btnAddListExp').hide();
+        $('.btnDeleteExp').prop('disabled', true);
+        $('.btnEditExp').prop('disabled', true);
+=======
 function switchModeExp(mode) {
     mode = mode.toLowerCase();
     //case button edit
@@ -229,6 +279,7 @@ function switchModeExp(mode) {
         $("#experience-form")[0].reset();
     } else if (mode == 'add') {
         $("#experience-form")[0].reset();
+>>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
     }
 }
 /*Jquery Validation for #experience-form*/

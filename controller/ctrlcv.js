@@ -1,7 +1,7 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var ejs = require('ejs');
-
+var helper = require('../helper/helper')
 var di = require('../config/config');
 
 var jsonparser = bodyparser.json();
@@ -13,6 +13,9 @@ router.get('/', function(req, res) {
     cvServiceIns.getEnableCV({
         Id: req.user.Id
     }, function(flag, rows) {
+        for (var i = 0; i < rows.length; i++) {
+            rows[i].CreatedDate = helper.parseDate(rows[i].CreatedDate);
+        }
         var resObject = {
             cvs: rows
         };
