@@ -35,7 +35,7 @@ $(document).ready(function() {
             lastname: "Please enter your lastname",
             username: {
                 required: "Please enter a username",
-                minlength: "Your username must consist of at least 1 character"
+                minlength: "Your username must consist of at least 6 character"
             },
             password: {
                 required: "Please provide a password",
