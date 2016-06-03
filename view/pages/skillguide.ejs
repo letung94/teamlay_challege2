@@ -28,6 +28,14 @@
                 $("#content-guide").css('display','none');
             }
         }
+    });
+    
+    $( window ).resize(function() {
+        if($( window ).width() == 1200 ){
+            $("#content-guide").css('display','none');
+        }if($( window ).width() > 1200){
+            $("#content-guide").css('display','block');
+        }
         
-    })
+    });
 </script>

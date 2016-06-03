@@ -91,6 +91,9 @@ $(document).ready(function() {
                 } else {
                     window.location = "../error/500";
                 }
+            }).fail(function(xhr, textStatus, err) {
+                window.location = "../error/500";
+            }).always(function(data, textStatus, xhr) {
                 ajax_create_cv_flag = false;
             });
         }
@@ -124,11 +127,14 @@ $(document).ready(function() {
                     alert('The system is under maintenance, please try again later.');
                     // Some error if delete failed.
                 }
-                ajax_delete_cv_flag = false;
                 var i = 1;
                 $('table[table-name=cv-list] tbody tr td:first-child h5').each(function() {
                     $(this).html(i++);
                 });
+            }).fail(function(xhr, textStatus, err) {
+                window.location = "../error/500";
+            }).always(function(data, textStatus, xhr) {
+                ajax_delete_cv_flag = false;
             });
         } else {
             console.log('Deny');
@@ -144,7 +150,6 @@ $(document).ready(function() {
 
     $('#btn-rename-cv-in-list').click(function() {
         var valid = $('#validation_form_cvname').valid();
-        console.log(valid);
         if (valid) {
             var cvid = $('#validation_form_cvname input[name=cvname]').attr('cv-id');
             var cvname = $('#validation_form_cvname input[name=cvname]').val();;
@@ -156,20 +161,24 @@ $(document).ready(function() {
                 return false;
             }
             ajax_rename_cv_flag = true;
-            $.post("../cv/" + cvid + "/update", param, function(resp) {
-                ajax_rename_cv_flag = false;
-                $('#rename-cv-modal').modal('toggle');
-                if (resp.IsSuccess == 1) {
-                    $('.btn-edit[cv-id=' + cvid + ']').attr('cv-name', resp.Name);
-                    $('#validation_form_cvname input[name=cvname]').attr('value', resp.Name);
-                    $('#validation_form_cvname input[name=cvname]').val(resp.Name);
-                    $('.cvname-link[cv-id=' + cvid + ']').html(resp.Name);
-                } else {
-                    window.location = ("../error/500");
-                    // alert('The system is under maintenance, please try again later.');
-                    // Some error if delete failed.
-                }
-            });
+            $.post("../cv/" + cvid + "/update", param)
+                .done(function(resp, textStatus, jqXHR) {
+                    $('#rename-cv-modal').modal('toggle');
+                    if (resp.IsSuccess == 1) {
+                        $('.btn-edit[cv-id=' + cvid + ']').attr('cv-name', resp.Name);
+                        $('#validation_form_cvname input[name=cvname]').attr('value', resp.Name);
+                        $('#validation_form_cvname input[name=cvname]').val(resp.Name);
+                        $('.cvname-link[cv-id=' + cvid + ']').html(resp.Name);
+                    } else {
+                        window.location = ("../error/500");
+                        // alert('The system is under maintenance, please try again later.');
+                        // Some error if delete failed.
+                    }
+                }).fail(function(xhr, textStatus, err) {
+                    window.location = "../error/500";
+                }).always(function(data, textStatus, xhr) {
+                    ajax_rename_cv_flag = false;
+                });
         }
     });
 });

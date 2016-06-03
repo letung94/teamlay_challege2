@@ -1,19 +1,21 @@
 <div class="tab-pane fade" id="skill">
-    <form class="panel-group form-horizontal" id="skill-form">
+    <form class="panel-group form-horizontal" id="skill-form" autocomplete="off">
         <div class="panel panel-info">
             <div class="panel-body">
-                <div class="skillname col-sm-3 col-lg-3">
+                <div class="skillname col-sm-4 col-lg-4">
                     <img  src="/img/default_avatar.jpg" class="default_avatar" />
                     <div class="form-group row">
-                        <input type="text" name="name" class="form-control valid" placeholder="Enter your skill"/>
+                        <label class="col-sm-3 col-lg-3 control-label">Skill<span class="text-danger">&nbsp;*</span></label>
+                        <div class="col-sm-9 col-lg-9 controls">
+                                <input type="text" name="name" class="form-control valid" placeholder="Enter your skill"/>
+                        </div>
                     </div>
                 </div>
-                <div class="skillinfo col-sm-9 col-lg-9">
+                <div class="skillinfo col-sm-8 col-lg-8">
                     <div class="content-skill col-sm-12 col-lg-12 row">
                         <div class="form-group row">
                             <label class="col-sm-3 col-lg-3 control-label">Expertise</label>
                             <div class="col-sm-9 col-lg-9 controls">
-                                
                                 <div id="stars-default" data-rating="1">
                                     <input type="hidden" name="expertise" />
                                 </div>
@@ -39,16 +41,26 @@
                             </select>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-lg-3 control-label">&nbsp;</label>
+                            <div class="col-sm-9 col-lg-9 controls">
+                                <span class="label label-important">NOTE!</span><span class="text-danger">&nbsp;*</span> <span>The fields are required</span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-lg-3 control-label">&nbsp;</label>
+                            <div class="col-sm-9 col-lg-9 controls">        
+                                <button type="button" id="btnAddListSkill"  class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add To List</button>
+                                <button type="button" id="btnSaveEditSkill" class="btn btn-success" style="display:none"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save</button>
+                                <button type="button" id="btnCancelEditSkill" class="btn" style="display:none"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;Cancel</button>
+                            </div>               
+                        </div>
+                        
+                        
                     </div>
                 </div>
-                <div >
-                    <label class="col-sm-3 col-lg-3 control-label">&nbsp;</label>
-                    <div class="col-sm-9 col-lg-9 controls">        
-                        <button type="button" id="btnAddListSkill"  class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add To List</button>
-                        <button type="button" id="btnSaveEditSkill" class="btn btn-success" style="display:none"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save</button>
-                        <button type="button" id="btnCancelEditSkill" class="btn" style="display:none"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;Cancel</button>
-                    </div>               
-                </div>
+                
             </div>
         </div>   
     </form>

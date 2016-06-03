@@ -1,3 +1,15 @@
+-- -----------------------------------------------------
+-- Schema cv_maker
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `test_cv_maker` ;
+
+-- -----------------------------------------------------
+-- Schema cv_maker
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `test_cv_maker` DEFAULT CHARACTER SET utf8 ;
+USE `test_cv_maker` ;
+
+
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: cv_maker
