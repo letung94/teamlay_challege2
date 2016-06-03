@@ -106,6 +106,10 @@ var createConnection  = function (options) {
 				case 'first':
 					var q = "SELECT "+fields+" FROM "+tableName+qcond;
 					connection.query(q, function(err, result, fields) {
+						if(!result){
+							console.log('--------------------------------');
+							console.log(err);
+						}
 						if(callback){
 							callback(err, result[0], fields);
 						}

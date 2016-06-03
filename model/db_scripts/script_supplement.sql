@@ -282,21 +282,22 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
-  `FirstName` varchar(50) DEFAULT NULL,
-  `LastName` varchar(50) DEFAULT NULL,
+  `Firstname` varchar(50) DEFAULT NULL,
+  `Lastname` varchar(50) DEFAULT NULL,
   `Username` varchar(50) DEFAULT NULL,
   `Email` varchar(200) DEFAULT NULL,
   `PasswordHash` varchar(5000) DEFAULT NULL,
   `CreatedDate` date DEFAULT NULL,
   `IsConfirmed` tinyint(1) unsigned DEFAULT NULL,
   `IsBlocked` tinyint(1) unsigned DEFAULT NULL,
-  `ResetPasswordToken` varchar(5000) DEFAULT NULL,
+  `Token` varchar(5000) DEFAULT NULL,
   `ResetPasswordExpire` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `user`

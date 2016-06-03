@@ -1,13 +1,22 @@
 $(document).ready(function(){
     var self = this;
 
+    self.firstTime = true;
     self.listCertification = [];
+
+    $('#activeCertificationSection').click(function(){
+        if(self.firstTime){
+            self.getAllCertification();
+        }
+    });
 
     /*Get All Certification belong to this CV.*/
     self.getAllCertification = function(){
+        /*Only allow to call once*/
         $.blockUI();
         var url = window.location.href + "/certification/getall";
         $.get(url, function(resp){
+            self.firstTime = false;
             $.unblockUI();
             if(resp.code == 1){
                 $.each(resp.rows, function(index, value){
@@ -30,9 +39,10 @@ $(document).ready(function(){
                     self.listCertification.push(entity);
                     self.renderTableBody();
                 });
-            }else if (resp.code == 0){
-                showAnnoucement(0,'','');
             }
+            // else if (resp.code == 0){
+            //     showAnnoucement(0,'','');
+            // }
         });
     }
 
@@ -278,7 +288,4 @@ $(document).ready(function(){
             }
         }
     });
-
-    /*initialize*/
-    self.getAllCertification();
 });
