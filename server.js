@@ -54,9 +54,7 @@ app.use(session({
     /*
         //session timeout
     */
-    cookie: {
-        maxAge: 6000000
-    },
+    cookie: { maxAge: 60000 },    
     resave: true,
     saveUninitialized: true
 }));
@@ -74,9 +72,10 @@ var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
-app.use('/cv', [authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
 
-app.use('/template', ctrlTemplate);
+app.use('/cv',[authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
+app.use('/template',ctrlTemplate);
+
 app.use('/', ctrlAccount);
 app.use('/', ctrladmin);
 
@@ -104,21 +103,14 @@ app.use('/cv/:idcv', ctrlcertification);
 var ctrlproject = require('./controller/ctrlproject');
 app.use('/cv/:idcv', ctrlproject);
 
-/*education*/
-var ctrleducation = require('./controller/ctrleducation');
-app.use('/cv/:idcv', ctrleducation);
-
 /*
 // skill
  */
 var ctrlskill = require('./controller/ctrlskill');
 app.use('/cv/:idcv', ctrlskill);
 
-// var ctrleducation = require('./controller/ctrleducation');
-// app.use('/cv/:idcv', ctrleducation);
-
 /*admin*/
-app.get('/error/500', function(req, res) {
+app.get('/error/500',function(req, res){
     res.render('pages/server_error_500');
 });
 
