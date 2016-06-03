@@ -4,8 +4,6 @@ var ejs = require('ejs');
 
 var di = require('../config/config');
 
-var dbcv = di.resolve('cv');
-var cvmodel = require('../model/cv');
 var jsonparser = bodyparser.json();
 var router = express.Router();
 
@@ -74,8 +72,6 @@ router.post('/:idcv/update', [jsonparser], function(req, res) {
 });
 
 router.post('/disableCV', [jsonparser], function(req, res) {
-
-    // var dbcv_save = new cvmodel(req.body.Name, req.body.CreatedDate, req.body.IsDeleted, req.body.UrlSlug, 1, req.body.Id);
     var param = {
         id: req.body.id
     };
@@ -100,7 +96,9 @@ router.get('/:idcv', function(req, res) {
         idcv: req.params.idcv,
         userid: req.user.Id
     };
-    dbcv.getByIdCV(param, function(code, row) {
+    var cvService = di.resolve('curriculum_vitae');
+    cvServiceIns = new cvService();
+    cvServiceIns.getByIdCV(param, function(code, row) {
         if (code == 1) {
             res.render('pages/cv_index', {
                 data: row

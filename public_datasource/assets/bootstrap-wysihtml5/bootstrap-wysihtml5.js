@@ -393,13 +393,13 @@
     $.fn.wysihtml5.Constructor = Wysihtml5;
 
     var defaultOptions = $.fn.wysihtml5.defaultOptions = {
-        "font-styles": false,
+        "font-styles": true,
         "color": false,
         "emphasis": true,
-        "lists": false,
+        "lists": true,
         "html": false,
-        "link": false,
-        "image": false,
+        "link": true,
+        "image": true,
         events: {},
         parserRules: {
             classes: {

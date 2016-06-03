@@ -1,4 +1,4 @@
-function Experience(company,designation,fromdate,todate,details,cv_id) {
+function Education(company,designation,fromdate,todate,details,cv_id) {
     var self = this;
     self.attribute = {
         "Institude" : institude,
@@ -77,20 +77,36 @@ function Experience(company,designation,fromdate,todate,details,cv_id) {
     }
 }
 
-function educationModel() {
-    // console.log('in');
-    var Education = require('../config/config').resolve("db").Education;
+//  var education = require('../config/config').resolve("db").Education;
+//     self.getAllByIdCV = function(reqdata, callback) {
+//             var temp = new education();
+//             temp.find('all', {
+//                 where: "CV_Id = " + reqdata
+//             }, function(err, rows, fields) {
+//                 if (err) {
+//                     callback(-1, err)
+//                 } else {
+//                     if (rows.length == 0) {
+//                         callback(0, null);
+//                     } else {
+//                         function parseDate(date) {
+//                             var res = "";
+//                             var currentdate = new Date(date);
+//                             var digitalmonth = ((currentdate.getMonth() + 1) >= 10) ? (currentdate.getMonth() + 1) : '0' + (currentdate.getMonth() + 1);
+//                             var digitaldate = ((currentdate.getDate()) >= 10) ? (currentdate.getDate()) : '0' + (currentdate.getDate());
+//                             res = currentdate.getFullYear() + "/" + digitalmonth + "/" + digitaldate;
+//                             return res;
+//                         }
+//                         var rowslength = rows.length;
 
-    this.getAllEducationByCVId = function (param, callback) { // param: CV_Id,
-        education = new Education();
-        education.find('all',{where:'CV_Id=' + param.CV_Id},function(err,rows,fields){
-            if(err){
-                callback(-1, err);
-            }else{
-                callback(1, rows);
-            }
-        });
-    }
-}
+//                         for (var i = 0; i < rowslength; i++) {
+//                             rows[i].FromDate = parseDate(rows[i].FromDate);
+//                             rows[i].ToDate = parseDate(rows[i].ToDate);
+//                         }
 
-module.exports = educationModel;
+//                         callback(1, rows);
+//                     }
+//                 }
+//             });
+//     }
+module.exports = Education;

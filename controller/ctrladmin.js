@@ -15,7 +15,8 @@ var async = require('async');
 
 router.get('/admin', function(req, res) {
 
-    user_model.getAllUser(function(data) {
+    var user = new user_model();
+    user.getAllUser(function(err, data) {
         console.log(typeof(data));
         var data_json = JSON.stringify(data);
         var json = JSON.parse(data_json);
