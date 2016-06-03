@@ -36,7 +36,6 @@ $('#btnAddListExp').click(function() {
     if (isValid) {
         var addedexprerience = getValueExp();
         var urlpost = window.location.href + '/experience/save';
-<<<<<<< HEAD
          $.ajax({
         type: "POST",
         url: urlpost,
@@ -54,29 +53,11 @@ $('#btnAddListExp').click(function() {
                 });
                 switchModeExp("add");
                 $("#experience-form")[0].reset();
-=======
-        $.ajax({
-            type: "POST",
-            url: urlpost,
-            dataType: 'json',
-            async: false,
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(addedexprerience),
-            success: function(res) {
-                //update new value to table
-                if (res.flag == 1) {
-                    listExp.push(new Experience(res.resdata));
-                    $("#list-experience tbody > tr").remove();
-                    $.each(listExp, function(index, value) {
-                        addListExp(index + 1, value.attribute);
-                    });
-                    switchModeExp("add");
                 }
                 showAnnoucement(res.flag, 'experience', 'added');
             },
             error: function(x, e) {
-
->>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
+                
             }
         });
     }
@@ -164,12 +145,8 @@ $('#btnSaveEditExp').click(function() {
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
                     });
-<<<<<<< HEAD
                     switchModeExp("add");
                     $("#experience-form")[0].reset(); 
-=======
-                    switchModeExp("save");
->>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
                 }
                 showAnnoucement(res.flag, 'experience', 'edited');
             },
@@ -179,17 +156,11 @@ $('#btnSaveEditExp').click(function() {
         });
     }
 });
-<<<<<<< HEAD
+
 $('#btnCancelEditExp').click(function() {  
     switchModeExp("add");
     $("#experience-form")[0].reset();
-=======
-$('#btnCancelEditExp').click(function() {
-    switchModeExp("cancel");
->>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
-});
-
-             
+});         
 var clickedExperience = false;
 
 function getExperience() {
@@ -217,26 +188,10 @@ function getExperience() {
         },
         error: function(x, e) {
 
-=======
-        success: function (res) {
-                if(res.flag == 1){
-                    $("#list-experience tbody > tr").remove();
-                    clickedExperience = true;
-                    $.each(res.resdata, function( index, value ) {
-                    listExp.push(new Experience(value));          
-                    addListExp(index + 1,value);
-                    });
-     
-                }
-            },
-        error: function(x,e){
-            
->>>>>>> bd582077f5f908970abc58a6b0d52439f26c67dd
         }
     });
 }
 /*Switch Mode for case button click */
-<<<<<<< HEAD
 function switchModeExp(mode){
         mode = mode.toLowerCase();
 
@@ -253,44 +208,13 @@ function switchModeExp(mode){
         $('#btnAddListExp').hide();
         $('.btnDeleteExp').prop('disabled', true);
         $('.btnEditExp').prop('disabled', true);
-=======
-function switchModeExp(mode) {
-    mode = mode.toLowerCase();
-    //case button edit
-    if (mode == 'edit') {
-        $('#btnSaveEditExp').show();
-        $('#btnAddListExp').hide();
-        $('#btnCancelEditExp').show();
-        $('.btnDeleteExp').prop('disabled', true);
-        $('.btnEditExp').prop('disabled', true);
-        //case button cancel
-    } else if (mode == 'cancel') {
-        $('#btnSaveEditExp').hide();
-        $('#btnAddListExp').show();
-        $('#btnCancelEditExp').hide();
-        $('.btnDeleteExp').prop('disabled', false);
-        $('.btnEditExp').prop('disabled', false);
-        $("#experience-form")[0].reset();
-        //case button save    
-    } else if (mode == 'save') {
-        $('#btnSaveEditExp').hide();
-        $('#btnCancelEditExp').hide();
-        $('#btnAddListExp').show();
-        $("#experience-form")[0].reset();
-    } else if (mode == 'add') {
-        $("#experience-form")[0].reset();
->>>>>>> e09f1ee2f16625564208eb4b3d62aa22856ff472
     }
 }
 /*Jquery Validation for #experience-form*/
 
 $(document).ready(function() {
-<<<<<<< HEAD
 
-    useWysihtml5('textarea[name=detail]');
-=======
     useWysihtml5("#experience-form textarea[name='detail']"); 
->>>>>>> bd582077f5f908970abc58a6b0d52439f26c67dd
     $.validator.addMethod("isBeforeTodayExp", function(value, element) {
         var today = new Date();
         var getTodate = value.split(" - ");
