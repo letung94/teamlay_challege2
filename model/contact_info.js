@@ -166,6 +166,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
     self.getByIdCV = function(reqdata, callback) {
         var temp = new contact_info();
         temp.find('first', {fields: ['Id', 'FirstName', 'LastName','Avatar','Email','Phone','Website','Address','CV_Id'],where: "CV_Id = " + reqdata},function(err,row,fields){
+           temp.killConnection();
            if(err){
                 callback(-1, err)
             }else{
@@ -185,6 +186,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         var gettemp = new contact_info();
         var savetemp = new contact_info(reqdata);
         gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},function(err,row,fields){
+            gettemp.killConnection();
             var id = null;
             if(row != null){
                 id = row.Id;
@@ -192,6 +194,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             if(id != null){
                 savetemp.set('id',id);
                 savetemp.save(function(err,data){
+                    savetemp.killConnection();
                     if(err){
                         callback(-1, err)
                     }else{
@@ -201,6 +204,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                 });
             }else{
                 savetemp.save(function(err,data){
+                    savetemp.killConnection();
                     if(err){
                         callback(-1, err)
                     }else{
