@@ -54,7 +54,7 @@ app.use(session({
     /*
         //session timeout
     */
-    cookie: { maxAge: 60000 },    
+    cookie: { maxAge: 6000000 },    
     resave: true,
     saveUninitialized: true
 }));
@@ -107,6 +107,9 @@ app.use('/cv/:idcv', ctrlproject);
  */
 var ctrlskill = require('./controller/ctrlskill');
 app.use('/cv/:idcv', ctrlskill);
+
+// var ctrleducation = require('./controller/ctrleducation');
+// app.use('/cv/:idcv', ctrleducation);
 
 /*admin*/
 app.get('/error/500',function(req, res){

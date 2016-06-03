@@ -92,6 +92,9 @@ $('#list-experience').on('click', '.btnDeleteExp' , function(e){
                             $.each(listExp, function( index, value ){
                                 addListExp(index + 1,value.attribute);
                             });
+                            if(listExp.length == 0){
+                                $('#list-experience tbody').append('<tr><td colspan="5" align="center"> No data available </td></tr>');
+                            }
                         }
                     showAnnoucement(res.flag, 'experience', 'deleted');
                     },
@@ -161,6 +164,15 @@ function getExperience(){
     if(clickedExperience==true){
         return;
     }
+                        $("#experience-form textarea[name='detail']").wysihtml5({    
+                        "font-styles": false,
+                        "color": false,
+                        "emphasis": true,
+                        "lists": false,
+                        "html": false,
+                        "link": false,
+                        "image": false,
+                    });       
     var urlget = window.location.href + "/experience/getall";
     $.ajax({
         type: "GET",
@@ -174,7 +186,8 @@ function getExperience(){
                     $.each(res.resdata, function( index, value ) {
                     listExp.push(new Experience(value));          
                     addListExp(index + 1,value);
-                    });            
+                    });
+     
                 }
                 else{
                      $('#list-experience tbody').append('<tr><td colspan="5" align="center"> No data available </td></tr>');
@@ -224,7 +237,7 @@ $(document).ready(function() {
         var inputDate = new Date(getTodate[1]);
         return inputDate <= today;
     }, "The ToDate should be before today.");
-    $.validator.addMethod("notEqFromToDate", function(value, element) {
+    $.validator.addMethod("notEqFromToDateExp", function(value, element) {
         var splitDate = value.split(" - ");
         var toDate = new Date(splitDate[1]);
         var fromDate = new Date(splitDate[0]);  
@@ -245,7 +258,7 @@ $(document).ready(function() {
                 date: {
                     required: true,
                     isBeforeTodayExp: true,
-                    notEqFromToDate: true
+                    notEqFromToDateExp: true
                 },        
             },
             errorPlacement:
