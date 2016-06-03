@@ -1,11 +1,13 @@
 var education = require('../model/education');
+var di = require('../config/config');
 var express = require('express');
 var router = express.Router();
 
 router.get('/education/getall', function(req, res) {
-    var education_getAllByIdCV = new education();
+    var education_service = di.resolve('education');
+    var education_service_ins = new education_service();
     var idcv = req.baseUrl.split("/")[2];
-    education_getAllByIdCV.getAllByIdCV(idcv, function(err, rows) {
+    education_service_ins.getAllByIdCV(idcv, function(err, rows) {
         res.send({
             flag: err,
             resdata: rows
@@ -14,28 +16,23 @@ router.get('/education/getall', function(req, res) {
 })
 
 router.post('/education/save', function(req, res) {
+    var education_service = di.resolve('education');
+    var education_service_ins = new education_service();
     var idcv = req.baseUrl.split("/")[2];
     req.body.CV_Id = idcv;
-    var education_save = new education(req.body.Institute,
-        req.body.Degree,
-        req.body.FromDate,
-        req.body.ToDate,
-        req.body.Details,
-        req.body.CV_Id);
-    var valid = education_save.checkValidation();
-    if (valid) {
-        education_save.save(education_save.attribute, function(err, data) {
-            res.send({
-                flag: err,
-                resdata: data
-            });
+    education_service_ins.createEducation({
+        Institude: req.body.Institute,
+        Degree: req.body.Degree,
+        FromDate: req.body.FromDate,
+        ToDate: req.body.ToDate,
+        Details: req.body.Details,
+        CV_Id: req.body.CV_Id
+    }, function(flag, resdata) {
+        res.json({
+            flag: flag,
+            resdata: resdata
         });
-    } else {
-        res.send({
-            flag: 0,
-            resdata: education_save.attrvalidate
-        });
-    }
+    });
 });
 
 router.post('/education/update', function(req, res) {
