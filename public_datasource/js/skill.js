@@ -230,6 +230,9 @@ $('#list-skill').on('click', '.btnDeleteSkill' , function(e){
                                 addlistskill(index + 1,value.attribute);
                             });
                              showAnnoucement(res.flag, 'skill', 'deleted');
+                             if(listskill.length == 0){
+                                $('#list-skill tbody').append('<tr><td colspan="6" align="center"> No data available </td></tr>');
+                            }
                         }
                     },
                     error: function(x,e){
@@ -312,11 +315,14 @@ function getSkill(){
         async: false,
         contentType: 'application/json; charset=utf-8',
         success: function (res) {   
+            if(res.flag == 1){
+                $("#list-skill tbody > tr").remove();
                 clickedskill = true;
                 $.each(res.resdata, function( index, value ) {
                 listskill.push(new Skill(value));          
                 addlistskill(index + 1,value);
-                });              
+                }); 
+            }               
             },
         error: function(x,e){
             
@@ -342,19 +348,6 @@ function switchModeSkill(mode){
     }
     
 }
-
-/*Jquery Validation for #skill-form*/
-/*
- `Id` INT(11) NOT NULL AUTO_INCREMENT,
-  `Name` NVARCHAR(50) NOT NULL ,
-  `Expertise` TINYINT(1) NOT NULL ,
-  `Skill` NVARCHAR(50) NOT NULL ,
-  `LastYearUsed` INT(4) NOT NULL,
-  `CV_Id` INT(11) NOT NULL,
-*/
-
-
-
 
 
 
