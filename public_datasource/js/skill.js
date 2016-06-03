@@ -5,7 +5,7 @@ $(document).ready(function() {
             rules: {
                 name: {
                     required: true,
-                    maxlength: 49
+                    maxlength: 50
                 }     
             },
             messages: {
@@ -168,11 +168,14 @@ function getValueSkill(){
 }
 /*Add Button Click Event for Add List Skill */
 $('#btnAddListSkill').click(function() {
+        /*
         //check valid on click
+        */
         var isValid = $('#skill-form').valid();
         if(isValid){
             var addedskill = getValueSkill();
             var urlpost = window.location.href + '/skill/save';
+            $.blockUI();
             $.ajax({
             type: "POST",
             url: urlpost,
@@ -181,7 +184,10 @@ $('#btnAddListSkill').click(function() {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(addedskill),
             success: function (res) {
+                $.unblockUI();
+                /*
                 //update new value to table
+                */
                 if(res.flag==1){ 
                     listskill.push(new Skill(res.resdata)); 
                     $("#list-skill tbody > tr").remove();
@@ -207,13 +213,16 @@ $('#list-skill').on('click', '.btnDeleteSkill' , function(e){
     var deletedskill = new Skill();
     indexcurrentskill = $(this).closest("tr").index();
     deletedskill.Id = listskill[indexcurrentskill].attribute.Id;
-    var urlpost = window.location.href + '/skill/delete'
+    var urlpost = window.location.href + '/skill/delete';
+    /*
     //show popup confirm on click delete button
+    */
     BootstrapDialog.confirm({
             title: 'Confirm',
             message: 'Are you sure?',
             callback: function(result) {
                 if(result) {
+                    $.blockUI();
                     $.ajax({
                     type: "POST",        
                     url: urlpost,
@@ -222,10 +231,13 @@ $('#list-skill').on('click', '.btnDeleteSkill' , function(e){
                     contentType: 'application/json; charset=utf-8',            
                     data: JSON.stringify(deletedskill),
                     success: function (res) {
+                        $.unblockUI();
                         if(res.flag==1){
+                            /*
                             //remove value from array by index and update to table
+                            */
                             listskill.splice(indexcurrentskill, 1);    
-                            $("#list-Skill tbody > tr").remove();
+                            $("#list-skill tbody > tr").remove();
                             $.each(listskill, function( index, value ){
                                 addlistskill(index + 1,value.attribute);
                             });
@@ -269,6 +281,7 @@ $('#btnSaveEditSkill').click(function() {
         savedskill.Id = listskill[indexcurrentskill].attribute.Id;
         savedskill.CV_Id = listskill[indexcurrentskill].attribute.CV_Id;
         var urlpost = window.location.href + '/skill/update';
+        $.blockUI();
             $.ajax({
             type: "POST",
             url: urlpost,
@@ -277,6 +290,7 @@ $('#btnSaveEditSkill').click(function() {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(savedskill),
             success: function (res) {
+                $.unblockUI();
                 if(res.flag==1){
                     listskill.splice(indexcurrentskill, 1);
                     listskill.splice(indexcurrentskill, 0, new Skill(res.resdata));
@@ -308,13 +322,15 @@ function getSkill(){
         return;
     }
     var urlget = window.location.href + "/skill/getall";
+    $.blockUI();
     $.ajax({
         type: "GET",
         url: urlget,
         dataType: 'json',
         async: false,
         contentType: 'application/json; charset=utf-8',
-        success: function (res) {   
+        success: function (res) {  
+            $.unblockUI(); 
             if(res.flag == 1){
                 $("#list-skill tbody > tr").remove();
                 clickedskill = true;

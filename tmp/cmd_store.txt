@@ -1,0 +1,10 @@
+// run test coverage using istanbul ! 
+// istanbul assumes that the _mocha you specify translates to a JS file which is true in non-windows environments. In a windows environment, this is likely a batch file that is getting loaded by node and, of course, fails.
+$ istanbul cover node_modules/mocha/bin/_mocha -- -R spec
+
+// install global mocha and istanbul
+$ npm install -g mocha
+$ npm install -g istanbul
+
+//
+

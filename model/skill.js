@@ -20,7 +20,7 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
             this.valid = false;
             this.required = true;
             this.min = 2;
-            this.max = 49;
+            this.max = 50;
             if(company !=null || company !== ""){
                     var length = company.length;
                     if(length >= this.min && length <= this.max ){

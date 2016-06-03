@@ -78,9 +78,9 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
     self.getByIdCV = function(reqdata, callback) {
         var temp = new Cv();
         temp.find('all', {
-
             where: "Id = " + reqdata + " && IsDeleted = 0"
         }, function(err, rows, fields) {
+            temp.killConnection();
             if (err) {
                 callback(-1, err)
             } else {
@@ -96,6 +96,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
     self.getAllCV = function(param, callback) { // param:
         var temp = new Cv();
         temp.find('all', function(err, rows, fields) {
+            temp.killConnection();
             if (err) {
                 callback(-1, err)
             } else {
@@ -114,6 +115,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
             temp.find('all', {
                 where: "IsDeleted = 0 && UserId = " + param.Id
             }, function(err, rows, fields) {
+                temp.killConnection();
                 if (err) {
                     callback(-1, err);
                 } else {
@@ -136,6 +138,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         }
         var cv = new Cv(newVal);
         cv.save(function(err, data) {
+            cv.killConnection();
             if (err) {
                 callback(-1, err);
             } else {
@@ -161,6 +164,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
             gettemp.find('all', {
                 where: "Id = " + idtemp
             }, function(err, rows, fields) {
+                gettemp.killConnection();
                 if (!err) {
                     if (rows.length > 0) {
                         savetemp.set('id', id);
@@ -175,6 +179,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         }
         if (idtemp == null) {
             savetemp.save(function(err, data) {
+                savetemp.killConnection();
                 if (err) {
                     callback(-1, err);
                 } else {
@@ -185,6 +190,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
         } else {
             var updatequery = "UPDATE curriculum_vitae SET Name=\'" + reqdata.Name + "\',UrlSlug=\'" + reqdata.UrlSlug + "\' WHERE Id=" + idtemp;
             savetemp.query(updatequery, function(err, rows, fields) {
+                savetemp.killConnection();
                 if (err) {
                     callback(-1, err);
                 } else {
@@ -207,6 +213,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
                     callback(1, rows);
                 }
             }
+            cv.killConnection();
         });
     }
 }

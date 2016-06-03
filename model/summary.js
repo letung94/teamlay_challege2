@@ -40,7 +40,7 @@ function Summary(headLine, professionalsummary, cv_id, id) {
         var gettemp = new summary();
         var savetemp = new summary(reqdata);
         gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},function(err,row,fields){
-        gettemp.killConnection();
+        //gettemp.killConnection();
            var id = null;
            if(row != null){
                 id = row.Id;

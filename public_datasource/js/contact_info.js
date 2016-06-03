@@ -12,19 +12,19 @@ var loadFile = function(event) {
 };
 
 function validateImage(avatar){
-            var valid = false;
-            var datatype = "image/";
-            var maxsize = 5242880;
-            if(avatar == undefined){
-                valid = true;
-            }else{
-                var datatypeavatar = avatar.type.substring(0, 6);
-                var sizeavatar = avatar.size;
-                if(datatype == datatypeavatar && maxsize >= sizeavatar){
-                    valid = true;
-                }
-            }
-            return valid;
+    var valid = false;
+    var datatype = "image/";
+    var maxsize = 5242880;
+    if(avatar == undefined){
+        valid = true;
+    }else{
+        var datatypeavatar = avatar.type.substring(0, 6);
+        var sizeavatar = avatar.size;
+        if(datatype == datatypeavatar && maxsize >= sizeavatar){
+            valid = true;
+        }
+    }
+    return valid;
 }
 
 function showInValidImage(image,option){
@@ -69,9 +69,12 @@ $('#contact_info-form #del_avatar').on('click',function(){
 });
 //================================= VALIDAZIONE FORM
 $(document).ready(function() {
-    $.validator.addMethod('avatarimg',function(value,element){
-           return true;
-    },"loi loi");
+    $.validator.addMethod("phone", function (value, element)
+    {
+        return this.optional(element) || /^\+[0-9]{1,3}\.[0-9]{4,14}(?:x.+)?$/.test(value);
+    },
+        "Please enter a valid phone."
+    );
     
     $('#contact_info-form').validate({
         errorClass: 'text-danger',
@@ -81,16 +84,16 @@ $(document).ready(function() {
             firstname: {
                 required: true,
                 minlength:1,
-                maxlength:49
+                maxlength:50
             },
             lastname: {
                 required: true,
                 minlength:1,
-                maxlength:49
+                maxlength:50
             },
             email: {
                 required: true,
-                maxlength:49,
+                maxlength:50,
                 email: true
             },
             phone:{
@@ -101,7 +104,7 @@ $(document).ready(function() {
                 maxlength:100
             },
             address:{
-                maxlength:100
+                maxlength:250
             }
         },
         messages: {
@@ -162,6 +165,7 @@ $('#contact_info-form #btnSaveContact_Info').click(function() {
         };
         var save_contact_info = new Contact_Info(temp);
         var urlpost = window.location.href + '/contact_info/save';
+         $.blockUI();
         $.ajax({
             type: "POST",
             /*the url where you want to sent the userName and password to*/
@@ -172,6 +176,7 @@ $('#contact_info-form #btnSaveContact_Info').click(function() {
             /*json object to sent to the authentication url*/
             data: JSON.stringify(save_contact_info.attribute),
             success: function (res) {
+                $.unblockUI();
                 /*
                 //showAnnoucement(flag, section, action)
                 */

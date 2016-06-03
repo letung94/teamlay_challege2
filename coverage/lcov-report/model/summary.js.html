@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for model\summary.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">model/</a> summary.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.25% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>2/32</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/7</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.25% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>2/32</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">     /*
+    // Summary Model
+   */
+&nbsp;
+        /*
+        `Id` INT(11) NOT NULL,
+        `Headline` VARCHAR(50) NULL DEFAULT NULL,
+        `ProfessionalSummary` TEXT NULL DEFAULT NULL,
+        `CV_Id` INT(11) NOT NULL,
+        */ 
+<span class="fstat-no" title="function not covered" >function Summary(headLine, professionalsummary, cv_id, id) {</span>
+<span class="cstat-no" title="statement not covered" >    var self = this;</span>
+<span class="cstat-no" title="statement not covered" >    self.attribute = {</span>
+        "Headline" : headLine,
+        "ProfessionalSummary" : professionalsummary,
+        "CV_Id" : cv_id
+    }
+     
+<span class="cstat-no" title="statement not covered" >    var summary = require('../config/config').resolve("db").Summary;</span>
+    
+    /* Function Get Summary By ID of CV*/
+<span class="cstat-no" title="statement not covered" >    self.getByIdCV = <span class="fstat-no" title="function not covered" >function(reqdata, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var temp = new summary();</span>
+<span class="cstat-no" title="statement not covered" >        temp.find('first', {fields: ['Id', 'Headline', 'ProfessionalSummary', 'CV_Id'],where: "CV_Id = " + reqdata},<span class="fstat-no" title="function not covered" >function(err,row,fields){</span></span>
+<span class="cstat-no" title="statement not covered" >           if(err){</span>
+<span class="cstat-no" title="statement not covered" >                callback(-1, err)</span>
+            }else{
+<span class="cstat-no" title="statement not covered" >                if(row == null){</span>
+<span class="cstat-no" title="statement not covered" >                    callback(0, null);</span>
+                }else{
+<span class="cstat-no" title="statement not covered" >                    callback(1, row);</span>
+                }
+            }
+        });
+    }
+    
+    /* Function Save Summary By ID of CV*/
+<span class="cstat-no" title="statement not covered" >    self.save = <span class="fstat-no" title="function not covered" >function(reqdata, callback){</span></span>
+<span class="cstat-no" title="statement not covered" >        var gettemp = new summary();</span>
+<span class="cstat-no" title="statement not covered" >        var savetemp = new summary(reqdata);</span>
+<span class="cstat-no" title="statement not covered" >        gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},<span class="fstat-no" title="function not covered" >function(err,row,fields){</span></span>
+<span class="cstat-no" title="statement not covered" >            var id = null;</span>
+<span class="cstat-no" title="statement not covered" >           if(row != null){</span>
+<span class="cstat-no" title="statement not covered" >                id = row.Id;</span>
+            }
+<span class="cstat-no" title="statement not covered" >            if(id != null){</span>
+<span class="cstat-no" title="statement not covered" >                savetemp.set('id',id);</span>
+<span class="cstat-no" title="statement not covered" >                savetemp.save(<span class="fstat-no" title="function not covered" >function(err,data){</span></span>
+<span class="cstat-no" title="statement not covered" >                    if(err){</span>
+<span class="cstat-no" title="statement not covered" >                        callback(-1, err)</span>
+                    }else{
+<span class="cstat-no" title="statement not covered" >                        self.attribute.Id = data.insertId;</span>
+<span class="cstat-no" title="statement not covered" >                        callback(1, self.attribute)</span>
+                    }
+                });
+            }else{
+<span class="cstat-no" title="statement not covered" >                savetemp.save(<span class="fstat-no" title="function not covered" >function(err,data){</span></span>
+<span class="cstat-no" title="statement not covered" >                    if(err){</span>
+<span class="cstat-no" title="statement not covered" >                        callback(-1, err)</span>
+                    }else{
+<span class="cstat-no" title="statement not covered" >                        self.attribute.Id = data.insertId;</span>
+<span class="cstat-no" title="statement not covered" >                        callback(1, self.attribute)</span>
+                    }
+                });
+            }
+        });
+    }
+}
+&nbsp;
+module.exports = Summary;
+&nbsp;
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 16:44:04 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
