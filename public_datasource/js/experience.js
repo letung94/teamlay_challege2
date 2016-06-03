@@ -157,6 +157,7 @@ $('#btnCancelEditExp').click(function() {
     switchModeExp("cancel");
 });
 
+             
 var clickedExperience = false;
 
 function getExperience() {
@@ -184,6 +185,21 @@ function getExperience() {
         },
         error: function(x, e) {
 
+=======
+        success: function (res) {
+                if(res.flag == 1){
+                    $("#list-experience tbody > tr").remove();
+                    clickedExperience = true;
+                    $.each(res.resdata, function( index, value ) {
+                    listExp.push(new Experience(value));          
+                    addListExp(index + 1,value);
+                    });
+     
+                }
+            },
+        error: function(x,e){
+            
+>>>>>>> bd582077f5f908970abc58a6b0d52439f26c67dd
         }
     });
 }
@@ -218,8 +234,12 @@ function switchModeExp(mode) {
 /*Jquery Validation for #experience-form*/
 
 $(document).ready(function() {
+<<<<<<< HEAD
 
     useWysihtml5('textarea[name=detail]');
+=======
+    useWysihtml5("#experience-form textarea[name='detail']"); 
+>>>>>>> bd582077f5f908970abc58a6b0d52439f26c67dd
     $.validator.addMethod("isBeforeTodayExp", function(value, element) {
         var today = new Date();
         var getTodate = value.split(" - ");

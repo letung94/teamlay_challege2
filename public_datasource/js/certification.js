@@ -277,6 +277,7 @@ $(document).ready(function(){
                 maxlength: 100
             },
             date:{
+                required: true,
                 isBeforeToday: true
             }
         },

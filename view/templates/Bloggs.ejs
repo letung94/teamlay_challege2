@@ -60,11 +60,11 @@
 					<article>
 						<%if(locals.summary){%>
 							<div class="sectionTitle">
-								<h1><%= locals.summary.Headline ? summary.Headline : '' %></h1>
+								<h1><%- locals.summary.Headline ? summary.Headline : '' %></h1>
 							</div>
 
 							<div class="sectionContent">
-								<%= locals.summary.ProfessionalSummary ? summary.ProfessionalSummary : ''%>
+								<%- locals.summary.ProfessionalSummary ? summary.ProfessionalSummary : ''%>
 							</div>
 						<%}%>
 					</article>
@@ -85,7 +85,7 @@
 										<p class="subDetails">Level: <%= skill.Level %> - LastUse: <%= skill.LastTime %></p>
 										<p><%= skill.Maturity %>.</p>
 									</article>
-									<% }); %>
+								<% }); %>
 								</div>
 								<div class="clear"></div>
 							</article>
@@ -105,7 +105,7 @@
 											<article>
 												<h2><%= exp.Company %> </h2>
 												<p class="subDetails"><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></p>
-												<p><%= exp.Details%></p>
+												<p><%- exp.Details%></p>
 											</article>
 											<% }); %>
 										</div>
@@ -127,7 +127,7 @@
 													<article>
 														<h2><%= edu.Institude %></h2>
 														<p class="subDetails"><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></p>
-														<p> <%= edu.Details%></p>
+														<p> <%- edu.Details%></p>
 													</article>
 													<% }); %>
 												</div>
@@ -150,7 +150,7 @@
 															<article>
 																<h2><%= cer.Title %></h2>
 																<p class="subDetails"><%= cer.CertificateAuthority %> - <%= cer.Date %></p>
-																<p> <%= cer.Details%></p>
+																<p> <%- cer.Details%></p>
 															</article>
 															<% }); %>
 														</div>
