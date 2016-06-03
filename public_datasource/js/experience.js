@@ -159,12 +159,12 @@ $('#btnCancelEditExp').click(function() {
     switchModeExp("cancel");
 });
 
+             
 var clickedExperience = false;
 function getExperience(){
     if(clickedExperience==true){
         return;
     }
-    useWysihtml5("#experience-form textarea[name='detail']");              
     var urlget = window.location.href + "/experience/getall";
     $.ajax({
         type: "GET",
@@ -174,6 +174,7 @@ function getExperience(){
         contentType: 'application/json; charset=utf-8',
         success: function (res) {
                 if(res.flag == 1){
+                    $("#list-experience tbody > tr").remove();
                     clickedExperience = true;
                     $.each(res.resdata, function( index, value ) {
                     listExp.push(new Experience(value));          
@@ -181,10 +182,6 @@ function getExperience(){
                     });
      
                 }
-                else{
-                     $('#list-experience tbody').append('<tr><td colspan="5" align="center"> No data available </td></tr>');
-                }
-                   
             },
         error: function(x,e){
             
@@ -222,7 +219,7 @@ function switchModeExp(mode){
 /*Jquery Validation for #experience-form*/
     
 $(document).ready(function() {
-    
+    useWysihtml5("#experience-form textarea[name='detail']"); 
     $.validator.addMethod("isBeforeTodayExp", function(value, element) {
         var today = new Date();
         var getTodate = value.split(" - ");
