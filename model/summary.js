@@ -22,6 +22,7 @@ function Summary(headLine, professionalsummary, cv_id, id) {
     self.getByIdCV = function(reqdata, callback) {
         var temp = new summary();
         temp.find('first', {fields: ['Id', 'Headline', 'ProfessionalSummary', 'CV_Id'],where: "CV_Id = " + reqdata},function(err,row,fields){
+        temp.killConnection();
            if(err){
                 callback(-1, err)
             }else{
@@ -39,13 +40,16 @@ function Summary(headLine, professionalsummary, cv_id, id) {
         var gettemp = new summary();
         var savetemp = new summary(reqdata);
         gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},function(err,row,fields){
-            var id = null;
+        gettemp.killConnection();
+           var id = null;
            if(row != null){
                 id = row.Id;
             }
             if(id != null){
                 savetemp.set('id',id);
                 savetemp.save(function(err,data){
+                    savetemp.killConnection();
+                    gettemp.killConnection();
                     if(err){
                         callback(-1, err)
                     }else{
@@ -55,6 +59,8 @@ function Summary(headLine, professionalsummary, cv_id, id) {
                 });
             }else{
                 savetemp.save(function(err,data){
+                    savetemp.killConnection();
+                    gettemp.killConnection();
                     if(err){
                         callback(-1, err)
                     }else{
