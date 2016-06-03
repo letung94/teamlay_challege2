@@ -237,11 +237,13 @@ router.get('/login', function (req, res) {
 
 // Login POST
 router.post('/login', function (req, res, next) {
+     if(req.body.remember)req.session.cookie.maxAge = 365 * 24 * 60 * 60 * 1000;
     passport.authenticate('local', {
         successRedirect: '/index',
         failureRedirect: '/login',
         failureFlash: true
-    }, function (err, user, info) {
+       
+    },function (err, user, info) {
         if (err) {
             return res.render('pages/login', { errorMessage: err.message });
         }
@@ -397,7 +399,7 @@ router.get('/email-verification', function (req, res) {
 
 // Logout
 router.get('/logout', function (req, res) {
-    req.logOut();
+    req.session.destroy();
     res.redirect('/login');
 });
 
