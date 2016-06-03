@@ -164,15 +164,7 @@ function getExperience(){
     if(clickedExperience==true){
         return;
     }
-                        $("#experience-form textarea[name='detail']").wysihtml5({    
-                        "font-styles": false,
-                        "color": false,
-                        "emphasis": true,
-                        "lists": false,
-                        "html": false,
-                        "link": false,
-                        "image": false,
-                    });       
+    useWysihtml5("#experience-form textarea[name='detail']");              
     var urlget = window.location.href + "/experience/getall";
     $.ajax({
         type: "GET",
