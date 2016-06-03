@@ -54,7 +54,13 @@ app.use(session({
     /*
         //session timeout
     */
-    cookie: { maxAge: 60000 },    
+
+
+    cookie: {
+        maxAge: 6000000
+    },
+
+
     resave: true,
     saveUninitialized: true
 }));
@@ -64,7 +70,7 @@ app.use(passport.session());
 module.exports = app;
 
 // Routing
-var ctrluser = require('./controller/ctrluser');
+
 var ctrlTemplate = require('./controller/ctrltemplate');
 var ctrlcv = require('./controller/ctrlcv');
 var ctrlAccount = require('./controller/ctrlaccount');
@@ -72,9 +78,10 @@ var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
+
 app.use('/cv',[authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
-app.use('/', ctrluser);
-app.use('/template', ctrlTemplate);
+app.use('/template',ctrlTemplate);
+
 app.use('/', ctrlAccount);
 app.use('/', ctrladmin);
 

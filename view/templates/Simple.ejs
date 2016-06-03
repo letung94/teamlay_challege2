@@ -15,7 +15,7 @@
                 <%if(locals.contact_info) {%>
                     <%= locals.contact_info.FirstName ? contact_info.FirstName : '' %>
                     <%= locals.contact_info.LastName ? contact_info.LastName : ''  %>
-                    <%}%>
+                <%}%>
                 </h1>
                 <p>
                     <%if(locals.contact_info){%>
@@ -39,81 +39,75 @@
                     <%}%>
                 </p>
             </div>
-                        <div id="objective">
-                            <%if(locals.summary){%>
-                                <%if(locals.summary.Headline){%> <h2><%- summary.Headline  %></h2>    <%}%>
-                                <%if(locals.summary.ProfessionalSummary){%>
-                                    <p><%- summary.ProfessionalSummary %></p>
-                                    <%}%>
-                                    <%}%>
+            <div id="objective">
+                <%if(locals.summary){%>
+                    <%if(locals.summary.Headline){%> <h2><%- summary.Headline  %></h2>    <%}%>
+                    <%if(locals.summary.ProfessionalSummary){%>
+                        <p><%- summary.ProfessionalSummary %></p>
+                    <%}%>
+                <%}%>
+            </div>
+            <div class="clear"></div>
+            <dl>
+                <%if(locals.experiences && locals.experiences.length > 0){%>
+                    <dt>Experience</dt>
+                    <dd>
+                        <% experiences.forEach(function(exp) { %>
+                            <h2><%- exp.Company %> <span><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></span></h2>
+                            <p>
+                                <%- exp.Details%>
+                            </p>
+                        <% }); %>
+                    </dd>
 
-                                </div>
+                    <dd class="clear"></dd>
+                <%}%>
 
-                                <div class="clear"></div>
+                <%if(locals.educations && locals.educations.length > 0){%>
+                    <dt>Educations</dt>
+                    <dd>
+                        <% educations.forEach(function(edu) { %>
+                            <h2><%=edu.Institude%> <span><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></span></h2>
+                            <p>
+                                <%- edu.Details%>
+                            </p>
+                        <% }); %>
+                        </dd>
 
-                                <dl>
-                                    <%if(locals.experiences && locals.experiences.length > 0){%>
-                                        <dt>Experience</dt>
-                                        <dd>
-                                            <% experiences.forEach(function(exp) { %>
-                                                <h2><%- exp.Company %> <span><%= exp.Designation %> - <%= exp.FromDate %> - <%= exp.ToDate %></span></h2>
-                                                <p>
-                                                    <%- exp.Details%>
-                                                </p>
-                                                <% }); %>
-                                            </dd>
+                        <dd class="clear"></dd>
+                <%}%>
 
-                                            <dd class="clear"></dd>
-                                            <%}%>
+                <%if(locals.certifications && locals.certifications.length > 0){ %>
+                    <dt>Certifications</dt>
+                    <dd>
+                        <% certifications.forEach(function(cer) { %>
+                            <h2><%= cer.Title %><span><%= cer.CertificateAuthority %> - <%= cer.Date %></span></h2>
+                            <p>
+                                <%- cer.Details%>
+                            </p>
+                        <% }); %>
+                        </dd>
 
+                        <dd class="clear"></dd>
+                    </dl>
+                <%}%>
 
-                                            <%if(locals.educations && locals.educations.length > 0){%>
-                                                <dt>Educations</dt>
-                                                <dd>
-                                                    <% educations.forEach(function(edu) { %>
-                                                        <h2><%=edu.Institude%> <span><%= edu.Degree %> - <%= edu.FromDate %> - <%= edu.ToDate %></span></h2>
-                                                        <p>
-                                                            <%= edu.Details%>
-                                                        </p>
-                                                        <% }); %>
-                                                    </dd>
+                <%if(locals.skills &&  locals.skills.length > 0){ %>
+                    <dt>Skills</dt>
+                    <dd>
+                        <% skills.forEach(function(s) { %>
+                            <h2><%= s.Name %><span></span></h2>
+                            <p>
+                                Expertise: <%= s.Expertise %> - Experience: <%= s.Experience %> - LastYearUsed: <%= s.LastYearUsed %>
+                            </p>
+                            <% }); %>
+                        </dd>
 
-                                                    <dd class="clear"></dd>
-                                                    <%}%>
+                        <dd class="clear"></dd>
+                    </dl>
+                <%}%>
+                    </div>
 
-                                                    <%if(locals.certifications && locals.certifications.length > 0){ %>
-                                                        <dt>Certifications</dt>
-                                                        <dd>
-                                                            <% certifications.forEach(function(cer) { %>
-                                                                <h2><%= cer.Title %><span><%= cer.CertificateAuthority %> - <%= cer.Date %></span></h2>
-                                                                <p>
-                                                                    <%= cer.Details%>
-                                                                </p>
-                                                                <% }); %>
-                                                            </dd>
+                </div>
 
-                                                            <dd class="clear"></dd>
-                                                        </dl>
-                                                        <%}%>
-
-                                                        <%if(locals.skills &&  locals.skills.length > 0){ %>
-                                                            <dt>Skills</dt>
-                                                            <dd>
-                                                                <% skills.forEach(function(s) { %>
-                                                                    <h2><%= s.Name %><span>Expertise: <%= s.Expertise %> - Experience: <%= s.Experience %> - LastYearUsed: <%= s.LastYearUsed %></span></h2>
-                                                                    <p>
-
-                                                                    </p>
-                                                                    <% }); %>
-                                                                </dd>
-
-                                                                <dd class="clear"></dd>
-                                                            </dl>
-                                                            <%}%>
-
-
-                                                        </div>
-
-                                                    </div>
-
-                                                    </html>
+                </html>

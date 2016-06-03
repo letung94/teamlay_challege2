@@ -2,7 +2,7 @@ $(document).ready(function(){
     var self = this;
     self.listProject = [];
     var today = new Date();
-    $('#date_project').val(today.getFullYear() + "/" + (today.getMonth() - 1) + "/" + today.getDate()); 
+    //$('#date_project').val(today.getFullYear() + "/" + (today.getMonth() - 1) + "/" + today.getDate()); 
     /*Get All Project belong to this CV.*/
     self.getAllProject = function(){
         
@@ -11,15 +11,21 @@ $(document).ready(function(){
             console.log(resp);
             if(resp.code == 1){
                 $.each(resp.rows, function(index, value){
-                    if(value.Date){
-                        var  d = moment(value.Date);
-                        value.Date = d.format('YYYY/MM/DD');
+                    if(value.ToDate){
+                        var  d = moment(value.ToDate);
+                        value.ToDate = d.format('YYYY/MM/DD');
+                    }
+                    if (value.FromDate){
+                        var f = moment(value.FromDate);
+                        value.FromDate = f.format('YYYY/MM/DD');
                     }
                     var entity = {
                         Id: value.Id,
                         Title: value.Title,
                         Url: value.Url || '',
-                        Date: value.Date || '',
+                        FromDate: value.FromDate,
+                        ToDate: value.ToDate,
+                        //Date: value.Date || '',
                         Details: value.Details || '',
                         CV_Id: value.CV_Id || ''                        
                     }                    
@@ -36,7 +42,7 @@ $(document).ready(function(){
         var html = '';
         
         $.each(self.listProject, function(index, value){
-            html +=`<tr><td>` + value.Title + '</td>' + '<td>' + value.Url + '</td>' + '<td>' + value.Date + '</td><td>' + value.Details + '</td>' +              
+            html +=`<tr><td>` + value.Title + '</td>' + '<td>' + value.Url + '</td>' + '<td>' + value.FromDate + " - " + value.ToDate + '</td>' +              
             '<td><button class="btn btn-warning btn-sm btn-edit-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button>' +
             '<button class="btn btn-danger btn-sm btn-delete-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
         })
@@ -101,7 +107,7 @@ $(document).ready(function(){
         $('#validation_form_project input[name=id]').val(editingProject.Id);
         $('#validation_form_project input[name=project_title]').val(editingProject.Title);
         $('#validation_form_project input[name=project_url]').val(editingProject.Url);
-        $('#validation_form_project input[name=project_date]').val(editingProject.Date);
+        $('#validation_form_project input[name=project_date]').val(editingProject.FromDate + ' - ' + editingProject.ToDate);
         $('#validation_form_project textarea[name=project_details]').data("wysihtml5").editor.setValue(editingProject.Details);       
         self.switchModeProject('edit');
     });
@@ -117,10 +123,15 @@ $(document).ready(function(){
                 Details: $('#validation_form_project textarea[name=project_details]').val() || ''
             }
             var param = {entity : entity};
-            var date = $('#validation_form_project input[name=project_date]').val();
-            if(date && date.trim() != ''){
-                entity.Date = date;
-            }
+            // var date = $('#validation_form_project input[name=project_date]').val();
+            var dates = $("#validation_form_project input[name='project_date']").val().split(" - ");     
+            var fromdate = dates[0];
+            var todate = dates[1];
+            entity.FromDate = fromdate;
+            entity.ToDate = todate;                   
+            // if(date && date.trim() != ''){
+            //     entity.Date = date;
+            // }
             var url = window.location.href +  '/project/add';
             $.blockUI();
             $.post(url, param, function(resp){
@@ -145,33 +156,7 @@ $(document).ready(function(){
             
         }
     });
-    
-    
-    // $('#btnSaveProject').click(function(){
-    //     var isValid = $('#validation_form_project').valid();
-    //     if(isValid){ /*If the form is valid*/
-    //         entity =  {
-    //             Id: $('#validation_form_project input[name=project_id]').val() || '',
-    //             Title: $('#validation_form_project input[name=project_title]').val() || '',
-    //             Url: $('#validation_form_project input[name=project_url]').val() || '',
-    //             Details: $('#validation_form_project textarea[name=project_details]').val() || ''
-    //         }
-    //         var param = {entity : entity};
-    //         var date = $('#validation_form_project input[name=project_date]').val();
-    //         if(date && date.trim() != ''){
-    //             entity.Date = date;
-    //         }
-    //         var url = window.location.href +  '/project/update';
-    //         $.post(url, param, function(resp){
-    //             var code = resp.code;
-    //             var insertedId = resp.data.insertId;
-    //             entity.Id = insertedId;
-    //             //self.listProject.push(entity);
-    //             self.renderTableBodyProject();
-    //         });
-            
-    //     }
-    // });   
+
     
     /*Reset form - clear all content*/
     self.clearFormProject = function(){
@@ -208,11 +193,15 @@ $(document).ready(function(){
     $('#btnSaveProject').click(function(){
         var isValid = $('#validation_form_project').valid();
         if(isValid){ /*If the form is valid*/
+            var dates = $("#validation_form_project input[name='project_date']").val().split(" - ");     
+            var fromdate = dates[0];
+            var todate = dates[1];            
             entity =  {
                 id: $('#validation_form_project input[name=id]').val() || '',
                 Title: $('#validation_form_project input[name=project_title]').val() || '',
                 Url: $('#validation_form_project input[name=project_url]').val() || '',
-                Date: $('#validation_form_project input[name=project_date]').val() || '',
+                FromDate: fromdate,
+                ToDate: todate,
                 Details: $('#validation_form_project textarea[name=project_details]').val() || ''
             }
             var param = {entity : entity};
@@ -233,7 +222,8 @@ $(document).ready(function(){
                     project.Title = entity.Title;
                     project.Url = entity.Url || '';
                     project.Details = entity.Details || '';
-                    project.Date = entity.Date || '';
+                    project.FromDate = entity.FromDate || '';
+                    project.ToDate = entity.ToDate || '';
 
                     /*Render the grid again*/
                     self.renderTableBodyProject();
@@ -273,19 +263,25 @@ $(document).ready(function(){
 
     /*Jquery Validation for #validation_form_project*/
     /*Custom jquery validation, input date must be before today.*/
-    $.validator.addMethod("isBeforeToday", function(value, element) {
-        if(!value || value.trim() == '')
-            return true;
+    $.validator.addMethod("isBeforeTodayExp", function(value, element) {
         var today = new Date();
-        var inputDate = new Date(value);
+        var getTodate = value.split(" - ");
+        var inputDate = new Date(getTodate[1]);
         return inputDate <= today;
-    }, "The date should be before today.");
+    }, "The To Date should be in the past.");
+    $.validator.addMethod("notEqFromToDate", function(value, element) {
+        var splitDate = value.split(" - ");
+        var toDate = new Date(splitDate[1]);
+        var fromDate = new Date(splitDate[0]);  
+        return toDate - fromDate > 0;
+    }, "The From Date & To Date should be different.");
+
 
     $("#validation_form_project").validate({
         errorClass: 'text-danger',
         focusInvalid: true,
         rules: {
-            title: {
+            project_title: {
                 required: true,
                 maxlength: 100
             },
@@ -293,9 +289,12 @@ $(document).ready(function(){
                 maxlength: 100
             },
             project_date:{
-                isBeforeToday: true
+                required: true,
+                isBeforeTodayExp: true,
+                notEqFromToDate: true                
+                //isBeforeToday: true
             }
-        },
+        },      
     });
 
         /*initialize*/

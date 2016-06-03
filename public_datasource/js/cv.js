@@ -83,3 +83,16 @@ $('#btnPreviewCV').click(function(){
     var url ='/template/template_list/' + cv_id  + '/';
     window.open(url,'_blank');
 });
+
+function useWysihtml5(nameDetail)
+{
+     $(nameDetail).wysihtml5({    
+                        "font-styles": false,
+                        "color": false,
+                        "emphasis": true,
+                        "lists": false,
+                        "html": false,
+                        "link": false,
+                        "image": false,
+     });       
+}

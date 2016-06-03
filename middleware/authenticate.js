@@ -20,8 +20,16 @@ var requireAuthenticated = function (req,res,next) {
     
 }
 
+var isLogin = function(req, res, next) {
+    if(req.isAuthenticated){
+        res.redirect('/cv');
+    } else {
+        return next();
+    }
+}
 
 module.exports = {
     requireAuthenticated: requireAuthenticated,
-    isAvailable: isAvailable
+    isAvailable: isAvailable,
+    isLogin: isLogin
 };

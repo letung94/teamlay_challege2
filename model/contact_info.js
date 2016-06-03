@@ -73,7 +73,16 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                         var data = image.replace(/^data:image\/\w+;base64,/, '');
                         return new Buffer(data, 'base64');
                     }
-                    self.attribute["Avatar"] = "avatars/avatar_" + self.attribute["FirstName"] + self.attribute["CV_Id"] + getextension(avatar);
+                    
+                    
+                    function makestringrandom(){
+                        var uuid = require('node-uuid');
+                        var text = uuid.v1();
+                        return text;
+                    }
+                    
+                    
+                    self.attribute["Avatar"] = "avatars/" + makestringrandom() + getextension(avatar);
                     var imageBuffer = decodeBase64Image(avatar);
                     var fs = require('fs');
                     fs.writeFileSync(self.attribute["Avatar"], imageBuffer, {encoding: 'base64'},function(err) { console.log(err); });
@@ -110,8 +119,28 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             }
             return this.valid;
         }, attrname: "Phone"},
-        {validate: null,attrname: "Website"},
-        {validate: null,attrname: "Address"},
+        {validate: function(website){
+            this.valid = true;
+            this.max = 100;
+            if(website !=null || website !== ""){
+                var length = website.length;
+                if(length >= this.max ){
+                    this.valid = false;
+                }
+            }
+            return this.valid;
+        },attrname: "Website"},
+        {validate: function(address){
+            this.valid = true;
+            this.max = 200;
+            if(address !=null || address !== ""){
+                var length = address.length;
+                if(length >= this.max ){
+                    this.valid = false;
+                }
+            }
+            return this.valid;
+        },attrname: "Address"},
         {validate: null,attrname: "CV_Id"}];
         
 

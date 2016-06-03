@@ -46,6 +46,7 @@ var savePDFfromHTML = function (source, destination, options, cb) {
         '-R', options.marginRight || '2mm',
         '-O', options.orientation || 'portrait',  // Landscape or Portrait
         '--zoom', options.zoom || '1', // > 0
+        '--encoding', 'utf-8',
         source,
         destination,
     ];
