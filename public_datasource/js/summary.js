@@ -16,6 +16,12 @@ $(document).ready(function() {
     }
     })
 })
+
+function Summary(attribute) {
+    this.attribute = attribute;
+}
+var summary = null;
+
 /*Get summary of CV */
 var clickedSummary = false;
 function getSummary(){
@@ -34,8 +40,9 @@ function getSummary(){
         success: function (res) {  
             if(res.flag==1){
               clickedSummary = true; 
-                $("#summary-form input[name='headline']").val(res.resdata.Headline);
-                $("#summary-form textarea[name='prosummary']").data('wysihtml5').editor.setValue(res.resdata.ProfessionalSummary);
+              summary = new Summary(res.resdata);
+                $("#summary-form input[name='headline']").val(summary.attribute.Headline);
+                $("#summary-form textarea[name='prosummary']").data('wysihtml5').editor.setValue(summary.attribute.ProfessionalSummary);
                 } 
             },
         error: function(x,e){
@@ -44,16 +51,14 @@ function getSummary(){
     });
 };
 
-var summary = {
-        "Headline":"",
-        "ProfessionalSummary":"",
-        "CV_Id": 0
-}
-       
+
 $('#btnSaveSummary').click(function() {
-        summary["Headline"]=$("#summary-form input[name='headline']").val();
-        summary["ProfessionalSummary"]=$("#summary-form textarea[name='prosummary']").val();
-        summary["CV_Id"]=$("#summary-form input[name='idcv']").val();
+        var temp = {
+        Headline:$("#summary-form input[name='headline']").val(),
+        ProfessionalSummary:$("#summary-form textarea[name='prosummary']").val(),
+        CV_Id:$("#summary-form input[name='idcv']").val()
+        }
+        var save_summary = new Summary(temp);
         var urlpost = window.location.href + '/summary/save';
         $.ajax({
             type: "POST",
@@ -63,12 +68,9 @@ $('#btnSaveSummary').click(function() {
             async: false,
             contentType: 'application/json; charset=utf-8',
             //json object to sent to the authentication url
-            data: JSON.stringify(summary),
+            data: JSON.stringify(save_summary.attribute),
             success: function (res) {
-                 /*
-                //showAnnoucement(flag, section, action)
-                */
-                showAnnoucement(res.flag, 'summary', 'saved'); 
+                  showAnnoucement(res.flag, 'summary', 'saved');     
             },
             error: function(x,e){
                 

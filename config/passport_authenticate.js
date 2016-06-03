@@ -24,7 +24,9 @@ passport.use('local', new LocalStrategy({
     function (req, username, password, done) {
         var model = new user_model();
         model.getByUsername(username, function (err, data) {
+            
             var user = data;
+            
             if (user == null) {
                 return done(null, false, {
                     message: 'Invalid username or password'
