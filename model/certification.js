@@ -27,13 +27,14 @@ function certificationModel(title, certificateAuthority, date, details, CV_Id) {
             attrname: 'Date',
             validate: function(date){
                 /*Validate smaller than today*/
-                var valid = true;
-                if(date && date != null){
-                    var today = new Date();
-                    var date = new Date(date);
-                    valid = date <= today;
+                if(!date | date == ''){
+                    console.log('false 1');
+                    return false;
                 }
-                return valid;
+                console.log('return end');
+                var today = new Date();
+                var inputDate = new Date(date);
+                return inputDate <= today;
             }
         },
         {

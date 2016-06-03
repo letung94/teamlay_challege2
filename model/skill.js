@@ -5,7 +5,7 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
         "Expertise" : expertise,
         "Experience" : experience,
         "LastYearUsed" : lastyearused,
-        "CV_id" : cv_id
+        "CV_Id" : cv_id
     }
     /*
   `Id` INT(11) NOT NULL AUTO_INCREMENT,
