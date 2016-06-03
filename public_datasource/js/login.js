@@ -4,22 +4,18 @@ $(document).ready(function() {
         errorClass: 'text-danger',
         rules: {
             username: {
-                required: true,
-                minlength: 5
+                required: true
             },
             password: {
-                required: true,
-                minlength: 5
+                required: true
             },
         },
         messages: {
             username: {
-                required: "Please enter your username",
-                minlength: "Your username must consist of at least 5 characters"
+                required: "Please enter your username"
             },
             password: {
-                required: "Please enter your password",
-                minlength: "Your password must be at least 5 characters long"
+                required: "Please enter your password"
             }
         }
     });
