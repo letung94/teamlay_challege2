@@ -1,5 +1,10 @@
 <div id="skillguide">
-    <button class="btn btn-circle btn-primary option"><i class="fa fa-angle-left"></i></button>
+
+
+<!--a class="show-tooltip" href="#" title="" data-original-title="Skill Guide"-->
+<button class="btn btn-circle btn-primary option" data-original-title=""><i class="fa fa-angle-left"></i></button>
+<!--/a-->
+    
     <div id="content-guide">
         <h4><i class="fa fa-star yellow"></i>Expertise</h4>
         <ol>
@@ -30,10 +35,12 @@
         }
     });
     
-    $( window ).resize(function() {
-        if($( window ).width() == 1200 ){
-            $("#content-guide").css('display','none');
-        }if($( window ).width() > 1200){
+    $(window).on('resize', function() {
+        if($( window ).width() < 1300 ){
+            if($("#content-guide").css('display') == "block"){
+                $("#content-guide").css('display','none');
+            }
+        }if($( window ).width() > 1300){
             $("#content-guide").css('display','block');
         }
         
