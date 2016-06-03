@@ -117,6 +117,7 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
     this.addUser = function (user, callback) {
         var newUser = new User(user);
         newUser.save(function (err, data) {
+            newUser.killConnection();
             if (err) {
                 callback(-1, err);
             } else {
@@ -130,18 +131,18 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
         user.save();
         user.set('id', newUser.Id);
         user.save(function (err, data) {
+            user.killConnection();
             if (err) {
                 callback(-1, err);
             }
-            callback(1, data);
+            callback(1, err);
         });
-        callback();
     }
     this.getAllUser = function (callback) {
         user = new User();
         user.find('all', function (err, rows, fields) {
+            user.killConnection();
             if (err) {
-                console.log(err);
                 callback(-1, err);
             } else {
                 if (rows == null) {
@@ -157,8 +158,8 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
         user.find('first', {
             where: "Username = '" + username + "'"
         }, function (err, row) {
+            user.killConnection();
             if (err) {
-                console.log(err);
                 callback(-1, err);
             } else {
                 if (row == null) {
@@ -174,8 +175,8 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
         user.find('first', {
             where: "Email = '" + email + "'"
         }, function (err, row) {
+            user.killConnection();
             if (err) {
-                console.log(err);
                 callback(-1, err);
             } else {
                 if (row == null) {
@@ -191,8 +192,8 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
         user.find('first', {
             where: "VerifyToken = '" + token + "'"
         }, function (err, row) {
+            user.killConnection();
             if (err) {
-                console.log(err);
                 callback(-1, err)
             } else {
                 if (row == null) {
@@ -208,8 +209,8 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
         user.find('first', {
             where: "ResetPasswordToken = '" + token + "'"
         }, function (err, row) {
+            user.killConnection();
             if (err) {
-                console.log(err);
                 callback(-1, err)
             } else {
                 if (row == null) {

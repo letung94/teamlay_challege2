@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    useWysihtml5("#validation_form_project textarea[name=project_details]");
     var self = this;
     self.listProject = [];
     var today = new Date();
@@ -40,10 +41,12 @@ $(document).ready(function(){
     /*Render list of project*/
     self.renderTableBodyProject = function(){
         var html = '';
-        
+        if (self.listProject.length == 0){
+            html+= '<td colspan="6" align="center"> No data available </td>';
+        }
         $.each(self.listProject, function(index, value){
-            html +=`<tr><td>` + value.Title + '</td>' + '<td>' + value.Url + '</td>' + '<td>' + value.FromDate + " - " + value.ToDate + '</td>' +              
-            '<td><button class="btn btn-warning btn-sm btn-edit-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button>' +
+            html +=`<tr style="font-size:13px"><td>` + value.Title + '</td>' + '<td>' + value.Url + '</td>' + '<td>' + value.FromDate + " - " + value.ToDate + '</td>' +              
+            '<td><button class="btn btn-warning btn-sm btn-edit-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button> ' +
             '<button class="btn btn-danger btn-sm btn-delete-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
         })
         $('#project_table').html(html);

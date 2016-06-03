@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    $('#validation_form_summary').validate({
+    useWysihtml5("#summary-form textarea[name='prosummary']");
+    $('#summary-form').validate({
         errorClass: 'text-danger',
         focusInvalid: false,
         debug: true,
@@ -15,6 +16,12 @@ $(document).ready(function() {
     }
     })
 })
+
+function Summary(attribute) {
+    this.attribute = attribute;
+}
+var summary = null;
+
 /*Get summary of CV */
 var clickedSummary = false;
 function getSummary(){
@@ -31,28 +38,27 @@ function getSummary(){
         contentType: 'application/json; charset=utf-8',
         //json object to sent to the authentication url
         success: function (res) {  
-                clickedSummary = true; 
-                $("input[name='headline']").val(res.resdata.Headline);
-                $("textarea[name='prosummary']").data('wysihtml5').editor.setValue(res.resdata.ProfessionalSummary);
-                },
+            if(res.flag==1){
+              clickedSummary = true; 
+              summary = new Summary(res.resdata);
+                $("#summary-form input[name='headline']").val(summary.attribute.Headline);
+                $("#summary-form textarea[name='prosummary']").data('wysihtml5').editor.setValue(summary.attribute.ProfessionalSummary);
+                } 
+            },
         error: function(x,e){
        
         }
     });
 };
 
-var summary = {
-        "Headline":"",
-        "ProfessionalSummary":"",
-        "CV_Id": 0
-}
-       
+
 $('#btnSaveSummary').click(function() {
-        var validator = $('#validation_form_summary').valid();
-        if(validator){
-        summary["Headline"]=$("#validation_form_summary input[name='headline']").val();
-        summary["ProfessionalSummary"]=$("#validation_form_summary textarea[name='prosummary']").val();
-        summary["CV_Id"]=$("#validation_form_summary input[name='idcv']").val();
+        var temp = {
+        Headline:$("#summary-form input[name='headline']").val(),
+        ProfessionalSummary:$("#summary-form textarea[name='prosummary']").val(),
+        CV_Id:$("#summary-form input[name='idcv']").val()
+        }
+        var save_summary = new Summary(temp);
         var urlpost = window.location.href + '/summary/save';
         $.ajax({
             type: "POST",
@@ -62,17 +68,14 @@ $('#btnSaveSummary').click(function() {
             async: false,
             contentType: 'application/json; charset=utf-8',
             //json object to sent to the authentication url
-            data: JSON.stringify(summary),
+            data: JSON.stringify(save_summary.attribute),
             success: function (res) {
-                 /*
-                //showAnnoucement(flag, section, action)
-                */
-                showAnnoucement(res.flag, 'summary', 'saved'); 
+                  showAnnoucement(res.flag, 'summary', 'saved');     
             },
             error: function(x,e){
                 
             }
         });
-        }
+        
     return false;
 });

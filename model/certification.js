@@ -28,10 +28,8 @@ function certificationModel(title, certificateAuthority, date, details, CV_Id) {
             validate: function(date){
                 /*Validate smaller than today*/
                 if(!date | date == ''){
-                    console.log('false 1');
                     return false;
                 }
-                console.log('return end');
                 var today = new Date();
                 var inputDate = new Date(date);
                 return inputDate <= today;
@@ -65,6 +63,7 @@ function certificationModel(title, certificateAuthority, date, details, CV_Id) {
     self.getAllCertificationByCVId = function (cv_id, callback) { // param: CV_Id,
         var certification = new self.Certification();
         certification.find('all',{where:'CV_Id=' + cv_id},function(err,rows,fields){
+            certification.killConnection();
             if(err){
                 callback(-1, err)
             }else{
@@ -80,6 +79,7 @@ function certificationModel(title, certificateAuthority, date, details, CV_Id) {
     self.saveCertification = function(param, callback){
         certification = new self.Certification(param);
         certification.save(function(errors, results){
+            certification.killConnection();
             if(errors){
                 callback(-1, errors)
             }else{
@@ -95,6 +95,7 @@ function certificationModel(title, certificateAuthority, date, details, CV_Id) {
     self.deleteCertification = function(id, callback){
         certification = new self.Certification({id: id});
         certification.remove(function(err, rows){
+            certification.killConnection();
             if (err) {
                 callback(-1, err)
             } else {

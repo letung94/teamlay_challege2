@@ -14,7 +14,7 @@ function Education(institude, degree, fromdate, todate, details, cv_id) {
             this.valid = false;
             this.required = true;
             this.min = 1;
-            this.max = 99;
+            this.max = 100;
             if (institude != null || institude !== "" && typeof(institude)) {
                 var length = institude.length;
                 if (length >= this.min && length <= this.max) {
@@ -27,7 +27,7 @@ function Education(institude, degree, fromdate, todate, details, cv_id) {
     }, {
         validate: function(degree) {
             this.valid = false;
-            this.max = 99;
+            this.max = 100;
             if (degree != null || degree !== "") {
                 var length = degree.length;
                 if (length <= this.max) {
@@ -96,6 +96,7 @@ function Education(institude, degree, fromdate, todate, details, cv_id) {
         temp.find('all', {
             where: "CV_Id = " + reqdata
         }, function(err, rows, fields) {
+            temp.killConnection();
             if (err) {
                 callback(-1, err)
             } else {
@@ -126,6 +127,7 @@ function Education(institude, degree, fromdate, todate, details, cv_id) {
     self.save = function(reqdata, callback) {
         var savetemp = new education(reqdata);
         savetemp.save(function(err, data) {
+            savetemp.killConnection();
             if (err) {
                 callback(-1, err)
             } else {
@@ -134,6 +136,37 @@ function Education(institude, degree, fromdate, todate, details, cv_id) {
             }
         });
     }
+
+    self.update = function(reqdata, callback) {
+        var updatetemp = new education(self.attribute);
+        updatetemp.set("id", reqdata);
+        updatetemp.save(function(err, data) {
+            updatetemp.killConnection();
+            if (err) {
+                callback(-1, err)
+            } else {
+                self.attribute.Id = reqdata;
+                callback(1, self.attribute)
+            }
+        });
+
+    }
+
+    self.remove = function(reqdata, callback) {
+        var removetemp = new education(self.attribute);
+        removetemp.set("id", reqdata);
+        removetemp.remove(function(err, data) {
+            removetemp.killConnection();
+            if (err) {
+                callback(-1, err)
+            } else {
+                self.attribute.Id = reqdata;
+                callback(1, self.attribute)
+            }
+        });
+
+    }
+
 }
 
 module.exports = Education;
