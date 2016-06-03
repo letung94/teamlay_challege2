@@ -3,10 +3,10 @@ $(document).ready(function(){
     var self = this;
     self.listProject = [];
     var today = new Date();
-    //$('#date_project').val(today.getFullYear() + "/" + (today.getMonth() - 1) + "/" + today.getDate()); 
+    //$('#date_project').val(today.getFullYear() + "/" + (today.getMonth() - 1) + "/" + today.getDate());
     /*Get All Project belong to this CV.*/
     self.getAllProject = function(){
-        
+
         var url = window.location.href + "/project/getall";
         $.get(url, function(resp){
             console.log(resp);
@@ -28,8 +28,8 @@ $(document).ready(function(){
                         ToDate: value.ToDate,
                         //Date: value.Date || '',
                         Details: value.Details || '',
-                        CV_Id: value.CV_Id || ''                        
-                    }                    
+                        CV_Id: value.CV_Id || ''
+                    }
                     self.listProject.push(entity);
                 });
                 //console.log(render)\
@@ -45,7 +45,7 @@ $(document).ready(function(){
             html+= '<td colspan="6" align="center"> No data available </td>';
         }
         $.each(self.listProject, function(index, value){
-            html +=`<tr style="font-size:13px"><td>` + value.Title + '</td>' + '<td>' + value.Url + '</td>' + '<td>' + value.FromDate + " - " + value.ToDate + '</td>' +              
+            html +=`<tr style="font-size:13px"><td>` + value.Title + '</td>' + '<td>' + value.Url + '</td>' + '<td>' + value.FromDate + " - " + value.ToDate + '</td>' +
             '<td><button class="btn btn-warning btn-sm btn-edit-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button> ' +
             '<button class="btn btn-danger btn-sm btn-delete-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
         })
@@ -111,11 +111,11 @@ $(document).ready(function(){
         $('#validation_form_project input[name=project_title]').val(editingProject.Title);
         $('#validation_form_project input[name=project_url]').val(editingProject.Url);
         $('#validation_form_project input[name=project_date]').val(editingProject.FromDate + ' - ' + editingProject.ToDate);
-        $('#validation_form_project textarea[name=project_details]').data("wysihtml5").editor.setValue(editingProject.Details);       
+        $('#validation_form_project textarea[name=project_details]').data("wysihtml5").editor.setValue(editingProject.Details);
         self.switchModeProject('edit');
     });
-    
-    
+
+
     /*Create new Project*/
     $('#btnAddListProject').click(function(){
         var isValid = $('#validation_form_project').valid();
@@ -127,11 +127,11 @@ $(document).ready(function(){
             }
             var param = {entity : entity};
             // var date = $('#validation_form_project input[name=project_date]').val();
-            var dates = $("#validation_form_project input[name='project_date']").val().split(" - ");     
+            var dates = $("#validation_form_project input[name='project_date']").val().split(" - ");
             var fromdate = dates[0];
             var todate = dates[1];
             entity.FromDate = fromdate;
-            entity.ToDate = todate;                   
+            entity.ToDate = todate;
             // if(date && date.trim() != ''){
             //     entity.Date = date;
             // }
@@ -146,31 +146,31 @@ $(document).ready(function(){
                         text: 'Project has been added.',
                         sticky: false,
                         time: '1500'
-                    });                    
+                    });
                 }
                 var insertedId = resp.data.insertId;
                 entity.Id = insertedId;
                  if(!entity.Date)
-                    entity.Date = '';                
+                    entity.Date = '';
                 self.listProject.push(entity);
                 self.clearFormProject();
                 self.renderTableBodyProject();
             });
-            
+
         }
     });
 
-    
+
     /*Reset form - clear all content*/
     self.clearFormProject = function(){
         $('#validation_form_project')[0].reset();
         $('#validation_form_project input[name=project_url]').val("http://");
     };
-    
+
     $('#btnCancelEditProject').click(function(){
         self.switchModeProject('add');
         self.clearFormProject();
-    });    
+    });
     /*Switch mode Add or delete*/
     self.switchModeProject = function(mode){
         mode = mode.toLowerCase();
@@ -181,7 +181,7 @@ $(document).ready(function(){
             $('.btn-delete-project').prop('disabled', false);
             $('.btn-edit-project').prop('disabled', false);
         }else if (mode == 'edit'){
-           
+
             $('#btnSaveProject').show();
             $('#btnCancelEditProject').show();
             $('#btnAddListProject').hide();
@@ -189,16 +189,16 @@ $(document).ready(function(){
             $('.btn-delete-project').prop('disabled', true);
             $('.btn-edit-project').prop('disabled', true);
         }
-                
-    };    
-    
+
+    };
+
      /*Check and send edit request to server*/
     $('#btnSaveProject').click(function(){
         var isValid = $('#validation_form_project').valid();
         if(isValid){ /*If the form is valid*/
-            var dates = $("#validation_form_project input[name='project_date']").val().split(" - ");     
+            var dates = $("#validation_form_project input[name='project_date']").val().split(" - ");
             var fromdate = dates[0];
-            var todate = dates[1];            
+            var todate = dates[1];
             entity =  {
                 id: $('#validation_form_project input[name=id]').val() || '',
                 Title: $('#validation_form_project input[name=project_title]').val() || '',
@@ -214,7 +214,7 @@ $(document).ready(function(){
             }
             var url = window.location.href +  '/project/update';
             $.blockUI();
-            
+
             $.post(url, param, function(resp){
                 $.unblockUI();
                 var code = resp.code;
@@ -250,7 +250,7 @@ $(document).ready(function(){
             });
         }
     });
- 
+
      self.getIndexOfListProjectById = function(id){
         var length = self.listProject.length;
         var index = -1;
@@ -275,7 +275,7 @@ $(document).ready(function(){
     $.validator.addMethod("notEqFromToDate", function(value, element) {
         var splitDate = value.split(" - ");
         var toDate = new Date(splitDate[1]);
-        var fromDate = new Date(splitDate[0]);  
+        var fromDate = new Date(splitDate[0]);
         return toDate - fromDate > 0;
     }, "The From Date & To Date should be different.");
 
@@ -294,10 +294,17 @@ $(document).ready(function(){
             project_date:{
                 required: true,
                 isBeforeTodayExp: true,
-                notEqFromToDate: true                
+                notEqFromToDate: true
                 //isBeforeToday: true
             }
-        },      
+        },
+        errorPlacement: function(error, element) {
+            if (element.attr("name") == "project_date")  {
+                error.insertAfter("#project-date-error-message");
+            }else {
+                error.insertAfter(element);
+            }
+        }
     });
 
         /*initialize*/

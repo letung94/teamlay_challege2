@@ -158,6 +158,9 @@ img#preview:hover {opacity: 0.7;}
     background-color: #f5f5f5;
     border-top-left-radius: 4px;
     border-bottom-left-radius:4px;
+    width: 100%;
+    -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+    transition: width 2s;
 }
 #skillguide .option{
     display: block;

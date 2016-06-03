@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">6.25% </span>
+        <span class="strong">5.41% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/32</span>
+        <span class='fraction'>2/37</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">6.25% </span>
+        <span class="strong">5.41% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/32</span>
+        <span class='fraction'>2/37</span>
       </div>
     </div>
   </div>
@@ -114,7 +114,13 @@
 69
 70
 71
-72</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+72
+73
+74
+75
+76
+77
+78</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -140,26 +146,18 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -167,9 +165,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -209,6 +221,7 @@
 <span class="cstat-no" title="statement not covered" >    self.getByIdCV = <span class="fstat-no" title="function not covered" >function(reqdata, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var temp = new summary();</span>
 <span class="cstat-no" title="statement not covered" >        temp.find('first', {fields: ['Id', 'Headline', 'ProfessionalSummary', 'CV_Id'],where: "CV_Id = " + reqdata},<span class="fstat-no" title="function not covered" >function(err,row,fields){</span></span>
+<span class="cstat-no" title="statement not covered" >        temp.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >           if(err){</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err)</span>
             }else{
@@ -226,13 +239,16 @@
 <span class="cstat-no" title="statement not covered" >        var gettemp = new summary();</span>
 <span class="cstat-no" title="statement not covered" >        var savetemp = new summary(reqdata);</span>
 <span class="cstat-no" title="statement not covered" >        gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},<span class="fstat-no" title="function not covered" >function(err,row,fields){</span></span>
-<span class="cstat-no" title="statement not covered" >            var id = null;</span>
+        //gettemp.killConnection();
+<span class="cstat-no" title="statement not covered" >           var id = null;</span>
 <span class="cstat-no" title="statement not covered" >           if(row != null){</span>
 <span class="cstat-no" title="statement not covered" >                id = row.Id;</span>
             }
 <span class="cstat-no" title="statement not covered" >            if(id != null){</span>
 <span class="cstat-no" title="statement not covered" >                savetemp.set('id',id);</span>
 <span class="cstat-no" title="statement not covered" >                savetemp.save(<span class="fstat-no" title="function not covered" >function(err,data){</span></span>
+<span class="cstat-no" title="statement not covered" >                    savetemp.killConnection();</span>
+<span class="cstat-no" title="statement not covered" >                    gettemp.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >                    if(err){</span>
 <span class="cstat-no" title="statement not covered" >                        callback(-1, err)</span>
                     }else{
@@ -242,6 +258,8 @@
                 });
             }else{
 <span class="cstat-no" title="statement not covered" >                savetemp.save(<span class="fstat-no" title="function not covered" >function(err,data){</span></span>
+<span class="cstat-no" title="statement not covered" >                    savetemp.killConnection();</span>
+<span class="cstat-no" title="statement not covered" >                    gettemp.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >                    if(err){</span>
 <span class="cstat-no" title="statement not covered" >                        callback(-1, err)</span>
                     }else{
@@ -262,7 +280,7 @@ module.exports = Summary;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 16:44:04 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.03% </span>
+        <span class="strong">4.1% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>5/124</span>
+        <span class='fraction'>5/122</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/61</span>
+        <span class='fraction'>0/60</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.1% </span>
+        <span class="strong">4.17% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>5/122</span>
+        <span class='fraction'>5/120</span>
       </div>
     </div>
   </div>
@@ -264,9 +264,7 @@
 219
 220
 221
-222
-223
-224</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+222</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -368,8 +366,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -511,7 +507,7 @@
 <span class="cstat-no" title="statement not covered" >            this.valid = false;</span>
 <span class="cstat-no" title="statement not covered" >            this.required = true;</span>
 <span class="cstat-no" title="statement not covered" >            this.min = 1;</span>
-<span class="cstat-no" title="statement not covered" >            this.max = 49;</span>
+<span class="cstat-no" title="statement not covered" >            this.max = 50;</span>
 <span class="cstat-no" title="statement not covered" >            if(firstname !=null || firstname !== ""){</span>
 <span class="cstat-no" title="statement not covered" >                    var length = firstname.length;</span>
 <span class="cstat-no" title="statement not covered" >                    if(length &gt;= this.min &amp;&amp; length &lt;= this.max ){</span>
@@ -524,7 +520,7 @@
 <span class="cstat-no" title="statement not covered" >            this.valid = false;</span>
 <span class="cstat-no" title="statement not covered" >            this.required = true;</span>
 <span class="cstat-no" title="statement not covered" >            this.min = 1;</span>
-<span class="cstat-no" title="statement not covered" >            this.max = 49;</span>
+<span class="cstat-no" title="statement not covered" >            this.max = 50;</span>
 <span class="cstat-no" title="statement not covered" >            if(lastname !=null || lastname !== ""){</span>
 <span class="cstat-no" title="statement not covered" >                    var length = lastname.length;</span>
 <span class="cstat-no" title="statement not covered" >                    if(length &gt;= this.min &amp;&amp; length &lt;= this.max ){</span>
@@ -593,10 +589,8 @@
         {validate: <span class="fstat-no" title="function not covered" >function(email){</span>
 <span class="cstat-no" title="statement not covered" >            this.valid = false;</span>
 <span class="cstat-no" title="statement not covered" >            this.required = true;</span>
-<span class="cstat-no" title="statement not covered" >            this.max = 49;</span>
 <span class="cstat-no" title="statement not covered" >            this.regex = /^((([a-z]|\d|[!#\$%&amp;'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&amp;'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$/;</span>
-<span class="cstat-no" title="statement not covered" >            var length = email.length;</span>
-<span class="cstat-no" title="statement not covered" >            if((email !=null || email !== "")&amp;&amp;length &lt;= this.max){</span>
+<span class="cstat-no" title="statement not covered" >            if(email !=null || email !== ""){</span>
 <span class="cstat-no" title="statement not covered" >                    this.valid = this.regex.test(email);</span>
                 }
 <span class="cstat-no" title="statement not covered" >            return this.valid;</span>
@@ -623,7 +617,7 @@
         },attrname: "Website"},
         {validate: <span class="fstat-no" title="function not covered" >function(address){</span>
 <span class="cstat-no" title="statement not covered" >            this.valid = true;</span>
-<span class="cstat-no" title="statement not covered" >            this.max = 200;</span>
+<span class="cstat-no" title="statement not covered" >            this.max = 250;</span>
 <span class="cstat-no" title="statement not covered" >            if(address !=null || address !== ""){</span>
 <span class="cstat-no" title="statement not covered" >                var length = address.length;</span>
 <span class="cstat-no" title="statement not covered" >                if(length &gt;= this.max ){</span>
@@ -718,7 +712,7 @@ module.exports = Contact_Info;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 16:44:04 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

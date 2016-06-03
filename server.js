@@ -51,16 +51,6 @@ app.use(bodyparser.urlencoded({
 }));
 app.use(session({
     secret: 'vidyapathaisalwaysrunning',
-    /*
-        //session timeout
-    */
-
-
-    cookie: {
-        maxAge: 6000000
-    },
-
-
     resave: true,
     saveUninitialized: true
 }));

@@ -113,7 +113,8 @@
 68
 69
 70
-71</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+71
+72</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -137,6 +138,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,27 +188,28 @@
 <span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">var curriculum_vitae_model = require('../model/cv');
 &nbsp;
 <span class="fstat-no" title="function not covered" >function curriculum_vitae_service() {</span>
-<span class="cstat-no" title="statement not covered" >    this.getAllCV = <span class="fstat-no" title="function not covered" >function (param, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.getAllCV = <span class="fstat-no" title="function not covered" >function(param, cb) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var c = new curriculum_vitae_model();</span>
 <span class="cstat-no" title="statement not covered" >        c.getAllCV(param, cb);</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.getEnableCV = <span class="fstat-no" title="function not covered" >function (param, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.getEnableCV = <span class="fstat-no" title="function not covered" >function(param, cb) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var c = new curriculum_vitae_model();</span>
 <span class="cstat-no" title="statement not covered" >        c.getEnableCV(param, cb);</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.disableCV = <span class="fstat-no" title="function not covered" >function (param, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.disableCV = <span class="fstat-no" title="function not covered" >function(param, cb) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var c = new curriculum_vitae_model();</span>
 <span class="cstat-no" title="statement not covered" >        c.disableCV(param, cb);</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.getByIdCV = <span class="fstat-no" title="function not covered" >function (param, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.getByIdCV = <span class="fstat-no" title="function not covered" >function(param, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var dbcv_get = new curriculum_vitae_model();</span>
-<span class="cstat-no" title="statement not covered" >        dbcv_get.checkCVBelongToUser(param.idcv, param.userid, <span class="fstat-no" title="function not covered" >function (flag, valid) {</span></span>
+<span class="cstat-no" title="statement not covered" >        dbcv_get.checkCVBelongToUser(param.idcv, param.userid, <span class="fstat-no" title="function not covered" >function(flag, valid) {</span></span>
 <span class="cstat-no" title="statement not covered" >            if (flag == 1) {</span>
 <span class="cstat-no" title="statement not covered" >                if (valid[0].Exist == 1) {</span>
 <span class="cstat-no" title="statement not covered" >                    dbcv_get.getByIdCV(param.idcv, callback);</span>
+                    //dbcv_get.getByIdCV(param.idcv, callback);
                 } else {
 <span class="cstat-no" title="statement not covered" >                    callback(0, null);</span>
                 }
@@ -216,7 +219,7 @@
         });
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.createCV = <span class="fstat-no" title="function not covered" >function (param, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.createCV = <span class="fstat-no" title="function not covered" >function(param, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var date = new Date();</span>
 <span class="cstat-no" title="statement not covered" >        var paramCreatedDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + (date.getHours()) + ':' + (date.getMinutes() + 1) + ':' + (date.getSeconds() + 1);</span>
 <span class="cstat-no" title="statement not covered" >        var dbcv_create = new curriculum_vitae_model(param.Name, paramCreatedDate, 0, null, param.UserId, null);</span>
@@ -228,7 +231,7 @@
         }
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.updateCV = <span class="fstat-no" title="function not covered" >function (param, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.updateCV = <span class="fstat-no" title="function not covered" >function(param, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var date = new Date();</span>
         // var paramUpdateDate=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours())+':'+(date.getMinutes()+1)+':'+(date.getSeconds()+1);
 <span class="cstat-no" title="statement not covered" >        var dbcv_save = new curriculum_vitae_model(param.Name, null, 0, null, param.UserId, param.Id);</span>
@@ -240,9 +243,9 @@
         }
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.checkCVBelongToUser = <span class="fstat-no" title="function not covered" >function (cv_id, userid, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.checkCVBelongToUser = <span class="fstat-no" title="function not covered" >function(cv_id, userid, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var c = new curriculum_vitae_model();</span>
-<span class="cstat-no" title="statement not covered" >        c.checkCVBelongToUser(cv_id, userid, <span class="fstat-no" title="function not covered" >function (code, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >        c.checkCVBelongToUser(cv_id, userid, <span class="fstat-no" title="function not covered" >function(code, data) {</span></span>
 <span class="cstat-no" title="statement not covered" >            if (code == 1) {</span>
 <span class="cstat-no" title="statement not covered" >                var exist = data[0].Exist == 0 ? false : true;</span>
 <span class="cstat-no" title="statement not covered" >                callback(code, exist);</span>
@@ -259,7 +262,7 @@ module.exports = curriculum_vitae_service;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 16:44:04 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

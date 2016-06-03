@@ -1,21 +1,21 @@
  <div class="tab-pane fade" id="project">
     <h4> Project</h4>
-    <hr/>  
+    <hr/>
          <form class="form-horizontal" id="validation_form_project" >
           <input name="id" type="hidden" >
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">Project</label>
                             <div class="col-sm-9 col-lg-10 controls">
-                                <input type="text" placeholder="Enter your Project Title" name="project_title" id="project-title" class="form-control" data-rule-required="true" data-rule-minlength="2" > 
+                                <input type="text" placeholder="Enter your Project Title" name="project_title" id="project-title" class="form-control" data-rule-required="true" data-rule-minlength="2" >
                                 <!--<span for="project-title" class="help-block">This field is required.</span> -->
-                            </div>    
+                            </div>
                 </div>
                 <!-URL->
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">URL</label>
                             <div class="col-sm-9 col-lg-10 controls">
                                 <input type="url" placeholder="Enter your URL" name="project_url" id="project_url" class="form-control" value="http://" >
-                            </div>    
+                            </div>
                 </div>
                 <!-Date(s)->
                 <div class="form-group">
@@ -23,11 +23,12 @@
                             <div class="col-sm-5 col-lg-10 controls">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input type="text" placeholder="Enter your project dates" class="form-control date-range" name="project_date"  readonly="readonly"/>                            
-                                </div>  
+                                    <input type="text" placeholder="Enter your project dates" class="form-control date-range" name="project_date"  readonly="readonly"/>
+                                </div>
+                                <span class="text-danger" id="project-date-error-message"></span>
                             </div>
-                </div>                
-<!-- 
+                </div>
+<!--
         <div class="form-group">
             <label class="col-sm-3 col-lg-2 control-label">Date</label>
             <div class="col-sm-5 col-lg-10 controls">
@@ -38,7 +39,7 @@
             </div>
         </div>
 -->
-                <!-Details-> 
+                <!-Details->
                 <div class="form-group">
                         <label class="col-sm-3 col-lg-2 control-label">Details</label>
                         <div class="col-sm-9 col-lg-10 controls">
@@ -47,17 +48,17 @@
                 </div>
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
-                        <div class="col-sm-9 col-lg-10 controls">                            
+                        <div class="col-sm-9 col-lg-10 controls">
                             <button type="button" id="btnAddListProject"  class="btn btn-success"><span class="glyphicon glyphicon-plus"></span>&nbsp;Add To List</button>
                             <button type="button" id="btnSaveProject" class="btn btn-success" style="display:none"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;Save</button>
                             <button type="button" id="btnCancelEditProject" class="btn" style="display:none"><span class="glyphicon glyphicon-share-alt"></span>&nbsp;Cancel</button>
-                        </div>                                 
+                        </div>
                 </div>
-                
 
-        </form>    
-        
-<div class="form-group row">                              
+
+        </form>
+
+<div class="form-group row">
     <div class="box">
                 <div class="box-title">
                     <h4> List of Project</h4>
@@ -69,19 +70,19 @@
                                     <tr style="font-size: 13px">
                                     <th>Project Title</th>
                                     <th>URL</th>
-                                    <th>Date(s)</th>     
+                                    <th>Date(s)</th>
                                     <th>Action</th>
                                     </tr>
-                         </thead>             
-                                    <tbody id="project_table">  
-                                           <td colspan="6" align="center"> No data available </td>                  
+                         </thead>
+                                    <tbody id="project_table">
+                                           <td colspan="6" align="center"> No data available </td>
                                     </tbody>
                      </table>
                             </div>
-                        </div>         
-                            
-     </div>            
-</div>            
+                        </div>
+
+     </div>
+</div>
 </div>
 
 
