@@ -14,7 +14,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
             this.valid = false;
             this.required = true;
             this.min = 1;
-            this.max = 50;
+            this.max = 49;
             try {
                 if (name != null && name !== "" && typeof(name) != "undefined") {
                     var length = name.length;
@@ -78,7 +78,7 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
     self.getByIdCV = function(reqdata, callback) {
         var temp = new Cv();
         temp.find('all', {
-            
+
             where: "Id = " + reqdata + " && IsDeleted = 0"
         }, function(err, rows, fields) {
             if (err) {

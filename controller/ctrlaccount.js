@@ -31,7 +31,7 @@ router.post('/forgot', function (req, res, next) {
         function (token, done) {
             model.getByEmail(req.body.email, function (err, data) {
                 if (err == -1) {
-                    res.render('pages/server_error_500');
+                    res.redirect('/error/500');
                 }
 
                 var user = data;
@@ -56,11 +56,11 @@ router.post('/forgot', function (req, res, next) {
 
                 model.updateUser(user, function (err, data) {
                     if (err == -1) {
-                        res.render('pages/server_error_500');
+                        res.redirect('/error/500');
                     }
-                    done(null, token, user);
-                });
 
+                });
+                done(null, token, user);
             });
         },
         function (token, user, done) {
@@ -87,7 +87,7 @@ router.get('/reset/:token', function (req, res) {
     var model = new user_model();
     model.getByToken(req.params.token, function (err, data) {
         if (err == -1) {
-            res.render('pages/server_error_500');
+            res.redirect('/error/500');
         }
 
         var user = data;
@@ -112,7 +112,7 @@ router.post('/reset/:token', function (req, res) {
         function (done) {
             model.getByToken(req.params.token, function (err, data) {
                 if (err == -1) {
-                    res.render('pages/server_error_500');
+                    res.redirect('/error/500');
                 }
 
                 var user = data;
@@ -124,13 +124,14 @@ router.post('/reset/:token', function (req, res) {
                 user.PasswordHash = bcrypt.hashSync(req.body.password);
                 user.Token = '';
 
-                model.updateUser(user, function () {
-                    if(err==-1){
-                        res.render('pages/server_error_500');
+                model.updateUser(user, function (err, data) {
+                    if (err == -1) {
+                        res.redirect('/error/500');
                     }
-                    done(null, user);
+                    
                 });
             })
+            done(null, user);
         },
         function (user, done) {
             app.mailer.send('pages/reset_password_success_email', {
@@ -194,7 +195,7 @@ router.get('/index', function (req, res) {
     var model = new user_model();
     model.getAllUser(function (err, data) {
         if (err == -1) {
-            res.render('pages/server_error_500');
+            res.redirect('/error/500');
         }
         console.log(data);
     })
@@ -208,7 +209,7 @@ router.get("/verify/:token", function (req, res, next) {
     var token = req.params.token;
     model.getByToken(token, function (err, data) {
         if (err == -1) {
-            res.render('pages/server_error_500');
+            res.redirect('/error/500');
         }
 
         if (!data) {
@@ -218,7 +219,10 @@ router.get("/verify/:token", function (req, res, next) {
             var user = data;
             user.Token = '';
             user.IsConfirmed = 1;
-            model.updateUser(user, function (err) {
+            model.updateUser(user, function (err, data) {
+                if (err == -1) {
+                    res.redirect('/error/500');
+                }
             });
             res.redirect('/cv');
         }
@@ -241,7 +245,7 @@ router.post('/register', function (req, res) {
         function (done) {
             model.getByUsername(req.body.username, function (errFlag, data) {
                 if (errFlag == -1) {
-                    res.render('pages/server_error_500');
+                    res.redirect('/error/500');
                 }
                 if (data) {
                     req.flash('error', 'Username already exists');
@@ -268,30 +272,35 @@ router.post('/register', function (req, res) {
             done(null, user);
         },
         function (user, done) {
-            console.log(user.checkValidation());
-            console.log(user.attribute);
-            user.addUser(user.attribute, function (err, data) {
-                if (err == -1) {
-                    res.render('pages/server_error_500');
-                };
+            console.log(user);
+            var valid = user.checkValidation();
+            if (valid) {
+                console.log(user.attribute);
+                user.addUser(user.attribute, function (err, data) {
+                    if (err == -1) {
+                        res.redirect('/error/500');
+                    };
 
-                // Create a link to verify email
-                var link = req.protocol + "://" + req.get('host') + "/verify/" + user.Token;
+                    // Create a link to verify email
+                    var link = req.protocol + "://" + req.get('host') + "/verify/" + user.attribute.Token;
 
-                app.mailer.send('pages/confirmation_email', {
-                    to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
-                    subject: 'CV Maker Confimation Email', // REQUIRED. 
-                    link: link, // All additional properties are also passed to the template as local variables. 
-                    email: req.body.email
-                }, function (err) {
-                    if (err) {
-                        // handle error 
-                        res.render('pages/server_error_500');
-                        return;
-                    }
-                    done();
+                    app.mailer.send('pages/confirmation_email', {
+                        to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                        subject: 'CV Maker Confimation Email', // REQUIRED. 
+                        link: link, // All additional properties are also passed to the template as local variables. 
+                        email: req.body.email
+                    }, function (err) {
+                        if (err) {
+                            // handle error 
+                            res.redirect('/error/500');
+                            return;
+                        }
+                        done();
+                    });
                 });
-            });
+            } else {
+                res.send({ flag: 0, resdata: user.attrvalidate });
+            }
         },
         function (done) {
             model.getByUsername(req.body.username, function (err, data) {

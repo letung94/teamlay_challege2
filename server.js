@@ -51,6 +51,10 @@ app.use(bodyparser.urlencoded({
 }));
 app.use(session({
     secret: 'vidyapathaisalwaysrunning',
+    /*
+        //session timeout
+    */
+    cookie: { maxAge: 60000 },    
     resave: true,
     saveUninitialized: true
 }));
@@ -68,7 +72,7 @@ var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
-app.use('/cv',authenticate.requireAuthenticated, ctrlcv);
+app.use('/cv',[authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
 app.use('/', ctrluser);
 app.use('/template', ctrlTemplate);
 app.use('/', ctrlAccount);

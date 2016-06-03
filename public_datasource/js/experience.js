@@ -68,10 +68,9 @@ $('#list-experience').on('click', '.btnDeleteExp' , function(e){
     e.preventDefault();
     var deletedexperience = new Experience();
     //get current index on row click
-    var cells = $(this).closest("tr").children("td");
     indexCurrentExp = $(this).closest("tr").index();
     deletedexperience.Id = listExp[indexCurrentExp].attribute.Id;
-    urlpost = window.location.href + '/experience/delete'
+    var urlpost = window.location.href + '/experience/delete'
     //show popup confirm on click delete button
     BootstrapDialog.confirm({
             title: 'Confirm',
@@ -109,6 +108,7 @@ $('#list-experience').on('click', '.btnDeleteExp' , function(e){
 /*Edit Button Click Event to Edit Value*/
 $('#list-experience').on('click', '.btnEditExp' , function(e){
     e.preventDefault();
+    $('#experience-form').validate().resetForm();
     var cells = $(this).closest("tr").children("td");
     indexCurrentExp = parseInt(cells.eq(0).text())-1;  
     $("#experience-form input[name='company']").val(cells.eq(1).text()).focus();  
@@ -168,12 +168,18 @@ function getExperience(){
         dataType: 'json',
         async: false,
         contentType: 'application/json; charset=utf-8',
-        success: function (res) {   
-                clickedExperience = true;
-                $.each(res.resdata, function( index, value ) {
-                listExp.push(new Experience(value));          
-                addListExp(index + 1,value);
-                });              
+        success: function (res) {
+                if(res.flag == 1){
+                    clickedExperience = true;
+                    $.each(res.resdata, function( index, value ) {
+                    listExp.push(new Experience(value));          
+                    addListExp(index + 1,value);
+                    });            
+                }
+                else{
+                     $('#list-experience tbody').append('<tr><td colspan="5" align="center"> No data available </td></tr>');
+                }
+                   
             },
         error: function(x,e){
             
@@ -213,20 +219,16 @@ function switchModeExp(mode){
 $(document).ready(function() {
     
     $.validator.addMethod("isBeforeTodayExp", function(value, element) {
-        if(!value || value.trim() == '')
-        return true;
         var today = new Date();
         var getTodate = value.split(" - ");
         var inputDate = new Date(getTodate[1]);
         return inputDate <= today;
     }, "The ToDate should be before today.");
     $.validator.addMethod("notEqFromToDate", function(value, element) {
-        if(!value || value.trim() == '')
-        return true;
         var splitDate = value.split(" - ");
         var toDate = new Date(splitDate[1]);
         var fromDate = new Date(splitDate[0]);  
-        return fromDate != toDate;
+        return toDate - fromDate > 0;
     }, "The FromDate & ToDate should be different.");
     $("#experience-form").validate({
             errorClass: 'text-danger',
@@ -245,16 +247,6 @@ $(document).ready(function() {
                     isBeforeTodayExp: true,
                     notEqFromToDate: true
                 },        
-            },
-            messages: {
-                company: {
-                    required: "Please enter a company's name.",
-                    minlength: "Your company's name  must be at least 2 characters long.",
-                    maxlength: "Your company's name must be under 100 characters."
-                },
-                date: {
-                    required: "Please enter your working time for this company "
-                } 
             },
             errorPlacement:
             function(error, element){

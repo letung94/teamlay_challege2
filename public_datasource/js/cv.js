@@ -28,7 +28,7 @@ $(function() {
                 $("#contact_info-form input[name='phone']").val(contact_info.attribute.Phone);
                 $("#contact_info-form input[name='website']").val(contact_info.attribute.Website);
                 $("#contact_info-form input[name='address']").val(contact_info.attribute.Address);
-                
+
                 /*var validator = $( "#validation_form_contact_info" ).validate();
                 validator.resetForm();*/
             }/*else{
@@ -39,11 +39,11 @@ $(function() {
             }*/
         },
         error: function(x,e){
-            
+
         }
     });
-    
-    
+
+
 });
 
 function showAnnoucement(flag, section, action){
@@ -54,7 +54,7 @@ function showAnnoucement(flag, section, action){
                     title: 'Success',
                     text: 'Your ' + section + ' has been ' + action + '!',
                     sticky: false,
-                    time: '1500' 
+                    time: '1500'
                     });
                 }else{
                     if(flag==0){
@@ -62,15 +62,24 @@ function showAnnoucement(flag, section, action){
                         title: 'Human Error',
                         text: 'The information is wrong!',
                         sticky: false,
-                        time: '1500' 
+                        time: '1500'
                         });
                     }else{
                         $.gritter.add({
                         title: 'Server Error',
                         text: 'The server is not working now. Sorry Opps!',
                         sticky: false,
-                        time: '1500' 
+                        time: '1500'
                         });
                     }
                 }
 }
+
+$('#btnPreviewCV').click(function(){
+    var fullUrl = window.location.href;
+    var arr = fullUrl.split('/');
+    var cv_id = arr[4];
+    console.log(arr);
+    var url ='/template/template_list/' + cv_id  + '/';
+    window.open(url,'_blank');
+});

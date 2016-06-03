@@ -30,6 +30,8 @@ $(document).ready(function(){
                     self.listCertification.push(entity);
                     self.renderTableBody();
                 });
+            }else if (resp.code == 0){
+                showAnnoucement(0,'','');
             }
         });
     }
@@ -81,7 +83,6 @@ $(document).ready(function(){
                     entity.Id = insertedId
                     if(!entity.Date) /*To prevent show undefined in grid*/
                     entity.Date = '';
-                    console.log(entity);
                     self.listCertification.push(entity);
                     self.renderTableBody();
                     self.clearForm();

@@ -99,16 +99,14 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
     */
     self.save = function(reqdata, callback){
         var savetemp = new skill(reqdata);
-        self.attribute.Id = 1;
-        callback(1, self.attribute)
-        /*savetemp.save(function(err,data){
-                    if(err){
-                        callback(-1, err)
-                    }else{
-                        self.attribute.Id = data.insertId;
-                        callback(1, self.attribute)
-                    }
-                });*/
+        savetemp.save(function(err,data){
+            if(err){
+                callback(-1, err)
+            }else{
+                self.attribute.Id = data.insertId;
+                callback(1, self.attribute)
+            }
+        });
     }
     
     self.update = function(reqdata, callback){
@@ -116,13 +114,12 @@ function Skill(name,expertise,experience,lastyearused,cv_id) {
         updatetemp.set("id",reqdata);
         updatetemp.save(function(err,data){
             if(err){
-                        callback(-1, err)
-                    }else{
-                        self.attribute.Id = reqdata;
-                        callback(1, self.attribute)
-                    }
+                callback(-1, err)
+            }else{
+                self.attribute.Id = reqdata;
+                callback(1, self.attribute)
+            }
         });
-
     }
     
     self.remove = function(reqdata, callback){
