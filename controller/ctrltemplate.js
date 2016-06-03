@@ -6,8 +6,8 @@ var helper = require('../helper/helper');
 var pdf = require('../helper/pdf');
 var di = require('../config/config');
 var async = require('async');
-
-var demoInfo = {
+var uuid = require('node-uuid');
+/*var demoInfo = {
 	summary:{
 		Headline: 'Some shinny Headline',
 		ProfessionalSummary: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
@@ -105,7 +105,7 @@ var demoInfo = {
 			Details: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
 		}
 	]
-}
+}*/
 
 router.get('/templateReview/:name/:cv_id', function (req, res) {
 	var name = req.params.name;
@@ -148,28 +148,28 @@ router.get('/templateReview/:name/:cv_id', function (req, res) {
 				done();
 			})
 		},
-		function(done){
+		//function(done){
 			/*Education*/
-			var EducationService = di.resolve('education');
-			var educationService = new EducationService();
-			educationService.getAllEducationByCVId({CV_Id: cv_id}, function(code, data){
-				if(code == 1){
-					/*Convert DB date to readable date*/
-					var length = data.length;
-					for (var i = 0; i < length; i++) {
-						var education = data[i];
-						if(education.FromDate){
-							education.FromDate = helper.parseDate(education.FromDate);
-						}
-						if(education.ToDate){
-							education.ToDate = helper.parseDate(education.ToDate);
-						}
-					}
-					info.educations = data;
-					done();
-				}
-			})
-		},
+			// var EducationService = di.resolve('education');
+			// var educationService = new EducationService();
+			// educationService.getAllEducationByCVId({CV_Id: cv_id}, function(code, data){
+			// 	if(code == 1){
+			// 		/*Convert DB date to readable date*/
+			// 		var length = data.length;
+			// 		for (var i = 0; i < length; i++) {
+			// 			var education = data[i];
+			// 			if(education.FromDate){
+			// 				education.FromDate = helper.parseDate(education.FromDate);
+			// 			}
+			// 			if(education.ToDate){
+			// 				education.ToDate = helper.parseDate(education.ToDate);
+			// 			}
+			// 		}
+			// 		info.educations = data;
+			// 		done();
+			// 	}
+			// })
+		//},
 		function(done){
 			/*Certificate*/
 			var CertificateionService = di.resolve('certification');
@@ -225,10 +225,10 @@ router.get('/template_list/:cv_id', function (req, res) {
 });
 
 router.get('/download/:name/:cv_id', function (req, res) {
-	var name = req.params.name; // Template file name.
+	var name = req.params.name; /* Template file name. */
 	var cv_id = req.params.cv_id;
-	var source =  req.headers.host + '/template/templateReview/' + name + '/' + cv_id; // Get from template review page.
-	var destination = path.join(__dirname + '/../tmp/', helper.createUnique() + '.pdf'); // Declare temporarily save folder.
+	var source =  req.headers.host + '/template/templateReview/' + name + '/' + cv_id; /* Get from template review page. */
+	var destination = path.join(__dirname + '/../tmp/', uuid.v1()+ '.pdf'); /* Declare temporarily save folder. */
 	var options = {
 		format:req.query.format,
 		orientation: req.query.orientation,
@@ -237,28 +237,28 @@ router.get('/download/:name/:cv_id', function (req, res) {
 		marginRight : req.query.marginRight,
 		marginBottom : req.query.marginBottom,
 		marginLeft : req.query.marginLeft
-	}; // Options about the pdf that going to be exports.
+	}; /* Options about the pdf that going to be exports. */
 
 	var connected = true; // keep track of user connection.
-	req.on("close", function () { // Fire when user disconnect (normally or force).
+	req.on("close", function () { /* Fire when user disconnect (normally or force). */
 		connected = false;
 	});
 
 	pdf.savePDFfromHTML(source, destination, options, function (code, file) {
-		if(code == 0){ // Convert HTML 2 PDF and save to disk successfully.
-			if (connected) { // If user still connected.
-				res.header('content-type', 'application/pdf'); // Set header so browser can display it as pdf.
+		if(code == 0){ /* Convert HTML 2 PDF and save to disk successfully. */
+			if (connected) { /* If user still connected. */
+				res.header('content-type', 'application/pdf'); /* Set header so browser can display it as pdf.*/
 				// res.setHeader('Content-disposition', 'attachment; filename=' + 'demo.pdf');
 				var stream = fs.createReadStream(file); // Create stream for user to download.
-				stream.on('error', function () { // If Error delete the file in temporary folder.
-					fs.unlink(file);
+				stream.on('error', function () {  /*Something wrong when streaming.*/
+
 				});
-				stream.on('close', function () { // If stream close delete the file in temporary folder (Success to download...).
-					fs.unlink(file);
+				stream.on('close', function () { /* User success to download. */
+
 				});
 				stream.pipe(res);
-			} else { // If user disconnected when the file is being converted.
-				fs.unlink(file); // Delete the file without sending down to the user.
+			} else { /* If user disconnected when the file is being converted. */
+
 			}
 		} else{ // Something wrong with HTML 2 PDF convert process.
 			fs.unlink(file);

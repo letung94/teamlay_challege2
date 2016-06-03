@@ -10,6 +10,67 @@ var app = require('../server');
 var flash = require('express-flash');
 var async = require('async');
 
+// Resend verification email GET
+router.get('/verification-resend', function (req, res) {
+    res.render('pages/resend_verify_email', {
+        errorMessage: req.flash('error'),
+        successMessage: req.flash('success')
+    });
+});
+
+// Resend verification email POST
+router.post('/verification-resend', function (req, res) {
+    var model = new user_model();
+    async.waterfall([
+        function (done) {
+            var token = uuid.v1();
+            done(null, token);
+        },
+        function (token, done) {
+            model.getByEmail(req.body.email, function (err, data) {
+                if (err == -1) {
+                    res.redirect('/error/500');
+                }
+
+                var user = data;
+                if (!user) {
+                    req.flash('error', 'Sorry, we couldn\'t find an account matching the email address you entered. Please try again or register a new account.');
+                    return res.redirect('/verification-resend');
+                }
+
+                user.VerifyToken = token;
+                model.updateUser(user, function (flag, err) {
+                    if (flag == -1) {
+                        res.redirect('/error/500');
+                    }
+                });
+                done(null, token, user);
+            });
+        },
+        function (token, user, done) {
+            // Create a link to verify email
+            var link = req.protocol + "://" + req.get('host') + "/verify/" + user.VerifyToken;
+
+            app.mailer.send('pages/confirmation_email', {
+                to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
+                subject: 'CV Maker Confimation Email', // REQUIRED. 
+                link: link, // All additional properties are also passed to the template as local variables. 
+                email: req.body.email
+            }, function (err) {
+                if (err) {
+                    // handle error 
+                    res.redirect('/error/500');
+                    return;
+                }
+                done();
+            });
+        }
+    ], function () {
+        req.flash('success', 'We emailed a link to you. Please check your email and click the link to verify your email address.');
+        res.redirect('/verification-resend');
+    });
+});
+
 // Forgot Password GET
 router.get('/forgot', function (req, res) {
     res.render('pages/forgot_password', {
@@ -196,10 +257,7 @@ router.get('/index', function (req, res) {
         if (err == -1) {
             res.redirect('/error/500');
         }
-        console.log(data);
     })
-    if (!req.isAuthenticated()) res.redirect('/login');
-    res.end('Login successfull!');
 })
 
 // Verify email
@@ -223,7 +281,7 @@ router.get("/verify/:token", function (req, res, next) {
                     res.redirect('/error/500');
                 }
             });
-            req.flash('success','Your email is verified. Now you can log in!');
+            req.flash('success', 'Your email is verified. Now you can log in!');
             res.redirect('/login');
         }
     })
@@ -273,10 +331,8 @@ router.post('/register', function (req, res) {
             done(null, user);
         },
         function (user, done) {
-            console.log(user);
             var valid = user.checkValidation();
             if (valid) {
-                console.log(user.attribute);
                 user.addUser(user.attribute, function (err, data) {
                     if (err == -1) {
                         res.redirect('/error/500');
@@ -284,7 +340,6 @@ router.post('/register', function (req, res) {
 
                     // Create a link to verify email
                     var link = req.protocol + "://" + req.get('host') + "/verify/" + user.attribute.VerifyToken;
-
                     app.mailer.send('pages/confirmation_email', {
                         to: req.body.email, // REQUIRED. This can be a comma delimited string just like a normal email to field.  
                         subject: 'CV Maker Confimation Email', // REQUIRED. 
