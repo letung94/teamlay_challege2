@@ -66,12 +66,7 @@ function showAnnoucement(flag, section, action) {
                 time: '1500'
             });
         } else {
-            $.gritter.add({
-                title: 'Server Error',
-                text: 'The server is not working now. Sorry Opps!',
-                sticky: false,
-                time: '1500'
-            });
+            window.location = ("../error/500");
         }
     }
 }
