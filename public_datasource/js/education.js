@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    useWysihtml5("#education-form textarea[name='detail']");
 
     $.validator.addMethod("isBeforeTodayEdu", function(value, element) {
         var today = new Date();
@@ -56,6 +57,10 @@ function addListEdu(index, row) {
     $(rowtable).appendTo("#list-education tbody");
 }
 
+$('#btnCancelEditEdu').click(function() {
+    switchModeEdu("add");
+    $("#education-form")[0].reset();
+});
 
 function getEducation() {
     if (clickedEducation == true) {
@@ -122,7 +127,7 @@ $('#btnAddListEdu').click(function() {
                         addListEdu(index + 1, value.attribute);
                     });
                     switchModeEdu("add");
-                    $("#experience-form")[0].reset();
+                    $("#education-form")[0].reset();
                 }
                 showAnnoucement(res.flag, 'education', 'added');
             },
@@ -131,6 +136,101 @@ $('#btnAddListEdu').click(function() {
             }
         });
     }
+});
+
+$('#list-education').on('click', '.btnEditEdu', function(e) {
+    e.preventDefault();
+    $('#education-form').validate().resetForm();
+    var cells = $(this).closest("tr").children("td");
+    indexCurrentEdu = parseInt(cells.eq(0).text()) - 1;
+    $("#education-form input[name='institute']").val(cells.eq(1).text()).focus();
+    $("#education-form input[name='degree']").val(cells.eq(2).text());
+    $("#education-form input[name='date']").val(cells.eq(3).text());
+    $("#education-form textarea[name='detail']").data('wysihtml5').editor.setValue(listEdu[indexCurrentEdu].attribute.Details);
+    rowId = $(this).closest('td').parent()[0].sectionRowIndex;
+    switchModeEdu("edit");
+    $('#education-form').validate().resetForm();
+});
+
+$('#btnSaveEditEdu').click(function() {
+    var isValid = $('#education-form').valid();
+    if (isValid) {
+        var savedEducation = getValueEdu();
+        savedEducation.Id = listEdu[indexCurrentEdu].attribute.Id;
+        savedEducation.CV_Id = listEdu[indexCurrentEdu].attribute.CV_Id;
+        var urlpost = window.location.href + '/education/update';
+        $.ajax({
+            type: "POST",
+            //the url where you want to sent the userName and password to
+            url: urlpost,
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            //json object to sent to the authentication url
+            data: JSON.stringify(savedEducation),
+            success: function(res) {
+                if (res.flag == 1) {
+                    listEdu.splice(indexCurrentEdu, 1);
+                    listEdu.splice(indexCurrentEdu, 0, new Education(res.resdata));
+                    $("#list-education tbody > tr").remove();
+                    $.each(listEdu, function(index, value) {
+                        addListEdu(index + 1, value.attribute);
+                    });
+                    switchModeEdu("add");
+                    $("#education-form")[0].reset();
+                }
+                showAnnoucement(res.flag, 'education', 'edited');
+            },
+            error: function(x, e) {
+
+            }
+        });
+    }
+});
+
+$('#list-education').on('click', '.btnDeleteEdu', function(e) {
+    e.preventDefault();
+    var deletedEducation = new Education();
+    //get current index on row click
+    indexCurrentEdu = $(this).closest("tr").index();
+    deletedEducation.Id = listEdu[indexCurrentEdu].attribute.Id;
+    var urlpost = window.location.href + '/education/delete'
+        //show popup confirm on click delete button
+    BootstrapDialog.confirm({
+        title: 'Confirm',
+        message: 'Are you sure?',
+        callback: function(result) {
+            if (result) {
+                $.ajax({
+                    type: "POST",
+                    url: urlpost,
+                    dataType: 'json',
+                    async: false,
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(deletedEducation),
+                    success: function(res) {
+                        if (res.flag == 1) {
+                            //remove value from array by index and update to table
+                            listEdu.splice(indexCurrentEdu, 1);
+                            $("#list-education tbody > tr").remove();
+                            $.each(listEdu, function(index, value) {
+                                addListEdu(index + 1, value.attribute);
+                            });
+                            if (listEdu.length == 0) {
+                                $('#list-education tbody').append('<tr><td colspan="5" align="center"> No data available </td></tr>');
+                            }
+                        }
+                        showAnnoucement(res.flag, 'education', 'deleted');
+                    },
+                    error: function(x, e) {
+
+                    }
+                });
+            } else {
+
+            }
+        }
+    });
 });
 
 function switchModeEdu(mode) {
