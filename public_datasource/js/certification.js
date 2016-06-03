@@ -32,6 +32,7 @@ $(document).ready(function(){
                         Title: value.Title,
                         CertificateAuthority: value.CertificateAuthority || '',
                         Date: value.Date || '',
+                        Details: value.Details,
                         CV_Id: value.CV_Id || ''
                     }
 
@@ -103,44 +104,46 @@ $(document).ready(function(){
 
     /*Delete Certification - this button is dynamic so we write this way.*/
     $(document).on('click', '.btn-delete-certification', function() {
-        var confirmDelete = confirm("Are you sure you want to delete this certification? ");
-        if(!confirmDelete)
-        return false;
-        var certificationId = $(this).attr('certification-id');
-        var param = {id: certificationId};
-        var url = window.location.href + "/certification/delete";
-        var deletedCertification;
-        $.blockUI();
-        $.post(url, param, function(resp){
-            $.unblockUI();
-            var code = resp.code;
-            if(code == 1){ /*Delete Successful*/
-                /*Get index of deleted certification*/
-                var index = self.getIndexOfListCertificationById(certificationId);
-                deletedCertification = self.listCertification[index];
+        var that = this;
 
-                /*Remove at index*/
-                self.listCertification.splice(index, 1);
+        BootstrapDialog.confirm({
+            title: 'Confirm',
+            message: 'Are you sure you want to delete this Certification?',
+            callback: function(result) {
+                if(result) {
+                    var certificationId = $(that).attr('certification-id');
+                    var param = {id: certificationId};
+                    var url = window.location.href + "/certification/delete";
+                    var deletedCertification;
+                    $.blockUI();
+                    $.post(url, param, function(resp){
+                        $.unblockUI();
+                        var code = resp.code;
+                        if(code == 1){ /*Delete Successful*/
+                            /*Get index of deleted certification*/
+                            var index = self.getIndexOfListCertificationById(certificationId);
+                            deletedCertification = self.listCertification[index];
 
-                /*Call render again to refresh certification list*/
-                self.renderTableBody();
+                            /*Remove at index*/
+                            self.listCertification.splice(index, 1);
 
-                /*Show the success message*/
-                $.gritter.add({
-                    title: 'Success',
-                    text: 'The Certification <b>' + deletedCertification.Title + '(' + deletedCertification.CertificateAuthority  + ')</b> has been deleted.',
-                    sticky: false,
-                    time: '1500'
-                });
-            }else if (code == 0){
-                $.gritter.add({
-                    title: 'Error',
-                    text:  res.rows + '.',
-                    sticky: false,
-                    time: '1500'
-                });
-            }else if(code == -1){
-                // TODO
+                            /*Call render again to refresh certification list*/
+                            self.renderTableBody();
+
+                            /*Show the success message*/
+                            $.gritter.add({
+                                title: 'Success',
+                                text: 'The Certification <b>' + deletedCertification.Title + '(' + deletedCertification.CertificateAuthority  + ')</b> has been deleted.',
+                                sticky: false,
+                                time: '1500'
+                            });
+                        }else if (code == 0){
+                            showAnnoucement(0,'','');
+                        }else if(code == -1){
+                            showAnnoucement(-1,'','');
+                        }
+                    });
+                }
             }
         });
     });
@@ -156,11 +159,15 @@ $(document).ready(function(){
                 return false;
             }
         });
+        //console.log(editingCertification);
         $('#certification-form input[name=id]').val(editingCertification.Id);
         $('#certification-form input[name=title]').val(editingCertification.Title);
         $('#certification-form input[name=certificationAuthority]').val(editingCertification.CertificateAuthority);
         $('#certification-form input[name=date]').val(editingCertification.Date);
+        //console.log(editingCertification);
         $('#certification-form textarea[name=details]').data("wysihtml5").editor.setValue(editingCertification.Details);
+
+        $('#certification-form input[name=title]').focus();
 
         self.switchMode('edit');
     });
@@ -289,4 +296,7 @@ $(document).ready(function(){
             }
         }
     });
+
+    /*Initialize*/
+    useWysihtml5("#certification-form textarea[name='details']");
 });

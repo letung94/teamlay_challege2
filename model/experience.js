@@ -89,6 +89,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
             temp.find('all', {
                 where: "CV_Id = " + reqdata
             }, function(err, rows, fields) {
+                temp.killConnection();
                 if (err) {
                     callback(-1, err)
                 } else {
@@ -121,6 +122,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
     self.save = function(reqdata, callback) {
         var savetemp = new experience(reqdata);
         savetemp.save(function(err, data) {
+            savetemp.killConnection();
             if (err) {
                 callback(-1, err)
             } else {
@@ -129,23 +131,12 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
             }
         });
     }
-
-    self.save = function(reqdata, callback){
-        var savetemp = new experience(reqdata);
-        savetemp.save(function(err,data){
-                    if(err){
-                        callback(-1, err)
-                    }else{
-                        self.attribute.Id = data.insertId;
-                        callback(1, self.attribute)
-                    }
-                });
-    }
     
     self.update = function(reqdata, callback){
         var updatetemp = new experience(self.attribute);
         updatetemp.set("id", reqdata);
         updatetemp.save(function(err, data) {
+            updatetemp.killConnection();
             if (err) {
                 callback(-1, err)
             } else {
@@ -160,6 +151,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
         var removetemp = new experience(self.attribute);
         removetemp.set("id", reqdata);
         removetemp.remove(function(err, data) {
+            removetemp.killConnection();
             if (err) {
                 callback(-1, err)
             } else {

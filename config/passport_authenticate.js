@@ -29,12 +29,12 @@ passport.use('local', new LocalStrategy({
             
             if (user == null) {
                 return done(null, false, {
-                    message: 'Invalid username'
+                    message: 'Invalid username or password'
                 });
             } else {
                 if (!bcrypt.compareSync(password, user.PasswordHash)) {
                     return done(null, false, {
-                        message: 'Invalid password'
+                        message: 'Invalid username or password'
                     });
                 } else {
                     if (user.IsConfirmed === 0) {

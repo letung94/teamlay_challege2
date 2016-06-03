@@ -176,10 +176,12 @@ $('#contact_info-form #btnSaveContact_Info').click(function() {
                 //showAnnoucement(flag, section, action)
                 */
                 showAnnoucement(res.flag,'contact information', 'saved');
-                contact_info = null;
-                contact_info = new Contact_Info(res.resdata.attribute);
-                $("#del_avatar").css("opacity","0");
-                $("#avatar")[0].value = '';
+                if(res.flag == 1){
+                    contact_info = null;
+                    contact_info = new Contact_Info(res.resdata.attribute);
+                    $("#del_avatar").css("opacity","0");
+                    $("#avatar")[0].value = '';
+                }
                 //console.log(res);
             },
             error: function(x,e){
