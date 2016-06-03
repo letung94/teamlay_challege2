@@ -26,49 +26,42 @@
 <style>
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
-      width: 20%;
+      width:38%;
       margin: auto;
+      }
+  .carousel-indicators li {
+    background-color: #999;
+    background-color: rgba(70,70,70,.25);
   }
-  </style>
+  .carousel-indicators .active {
+    background-color: #444;
+}
+</style>
+
 </head>
+<body bgcolor="#E6E6FA">
 <div id="navbar" class="navbar">
-<div class="col-md-8 col-md-offset-2">
-<a class="navbar-brand" href="#">
-<i class="fa fa-file-text-o"></i>
-Create, maintain, publish, and share your CVs for free
-</a>
-
-<!-- BEGIN Navbar Buttons -->
-<ul class="nav flaty-nav pull-right">
-
-<!-- BEGIN Button Dashboard -->
-
-<!-- END Button Dashboard -->
-
-<!-- BEGIN Button Dashboard -->
-
-
-<li class="hidden-xs">
-<a href="#">
-<i class="glyphicon glyphicon-lock">Login/Signup</i>
-</a>
-</li>
-
-</ul>
-<!-- BEGIN User Dropdown -->
-</li>
-<!-- END Button User -->
-</ul>
-<!-- END Navbar Buttons -->
-
-</div>
+    <div class="col-md-8 col-md-offset-2">
+        <a class="navbar-brand" href="#">
+        <i class="fa fa-file-text-o"></i>
+            Create, maintain, publish, and share your CVs for free
+        </a>
+        <ul class="nav flaty-nav pull-right">
+            <li class="hidden-xs">
+            <a href="#">
+                <i class="glyphicon glyphicon-lock">Login/Signup</i>
+            </a>
+            </li>
+        </ul>
+    </div>
 </div>
 
 <main>
-	<div class="container" >
-		<h1 align="center"><span class="glyphicon glyphicon-file"></span>CV Maker</h1><br/>
-		<h4 align="center">Create beautiful, professional resumes in minutes, free.Create a cv now</h4><br/>
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+	<div class="container" align="center">
+		<h1><span class="glyphicon glyphicon-file"></span>CV Maker</h1><br/>
+		<h4>Create beautiful, professional resumes in minutes, free.Create a cv now</h4><br/>
+        <div id="myCarousel" style="width: 800px" class="carousel slide" data-ride="carousel">
+        
         <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -79,13 +72,13 @@ Create, maintain, publish, and share your CVs for free
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-            <img src="img/cv-image/cv1.jpg" alt="CV1" width="400" height="300">
+            <img src="img/cv-image/cv1.jpg" alt="CV1" width="300" height="250">
             </div>
             <div class="item">
-            <img src="img/cv-image/cv1.jpg" alt="CV1" width="400" height="300">
+            <img src="img/cv-image/cv1.jpg" alt="CV1" width="300" height="250">
             </div>
             <div class="item">
-            <img src="img/cv-image/cv2.jpg" alt="CV2" width="400" height="300">
+            <img src="img/cv-image/cv2.jpg" alt="CV2" width="300" height="250">
             </div>
         </div>
 
@@ -98,11 +91,24 @@ Create, maintain, publish, and share your CVs for free
             <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
-        </div>
+       </div>
 	</div>
 </main>
+
 <footer>
-    <%- include ../layouts/footer.ejs %>
+    <div class="footer">
+        Copyright © CV Builder 2016
+    </div>
 </footer>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="assets/jquery-cookie/jquery.cookie.js"></script>
+
+  <!--page specific plugin scripts-->
+  <script type="text/javascript" src="assets/chosen-bootstrap/chosen.jquery.js"></script>
+ 
+  <!--flaty scripts-->
+  <script src="js/flaty.js"></script>
+  <script src="js/flaty-demo-codes.js"></script>
 </body>
 </html>
