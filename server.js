@@ -54,13 +54,10 @@ app.use(session({
     /*
         //session timeout
     */
-<<<<<<< 7c8ce2f8a3a10cfe2b2459842dc1160c1cd989d1
-    cookie: { maxAge: 6000000 },    
-=======
+
     cookie: {
         maxAge: 6000000
     },
->>>>>>> Nhieu update footer and change di cv in config
     resave: true,
     saveUninitialized: true
 }));
