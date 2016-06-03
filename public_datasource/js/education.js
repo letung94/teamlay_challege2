@@ -121,7 +121,8 @@ $('#btnAddListEdu').click(function() {
                     $.each(listEdu, function(index, value) {
                         addListEdu(index + 1, value.attribute);
                     });
-                    //switchModeEdu("add");
+                    switchModeEdu("add");
+                    $("#experience-form")[0].reset();
                 }
                 showAnnoucement(res.flag, 'education', 'added');
             },
@@ -131,3 +132,21 @@ $('#btnAddListEdu').click(function() {
         });
     }
 });
+
+function switchModeEdu(mode) {
+    mode = mode.toLowerCase();
+
+    if (mode == 'add') {
+        $('#btnSaveEditEdu').hide();
+        $('#btnCancelEditEdu').hide();
+        $('#btnAddListEdu').show();
+        $('.btnDeleteEdu').prop('disabled', false);
+        $('.btnEditEdu').prop('disabled', false);
+    } else if (mode == 'edit') {
+        $('#btnSaveEditEdu').show();
+        $('#btnCancelEditEdu').show();
+        $('#btnAddListEdu').hide();
+        $('.btnDeleteEdu').prop('disabled', true);
+        $('.btnEditEdu').prop('disabled', true);
+    }
+}
