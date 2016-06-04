@@ -282,6 +282,7 @@ $(document).ready(function(){
 
     $("#validation_form_project").validate({
         errorClass: 'text-danger',
+        ignore: ":hidden:not(textarea)",
         focusInvalid: true,
         rules: {
             project_title: {
@@ -296,6 +297,9 @@ $(document).ready(function(){
                 isBeforeTodayExp: true,
                 notEqFromToDate: true
                 //isBeforeToday: true
+            },
+            project_details:{
+                required: true
             }
         },
         errorPlacement: function(error, element) {
