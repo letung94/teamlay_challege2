@@ -82,8 +82,8 @@
 								<% skills.forEach(function(skill) { %>
 									<article>
 										<h2><%= skill.Name %></h2>
-										<p class="subDetails">Level: <%= skill.Level %> - LastUse: <%= skill.LastTime %></p>
-										<p><%= skill.Maturity %>.</p>
+										<p class="subDetails">Expertise: <%= skill.Expertise %> - Experience: <%= skill.Experience %> - LastYearUsed: <%= skill.LastYearUsed %></p>
+										<p><%= skill.Maturity %></p>
 									</article>
 								<% }); %>
 								</div>
