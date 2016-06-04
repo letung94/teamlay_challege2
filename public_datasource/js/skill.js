@@ -146,7 +146,7 @@ function addlistskill(index,row){
     var rowname =  '<img  src="/img/default_avatar.jpg" class="default_avatar" /> <div class="form-group row">' + row.Name + '</div>';
     var indexpertise = 'stars-default' + index;
     var rowexpertise = '<div id="' + indexpertise + '" data-rating="' + row.Expertise + '"></div>';
-    var rowtable = "<tr style='font-size:13px'><td>" + index + "</td><td>" + rowname + "</td><td>" + rowexpertise + "</td><td>" + row.Experience + "</td><td>" + row.LastYearUsed + "</td><td>" + editAction  + deleteAction + "</td></tr>";
+    var rowtable = "<tr  style='font-size:13px'><td>" + index + "</td><td>" + rowname + "</td><td>" + rowexpertise + "</td><td>" + row.Experience + "</td><td>" + row.LastYearUsed + "</td><td>" + editAction  + deleteAction + "</td></tr>";
     $(rowtable).appendTo("#list-skill tbody");
     var idstarrating = "#" + indexpertise;
     $(idstarrating).rating('create',{besidetext:"expertisetext",fixed:true});

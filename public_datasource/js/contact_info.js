@@ -70,7 +70,7 @@ $('#contact_info-form #del_avatar').on('click',function(){
     $("#contact_info-form #avatar")[0].value = '';
     switchImage(true,true);
 });
-//================================= VALIDAZIONE FORM
+
 $(document).ready(function() {
     $.validator.addMethod("phone", function (value, element)
     {
@@ -190,7 +190,6 @@ $('#contact_info-form #btnSaveContact_Info').click(function() {
                     $("#del_avatar").css("opacity","0");
                     $("#avatar")[0].value = '';
                 }
-                //console.log(res);
             },
             error: function(x,e){
                 
@@ -202,42 +201,13 @@ $('#contact_info-form #btnSaveContact_Info').click(function() {
     
 });
 
-
 /*
 // Get the modal
-var modal = document.getElementById('myModal');
-
-// Get the image and insert it inside the modal - use its "alt" text as a caption
-var img = document.getElementById('preview');
-var modalImg = document.getElementById("img01");
-var captionText = document.getElementById("caption");
-img.onclick = function(){
-    modal.style.display = "block";
-    modalImg.src = this.src;
-    modalImg.alt = this.alt;
-}
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() { 
-    modal.style.display = "none";
-}
-
-
-$(document).ready(function(){
-   $('div.container').click(function(e){
-       if(e.target.id != "preview"){
-           modal.style.display =  "none"; 
-       }
-   });
-});*/
-
-// Get the modal
+*/
 var modal = $('#myModal');
-
+/*
 // Get the image and insert it inside the modal - use its "alt" text as a caption
+*/
 var img = $('#preview');
 var modalImg = $("#img01");
 img.click(function(){
@@ -245,30 +215,22 @@ img.click(function(){
     modalImg.attr("src",this.src);
     modalImg.attr("alt",this.alt);
 });
-
+/*
 // Get the <span> element that closes the modal
+*/
 var span = $(".close");
 
+/*
 // When the user clicks on <span> (x), close the modal
+*/
 span.click(function(){
     modal.css("display","none");
-    /*modal.css({
-        "-webkit-animation-name": "zoom-in",
-    "-webkit-animation-duration": "0.6s",
-    "animation-name": "zoom-in",
-    "animation-duration": "0.6s",
-    "display":"none"
-    });*/
 });
 
-
-$(document).ready(function(){
-   $(window).click(function(e){
+$(window).click(function(e){
        if(e.target.id != "preview" && e.target.id != "img01"){
            modal.css("display","none"); 
        }
-   });
 });
-
 
 $("#myModal").css("left","" + ($(window).width()/2 - 250)+ "px");
