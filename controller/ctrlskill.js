@@ -3,8 +3,8 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/skill/save', function(req, res) {
-    var idcv = req.baseUrl.split("/")[2];
-    req.body.CV_Id = idcv;
+    var cv_id = req.baseUrl.split("/")[2];
+    req.body.CV_Id = cv_id;
     var skill_save = new skill_service();
     skill_save.save({
      "Name":   req.body.Name,
@@ -17,14 +17,14 @@ router.post('/skill/save', function(req, res) {
 });
 router.get('/skill/getall',function(req,res){
     var skill_getAllByIdCV = new skill_service();
-    var idcv = req.baseUrl.split("/")[2];
-    skill_getAllByIdCV.getAllSkillByCVId(idcv,function(err,rows){
+    var cv_id = req.baseUrl.split("/")[2];
+    skill_getAllByIdCV.getAllSkillByCVId(cv_id,function(err,rows){
         res.send({flag: err, resdata: rows});
     });
 })
 router.post('/skill/update', function(req, res) {
-    var idcv = req.baseUrl.split("/")[2];
-    req.body.CV_Id = idcv;
+    var cv_id = req.baseUrl.split("/")[2];
+    req.body.CV_Id = cv_id;
     var skill_update = new skill_service();
     skill_update.update({
         "Id":req.body.Id,

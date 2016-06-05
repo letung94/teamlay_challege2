@@ -153,7 +153,6 @@ router.get('/reset/:token', function (req, res) {
         if (err == -1) {
             res.redirect('/error/500');
         }
-        console.log(data);
         var user = data;
         var now = new Date();
         if (!user) {
@@ -178,7 +177,6 @@ router.post('/reset/:token', function (req, res) {
                 if (err == -1) {
                     res.redirect('/error/500');
                 }
-                console.log(data);
                 var user = data;
                 if (!user) {
                     req.flash('error', 'Password reset token is invalid or has expired.');
@@ -237,13 +235,13 @@ router.get('/login', function (req, res) {
 
 // Login POST
 router.post('/login', function (req, res, next) {
-     if(req.body.remember)req.session.cookie.maxAge = 365 * 24 * 60 * 60 * 1000;
+    if (req.body.remember) req.session.cookie.maxAge = 365 * 24 * 60 * 60 * 1000;
     passport.authenticate('local', {
         successRedirect: '/index',
         failureRedirect: '/login',
         failureFlash: true
-       
-    },function (err, user, info) {
+
+    }, function (err, user, info) {
         if (err) {
             return res.render('pages/login', { errorMessage: err.message });
         }
@@ -279,9 +277,8 @@ router.get("/verify/:token", function (req, res, next) {
         function (done) {
             var model = new user_model();
             var token = req.params.token;
-            console.log('280 token'+token);
-            model.getByVerifyToken(token, function (err, data) {
-                if (err == -1) {
+            model.getByVerifyToken(token, function (flag, data) {
+                if (flag == -1) {
                     res.redirect('/error/500');
                 }
 
@@ -289,10 +286,8 @@ router.get("/verify/:token", function (req, res, next) {
                     res.render('pages/notification', { noti_message: 'Token is invalid or has expired' });
                     return;
                 }
-                
+
                 var user = data;
-                console.log(user.VerifyToken);
-                console.log(token);
                 user.VerifyToken = '';
                 user.IsConfirmed = 1;
                 done(null, user);
@@ -300,11 +295,11 @@ router.get("/verify/:token", function (req, res, next) {
         },
         function (user, done) {
             var model = new user_model();
-            model.updateUser(user, function (err, data) {
-                if (err == -1) {
+            model.updateUser(user, function (flag, data) {
+                if (flag == -1) {
                     return res.redirect('/error/500');
                 }
-                
+
             });
             done();
         }
@@ -392,9 +387,69 @@ router.post('/register', function (req, res) {
     ]);
 });
 
-// Wating confirmation GET
-router.get('/email-verification', function (req, res) {
-    res.render('pages/waiting_confirmation');
+// Update profile GET
+router.get('/update-profile', function (req, res) {
+    res.render('pages/update_profile', {
+        user: req.user,
+        successMessage: req.flash('success')
+    });
+});
+
+// Update profile POST
+router.post('/update-profile', function (req, res) {
+    var user = new user_model();
+    user.getByUsername(req.user.Username, function (flag, data) {
+        if (flag == -1) {
+            return res.redirect('/server_error_500');
+        }
+        data.Firstname = req.body.firstname;
+        data.Lastname = req.body.lastname;
+
+        var user_update = new user_model();
+        user_update.updateUser(data, function (flag, err) {
+            if (flag == -1) {
+                res.redirect('/server_error_500')
+            }
+            req.flash('success', 'Your profile has been updated.');
+            res.redirect('/update-profile');
+        });
+    })
+});
+
+// Change password GET
+router.get('/change-password', function (req, res) {
+    res.render('pages/change_password', {
+        user: req.user,
+        errorMessage: req.flash('error'),
+        successMessage: req.flash('success')
+    })
+});
+
+// Change password POST
+router.post('/change-password', function (req, res) {
+    var user = new user_model();
+    user.getByUsername(req.user.Username, function (flag, data) {
+        if (flag == -1) {
+            return res.redirect('/server_error_500');
+        }
+
+        if(!bcrypt.compareSync(req.body.old_pass, data.PasswordHash)){
+            req.flash('error','Wrong password');
+            return res.redirect('/change-password');
+        }
+        
+        data.PasswordHash = bcrypt.hashSync(req.body.new_pass);
+
+        var user_update = new user_model();
+        user_update.updateUser(data, function (flag, err) {
+            if (flag == -1) {
+                res.redirect('/server_error_500')
+            }
+            
+            req.flash('success', 'Your password has been changed.');
+            return res.redirect('/change-password');
+        });
+    })
 });
 
 // Logout
