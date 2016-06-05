@@ -15,6 +15,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- -----------------------------------------------------
+-- Schema cv_maker
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `cv_maker` ;
+
+-- -----------------------------------------------------
+-- Schema cv_maker
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `cv_maker` DEFAULT CHARACTER SET utf8 ;
+USE `cv_maker` ;
+
+
 --
 -- Table structure for table `certification`
 --
@@ -346,3 +359,66 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-06-02 22:03:43
+
+
+DROP TABLE IF EXISTS `section`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `section` (
+  `Id` tinyint(1) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) DEFAULT NULL,
+  `IsDeleted` tinyint(1) unsigned DEFAULT 0,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `skill`
+--
+INSERT INTO section (Name,IsDeleted) VALUES
+('contact infomation', 0),
+('summary',0),
+('experience',0),
+('project',0),
+('skill',0),
+('certification',0),
+('education',0);
+
+
+LOCK TABLES `section` WRITE;
+/*!40000 ALTER TABLE `section` DISABLE KEYS */;
+/*!40000 ALTER TABLE `section` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cv_section`
+--
+
+DROP TABLE IF EXISTS `cv_section`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cv_section` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `CV_Id` int(11) NOT NULL,
+  `Section_Id` tinyint(1) NOT NULL,
+  `IsDeleted` tinyint(1) unsigned DEFAULT 0,
+  `Order` tinyint(1) unsigned DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FK_CV_Id_idx` (`CV_Id`),
+  KEY `FK_Section_Id_idx` (`Section_Id`),
+  CONSTRAINT `FK_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Section_Id` FOREIGN KEY (`Section_Id`) REFERENCES `section` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `skill`
+--
+
+LOCK TABLES `cv_section` WRITE;
+/*!40000 ALTER TABLE `cv_section` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cv_section` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+

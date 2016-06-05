@@ -31,15 +31,25 @@ router.get('/', function(req, res) {
 
 router.post('/', [jsonparser], function(req, res) {
     var cvService = di.resolve('curriculum_vitae');
+    var cv_section_service = di.resolve('cv_section');
     cvServiceIns = new cvService();
     cvServiceIns.createCV({
         Name: req.body.cvname,
         UserId: req.user.Id
     }, function(flag, data) {
-        res.json({
-            flag: flag,
-            data: data
+        // TUNG CODE FOR ADDING LIST SECTION FOR CV
+        var createlistcv_section = new cv_section_service();
+        createlistcv_section.createlistCV_Section_CV_Id(data.Id, function(err,count){
+            if(err && count < 7){
+                res.status(500).render('pages/generic_error');
+            }else{
+                res.json({
+                    flag: flag,
+                    data: data
+                });
+            }
         });
+        
     });
 });
 
@@ -96,9 +106,11 @@ router.get('/:idcv', function(req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
     cvServiceIns.getByIdCV(param, function(code, row) {
+        // dam vao day
         if (code == 1) {
             res.render('pages/cv_index', {
-                data: row
+                data: row.cvdata,
+                cv_section: row.cv_section
             });
         } else if (code == 0) {
             res.status(404).render('pages/not_found_404');

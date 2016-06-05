@@ -9,7 +9,12 @@ function summary_service(){
         var summary_save = new summaryModel(param.Headline,
         param.ProfessionalSummary,
         param.CV_Id);
-        summary_save.save(summary_save.attribute, callback);
+        var valid = summary_save.checkValidation();
+        if (valid) {
+            summary_save.save(summary_save.attribute, callback);
+        }else {
+            callback(0,summary_save.attrivalidate);   
+        }    
     }
 }
 

@@ -14,6 +14,7 @@ var exp_service = require('../service/experience');
 var sum_service = require('../service/summary');
 var skill_service = require('../service/skill');
 var project_service = require('../service/project');
+var cv_section_service = require('../service/cv_section');
 
 di
     .register('db')
@@ -41,6 +42,8 @@ di
     .register('curriculum_vitae')
     .instance(curriculum_vitae_service)
     .register('project')
-    .instance(project_service);
+    .instance(project_service)
+    .register('cv_section')
+    .instance(cv_section_service);
 
 module.exports = di;

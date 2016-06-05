@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5.23% </span>
+        <span class="strong">11.11% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>8/153</span>
+        <span class='fraction'>17/153</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">4.44% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/90</span>
+        <span class='fraction'>4/90</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">4.17% </span>
+        <span class="strong">8.33% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>1/24</span>
+        <span class='fraction'>2/24</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">5.41% </span>
+        <span class="strong">10.81% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/148</span>
+        <span class='fraction'>16/148</span>
       </div>
     </div>
   </div>
@@ -296,10 +296,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -421,17 +421,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -452,7 +452,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -472,8 +472,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -534,7 +534,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var _ = require('underscore')._;
@@ -667,14 +667,14 @@ var createConnection  = function (options) {
 			}
 		},
 		// Function saving your model attributes
-		save: <span class="fstat-no" title="function not covered" >function(where, callback) {</span>
-<span class="cstat-no" title="statement not covered" >			if (typeof(where) == "function") {</span>
-<span class="cstat-no" title="statement not covered" >				callback=where;</span>
-<span class="cstat-no" title="statement not covered" >				where=null;</span>
+		save: function(where, callback) {
+			<span class="missing-if-branch" title="else path not taken" >E</span>if (typeof(where) == "function") {
+				callback=where;
+				where=null;
 			}
-<span class="cstat-no" title="statement not covered" >			if(this.tableName) <span class="cstat-no" title="statement not covered" >var tableName = this.tableName;</span></span>
+			<span class="missing-if-branch" title="else path not taken" >E</span>if(this.tableName) var tableName = this.tableName;
 			else <span class="cstat-no" title="statement not covered" >var tableName = this.attributes.tableName;</span>
-<span class="cstat-no" title="statement not covered" >			if(where) {</span>
+			<span class="missing-if-branch" title="if path not taken" >I</span>if(where) {
 <span class="cstat-no" title="statement not covered" >				var id = null;</span>
 <span class="cstat-no" title="statement not covered" >				if(this.has('id')) {</span>
 <span class="cstat-no" title="statement not covered" >					id = this.get('id');</span>
@@ -699,7 +699,7 @@ var createConnection  = function (options) {
 				});
 &nbsp;
 			} else {
-<span class="cstat-no" title="statement not covered" >				if(this.has('id')) {</span>
+				<span class="missing-if-branch" title="if path not taken" >I</span>if(this.has('id')) {
 <span class="cstat-no" title="statement not covered" >					var id = this.get('id');</span>
 <span class="cstat-no" title="statement not covered" >					delete this.attributes.id;</span>
 <span class="cstat-no" title="statement not covered" >					var q = "UPDATE "+tableName+" SET "+ connection.escape(this.attributes)+" WHERE id="+connection.escape(id);</span>
@@ -719,8 +719,8 @@ var createConnection  = function (options) {
 					});
 				} else {
 					// Create new record
-<span class="cstat-no" title="statement not covered" >					var q = "INSERT INTO "+tableName+" SET "+ connection.escape(this.attributes);</span>
-<span class="cstat-no" title="statement not covered" >					connection.query(q, <span class="fstat-no" title="function not covered" >function(err, result) {</span></span>
+					var q = "INSERT INTO "+tableName+" SET "+ connection.escape(this.attributes);
+					connection.query(q, <span class="fstat-no" title="function not covered" >function(err, result) {</span>
 <span class="cstat-no" title="statement not covered" >						if(callback){</span>
 <span class="cstat-no" title="statement not covered" >							callback(err, result, connection);</span>
 						}
@@ -790,7 +790,7 @@ exports.createConnection = createConnection;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 05 2016 13:17:32 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

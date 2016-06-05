@@ -187,3 +187,13 @@ img#preview:hover {opacity: 0.7;}
   /* Set width to your desired site width */
   width: 890px;
 }
+.over {
+  border: 2px dashed #000;
+}
+
+.mousemove{
+    position: absolute;
+    cursor: move;
+    right: 2px;
+    top: 5px;
+}

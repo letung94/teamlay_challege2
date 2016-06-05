@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">23.73% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>12/40</span>
+        <span class='fraction'>14/59</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/10</span>
+        <span class='fraction'>0/18</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/6</span>
+        <span class='fraction'>0/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">30% </span>
+        <span class="strong">23.73% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>12/40</span>
+        <span class='fraction'>14/59</span>
       </div>
     </div>
   </div>
@@ -106,7 +106,40 @@
 61
 62
 63
-64</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -164,6 +197,39 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
@@ -192,24 +258,24 @@ var escapeJson = <span class="fstat-no" title="function not covered" >function(e
 &nbsp;
 var isPastOrCurrentDate = <span class="fstat-no" title="function not covered" >function(date){</span>
 <span class="cstat-no" title="statement not covered" >    var now = new Date();</span>
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    var current_month = now.getMonth() + 1;</span>
 <span class="cstat-no" title="statement not covered" >    var current_date = now.getDate();</span>
 <span class="cstat-no" title="statement not covered" >    if (current_month.toString().length == 1)</span>
 <span class="cstat-no" title="statement not covered" >        current_month = "0".concat(current_month).toString();</span>
 <span class="cstat-no" title="statement not covered" >    if (current_date.toString().length == 1)</span>
-<span class="cstat-no" title="statement not covered" >        current_date = "0".concat(current_date).toString();        </span>
-<span class="cstat-no" title="statement not covered" >    var raw = date.replace('/', '').replace('/','');    </span>
+<span class="cstat-no" title="statement not covered" >        current_date = "0".concat(current_date).toString();</span>
+<span class="cstat-no" title="statement not covered" >    var raw = date.replace('/', '').replace('/','');</span>
 <span class="cstat-no" title="statement not covered" >    var rawCurrent = now.getFullYear() + current_month + current_date;</span>
 <span class="cstat-no" title="statement not covered" >    console.log(rawCurrent);</span>
 <span class="cstat-no" title="statement not covered" >    console.log(raw)</span>
 <span class="cstat-no" title="statement not covered" >    current = now.getFullYear()  + (now.getMonth() + 1).toString() + now.getDate();</span>
     //console.log(parseInt(raw));
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    if (parseInt(raw) &gt; parseInt(rawCurrent))</span>
 <span class="cstat-no" title="statement not covered" >        return false;</span>
-    else 
-<span class="cstat-no" title="statement not covered" >        return true; </span>
+    else
+<span class="cstat-no" title="statement not covered" >        return true;</span>
     // if (a[0] &gt; now.getFullYear())
     //     return false;
     // else if (a[1] &gt; now.getMonth() + 1)
@@ -227,18 +293,51 @@ var parseDate = <span class="fstat-no" title="function not covered" >function(da
 <span class="cstat-no" title="statement not covered" >    return res;</span>
 }
 &nbsp;
+var cleanTempFolder = <span class="fstat-no" title="function not covered" >function(){</span>
+    /*File in this array will not be deleted.*/
+<span class="cstat-no" title="statement not covered" >    var ignoreFiles = ['readme.txt','readyou.txt'];</span>
+<span class="cstat-no" title="statement not covered" >    fs.readdir('./tmp', <span class="fstat-no" title="function not covered" >function(err, files){</span></span>
+<span class="cstat-no" title="statement not covered" >        if(!err){ /* Get all file in folder successfully. */</span>
+<span class="cstat-no" title="statement not covered" >            for (var i = 0; i &lt; files.length; i++) {</span>
+<span class="cstat-no" title="statement not covered" >                var ignore = false;</span>
+<span class="cstat-no" title="statement not covered" >                var file = files[i];</span>
+                /*Check if current file is in ignore list*/
+<span class="cstat-no" title="statement not covered" >                for (var j = 0; j &lt; ignoreFiles.length; j++) {</span>
+<span class="cstat-no" title="statement not covered" >                    var ignoreFile = ignoreFiles[j];</span>
+<span class="cstat-no" title="statement not covered" >                    if(ignoreFile == file){</span>
+<span class="cstat-no" title="statement not covered" >                        ignore = true;</span>
+<span class="cstat-no" title="statement not covered" >                        break;</span>
+                    }
+                }
+<span class="cstat-no" title="statement not covered" >                if(ignore){</span>
+<span class="cstat-no" title="statement not covered" >                    continue;</span>
+                }
+<span class="cstat-no" title="statement not covered" >                var fullFileLink = './tmp/' + file;</span>
+<span class="cstat-no" title="statement not covered" >                fs.unlink(fullFileLink, <span class="fstat-no" title="function not covered" >function(unLinkErr){</span></span>
+<span class="cstat-no" title="statement not covered" >                    if(unLinkErr){</span>
+                        /*Do something if file being in use*/
+                    }
+                });
+            }
+        }else{ /*Error reading the directory*/
+<span class="cstat-no" title="statement not covered" >            console.log(err);</span>
+        }
+    });
+}
+&nbsp;
 module.exports.createUnique = createUnique;
 module.exports.checkFileExisted = checkFileExisted;
 module.exports.escapeJson = escapeJson;
 module.exports.isPastOrCurrentDate = isPastOrCurrentDate;
 module.exports.parseDate = parseDate;
+module.exports.cleanTempFolder = cleanTempFolder;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 05 2016 13:17:32 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
