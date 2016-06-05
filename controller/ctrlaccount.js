@@ -452,11 +452,6 @@ router.post('/change-password', function (req, res) {
     })
 });
 
-// Wating confirmation GET
-router.get('/email-verification', function (req, res) {
-    res.render('pages/waiting_confirmation');
-});
-
 // Logout
 router.get('/logout', function (req, res) {
     req.session.destroy();
