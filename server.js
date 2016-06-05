@@ -57,6 +57,7 @@ app.use(bodyparser.urlencoded({
     extended: true
 }));
 app.use(session({
+    maxAge: 60000000,
     secret: 'vidyapathaisalwaysrunning',
     resave: true,
     saveUninitialized: true
