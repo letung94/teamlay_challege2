@@ -36,6 +36,7 @@ $('#btnAddListExp').click(function() {
     if (isValid) {
         var addedexprerience = getValueExp();
         var urlpost = window.location.href + '/experience/save';
+        $.blockUI();
         $.ajax({
             type: "POST",
             url: urlpost,
@@ -44,6 +45,7 @@ $('#btnAddListExp').click(function() {
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(addedexprerience),
             success: function(res) {
+                $.unblockUI();
                 //update new value to table
                 if (res.flag == 1) {
                     listExp.push(new Experience(res.resdata));
@@ -52,8 +54,9 @@ $('#btnAddListExp').click(function() {
                         addListExp(index + 1, value.attribute);
                     });
                     switchModeExp("add");
-                    $("#experience-form")[0].reset();
+                   
                 }
+                 $("#experience-form")[0].reset();
                 showAnnoucement(res.flag, 'experience', 'added');
             },
             error: function(x, e) {
@@ -76,6 +79,7 @@ $('#list-experience').on('click', '.btnDeleteExp', function(e) {
         message: 'Are you sure?',
         callback: function(result) {
             if (result) {
+                $.blockUI();
                 $.ajax({
                     type: "POST",
                     url: urlpost,
@@ -84,6 +88,7 @@ $('#list-experience').on('click', '.btnDeleteExp', function(e) {
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(deletedexperience),
                     success: function(res) {
+                        $.unblockUI();
                         if (res.flag == 1) {
                             //remove value from array by index and update to table
                             listExp.splice(indexCurrentExp, 1);
@@ -128,6 +133,7 @@ $('#btnSaveEditExp').click(function() {
         savedexprerience.Id = listExp[indexCurrentExp].attribute.Id;
         savedexprerience.CV_Id = listExp[indexCurrentExp].attribute.CV_Id;
         var urlpost = window.location.href + '/experience/update';
+        $.blockUI();
         $.ajax({
             type: "POST",
             //the url where you want to sent the userName and password to
@@ -138,6 +144,7 @@ $('#btnSaveEditExp').click(function() {
             //json object to sent to the authentication url
             data: JSON.stringify(savedexprerience),
             success: function(res) {
+                $.unblockUI();
                 if (res.flag == 1) {
                     listExp.splice(indexCurrentExp, 1);
                     listExp.splice(indexCurrentExp, 0, new Experience(res.resdata));
@@ -145,9 +152,9 @@ $('#btnSaveEditExp').click(function() {
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
                     });
-                    switchModeExp("add");
-                    $("#experience-form")[0].reset();
+                    switchModeExp("add");                
                 }
+                $("#experience-form")[0].reset();
                 showAnnoucement(res.flag, 'experience', 'edited');
             },
             error: function(x, e) {
@@ -168,6 +175,7 @@ function getExperience() {
         return;
     }
     var urlget = window.location.href + "/experience/getall";
+    $.blockUI();
     $.ajax({
         type: "GET",
         url: urlget,
@@ -175,6 +183,7 @@ function getExperience() {
         async: false,
         contentType: 'application/json; charset=utf-8',
         success: function(res) {
+            $.unblockUI();
             if (res.flag == 1) {
                 clickedExperience = true;
                 $('#list-experience tbody > tr').remove();
@@ -201,10 +210,6 @@ function switchModeExp(mode) {
         $('#btnAddListExp').show();
         $('.btnDeleteExp').prop('disabled', false);
         $('.btnEditExp').prop('disabled', false);
-        $("#stars-default").rating('set', {
-            value: 1,
-            besidetext: "expertisetext"
-        });
     } else if (mode == 'edit') {
         $('#btnSaveEditExp').show();
         $('#btnCancelEditExp').show();
