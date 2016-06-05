@@ -65,7 +65,11 @@ LẦY Resume
 <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
 <img class="nav-user-photo" src="img/demo/avatar/avatar1.jpg" alt="Penny's Photo">
 <span id="user_info">
- <%= `${user.Firstname} ${user.Lastname}` %>
+<% if (user.Firstname.length > 0  && user.Lastname.length > 0) { %>
+ <%= `${user.Firstname[0]}${user.Lastname[0]}` %>
+<% } else { %>
+  Lay-er
+<% }%>
 </span>
 <i class="fa fa-caret-down"></i>
 </a>

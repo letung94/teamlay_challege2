@@ -6,8 +6,19 @@ function certificate_service(){
     }
 
     this.saveCertification = function(param, cb){
-        var c = new certification();
-        c.saveCertification(param, cb);
+        var c = new certification(
+            param.Title,
+            param.CertificateAuthority,
+            param.Date,
+            param.Details,
+            param.CV_Id
+        );
+        var valid = c.checkValidation();
+        if(valid) {
+            c.saveCertification(param, cb);
+        } else {
+            cb(0,'Human Error');
+        }
     }
 
     this.deleteCertification = function(id, cb){

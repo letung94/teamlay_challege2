@@ -18,7 +18,7 @@ $(document).ready(function(){
         $.get(url, function(resp){
             self.firstTime = false;
             $.unblockUI();
-            if(resp.code == 1){
+            if(resp.flag == 1){
                 $.each(resp.rows, function(index, value){
                     /*Change from server's date to readable YYYY/MM/DD*/
                     if(value.Date){
@@ -41,7 +41,7 @@ $(document).ready(function(){
                     self.renderTableBody();
                 });
             }
-            // else if (resp.code == 0){
+            // else if (resp.flag == 0){
             //     showAnnoucement(0,'','');
             // }
         });
@@ -81,8 +81,8 @@ $(document).ready(function(){
             $.blockUI();
             $.post(url, param, function(resp){
                 $.unblockUI();
-                var code = resp.code;
-                if(code == 1){ /*add new certification success*/
+                var flag = resp.flag;
+                if(flag == 1){ /*add new certification success*/
                     /*Show the success message*/
                     $.gritter.add({
                         title: 'Success',
@@ -118,8 +118,8 @@ $(document).ready(function(){
                     $.blockUI();
                     $.post(url, param, function(resp){
                         $.unblockUI();
-                        var code = resp.code;
-                        if(code == 1){ /*Delete Successful*/
+                        var flag = resp.flag;
+                        if(flag == 1){ /*Delete Successful*/
                             /*Get index of deleted certification*/
                             var index = self.getIndexOfListCertificationById(certificationId);
                             deletedCertification = self.listCertification[index];
@@ -137,9 +137,9 @@ $(document).ready(function(){
                                 sticky: false,
                                 time: '1500'
                             });
-                        }else if (code == 0){
+                        }else if (flag == 0){
                             showAnnoucement(0,'','');
-                        }else if(code == -1){
+                        }else if(flag == -1){
                             showAnnoucement(-1,'','');
                         }
                     });
@@ -159,12 +159,10 @@ $(document).ready(function(){
                 return false;
             }
         });
-        //console.log(editingCertification);
         $('#certification-form input[name=id]').val(editingCertification.Id);
         $('#certification-form input[name=title]').val(editingCertification.Title);
         $('#certification-form input[name=certificationAuthority]').val(editingCertification.CertificateAuthority);
         $('#certification-form input[name=date]').val(editingCertification.Date);
-        //console.log(editingCertification);
         $('#certification-form textarea[name=details]').data("wysihtml5").editor.setValue(editingCertification.Details);
 
         $('#certification-form input[name=title]').focus();
@@ -191,8 +189,8 @@ $(document).ready(function(){
             $.blockUI();
             $.post(url, param, function(resp){
                 $.unblockUI();
-                var code = resp.code;
-                if(code == 1){ /*add new certification success*/
+                var flag = resp.flag;
+                if(flag == 1){ /*add new certification success*/
                     /*Find and change certification value at index*/
                     var index = self.getIndexOfListCertificationById(entity.id);
                     var certification = self.listCertification[index];
@@ -215,9 +213,9 @@ $(document).ready(function(){
                         sticky: false,
                         time: '1500'
                     });
-                }else if (code == 0){
+                }else if (flag == 0){
 
-                }else{ /*code == -1*/
+                }else{ /*flag == -1*/
 
                 }
             });

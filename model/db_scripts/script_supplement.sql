@@ -15,6 +15,19 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+-- -----------------------------------------------------
+-- Schema cv_maker
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `cv_maker` ;
+
+-- -----------------------------------------------------
+-- Schema cv_maker
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `cv_maker` DEFAULT CHARACTER SET utf8 ;
+USE `cv_maker` ;
+
+
 --
 -- Table structure for table `certification`
 --

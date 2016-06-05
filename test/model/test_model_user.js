@@ -2,7 +2,7 @@ var chai = require('chai');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 
-var di = require('../../config/test_config');
+var di = require('../../config/config');
 var user_model = di.resolve('user');
 
 
@@ -36,7 +36,7 @@ describe('TEST-MODEL-USER -- addUser Function!', function() {
             console.log('successful');
         }
     });
-    
+
     beforeEach(function() {
         this.console = {
             log: sinon.spy()

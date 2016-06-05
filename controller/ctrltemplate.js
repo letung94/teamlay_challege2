@@ -143,7 +143,7 @@ router.get('/templateReview/:name/:cv_id', function (req, res) {
 			/*Skill*/
 			var SkillService = di.resolve('skill');
 			var skillService = new SkillService();
-			skillService.getAllSkillByCVId({CV_Id: cv_id}, function(code, data){
+			skillService.getAllSkillByCVId(cv_id, function(code, data){
 				info.skills = data;
 				done();
 			})

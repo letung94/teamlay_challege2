@@ -20,28 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/6</span>
+        <span class='fraction'>3/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>0/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>0/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/6</span>
+        <span class='fraction'>3/21</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line low'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -53,9 +53,73 @@
 8
 9
 10
-11</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -70,6 +134,38 @@
 <span class="cstat-no" title="statement not covered" >        var s = new skill();</span>
 <span class="cstat-no" title="statement not covered" >        s.getAllByIdCV(params, callback);</span>
     }
+<span class="cstat-no" title="statement not covered" >    this.save = <span class="fstat-no" title="function not covered" >function(params,callback){</span></span>
+<span class="cstat-no" title="statement not covered" >    	var skill_save = new skill(params.Name,</span>
+	    params.Expertise,
+	    params.Experience,
+	    params.LastYearUsed,
+	    params.CV_Id);
+<span class="cstat-no" title="statement not covered" >	    var valid = skill_save.checkValidation();</span>
+<span class="cstat-no" title="statement not covered" >	    if(valid){</span>
+<span class="cstat-no" title="statement not covered" >	        skill_save.save(skill_save.attribute, callback);</span>
+	    }else{
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	        callback(0, skill_save.attrvalidate);</span>
+	    }
+    }
+<span class="cstat-no" title="statement not covered" >    this.update = <span class="fstat-no" title="function not covered" >function(params,callback){</span></span>
+<span class="cstat-no" title="statement not covered" >    	var skill_update = new skill(params.Name,</span>
+	    params.Expertise,
+	    params.Experience,
+	    params.LastYearUsed,
+	    params.CV_Id);
+<span class="cstat-no" title="statement not covered" >	    var valid = skill_update.checkValidation();</span>
+<span class="cstat-no" title="statement not covered" >	    if(valid){</span>
+<span class="cstat-no" title="statement not covered" >	        skill_update.update(params.Id, callback);</span>
+	    }else{
+&nbsp;
+<span class="cstat-no" title="statement not covered" >	        callback(0, skill_update.attrvalidate);</span>
+	    }
+    }
+<span class="cstat-no" title="statement not covered" >    this.delete = <span class="fstat-no" title="function not covered" >function(params,callback){</span></span>
+<span class="cstat-no" title="statement not covered" >    	var skill_delete = new skill();</span>
+<span class="cstat-no" title="statement not covered" >        skill_delete.delete(params, callback);</span>
+    }
 }
 &nbsp;
 module.exports = skill_service;
@@ -79,7 +175,7 @@ module.exports = skill_service;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jun 03 2016 18:19:38 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 05 2016 13:17:32 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

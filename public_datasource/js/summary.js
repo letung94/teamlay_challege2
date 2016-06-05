@@ -53,14 +53,16 @@ function getSummary(){
 
 
 $('#btnSaveSummary').click(function() {
-        var temp = {
-        Headline:$("#summary-form input[name='headline']").val(),
-        ProfessionalSummary:$("#summary-form textarea[name='prosummary']").val(),
-        CV_Id:$("#summary-form input[name='idcv']").val()
-        }
-        var save_summary = new Summary(temp);
-        var urlpost = window.location.href + '/summary/save';
-        $.ajax({
+        var validator = $('#summary-form').valid();
+        if (validator) {
+            var temp = {
+            Headline:$("#summary-form input[name='headline']").val(),
+            ProfessionalSummary:$("#summary-form textarea[name='prosummary']").val(),
+            CV_Id:$("#summary-form input[name='idcv']").val()
+            }
+            var save_summary = new Summary(temp);
+            var urlpost = window.location.href + '/summary/save';
+            $.ajax({
             type: "POST",
             //the url where you want to sent the userName and password to
             url: urlpost,
@@ -75,7 +77,7 @@ $('#btnSaveSummary').click(function() {
             error: function(x,e){
                 
             }
-        });
-        
+        });      
+        } 
     return false;
 });
