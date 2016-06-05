@@ -6,7 +6,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
         "FromDate" : fromdate,
         "ToDate" : todate,
         "Details" : details,
-        "CV_id" : cv_id
+        "CV_Id" : cv_id
     }
 
     self.attrvalidate = [
@@ -84,7 +84,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
     }
 
     var experience = require('../config/config').resolve("db").Experience;
-    self.getAllByIdCV = function(reqdata, callback) {
+    self.getAllExperienceByCVId = function(reqdata, callback) {
             var temp = new experience();
             temp.find('all', {
                 where: "CV_Id = " + reqdata
@@ -119,7 +119,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
         }
         // the reqdata paramater is object
         // callback is a callback function data returned and status
-    self.save = function(reqdata, callback) {
+    self.saveExperience = function(reqdata, callback) {
         var savetemp = new experience(reqdata);
         savetemp.save(function(err, data) {
             savetemp.killConnection();
@@ -132,7 +132,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
         });
     }
     
-    self.update = function(reqdata, callback){
+    self.updateExperience = function(reqdata, callback){
         var updatetemp = new experience(self.attribute);
         updatetemp.set("id", reqdata);
         updatetemp.save(function(err, data) {
@@ -147,7 +147,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
 
     }
 
-    self.remove = function(reqdata, callback) {
+    self.deleteExperience = function(reqdata, callback) {
         var removetemp = new experience(self.attribute);
         removetemp.set("id", reqdata);
         removetemp.remove(function(err, data) {

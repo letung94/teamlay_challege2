@@ -3,15 +3,42 @@ var experience = require('../model/experience');
 function experience_service() {
     this.getAllExperienceByCVId = function (params, callback) {
         var e = new experience();
-        e.getAllByIdCV(params.CV_Id, callback);
+        e.getAllExperienceByCVId(params, callback);
     }
     this.saveExperience = function (params, callback) {
-        var e = new experience();
-        e.saveExperience(params, callback);
+        var e = new experience(params.Company,
+        params.Designation,
+        params.FromDate,
+        params.ToDate,
+        params.Details,
+        params.CV_Id);
+        var valid = e.checkValidation();
+        if(valid){
+            e.saveExperience(e.attribute, callback);
+        }
+        else{
+            callback(0, e.attrvalidate);
+        }
     }
-    this.deleteExperience = function(id, callback){
+    this.updateExperience = function (params, callback){
+        var e = new experience(params.Company,
+        params.Designation,
+        params.FromDate,
+        params.ToDate,
+        params.Details,
+        params.CV_Id);
+        var valid = e.checkValidation();
+         if(valid){
+            e.updateExperience(params.Id, callback);
+        }
+        else{
+            callback(0, e.attrvalidate);
+        }
+
+    }
+    this.deleteExperience = function(params, callback){
         var e = new experience();
-        e.deleteExperience(id, callback);
+        e.deleteExperience(params, callback);
     }
 }
 
