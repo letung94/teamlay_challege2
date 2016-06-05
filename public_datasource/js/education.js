@@ -59,7 +59,11 @@ function addListEdu(index, row) {
 
 $('#btnCancelEditEdu').click(function() {
     switchModeEdu("add");
-    $("#education-form")[0].reset();
+    // $("#education-form")[0].reset();
+    $("#education-form input[name=institute]").empty();
+    $("#education-form input[name=degree]").val("");
+    console.log($("#education-form textarea[name=detail]").val());
+    $("#education-form textarea[name=detail]").val("asdas");
 });
 
 function getEducation() {
