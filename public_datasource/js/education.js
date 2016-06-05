@@ -130,10 +130,10 @@ $('#btnAddListEdu').click(function() {
                     $.each(listEdu, function(index, value) {
                         addListEdu(index + 1, value.attribute);
                     });
-                    switchModeEdu("add");
-                    $("#education-form")[0].reset();
+                    switchModeEdu("add");       
                 }
                 showAnnoucement(res.flag, 'education', 'added');
+                $("#education-form")[0].reset();
             },
             error: function(x, e) {
 
@@ -180,10 +180,10 @@ $('#btnSaveEditEdu').click(function() {
                     $.each(listEdu, function(index, value) {
                         addListEdu(index + 1, value.attribute);
                     });
-                    switchModeEdu("add");
-                    $("#education-form")[0].reset();
+                    switchModeEdu("add");        
                 }
                 showAnnoucement(res.flag, 'education', 'edited');
+                $("#education-form")[0].reset();
             },
             error: function(x, e) {
 
