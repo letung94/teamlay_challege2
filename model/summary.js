@@ -22,7 +22,7 @@ function Summary(headLine, professionalsummary, cv_id, id) {
             this.max = 50;
             if (headline != null || headline !== "") {
                 var length = headline.length;
-                if (length >= this.max) {
+                if (length > this.max) {
                     this.valid = false;
                 }
             }
