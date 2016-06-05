@@ -171,6 +171,9 @@ $(document).ready(function () {
                         $('table[table-name=cv-list] tbody tr td:first-child h5').each(function () {
                             $(this).html(i++);
                         });
+                        if ($('table[table-name=cv-list] tbody tr td:first-child h5').length == 0) {
+                            $('table[table-name=cv-list] tbody').html('<tr><td colspan=\'4\'><h3>You don\'t have any CV. Do you want to create a new one ?</h3></td></tr>');
+                        }
                     }).fail(function (xhr, textStatus, err) {
                         window.location = "/error/500";
                     }).always(function (data, textStatus, xhr) {

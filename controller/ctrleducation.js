@@ -36,34 +36,30 @@ router.post('/education/save', function(req, res) {
 });
 
 router.post('/education/update', function(req, res) {
-    var education_update = new education(req.body.Institute,
-        req.body.Degree,
-        req.body.FromDate,
-        req.body.ToDate,
-        req.body.Details,
-        req.body.CV_Id);
-    var valid = education_update.checkValidation();
-    if (valid) {
-        education_update.update(req.body.Id, function(err, data) {
-            res.send({
-                flag: err,
-                resdata: data
-            });
+    var education_service = di.resolve('education');
+    var education_service_ins = new education_service();
+    education_service_ins.updateEducation({
+        Id: req.body.Id,
+        Institude: req.body.Institute,
+        Degree: req.body.Degree,
+        FromDate: req.body.FromDate,
+        ToDate: req.body.ToDate,
+        Details: req.body.Details,
+        CV_Id: req.body.CV_Id
+    }, function(flag, resdata) {
+        res.json({
+            flag: flag,
+            resdata: resdata
         });
-    } else {
-
-        res.send({
-            flag: 0,
-            resdata: education_update.attrvalidate
-        });
-    }
+    });
 });
 router.post('/education/delete', function(req, res) {
-    var update_delete = new education();
-    update_delete.remove(req.body.Id, function(err, data) {
+    var education_service = di.resolve('education');
+    var education_service_ins = new education_service();
+    education_service_ins.deleteEducation(req.body.Id,function(flag,resdata){
         res.send({
-            flag: err,
-            resdata: data
+            flag: flag,
+            resdata: resdata
         });
     });
 });
