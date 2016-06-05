@@ -96,9 +96,14 @@ app.get('/cv', function(req, res) {
     res.render('pages/cv_index');
 })
 
+
+var cv_user = require('./middleware/checkcv_user').isBlong;
+
+
+
 /*contact info */
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
-app.use('/cv/:idcv', ctrlcontact_info);
+app.use('/cv/:idcv', cv_user,ctrlcontact_info);
 
 /*summary */
 var ctrlsummary = require('./controller/ctrlsummary');
@@ -124,7 +129,7 @@ app.use('/cv/:idcv', ctrlproject);
 // skill
  */
 var ctrlskill = require('./controller/ctrlskill');
-app.use('/cv/:idcv', ctrlskill);
+app.use('/cv/:idcv', cv_user,ctrlskill);
 
 /*
 // cv_section
