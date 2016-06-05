@@ -119,6 +119,13 @@ app.use('/cv/:idcv', ctrlproject);
 var ctrlskill = require('./controller/ctrlskill');
 app.use('/cv/:idcv', ctrlskill);
 
+/*
+// cv_section
+ */
+
+var cv_section = require('./controller/ctrlcv_section');
+app.use('/cv/:idcv',cv_section);
+
 /*admin*/
 app.get('/error/500', function(req, res) {
     res.render('pages/server_error_500');

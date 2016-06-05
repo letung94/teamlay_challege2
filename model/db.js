@@ -40,6 +40,12 @@ function db(host, user, pass, dbname, mysqlmodel) {
     this.Project = this.MyAppModel.extend({
         tableName: 'project'
     });
+    this.Section = this.MyAppModel.extend({
+        tableName: 'section' 
+    });
+    this.CV_Section = this.MyAppModel.extend({
+        tableName: 'cv_section' 
+    });
 };
 
 

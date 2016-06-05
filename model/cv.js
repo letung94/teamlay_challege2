@@ -75,11 +75,30 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
     var Cv = require('../config/config').resolve("db").CV;
     // the reqdata paramater is id of the CV
     // callback is a callback function data returned and status
+    
+    var async = require('async');
+    
     self.getByIdCV = function(reqdata, callback) {
         var temp = new Cv();
-        temp.find('all', {
-            where: "Id = " + reqdata + " && IsDeleted = 0"
-        }, function(err, rows, fields) {
+        /* the old code
+            temp.find('all', {
+                where: "Id = " + reqdata + " && IsDeleted = 0"
+            }, function(err, rows, fields) {
+                temp.killConnection();
+                if (err) {
+                    callback(-1, err)
+                } else {
+                    if (rows.length == 0) {
+                        callback(0, null);
+                    } else {
+                        callback(1, rows[0]);
+                    }
+                }
+            });
+        */
+        /*LE TUNG CODE GET LIST OF ORDER CV_SECTION */
+        temp.query("SELECT* FROM curriculum_vitae INNER JOIN cv_section On curriculum_vitae.Id = cv_section.CV_Id Where curriculum_vitae.Id = " + reqdata + " && curriculum_vitae.IsDeleted = 0",
+        function(err,rows, fields){
             temp.killConnection();
             if (err) {
                 callback(-1, err)
@@ -87,12 +106,21 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
                 if (rows.length == 0) {
                     callback(0, null);
                 } else {
-                    callback(1, rows[0]);
+                    var data = {
+                        CreatedDate : rows[0].CreatedDate,
+                        Id:rows[0].Id,
+                        IsDeleted:rows[0].IsDeleted,
+                        UrlSlug:rows[0].UrlSlug,
+                        UserId:rows[0].UserId,
+                        Name: rows[0].Name
+                    };
+                    callback(1, {cvdata: data, cv_section : rows});
                 }
             }
         });
+        /*................... */
     }
-
+    
     self.getAllCV = function(param, callback) { // param:
         var temp = new Cv();
         temp.find('all', function(err, rows, fields) {
