@@ -10,6 +10,7 @@ var passport = require('passport');
 var mailer = require('express-mailer');
 var flash = require('express-flash');
 var helper = require('./helper/helper');
+var scheduler = require('node-schedule');
 
 // Email sending config
 mailer.extend(app, {
@@ -23,6 +24,12 @@ mailer.extend(app, {
         pass: '01269848891'
     }
 });
+
+/* Schedule to clean temp folder every 30 minutes */
+var j = scheduler.scheduleJob('*/30 * * * *', function(){
+    console.log('Clean temp folder.');
+    helper.cleanTempFolder();
+})
 
 //public file in the public_datasource
 app.use('*/assets', express.static(__dirname + '/public_datasource/assets'));
@@ -68,9 +75,9 @@ var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
-app.use(function(req,res,next){    
+app.use(function(req,res,next){
     if (req.user != null){
-        res.locals.user = req.user;         
+        res.locals.user = req.user;
     } else {
         res.locals.user = {Firstname: "Lầy-er", Lastname: ""};
     }
