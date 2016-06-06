@@ -22,7 +22,6 @@ function curriculum_vitae_service() {
             if (flag == 1) {
                 if (valid[0].Exist == 1) {
                     dbcv_get.getByIdCV(param.idcv, callback);
-                    //dbcv_get.getByIdCV(param.idcv, callback);
                 } else {
                     callback(0, null);
                 }
@@ -45,8 +44,6 @@ function curriculum_vitae_service() {
     }
 
     this.updateCV = function(param, callback) {
-        var date = new Date();
-        // var paramUpdateDate=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours())+':'+(date.getMinutes()+1)+':'+(date.getSeconds()+1);
         var dbcv_save = new curriculum_vitae_model(param.Name, null, 0, null, param.UserId, param.Id);
         var valid = dbcv_save.checkValidation();
         if (valid) {

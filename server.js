@@ -26,7 +26,7 @@ mailer.extend(app, {
 });
 
 /* Schedule to clean temp folder every 30 minutes */
-var j = scheduler.scheduleJob('*/30 * * * *', function(){
+var j = scheduler.scheduleJob('*/30 * * * *', function() {
     console.log('Clean temp folder.');
     helper.cleanTempFolder();
 })
@@ -76,35 +76,40 @@ var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
-app.use(function(req,res,next){
-    if (req.user != null){
+app.use(function(req, res, next) {
+    if (req.user != null) {
         res.locals.user = req.user;
     } else {
-        res.locals.user = {Firstname: "Lầy-er", Lastname: ""};
+        res.locals.user = {
+            Firstname: "Lầy-er",
+            Lastname: ""
+        };
     }
-   next();
+    next();
 });
-
-app.use('/cv', [authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
-app.use('/template', ctrlTemplate);
-
-app.use('/', ctrlAccount);
-app.use('/', ctrladmin);
-
-
-
-app.get('/cv', function(req, res) {
-    res.render('pages/cv_index');
-})
-
 
 var cv_user = require('./middleware/checkcv_user').isBlong;
 
+/* CV management */
+app.use('/cv', authenticate.requireAuthenticated, ctrlcv);
+
+app.use('/template', ctrlTemplate);
+
+app.use('/update-profile', authenticate.requireAuthenticated);
+app.use('/change-password', authenticate.requireAuthenticated);
+app.use('/', ctrlAccount);
+
+app.use('/', ctrladmin);
+
+/* Index page */
+app.get('/', function(req, res) {
+    res.render('pages/index');
+})
 
 
 /*contact info */
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
-app.use('/cv/:idcv', cv_user,ctrlcontact_info);
+app.use('/cv/:idcv', cv_user, ctrlcontact_info);
 
 /*summary */
 var ctrlsummary = require('./controller/ctrlsummary');
@@ -112,7 +117,7 @@ app.use('/cv/:idcv', ctrlsummary);
 
 /*education*/
 var ctrleducation = require('./controller/ctrleducation');
-app.use('/cv/:idcv', ctrleducation);
+app.use('/cv/:idcv', cv_user, ctrleducation);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
@@ -130,14 +135,14 @@ app.use('/cv/:idcv', ctrlproject);
 // skill
  */
 var ctrlskill = require('./controller/ctrlskill');
-app.use('/cv/:idcv', cv_user,ctrlskill);
+app.use('/cv/:idcv', cv_user, ctrlskill);
 
 /*
 // cv_section
  */
 
 var cv_section = require('./controller/ctrlcv_section');
-app.use('/cv/:idcv',cv_section);
+app.use('/cv/:idcv', cv_section);
 
 /*admin*/
 app.get('/error/500', function(req, res) {

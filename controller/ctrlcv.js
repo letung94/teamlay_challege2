@@ -6,20 +6,21 @@ var di = require('../config/config');
 
 var jsonparser = bodyparser.json();
 var router = express.Router();
+var check_cv_user = require('../middleware/checkcv_user').isBlong;
 
 router.get('/', function(req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
     cvServiceIns.getEnableCV({
         Id: req.user.Id
-    }, function(flag, rows) {
+    }, function(flag, data) {
         var resObject = {
-            cvs: rows
+            cvs: data
         };
         if (flag != -1) {
             if (flag == 1) {
-                for (var i = 0; i < rows.length; i++) {
-                    rows[i].CreatedDate = helper.parseDate(rows[i].CreatedDate);
+                for (var i = 0; i < data.length; i++) {
+                    data[i].CreatedDate = helper.parseDate(data[i].CreatedDate);
                 }
             }
             res.render('pages/cv_list', resObject);
@@ -39,28 +40,28 @@ router.post('/', [jsonparser], function(req, res) {
     }, function(flag, data) {
         // TUNG CODE FOR ADDING LIST SECTION FOR CV
         var createlistcv_section = new cv_section_service();
-        createlistcv_section.createlistCV_Section_CV_Id(data.Id, function(err,count){
-            if(err && count < 7){
+        createlistcv_section.createlistCV_Section_CV_Id(data.Id, function(err, count) {
+            if (err && count < 7) {
                 res.status(500).render('pages/generic_error');
-            }else{
+            } else {
                 res.json({
                     flag: flag,
                     data: data
                 });
             }
         });
-        
+
     });
 });
 
-router.post('/:idcv/update', [jsonparser], function(req, res) {
+router.post('/:idcv/update', [jsonparser, check_cv_user], function(req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
     var paramObject = req.body;
     paramObject["Id"] = req.params.idcv;
     cvServiceIns.updateCV({
         Name: req.body.cvname,
-        UserId: 1,
+        UserId: req.user.Id,
         Id: req.params.idcv
     }, function(flag, data) {
         var resData = {};
@@ -78,18 +79,15 @@ router.post('/:idcv/update', [jsonparser], function(req, res) {
     });
 });
 
-router.post('/disableCV', [jsonparser], function(req, res) {
+router.post('/:idcv/disable', [jsonparser, check_cv_user], function(req, res) {
     var param = {
-        id: req.body.id
+        id: req.params.idcv
     };
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
-    console.log('in');
-    cvServiceIns.disableCV(param, function(code, data) {
-        console.log('done');
-        console.log(code);
+    cvServiceIns.disableCV(param, function(flag, data) {
         var resData = {};
-        if (code == 1) {
+        if (flag == 1) {
             resData.IsSuccess = true;
         } else {
             resData.IsSuccess = false;
@@ -98,23 +96,22 @@ router.post('/disableCV', [jsonparser], function(req, res) {
     })
 });
 
-router.get('/:idcv', function(req, res) {
+router.get('/:idcv', [check_cv_user], function(req, res) {
     var param = {
         idcv: req.params.idcv,
         userid: req.user.Id
     };
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
-    cvServiceIns.getByIdCV(param, function(code, row) {
-        // dam vao day
-        if (code == 1) {
+    cvServiceIns.getByIdCV(param, function(flag, data) {
+        if (flag == 1) {
             res.render('pages/cv_index', {
-                data: row.cvdata,
-                cv_section: row.cv_section
+                data: data.cvdata,
+                cv_section: data.cv_section
             });
-        } else if (code == 0) {
+        } else if (flag == 0) {
             res.status(404).render('pages/not_found_404');
-        } else if (code == -1) {
+        } else if (flag == -1) {
             res.status(500).render('pages/generic_error');
         }
     });

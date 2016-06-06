@@ -35,7 +35,7 @@ router.get('/templateReview/:name/:cv_id', function (req, res) {
 			/*Experience*/
 			var ExperienceService = di.resolve('experience');
 			var experienceService = new ExperienceService();
-			experienceService.getAllExperienceByCVId({CV_Id: cv_id}, function(code, data){
+			experienceService.getAllExperienceByCVId( cv_id, function(code, data){
 				info.experiences = data;
 				done();
 			})
