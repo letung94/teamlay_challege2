@@ -130,7 +130,7 @@ app.use('/cv/:idcv', ctrlcertification);
 
 /*project*/
 var ctrlproject = require('./controller/ctrlproject');
-app.use('/cv/:idcv', ctrlproject);
+app.use('/cv/:idcv', cv_user, ctrlproject);
 
 /*
 // skill

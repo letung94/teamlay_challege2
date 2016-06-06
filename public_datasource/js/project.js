@@ -85,7 +85,7 @@ $(document).ready(function(){
                             /*Show the success message*/
                             $.gritter.add({
                                 title: 'Success',
-                                text: 'The Project <b>' + deletedProject.Title + '(' + deletedProject.Url  + ')</b> has been deleted.',
+                                text: 'The Project <b>' + deletedProject.Title + '</b> has been deleted.',
                                 sticky: false,
                                 time: '1500'
                             });
