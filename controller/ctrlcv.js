@@ -39,17 +39,17 @@ router.post('/', [jsonparser], function(req, res) {
     }, function(flag, data) {
         // TUNG CODE FOR ADDING LIST SECTION FOR CV
         var createlistcv_section = new cv_section_service();
-        createlistcv_section.createlistCV_Section_CV_Id(data.Id, function(err,count){
-            if(err && count < 7){
+        createlistcv_section.createlistCV_Section_CV_Id(data.Id, function(err, count) {
+            if (err && count < 7) {
                 res.status(500).render('pages/generic_error');
-            }else{
+            } else {
                 res.json({
                     flag: flag,
                     data: data
                 });
             }
         });
-        
+
     });
 });
 
