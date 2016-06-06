@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <!-- Mirrored from shamsoft.net/flaty/extra_login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Sep 2015 07:26:32 GMT -->
 <head>
     <head>
@@ -34,7 +33,7 @@
 </head>
 
 <div class="box">
-    <!--<p><%= jsonData %></p>-->
+    <!--<p><%= users %></p>-->
 
     <div class="box-title">
         <h3><i class="fa fa-table"></i> Admin Page</h3>
@@ -45,157 +44,39 @@
     </div>
 
     <div class="box-content">
-
-        <!--
-        <div class="btn-toolbar pull-right clearfix">
-            <div class="btn-group">
-                <a class="btn btn-circle show-tooltip" title="" href="#" data-original-title="Add new record"><i class="fa fa-plus"></i></a>
-                <a class="btn btn-circle show-tooltip" title="" href="#" data-original-title="Edit selected"><i class="fa fa-edit"></i></a>
-                <a class="btn btn-circle show-tooltip" title="" href="#" data-original-title="Delete selected"><i class="fa fa-trash-o"></i></a>
-            </div>
-            <div class="btn-group">
-                <a class="btn btn-circle show-tooltip" title="" href="#" data-original-title="Print"><i class="fa fa-print"></i></a>
-                <a class="btn btn-circle show-tooltip" title="" href="#" data-original-title="Export to PDF"><i class="fa fa-file-text-o"></i></a>
-                <a class="btn btn-circle show-tooltip" title="" href="#" data-original-title="Export to Exel"><i class="fa fa-table"></i></a>
-            </div>
-            <div class="btn-group">
-                <a class="btn btn-circle show-tooltip" title="" href="#" data-original-title="Refresh"><i class="fa fa-repeat"></i></a>
-            </div>
-        </div>
-        -->
         <br><br>
-
         <div class="clearfix"></div>
         <div class="table-responsive" style="border:0">
             <div id="table1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-            <!--
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <div id="table1_length" class="dataTables_length">
-                            <label>
-                                <select size="1" name="table1_length" aria-controls="table1">
-                                    <option value="10" selected="selected">10</option>
-                                    <option value="15">15</option>
-                                    <option value="25">25</option>
-                                    <option value="50">50</option>
-                                    <option value="100">100</option>
-                                    <option value="-1">All</option>
-                                </select> Records per page
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <div class="dataTables_filter" id="table1_filter">
-                            <label>Search: <input type="text" aria-controls="table1"></label>
-                        </div>
-                    </div>
-                </div>
-                -->
                 <table class="table table-advance dataTable" id="table1" aria-describedby="table1_info">
                     <thead>
                         <tr role="row">
-                            <!--<th style="width: 15px;" class="sorting_disabled" role="columnheader" rowspan="1" colspan="1" aria-label=""><input type="checkbox">Checkbox</th>-->
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="Rendering engine: activate to sort column ascending" style="width: 50px;">ID</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 150px;">First Name</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 150px;">Last Name</th>
-                            <th class="text-center sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 250px;">User Name </th>
+                            <th class="text-center sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 250px;">User Name</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 300px;">Email</th>
+                            <th class="sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 300px;">State</th>
+                            <th class="sorting text-center" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 300px;">Num of CV</th>
+                            <th class="text-center"></th>
                         </tr>
                     </thead>
 
                     <tbody role="alert" aria-live="polite" aria-relevant="all">
-                        <!--
-                        <tr class="table-flag-blue odd">
-
-                            <td class=" ">Trident</td>
-                            <td class=" ">Internet Explorer 7</td>
-                            <td class=" ">Win XP SP2+</td>
-                            <td class="text-center ">7</td>
-                            <td class=" "><span class="label label-success">A</span></td>
-                        </tr>
-                        <tr class="even">
-
-                            <td class=" ">Trident</td>
-                            <td class=" "><a href="#">AOL browser (AOL desktop)</a></td>
-                            <td class=" ">Win XP</td>
-                            <td class="text-center ">6</td>
-                            <td class=" "><span class="label label-success">A</span></td>
-                        </tr>
-                        <tr class="table-flag-orange odd">
-
-                            <td class=" ">Gecko</td>
-                            <td class=" "><span class="label label-success">Not Bad</span> Firefox 1.5</td>
-                            <td class=" ">Win 98+ / OSX.2+</td>
-                            <td class="text-center ">1.8</td>
-                            <td class=" "><span class="label label-success">A</span></td>
-                        </tr>
-                        <tr class="even">
-
-                            <td class=" ">Gecko</td>
-                            <td class=" ">Netscape Navigator 9</td>
-                            <td class=" ">Win 98+ / OSX.2+</td>
-                            <td class="text-center ">1.8</td>
-                            <td class=" "><span class="label label-success">A</span></td>
-                        </tr>
-                        <tr class="odd">
-
-                            <td class=" ">Gecko</td>
-                            <td class=" ">Seamonkey 1.1</td>
-                            <td class=" ">Win 98+ / OSX.2+</td>
-                            <td class="text-center ">1.8</td>
-                            <td class=" "><span class="label label-warning">B</span></td>
-                        </tr>
-                        <tr class="even">
-
-                            <td class=" ">Gecko</td>
-                            <td class=" ">Mozilla 1.8</td>
-                            <td class=" ">Win 98+ / OSX.1+</td>
-                            <td class="text-center ">1.8</td>
-                            <td class=" "><span class="label label-success">A</span></td>
-                        </tr>
-                        <tr class="table-flag-blue odd">
-
-                            <td class=" ">Trident</td>
-                            <td class=" "><span class="label label-warning">So crazy!</span> <a href="#">Internet Explorer 6</a></td>
-                            <td class=" ">Win 98+</td>
-                            <td class="text-center ">6</td>
-                            <td class=" "><span class="label label-important">C</span></td>
-                        </tr>
-                        <tr class="table-flag-red even">
-
-                            <td class=" ">Presto</td>
-                            <td class=" ">Opera 7.5</td>
-                            <td class=" ">Win 95+ / OSX.2+</td>
-                            <td class="text-center ">-</td>
-                            <td class=" "><span class="label label-success">A</span></td>
-                        </tr>
-                        <tr class="table-flag-red odd">
-
-                            <td class=" ">Presto</td>
-                            <td class=" "><span class="label label-info">It's Opera!</span> Opera 8.0</td>
-                            <td class=" ">Win 95+ / OSX.2+</td>
-                            <td class="text-center ">-</td>
-                            <td class=" "><span class="label label-success">A</span></td>
-                        </tr>
-                        <tr class="even">
-
-                            <td class=" ">Gecko</td>
-                            <td class=" "><a href="#">Mozilla 1.0</a></td>
-                            <td class=" ">Win 95+ / OSX.1+</td>
-                            <td class="text-center ">1</td>
-                            <td class=" "><span class="label label-warning">B</span></td>
-                        </tr>
-                        -->
-                        <% for(var i=0; i< jsonData.length; i++) { %>
-
-                        <tr class="table-flag-blue odd">
-
-                            <td class=" "> <%= jsonData[i].Id %></td>
-                            <td class=" "> <%= jsonData[i].Firstname %></td>
-                            <td class=" ">  <%= jsonData[i].Lastname %></td>
-                            <td class="text-center "> <%= jsonData[i].Username %></td>
-                            <td class=" "><span class="label label-success"><%= jsonData[i].Email %></span></td>
-                        </tr>
+                        <% for(var i=0; i< users.length; i++) { %>
+                            <tr class="table-flag-blue odd">
+                                <td class=" "> <%= users[i].Id %></td>
+                                <td class=" "> <%= users[i].Firstname %></td>
+                                <td class=" ">  <%= users[i].Lastname %></td>
+                                <td class="text-center "> <%= users[i].Username %></td>
+                                <td class=" "><%= users[i].Email %></td>
+                                <% if(users[i].IsConfirmed == 0 ) { %>
+                                    <td><span class="text-danger">Not confirmed</span></td>
+                                <% } else { %>
+                                    <td><span class="text-primary">Confirmed</span></td>
+                                <% } %>
+                                <td class="text-center"><%= users[i].CV %></td>
+                            </tr>
                         <% } %>
                     </tbody>
 
