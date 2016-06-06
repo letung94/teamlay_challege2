@@ -130,10 +130,11 @@ $('#btnAddListEdu').click(function() {
                     $.each(listEdu, function(index, value) {
                         addListEdu(index + 1, value.attribute);
                     });
-                    switchModeEdu("add");       
+                    switchModeEdu("add");
                 }
                 showAnnoucement(res.flag, 'education', 'added');
                 $("#education-form")[0].reset();
+                $("#education-form textarea[name='detail']").data('wysihtml5').editor.setValue('');
             },
             error: function(x, e) {
 
@@ -180,10 +181,11 @@ $('#btnSaveEditEdu').click(function() {
                     $.each(listEdu, function(index, value) {
                         addListEdu(index + 1, value.attribute);
                     });
-                    switchModeEdu("add");        
+                    switchModeEdu("add");
                 }
                 showAnnoucement(res.flag, 'education', 'edited');
                 $("#education-form")[0].reset();
+                $("#education-form textarea[name='detail']").data('wysihtml5').editor.setValue('');
             },
             error: function(x, e) {
 

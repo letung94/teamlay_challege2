@@ -13,19 +13,21 @@ var isAvailable = function (req, res, next) {
 
 var requireAuthenticated = function (req, res, next) {
     if (!req.isAuthenticated()) {
-        console.log('dwadwa');
+        console.log(1);
         req.flash('error','You must be login to continue.');
-        res.redirect('/login');
+        return res.redirect('/login');
     } else {
-        console.log('1111dwadwa');
+        console.log(2);
         return next();
     }
 }
 
 var requireNotAuthenticated = function (req, res, next) {
     if (req.isAuthenticated()) {
+        console.log(3);
         res.redirect('/cv');
     } else {
+        console.log(4);
         return next();
     }
 }

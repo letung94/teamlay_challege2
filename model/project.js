@@ -1,7 +1,6 @@
 var helper = require('../helper/helper');
 
 function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
-    console.log(Title);
     var self = this;
     self.attribute = {
         "Title" : Title,
@@ -136,8 +135,6 @@ function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
     this.updateProject = function (params, callback) {
         project = new Project(params);
         project.save(function (err, result) {
-            console.log(err);
-            console.log(result);
             project.killConnection();
             if(err){
                 callback(-1, err)
@@ -152,7 +149,6 @@ function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
     }
     
     this.deleteProject = function (params, callback) {
-        console.log(`params : ${params}`);
         project = new Project({id: params});
         project.remove(function (err, rows) {
             project.killConnection();
