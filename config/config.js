@@ -5,6 +5,7 @@ var user = require('../model/user');
 var cv = require('../model/cv');
 
 var user_service = require('../service/user');
+var admin_service = require('../service/admin');
 var cv_service = require('../service/cv');
 var certification_service = require('../service/certification');
 var education_service = require('../service/education');
@@ -27,6 +28,8 @@ di
     .param().val(mysqlmodel)
     .register('user')
     .instance(user)
+    .register('admin')
+    .instance(admin_service)
     .register('certification')
     .instance(certification_service)
     .register('education')
