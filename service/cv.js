@@ -44,8 +44,6 @@ function curriculum_vitae_service() {
     }
 
     this.updateCV = function(param, callback) {
-        var date = new Date();
-        // var paramUpdateDate=date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+' '+(date.getHours())+':'+(date.getMinutes()+1)+':'+(date.getSeconds()+1);
         var dbcv_save = new curriculum_vitae_model(param.Name, null, 0, null, param.UserId, param.Id);
         var valid = dbcv_save.checkValidation();
         if (valid) {
