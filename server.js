@@ -122,7 +122,7 @@ app.use('/cv/:idcv', ctrleducation);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
-app.use('/cv/:idcv', ctrlexperience);
+app.use('/cv/:idcv', cv_user, ctrlexperience);
 
 /*certification*/
 var ctrlcertification = require('./controller/ctrlcertification');
@@ -130,7 +130,7 @@ app.use('/cv/:idcv', ctrlcertification);
 
 /*project*/
 var ctrlproject = require('./controller/ctrlproject');
-app.use('/cv/:idcv', ctrlproject);
+app.use('/cv/:idcv', cv_user, ctrlproject);
 
 /*
 // skill
