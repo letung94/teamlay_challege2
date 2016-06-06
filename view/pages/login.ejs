@@ -54,7 +54,7 @@
          <% } %>
     <div class="form-group">
     <div class="controls">
-    <input type="text" id="username" name="username" placeholder="Username" class="form-control" value="<%= backdata.username %>"/>
+    <input type="text" id="username" name="username" placeholder="Username" class="form-control" <% if(locals.backdata){ %>value="<%=backdata.username%>"<%}%>/>
     </div>
     </div>
     <div class="form-group">
