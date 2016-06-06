@@ -117,7 +117,7 @@ app.use('/cv/:idcv', ctrlsummary);
 
 /*education*/
 var ctrleducation = require('./controller/ctrleducation');
-app.use('/cv/:idcv', ctrleducation);
+app.use('/cv/:idcv', cv_user, ctrleducation);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
