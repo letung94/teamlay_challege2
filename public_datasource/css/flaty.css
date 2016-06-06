@@ -3616,6 +3616,7 @@ a.tile:hover {
 
 .login-page form input[type="text"],
 .login-page form input[type="password"],
+.login-page form input[type="email"],
 .login-page form button {
     padding: 15px 10px !important;
     height: auto !important;
