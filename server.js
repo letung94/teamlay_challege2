@@ -97,6 +97,10 @@ app.get('/cv', function(req, res) {
     res.render('pages/cv_index');
 })
 
+app.get('/', function(req, res) {
+    res.render('pages/index');
+})
+
 
 var cv_user = require('./middleware/checkcv_user').isBlong;
 
