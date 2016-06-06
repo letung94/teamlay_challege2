@@ -27,6 +27,10 @@ var ResetPasswordExpire = "";
 
 describe('TEST-MODEL-USER -- addUser Function!', function() {
     var user_01 = new user_model(Firstname, Lastname, Username, Email, PasswordHash, CreatedDate, VerifyToken, IsConfirmed, IsBlocked, ResetPasswordToken, ResetPasswordExpire);
+    var userTest,
+        eventEmitterStub,
+        callbackSpy,
+        clock;
 
     console.log('\n' + 'THIS IS SOMETHING');
     user_01.addUser(user_01.attribute, function(flag, err) {
@@ -37,13 +41,20 @@ describe('TEST-MODEL-USER -- addUser Function!', function() {
         }
     });
 
-    beforeEach(function() {
+    before(function() {
+
+        callbackSpy = sinon.spy();
+
         this.console = {
             log: sinon.spy()
         };
+
     });
 
     it('should return correct object with correct parameter values', function() {
+        user_01.addUser(user_01.attribute, callbackSpy);
+        assert.equal(callbackSpy.called, true);
+
 
         expect(user_01).to.be.an('Object');
         expect(user_01.attribute.Firstname).to.equal('Trinh');
@@ -57,6 +68,8 @@ describe('TEST-MODEL-USER -- addUser Function!', function() {
         expect(user_01.attribute.IsBlocked).to.equal('0');
         expect(user_01.attribute.ResetPasswordToken).to.equal('');
         expect(user_01.attribute.ResetPasswordExpire).to.equal('');
+        done();
+
     });
     it('should not return any type but object', function() {
 
@@ -79,4 +92,4 @@ describe('TEST-MODEL-USER -- addUser Function!', function() {
         expect(user_01.attribute.ResetPasswordExpire).to.not.equal('232');
     });
 
-})
+});

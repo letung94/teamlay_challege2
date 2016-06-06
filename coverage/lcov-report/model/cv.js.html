@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">1.85% </span>
+        <span class="strong">1.82% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>2/108</span>
+        <span class='fraction'>2/110</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>0/19</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">1.85% </span>
+        <span class="strong">1.82% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>2/108</span>
+        <span class='fraction'>2/110</span>
       </div>
     </div>
   </div>
@@ -263,7 +263,35 @@
 218
 219
 220
-221</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,19 +368,47 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -560,11 +616,30 @@
 <span class="cstat-no" title="statement not covered" >    var Cv = require('../config/config').resolve("db").CV;</span>
     // the reqdata paramater is id of the CV
     // callback is a callback function data returned and status
+    
+<span class="cstat-no" title="statement not covered" >    var async = require('async');</span>
+    
 <span class="cstat-no" title="statement not covered" >    self.getByIdCV = <span class="fstat-no" title="function not covered" >function(reqdata, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var temp = new Cv();</span>
-<span class="cstat-no" title="statement not covered" >        temp.find('all', {</span>
-            where: "Id = " + reqdata + " &amp;&amp; IsDeleted = 0"
-        }, <span class="fstat-no" title="function not covered" >function(err, rows, fields) {</span>
+        /* the old code
+            temp.find('all', {
+                where: "Id = " + reqdata + " &amp;&amp; IsDeleted = 0"
+            }, function(err, rows, fields) {
+                temp.killConnection();
+                if (err) {
+                    callback(-1, err)
+                } else {
+                    if (rows.length == 0) {
+                        callback(0, null);
+                    } else {
+                        callback(1, rows[0]);
+                    }
+                }
+            });
+        */
+        /*LE TUNG CODE GET LIST OF ORDER CV_SECTION */
+<span class="cstat-no" title="statement not covered" >        temp.query("SELECT* FROM curriculum_vitae INNER JOIN cv_section On curriculum_vitae.Id = cv_section.CV_Id Where curriculum_vitae.Id = " + reqdata + " &amp;&amp; curriculum_vitae.IsDeleted = 0",</span>
+<span class="fstat-no" title="function not covered" >        function(err,rows, fields){</span>
 <span class="cstat-no" title="statement not covered" >            temp.killConnection();</span>
 <span class="cstat-no" title="statement not covered" >            if (err) {</span>
 <span class="cstat-no" title="statement not covered" >                callback(-1, err)</span>
@@ -572,12 +647,21 @@
 <span class="cstat-no" title="statement not covered" >                if (rows.length == 0) {</span>
 <span class="cstat-no" title="statement not covered" >                    callback(0, null);</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    callback(1, rows[0]);</span>
+<span class="cstat-no" title="statement not covered" >                    var data = {</span>
+                        CreatedDate : rows[0].CreatedDate,
+                        Id:rows[0].Id,
+                        IsDeleted:rows[0].IsDeleted,
+                        UrlSlug:rows[0].UrlSlug,
+                        UserId:rows[0].UserId,
+                        Name: rows[0].Name
+                    };
+<span class="cstat-no" title="statement not covered" >                    callback(1, {cvdata: data, cv_section : rows});</span>
                 }
             }
         });
+        /*................... */
     }
-&nbsp;
+    
 <span class="cstat-no" title="statement not covered" >    self.getAllCV = <span class="fstat-no" title="function not covered" >function(param, callback) {</span> // param:</span>
 <span class="cstat-no" title="statement not covered" >        var temp = new Cv();</span>
 <span class="cstat-no" title="statement not covered" >        temp.find('all', <span class="fstat-no" title="function not covered" >function(err, rows, fields) {</span></span>
@@ -709,7 +793,7 @@ module.exports = CV;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 05 2016 13:17:32 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 06 2016 09:11:29 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>

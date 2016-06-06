@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">20% </span>
+        <span class="strong">12.5% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/15</span>
+        <span class='fraction'>3/24</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/2</span>
+        <span class='fraction'>0/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>0/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">20% </span>
+        <span class="strong">12.5% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/15</span>
+        <span class='fraction'>3/24</span>
       </div>
     </div>
   </div>
@@ -68,7 +68,22 @@
 23
 24
 25
-26</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -90,6 +105,21 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,12 +127,12 @@
 &nbsp;
 <span class="fstat-no" title="function not covered" >function education_service() {</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.getAllByIdCV = <span class="fstat-no" title="function not covered" >function(param, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.getAllByIdCV = <span class="fstat-no" title="function not covered" >function (param, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var education_getall = new educationModel();</span>
 <span class="cstat-no" title="statement not covered" >        education_getall.getAllByIdCV(param, callback);</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.createEducation = <span class="fstat-no" title="function not covered" >function(param, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.createEducation = <span class="fstat-no" title="function not covered" >function (param, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var education_create = new educationModel(param.Institude, param.Degree, param.FromDate, param.ToDate, param.Details, param.CV_Id);</span>
 <span class="cstat-no" title="statement not covered" >        var valid = education_create.checkValidation();</span>
 <span class="cstat-no" title="statement not covered" >        if (valid) {</span>
@@ -112,7 +142,22 @@
         }
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.getAllEducationByCVId = <span class="fstat-no" title="function not covered" >function(param, cb) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.updateEducation = <span class="fstat-no" title="function not covered" >function (param, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var education_save = new educationModel(param.Institude, param.Degree, param.FromDate, param.ToDate, param.Details, param.CV_Id);</span>
+<span class="cstat-no" title="statement not covered" >        var valid = education_save.checkValidation();</span>
+<span class="cstat-no" title="statement not covered" >        if (valid) {</span>
+<span class="cstat-no" title="statement not covered" >            education_save.update(param.Id, callback);</span>
+        } else {
+<span class="cstat-no" title="statement not covered" >            callback(0, education_save.attrvalidate);</span>
+        }
+    }
+    
+<span class="cstat-no" title="statement not covered" >    this.deleteEducation = <span class="fstat-no" title="function not covered" >function (param, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var education_delete = new educationModel();</span>
+<span class="cstat-no" title="statement not covered" >        education_delete.remove(param,callback);</span>
+    }
+    
+<span class="cstat-no" title="statement not covered" >    this.getAllEducationByCVId = <span class="fstat-no" title="function not covered" >function (param, cb) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var c = new educationModel();</span>
 <span class="cstat-no" title="statement not covered" >        c.getAllEducationByCVId(param, cb);</span>
     }
@@ -124,7 +169,7 @@ module.exports = education_service;</pre></td></tr>
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 05 2016 13:17:32 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 06 2016 09:11:29 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
