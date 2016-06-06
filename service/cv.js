@@ -22,7 +22,6 @@ function curriculum_vitae_service() {
             if (flag == 1) {
                 if (valid[0].Exist == 1) {
                     dbcv_get.getByIdCV(param.idcv, callback);
-                    //dbcv_get.getByIdCV(param.idcv, callback);
                 } else {
                     callback(0, null);
                 }

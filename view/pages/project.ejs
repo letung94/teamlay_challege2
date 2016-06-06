@@ -4,7 +4,7 @@
          <form class="form-horizontal" id="validation_form_project" >
           <input name="id" type="hidden" >
                 <div class="form-group row">
-                        <label class="col-sm-3 col-lg-2 control-label">Project</label>
+                        <label class="col-sm-3 col-lg-2 control-label">Project <span class="text-danger">*</span></label>
                             <div class="col-sm-9 col-lg-10 controls">
                                 <input type="text" placeholder="Enter your Project Title" name="project_title" id="project-title" class="form-control" data-rule-required="true" data-rule-minlength="2" >
                                 <!--<span for="project-title" class="help-block">This field is required.</span> -->
@@ -14,12 +14,12 @@
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">URL</label>
                             <div class="col-sm-9 col-lg-10 controls">
-                                <input type="url" placeholder="Enter your URL" name="project_url" id="project_url" class="form-control" value="http://" >
+                                <input type="url" placeholder="http://example.com" name="project_url" id="project_url" class="form-control"  >
                             </div>
                 </div>
                 <!-Date(s)->
                 <div class="form-group">
-                        <label class="col-sm-3 col-lg-2 control-label">Date(s)</label>
+                        <label class="col-sm-3 col-lg-2 control-label">Date(s) <span class="text-danger">*</span></label>
                             <div class="col-sm-5 col-lg-10 controls">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
@@ -46,6 +46,12 @@
                             <textarea class="form-control col-md-12" rows="6" id="detail_project" name="project_details" data-rule-required="true"></textarea>
                         </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
+                    <div class="col-sm-9 col-lg-10 controls">
+                        <span class="label label-important">NOTE!</span><span class="text-danger">&nbsp;*</span> <span>The fields are required.</span>
+                    </div>
+                </div>                
                 <div class="form-group row">
                         <label class="col-sm-3 col-lg-2 control-label">&nbsp;</label>
                         <div class="col-sm-9 col-lg-10 controls">
