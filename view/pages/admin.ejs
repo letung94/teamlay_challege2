@@ -22,26 +22,34 @@
         <link rel="stylesheet" href="css/flaty-responsive.css">
 
         <link rel="shortcut icon" href="img/favicon.html">
-
-
-        <!--Plugin-->
-        <script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
+        <link rel="stylesheet" type="text/css" href="assets/bootstrap-dialog/css/bootstrap-dialog.css" />
+        <link rel="stylesheet" type="text/css" href="assets/gritter/css/jquery.gritter.css" />
         <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
-        <script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" src="js/admin.js"></script>
+        
+        
+        
+        <style>
+            .logout{
+                color:#fff;
+                line-height:10px;
+                margin-right:10px;
+            }
+        </style>
+        
     </head>
 </head>
 
-<div class="box">
+<body>
+
+    <div class="box">
     <!--<p><%= users %></p>-->
 
     <div class="box-title">
         <h3><i class="fa fa-table"></i> Admin Page</h3>
-        <div class="box-tool">
-            <a data-action="collapse" href="#"><i class="fa fa-chevron-up"></i></a>
-            <a data-action="close" href="#"><i class="fa fa-times"></i></a>
-        </div>
+        <a href="/logout"><h5 class="pull-right logout">Log out</h3></a>
     </div>
+    
+    
 
     <div class="box-content">
         <br><br>
@@ -76,6 +84,7 @@
                                     <td><span class="text-primary">Confirmed</span></td>
                                 <% } %>
                                 <td class="text-center"><%= users[i].CV %></td>
+                                <td><button class="btn btn-danger btn-xs btn-block" title="Block this user" user-id="<%= users[i].Id %>">Block</button></td>
                             </tr>
                         <% } %>
                     </tbody>
@@ -88,6 +97,23 @@
         </div>
     </div>
 </div>
+<!--Plugin-->
+<script>window.jQuery || document.write('<script src="assets/jquery/jquery-2.1.1.min.js"><\/script>')</script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+
+  <script type="text/javascript" src="assets/jquery-validation/dist/additional-methods.min.js"></script>
+  <script type="text/javascript" src="assets/chosen-bootstrap/chosen.jquery.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-daterangepicker/date.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
+  <script type="text/javascript" src="assets/bootstrap-dialog/js/bootstrap-dialog.js"></script>
+  <script type="text/javascript" src="assets/gritter/js/jquery.gritter.js"></script>
+  <script type="text/javascript" src="assets/momentjs/moment.js"></script>
+  <script type="text/javascript" src="js/admin.js"></script>
+</body>
+
 
 
 <!-- Mirrored from shamsoft.net/flaty/extra_login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Sep 2015 07:26:32 GMT -->

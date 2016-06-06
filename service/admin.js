@@ -5,6 +5,10 @@ function admin_service(){
         var u = new userModel();
         u.getAllUserWithNumOfCV(callback);
     }
+    this.getUserRoleByUsername = function(username,callback){
+        var u = new userModel();
+        u.getUserRoleByUsername(username,callback);
+    }
 }
 
 module.exports = admin_service;

@@ -18,8 +18,18 @@ var requireAuthenticated = function (req, res, next) {
         return next();
     }
 }
+// Require admin authenticated
+var requireAdminAuthenticated = function(req,res,next){
+    if (!req.isAuthenticated()) {
+        req.flash('error','You must be login to continue.');
+        return res.redirect('/admin/login');
+    } else {
+        return next();
+    }
+}
 
 module.exports = {
     requireAuthenticated: requireAuthenticated,
+    requireAdminAuthenticated: requireAdminAuthenticated,
     isAvailable: isAvailable
 };

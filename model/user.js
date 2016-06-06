@@ -238,6 +238,33 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
             callback(1, null, data);
         })
     }
+    this.getUserRoleByUsername = function (username, callback) {
+        user = new User();
+        user.find('first', {
+            where: "Username = '" + username + "'"
+        }, function (err, row) {
+            if (err) {
+                callback(-1, err);
+            } else {
+                var query = 'SELECT ur.RoleId FROM user_role ur WHERE ur.UserId=' + row.Id;
+                user.query(query, function (_err, _data) {
+                    user.killConnection();
+                    if (_err) {
+                        callback(-1, _err, null);
+                    }
+                    else
+                        if (_data.length == 0)
+                            callback(0, null, null);
+                        else
+                            if (_data[0].RoleId == 1)
+                                callback(1, null, 'admin');
+                            else
+                                callback(1, null, 'user');
+                });
+            }
+        });
+
+    }
 }
 
 module.exports = userModel;

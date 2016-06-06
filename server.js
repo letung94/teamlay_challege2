@@ -103,6 +103,7 @@ app.get('/', function(req, res) {
 
 
 app.use('/cv', authenticate.requireAuthenticated, ctrlcv);
+app.use('/admin/main', authenticate.requireAdminAuthenticated, ctrladmin);
 app.use('/template',authenticate.requireAuthenticated, ctrlTemplate);
 
 app.use('/update-profile', authenticate.requireAuthenticated);
