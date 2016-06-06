@@ -67,7 +67,7 @@
                             }
                             var dragSrcEl = null;
 
-                            function handleDragStart(e) {                         
+                            function handleDragStart(e) {                 
                                 // check du lieu
                                 var urlget = window.location.href + "/cv_section/getall";
                                 $.ajax({
@@ -118,6 +118,7 @@
                                 if (e.stopPropagation) {
                                     e.stopPropagation(); // Stops some browsers from redirecting.
                                 }
+                                
                                 [].forEach.call(cols, function (col) {
                                         col.classList.remove('over');
                                     });
@@ -178,16 +179,13 @@
                             }
 
                             function handleDragEnd(e) {
-                                if (e.preventDefault) {
-                                    e.preventDefault(); // Necessary. Allows us to drop.
-                                }
-                                //e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
-                                return false;
+                                
                             }
+                                                       
                             
                             var cols = document.querySelectorAll('#myTab3 li[draggable="true"]');
                             [].forEach.call(cols, function(col) {
-                                col.addEventListener('dragstart', handleDragStart, false);
+                                col.addEventListener('dragstart', handleDragStart, true);
                                 col.addEventListener('dragenter', handleDragEnter, false)
                                 col.addEventListener('dragover', handleDragOver, false);
                                 col.addEventListener('dragleave', handleDragLeave, false);
