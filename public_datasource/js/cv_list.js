@@ -82,6 +82,7 @@ $(document).ready(function() {
             ajax_create_cv_flag = true;
             var cvname = $("input[name=cvnamecreate]").val();
             var urlpost = window.location.href;
+            $.blockUI();
             $.post(urlpost, {
                 cvname: cvname
             }, function(resp) {
@@ -94,6 +95,7 @@ $(document).ready(function() {
                 window.location = "/error/500";
             }).always(function(data, textStatus, xhr) {
                 ajax_create_cv_flag = false;
+                $.unblockUI();
             });
         }
     });
@@ -113,6 +115,7 @@ $(document).ready(function() {
                 return false;
             }
             ajax_rename_cv_flag = true;
+            $.blockUI();
             $.post("/cv/" + cvid + "/update", param)
                 .done(function(resp, textStatus, jqXHR) {
                     $('#rename-cv-modal').modal('toggle');
@@ -132,6 +135,7 @@ $(document).ready(function() {
                     window.location = "/error/500";
                 }).always(function(data, textStatus, xhr) {
                     ajax_rename_cv_flag_section = false;
+                    $.unblockUI();
                 });
         }
     });
@@ -154,6 +158,7 @@ $(document).ready(function() {
             callback: function(result) {
                 if (result) {
                     ajax_delete_cv_flag = true;
+                    $.blockUI();
                     $.post("/cv/" + id + "/disable", param, function(resp) {
                         if (resp.IsSuccess) {
                             $(self).closest('tr').remove();
@@ -178,6 +183,7 @@ $(document).ready(function() {
                         window.location = "/error/500";
                     }).always(function(data, textStatus, xhr) {
                         ajax_delete_cv_flag = false;
+                        $.unblockUI();
                     });
                 } else {
                     console.log('Deny');
@@ -206,6 +212,7 @@ $(document).ready(function() {
                 return false;
             }
             ajax_rename_cv_flag = true;
+            $.blockUI();
             $.post("/cv/" + cvid + "/update", param)
                 .done(function(resp, textStatus, jqXHR) {
                     $('#rename-cv-modal').modal('toggle');
@@ -223,6 +230,7 @@ $(document).ready(function() {
                     window.location = "/error/500";
                 }).always(function(data, textStatus, xhr) {
                     ajax_rename_cv_flag = false;
+                    $.unblockUI();
                 });
         }
     });

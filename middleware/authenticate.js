@@ -9,7 +9,7 @@ var isAvailable = function (req, res, next) {
     }
     next();
 }
-
+// Require user authenticated
 var requireAuthenticated = function (req, res, next) {
     if (!req.isAuthenticated()) {
         req.flash('error','You must be login to continue.');
@@ -19,18 +19,7 @@ var requireAuthenticated = function (req, res, next) {
     }
 }
 
-var requireNotAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        console.log(3);
-        res.redirect('/cv');
-    } else {
-        console.log(4);
-        return next();
-    }
-}
-
 module.exports = {
     requireAuthenticated: requireAuthenticated,
-    isAvailable: isAvailable,
-    requireNotAuthenticated: requireNotAuthenticated
+    isAvailable: isAvailable
 };
