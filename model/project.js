@@ -26,8 +26,11 @@ function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
         }, attrname: "Title"},
         {validate: function(url){
             this.valid = false;
+            if (url.length == 0){
+                return true;
+            }
             this.min = 2;
-            this.max = 100;
+            this.max = 100;        
             var url_regex = new RegExp('^(https?:\\/\\/)?'+ // protocol
                 '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
                 '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
@@ -74,9 +77,14 @@ function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
         var valid = true;
         var attr_length = self.attrvalidate.length;
         for(var i = 0; i < attr_length; i++){
-            if(this.attrvalidate[i].validate != null){
-                valid  &= self.attrvalidate[i].validate(self.attribute[self.attrvalidate[i].attrname]);
-            } 
+            if (this.attrvalidate[i].attrname === 'Minusdate'){
+                    var minusdate = Date.parse(self.attribute["ToDate"]) - Date.parse(self.attribute["FromDate"]);
+                    valid &= self.attrvalidate[i].validate(minusdate);                
+            } else {
+                if(this.attrvalidate[i].validate != null){
+                    valid  &= self.attrvalidate[i].validate(self.attribute[self.attrvalidate[i].attrname]);
+                } 
+            }
         }
         return valid;
     }
