@@ -223,7 +223,8 @@ router.post('/reset/:token', function (req, res) {
 router.get('/register', function (req, res) {
     if (req.isAuthenticated()) return res.redirect('/cv');
     res.render('pages/register', {
-        errorMessage: req.flash('error')
+        errorMessage: req.flash('error'),
+        backdata: req.body
     });
 });
 
@@ -232,7 +233,8 @@ router.get('/login', function (req, res) {
     if (req.isAuthenticated()) return res.redirect('/cv');
      res.render('pages/login', {
         errorMessage: req.flash('error'),
-        successMessage: req.flash('success')
+        successMessage: req.flash('success'),
+        backdata: req.body
     });
 });
 
@@ -246,17 +248,16 @@ router.post('/login', function (req, res, next) {
 
     }, function (err, user, info) {
         if (err) {
-            return res.render('pages/login', { errorMessage: err.message });
+            return res.render('pages/login', { errorMessage: err.message,backdata:req.body });
         }
 
         if (!user) {
-            return res.render('pages/login', { errorMessage: info.message });
+            return res.render('pages/login', { errorMessage: info.message,backdata:req.body });
         }
 
         return req.logIn(user, function (err) {
             if (err) {
-                req.flash('error', err.message);
-                return res.redirect('/login');
+                return res.render('pages/login',{errorMessage:err.message,backdata:req.body});
             } else {
                 return res.redirect('/cv');
             }
@@ -310,8 +311,7 @@ router.post('/register', function (req, res) {
             var model = new user_model();
             model.getByEmail(req.body.email, function (err, data) {
                 if (data) {
-                    req.flash('error', 'Email already exists');
-                    return res.redirect('/register');
+                    return res.render('pages/register',{errorMessage:'Email already existed.',backdata:req.body});
                 }
                 done();
             });
@@ -323,8 +323,7 @@ router.post('/register', function (req, res) {
                     res.redirect('/error/500');
                 }
                 if (data) {
-                    req.flash('error', 'Username already exists');
-                    return res.redirect('/register');
+                    return res.render('pages/register',{errorMessage:'Username already existed.',backdata:req.body});
                 }
                 done();
             });

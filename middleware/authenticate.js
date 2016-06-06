@@ -10,14 +10,11 @@ var isAvailable = function (req, res, next) {
     next();
 }
 
-
 var requireAuthenticated = function (req, res, next) {
     if (!req.isAuthenticated()) {
-        console.log(1);
         req.flash('error','You must be login to continue.');
         return res.redirect('/login');
     } else {
-        console.log(2);
         return next();
     }
 }

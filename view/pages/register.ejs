@@ -39,28 +39,26 @@
 
         <form id="form-register" action="register" method="post">
             <h3>Register</h3>
-            <% if(typeof(errorMessage) !== 'undefined') {%>
-            <% if(errorMessage.length>0) {%>
-            <div class="alert alert-danger"><%= errorMessage %></div>
-         <% } %>
-         <% } %>
-         
             <hr />
-            
+            <% if(typeof(errorMessage) !== 'undefined') {%>
+                <% if(errorMessage.length>0) {%>
+                    <div class="alert alert-danger"><%= errorMessage %></div>
+                <% } %>
+            <% } %>
             <div class="form-group">
                 <div class="controls">
-                    <input type="text" id="firstname" name="firstname" placeholder="First name" class="form-control"  />
+                    <input type="text" id="firstname" name="firstname" placeholder="First name" class="form-control"  value="<%= backdata.firstname %>"/>
                 </div>
             </div>
             <div class="form-group">
                 <div class="controls">
-                    <input type="text" id="lastname" name="lastname" placeholder="Last name" class="form-control"  />
+                    <input type="text" id="lastname" name="lastname" placeholder="Last name" class="form-control"  value="<%= backdata.lastname %>"/>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="controls">
-                    <input type="text" id="username" name="username" placeholder="Username" class="form-control"  />
+                    <input type="text" id="username" name="username" placeholder="Username" class="form-control"  value="<%= backdata.username %>"/>
                 </div>
             </div>
             <div class="form-group">
@@ -75,7 +73,7 @@
             </div>
             <div class="form-group">
                 <div class="controls">
-                    <input type="email" id="email" name="email" placeholder="Email" class="form-control"  />
+                    <input type="email" id="email" name="email" placeholder="Email" class="form-control"  value="<%= backdata.email %>"/>
                 </div>
             </div>
 
