@@ -62,7 +62,7 @@ function certificationModel(title, certificateAuthority, date, details, CV_Id) {
     self.Certification = require('../config/config').resolve("db").Certification;
     self.getAllCertificationByCVId = function (cv_id, callback) { // param: CV_Id,
         var certification = new self.Certification();
-        certification.find('all',{where:'CV_Id=' + cv_id},function(err,rows,fields){
+        certification.find('all',{fields: ['Id', 'Title', 'CertificateAuthority', 'Date', 'Details', 'CV_Id'], where:'CV_Id=' + cv_id},function(err,rows,fields){
             certification.killConnection();
             if(err){
                 callback(-1, err)
