@@ -1,10 +1,7 @@
 var helper = require('../helper/helper');
 
-
-
-
 function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
-
+    console.log(Title);
     var self = this;
     self.attribute = {
         "Title" : Title,
@@ -31,12 +28,12 @@ function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
             this.valid = false;
             this.min = 2;
             this.max = 100;
-            var url_regex = new RegExp('^(https?:\/\/)?'+ // protocol
-                '((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|'+ // domain name
-                '((\d{1,3}\.){3}\d{1,3}))'+ // OR ip (v4) address
-                '(\:\d+)?(\/[-a-z\d%_.~+]*)*'+ // port and path
-                '(\?[;&a-z\d%_.~+=-]*)?'+ // query string
-                '(\#[-a-z\d_]*)?$','i'); // fragment locater
+            var url_regex = new RegExp('^(https?:\\/\\/)?'+ // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+                '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
             if(url_regex.test(url) && url.length >= this.min && url.length <= this.max){
                 this.valid = true;
             }
@@ -104,9 +101,7 @@ function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
         });
     }
     
-    this.createProject = function (params, callback) {
-        if (params.Title)
-        
+    this.createProject = function (params, callback) {        
         project = new Project({
             Title: params.Title,
             Url: params.Url,
