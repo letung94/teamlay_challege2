@@ -26,7 +26,7 @@
 <style>
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
-      width:38%;
+      width:31%;
       margin: auto;
       }
   .carousel-indicators li {
@@ -35,70 +35,83 @@
   }
   .carousel-indicators .active {
     background-color: #444;
-}
+  }
+  .container {
+      background-color: #FFFFCC;
+  }
 </style>
-
 </head>
-<body bgcolor="#E6E6FA">
+
+<body>
 <div id="navbar" class="navbar">
-    <div class="col-md-10 col-md-offset-1">
-        <a class="navbar-brand" href="#">
-            Create, maintain, publish, and share your CVs for free
-        </a>
+    <div class="col-md-10 col-md-offset-1">       
+        <span class="navbar-brand" style="font-size: 15px">          
+            Create, maintain your CVs for free
+        </span>
         <ul class="nav flaty-nav pull-right">
             <li class="hidden-xs">
-            <a href="#">
-                <i class="glyphicon glyphicon-lock">Login/Signup</i>
+            <a href="/login">
+                <i class="glyphicon glyphicon-log-in"></i>
+                <span>Login / Signup</span>
             </a>
             </li>
         </ul>
     </div>
 </div>
+<div class="container" align="center">
+        <div class="section">
+            <div class="row">
+                <div class="row">
+                    <h1><i class="fa fa-file-text-o"></i> CV Maker</h1><br/>
+                    <h4>Create beautiful, professional resumes in minutes, free.</h4><br/>
+                    <a href="/login" class="btn btn-success"><i class="fa fa-file-text-o"></i> Create CV now</a>         
+                </div>
+                <br/>
+                <div class="container" class>
+                <div id="myCarousel" style="width: 1000px" class="carousel slide" data-ride="carousel">    
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
 
-<main>
-	<div class="container" align="center">
-		<h1><span class="glyphicon glyphicon-file"></span>CV Maker</h1><br/>
-		<h4>Create beautiful, professional resumes in minutes, free.Create a cv now</h4><br/>
-        <div id="myCarousel" style="width: 800px" class="carousel slide" data-ride="carousel">
-        
-        <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-            <img src="img/cv-image/cv1.jpg" alt="CV1" width="300" height="250">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="img/cv-image/cv1.jpg" alt="CV1" width="300" height="250">
+                        </div>
+                        <div class="item">
+                            <img src="img/cv-image/cv1.jpg" alt="CV1" width="300" height="250">
+                        </div>
+                        <div class="item">
+                            <img src="img/cv-image/cv2.jpg" alt="CV2" width="300" height="250">
+                        </div>
+                    </div>
+                    
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                </div>
             </div>
-            <div class="item">
-            <img src="img/cv-image/cv1.jpg" alt="CV1" width="300" height="250">
-            </div>
-            <div class="item">
-            <img src="img/cv-image/cv2.jpg" alt="CV2" width="300" height="250">
-            </div>
-        </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
        </div>
-	</div>
-</main>
+</br>
+</br>
+</br>
+</br>
+</br>
+</div>
+<div class="footer">
+    Copyright © CV Builder 2016
+</div>
 
-<footer>
-    <div class="footer">
-        Copyright © CV Builder 2016
-    </div>
-</footer>
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="assets/jquery-slimscroll/jquery.slimscroll.min.js"></script>
   <script src="assets/jquery-cookie/jquery.cookie.js"></script>
@@ -109,5 +122,12 @@
   <!--flaty scripts-->
   <script src="js/flaty.js"></script>
   <script src="js/flaty-demo-codes.js"></script>
+  
+  <script type="text/javascript">
+  $('.carousel').carousel({
+    interval: 6000
+    });
+  </script>
+  
 </body>
 </html>

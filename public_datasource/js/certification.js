@@ -40,10 +40,12 @@ $(document).ready(function(){
                     self.listCertification.push(entity);
                     self.renderTableBody();
                 });
+            } else if (resp.flag == 0){
+                /*Call render to render "no data..." string*/
+                self.renderTableBody();
+            } else { /*flag == -1*/
+                showAnnoucement(-1, '', '');
             }
-            // else if (resp.flag == 0){
-            //     showAnnoucement(0,'','');
-            // }
         });
     }
 
@@ -54,13 +56,17 @@ $(document).ready(function(){
 
     /*Render list of certification*/
     self.renderTableBody = function(){
-        var html = '';
-        $.each(self.listCertification, function(index, value){
-            html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.CertificateAuthority + '</td>' + '<td>' + value.Date  +
-            '</td><td><button class="btn btn-warning btn-sm btn-edit-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button>' +
-            '<button class="btn btn-danger btn-sm btn-delete-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
-        })
-        $('#certification_list').html(html);
+        if(self.listCertification.length == 0){
+            $('#list-certification tbody').html('<tr><td colspan="5" align="center"> No data available </td></tr>');
+        }else{
+            var html = '';
+            $.each(self.listCertification, function(index, value){
+                html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.CertificateAuthority + '</td>' + '<td>' + value.Date  +
+                '</td><td><button class="btn btn-warning btn-sm btn-edit-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button>' +
+                '<button class="btn btn-danger btn-sm btn-delete-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
+            })
+            $('#certification_list').html(html);
+        }
     }
 
     /*Create new Certification*/
@@ -97,6 +103,10 @@ $(document).ready(function(){
                     self.listCertification.push(entity);
                     self.renderTableBody();
                     self.clearForm();
+                }else if(flag == 0){
+                    showAnnoucement(0,'','');
+                }else { /*flag == -1*/
+                    showAnnoucement(-1, '', '');
                 }
             });
         }
@@ -214,9 +224,9 @@ $(document).ready(function(){
                         time: '1500'
                     });
                 }else if (flag == 0){
-
+                    showAnnoucement(0, '', '');
                 }else{ /*flag == -1*/
-
+                    showAnnoucement(-1, '', '');
                 }
             });
         }

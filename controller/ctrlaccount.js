@@ -12,6 +12,7 @@ var async = require('async');
 
 // Resend verification email GET
 router.get('/verification-resend', function (req, res) {
+    if (req.isAuthenticated()) return res.redirect('/cv');
     res.render('pages/resend_verify_email', {
         errorMessage: req.flash('error'),
         successMessage: req.flash('success')
@@ -75,6 +76,7 @@ router.post('/verification-resend', function (req, res) {
 
 // Forgot Password GET
 router.get('/forgot', function (req, res) {
+    if (req.isAuthenticated()) return res.redirect('/cv');
     res.render('pages/forgot_password', {
         title: 'Forgot Password',
         errorMessage: req.flash('error'),
@@ -219,6 +221,7 @@ router.post('/reset/:token', function (req, res) {
 
 // User Registration GET
 router.get('/register', function (req, res) {
+    if (req.isAuthenticated()) return res.redirect('/cv');
     res.render('pages/register', {
         errorMessage: req.flash('error')
     });
@@ -226,8 +229,8 @@ router.get('/register', function (req, res) {
 
 // Login GET
 router.get('/login', function (req, res) {
-    if (req.isAuthenticated()) res.redirect('/cv');
-    else res.render('pages/login', {
+    if (req.isAuthenticated()) return res.redirect('/cv');
+     res.render('pages/login', {
         errorMessage: req.flash('error'),
         successMessage: req.flash('success')
     });
@@ -237,7 +240,7 @@ router.get('/login', function (req, res) {
 router.post('/login', function (req, res, next) {
     if (req.body.remember) req.session.cookie.maxAge = 365 * 24 * 60 * 60 * 1000;
     passport.authenticate('local', {
-        successRedirect: '/index',
+        successRedirect: '/cv',
         failureRedirect: '/login',
         failureFlash: true
 
@@ -261,15 +264,6 @@ router.post('/login', function (req, res, next) {
     })(req, res, next);
 });
 
-// Index Page
-router.get('/index', function (req, res) {
-    var model = new user_model();
-    model.getAllUser(function (err, data) {
-        if (err == -1) {
-            res.redirect('/error/500');
-        }
-    })
-})
 
 // Verify email
 router.get("/verify/:token", function (req, res, next) {
@@ -454,8 +448,9 @@ router.post('/change-password', function (req, res) {
 
 // Logout
 router.get('/logout', function (req, res) {
+    req.logOut();
     req.session.destroy();
-    res.redirect('/login');
+    return res.redirect('/');
 });
 
 module.exports = router;

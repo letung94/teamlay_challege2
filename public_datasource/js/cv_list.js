@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
     $('#curriculumvitae-form').validate({
         errorClass: 'text-danger',
@@ -15,7 +15,7 @@ $(document).ready(function () {
             }
         },
         errorElement: "div",
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             if (element.attr("name") == "accept") {
                 error.insertAfter("#accept_error-message");
             } else {
@@ -35,7 +35,7 @@ $(document).ready(function () {
             }
         },
         errorElement: "div",
-        errorPlacement: function (error, element) {
+        errorPlacement: function(error, element) {
             if (element.attr("name") == "accept") {
                 error.insertAfter("#accept_error-message");
             } else {
@@ -44,13 +44,13 @@ $(document).ready(function () {
         }
     });
 
-    $('.btn-add').click(function () {
+    $('.btn-add').click(function() {
         $('#curriculumvitae-form').validate().resetForm();
         $('#curriculumvitae-form input[name=cvnamecreate]').val('');
     });
 
     //Nhieu change to use modal rename CV instead
-    $('.btn-edit').click(function () {
+    $('.btn-edit').click(function() {
         $('#validation_form_cvname').validate().resetForm();
         var cvid = $(this).attr('cv-id');
         var cvname = $(this).attr('cv-name');
@@ -59,11 +59,11 @@ $(document).ready(function () {
         $('#validation_form_cvname input[name=cvname]').val(cvname);
     });
 
-    $('i[data-target=#rename-cv-modal]').hover(function () {
+    $('i[data-target=#rename-cv-modal]').hover(function() {
         $(this).css('cursor', 'pointer');
     });
 
-    $('i[data-target=#rename-cv-modal]').click(function () {
+    $('i[data-target=#rename-cv-modal]').click(function() {
         var cvid = $(this).attr('cv-id');
         var cvname = $(this).attr('cv-name');
         $('#validation_form_cvname input[name=cvname]').attr('value', cvname);
@@ -72,7 +72,7 @@ $(document).ready(function () {
 
     var ajax_create_cv_flag = false;
 
-    $('#btn-addnewcv').click(function () {
+    $('#btn-addnewcv').click(function() {
         var isValid = $('#curriculumvitae-form').valid();
         if (ajax_create_cv_flag == true) {
             console.log("AJAX is loading");
@@ -84,15 +84,15 @@ $(document).ready(function () {
             var urlpost = window.location.href;
             $.post(urlpost, {
                 cvname: cvname
-            }, function (resp) {
+            }, function(resp) {
                 if (resp.flag == 1) {
                     window.location = (window.location.href + '/' + resp.data.Id);
                 } else {
                     window.location = "/error/500";
                 }
-            }).fail(function (xhr, textStatus, err) {
+            }).fail(function(xhr, textStatus, err) {
                 window.location = "/error/500";
-            }).always(function (data, textStatus, xhr) {
+            }).always(function(data, textStatus, xhr) {
                 ajax_create_cv_flag = false;
             });
         }
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
     var ajax_rename_cv_flag_section = false;
 
-    $("#btn-renamecv").click(function () {
+    $("#btn-renamecv").click(function() {
         var valid = $('#validation_form_cvname').valid();
         if (valid) {
             var cvid = $('i[data-target=#rename-cv-modal]').attr('cv-id');
@@ -114,7 +114,7 @@ $(document).ready(function () {
             }
             ajax_rename_cv_flag = true;
             $.post("/cv/" + cvid + "/update", param)
-                .done(function (resp, textStatus, jqXHR) {
+                .done(function(resp, textStatus, jqXHR) {
                     $('#rename-cv-modal').modal('toggle');
                     if (resp.IsSuccess == 1) {
                         // $('.btn-edit[cv-id=' + cvid + ']').attr('cv-name', resp.Name);
@@ -128,9 +128,9 @@ $(document).ready(function () {
                         // alert('The system is under maintenance, please try again later.');
                         // Some error if delete failed.
                     }
-                }).fail(function (xhr, textStatus, err) {
+                }).fail(function(xhr, textStatus, err) {
                     window.location = "/error/500";
-                }).always(function (data, textStatus, xhr) {
+                }).always(function(data, textStatus, xhr) {
                     ajax_rename_cv_flag_section = false;
                 });
         }
@@ -138,7 +138,7 @@ $(document).ready(function () {
 
     var ajax_delete_cv_flag = false;
 
-    $('.btn-delete').click(function () {
+    $('.btn-delete').click(function() {
         var self = this;
         var id = $(this).attr('cv-id');
         var cvname = $(this).attr('cv-name');
@@ -151,10 +151,10 @@ $(document).ready(function () {
         BootstrapDialog.confirm({
             title: 'Confirm',
             message: 'Do you want to delete this CV ?',
-            callback: function (result) {
+            callback: function(result) {
                 if (result) {
                     ajax_delete_cv_flag = true;
-                    $.post("/cv/disableCV", param, function (resp) {
+                    $.post("/cv/" + id + "/disable", param, function(resp) {
                         if (resp.IsSuccess) {
                             $(self).closest('tr').remove();
                             $.gritter.add({
@@ -168,15 +168,15 @@ $(document).ready(function () {
                             // Some error if delete failed.
                         }
                         var i = 1;
-                        $('table[table-name=cv-list] tbody tr td:first-child h5').each(function () {
+                        $('table[table-name=cv-list] tbody tr td:first-child h5').each(function() {
                             $(this).html(i++);
                         });
                         if ($('table[table-name=cv-list] tbody tr td:first-child h5').length == 0) {
                             $('table[table-name=cv-list] tbody').html('<tr><td colspan=\'4\'><h3>You don\'t have any CV. Do you want to create a new one ?</h3></td></tr>');
                         }
-                    }).fail(function (xhr, textStatus, err) {
+                    }).fail(function(xhr, textStatus, err) {
                         window.location = "/error/500";
-                    }).always(function (data, textStatus, xhr) {
+                    }).always(function(data, textStatus, xhr) {
                         ajax_delete_cv_flag = false;
                     });
                 } else {
@@ -186,14 +186,14 @@ $(document).ready(function () {
         });
     });
 
-    $('.btn-print').click(function () {
+    $('.btn-print').click(function() {
         var id = $(this).attr('cv-id');
         window.open('../template/template_list/' + id, '_blank');
     });
 
     var ajax_rename_cv_flag = false;
 
-    $('#btn-rename-cv-in-list').click(function () {
+    $('#btn-rename-cv-in-list').click(function() {
         var valid = $('#validation_form_cvname').valid();
         if (valid) {
             var cvid = $('#validation_form_cvname input[name=cvname]').attr('cv-id');
@@ -207,7 +207,7 @@ $(document).ready(function () {
             }
             ajax_rename_cv_flag = true;
             $.post("/cv/" + cvid + "/update", param)
-                .done(function (resp, textStatus, jqXHR) {
+                .done(function(resp, textStatus, jqXHR) {
                     $('#rename-cv-modal').modal('toggle');
                     if (resp.IsSuccess == 1) {
                         $('.btn-edit[cv-id=' + cvid + ']').attr('cv-name', resp.Name);
@@ -219,9 +219,9 @@ $(document).ready(function () {
                         // alert('The system is under maintenance, please try again later.');
                         // Some error if delete failed.
                     }
-                }).fail(function (xhr, textStatus, err) {
+                }).fail(function(xhr, textStatus, err) {
                     window.location = "/error/500";
-                }).always(function (data, textStatus, xhr) {
+                }).always(function(data, textStatus, xhr) {
                     ajax_rename_cv_flag = false;
                 });
         }

@@ -26,7 +26,7 @@ mailer.extend(app, {
 });
 
 /* Schedule to clean temp folder every 30 minutes */
-var j = scheduler.scheduleJob('*/30 * * * *', function(){
+var j = scheduler.scheduleJob('*/30 * * * *', function () {
     console.log('Clean temp folder.');
     helper.cleanTempFolder();
 })
@@ -76,35 +76,41 @@ var ctrlSummary = require('./controller/ctrlsummary');
 var ctrladmin = require('./controller/ctrladmin');
 var authenticate = require('./middleware/authenticate');
 
-app.use(function(req,res,next){
-    if (req.user != null){
+app.use(function (req, res, next) {
+    if (req.user != null) {
         res.locals.user = req.user;
     } else {
-        res.locals.user = {Firstname: "Lầy-er", Lastname: ""};
+        res.locals.user = { Firstname: "Lầy-er", Lastname: "" };
     }
-   next();
+    next();
 });
 
-app.use('/cv', [authenticate.requireAuthenticated, authenticate.isAvailable], ctrlcv);
-app.use('/template', ctrlTemplate);
-
-app.use('/', ctrlAccount);
-app.use('/', ctrladmin);
-
-
-
-app.get('/cv', function(req, res) {
-    res.render('pages/cv_index');
+/*Index page*/
+app.get('/', function(req, res) {
+    res.render('pages/index');
 })
 
 
+
+app.use('/cv', authenticate.requireAuthenticated, ctrlcv);
+app.use('/template', ctrlTemplate);
+
+app.use('/update-profile', authenticate.requireAuthenticated);
+app.use('/change-password', authenticate.requireAuthenticated);
+
+app.use('/', ctrlAccount);
+
+app.use('/', ctrladmin);
+
+app.get('/cv', function (req, res) {
+    res.render('pages/cv_index');
+})
+
 var cv_user = require('./middleware/checkcv_user').isBlong;
-
-
 
 /*contact info */
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
-app.use('/cv/:idcv', cv_user,ctrlcontact_info);
+app.use('/cv/:idcv', cv_user, ctrlcontact_info);
 
 /*summary */
 var ctrlsummary = require('./controller/ctrlsummary');
@@ -124,23 +130,23 @@ app.use('/cv/:idcv', ctrlcertification);
 
 /*project*/
 var ctrlproject = require('./controller/ctrlproject');
-app.use('/cv/:idcv', ctrlproject);
+app.use('/cv/:idcv', cv_user, ctrlproject);
 
 /*
 // skill
  */
 var ctrlskill = require('./controller/ctrlskill');
-app.use('/cv/:idcv', cv_user,ctrlskill);
+app.use('/cv/:idcv', cv_user, ctrlskill);
 
 /*
 // cv_section
  */
 
 var cv_section = require('./controller/ctrlcv_section');
-app.use('/cv/:idcv',cv_section);
+app.use('/cv/:idcv', cv_section);
 
 /*admin*/
-app.get('/error/500', function(req, res) {
+app.get('/error/500', function (req, res) {
     res.render('pages/server_error_500');
 });
 
@@ -178,11 +184,11 @@ console.log(rows);
 // });
 
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.status(404).render('pages/not_found_404');
 });
 
-http.createServer(app).listen(8080, function() {
+http.createServer(app).listen(8080, function () {
     var port = this.address().port;
     console.log("let's read first");
     console.log("Server is listening at http://localhost:%s", port);
