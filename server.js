@@ -121,7 +121,7 @@ app.use('/cv/:idcv', cv_user, ctrleducation);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
-app.use('/cv/:idcv', ctrlexperience);
+app.use('/cv/:idcv', cv_user, ctrlexperience);
 
 /*certification*/
 var ctrlcertification = require('./controller/ctrlcertification');
