@@ -30,6 +30,12 @@ function getValueExp() {
     return experience.attribute;
 
 }
+
+function sortListExpByToDate(){
+    listExp.sort(function(a,b) { 
+       return new Date(a.attribute.ToDate) > new Date(b.attribute.ToDate);     
+    });
+}
 /*Add Button Click Event for Add List Experience */
 $('#btnAddListExp').click(function() {
     //check valid on click
@@ -51,8 +57,10 @@ $('#btnAddListExp').click(function() {
                 if (res.flag == 1) {
                     listExp.push(new Experience(res.resdata));
                     $("#list-experience tbody > tr").remove();
+                    sortListExpByToDate();
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
+                        
                     });
                     switchModeExp("add");
                    
@@ -94,6 +102,7 @@ $('#list-experience').on('click', '.btnDeleteExp', function(e) {
                             //remove value from array by index and update to table
                             listExp.splice(indexCurrentExp, 1);
                             $("#list-experience tbody > tr").remove();
+                            sortListExpByToDate();
                             $.each(listExp, function(index, value) {
                                 addListExp(index + 1, value.attribute);
                             });
@@ -135,9 +144,7 @@ $('#btnSaveEditExp').click(function() {
         savedexprerience.Id = listExp[indexCurrentExp].attribute.Id;
         savedexprerience.CV_Id = listExp[indexCurrentExp].attribute.CV_Id;
         var urlpost = window.location.href + '/experience/update';
-        debugger;
         $.blockUI();
-        debugger;
         $.ajax({
             type: "POST",
             url: urlpost,
@@ -151,6 +158,7 @@ $('#btnSaveEditExp').click(function() {
                     listExp.splice(indexCurrentExp, 1);
                     listExp.splice(indexCurrentExp, 0, new Experience(res.resdata));
                     $("#list-experience tbody > tr").remove();
+                    sortListExpByToDate();
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
                     });
@@ -189,7 +197,7 @@ function getExperience() {
                 clickedExperience = true;
                 $('#list-experience tbody > tr').remove();
                 $.each(res.resdata, function(index, value) {
-                    listExp.push(new Experience(value));
+                    listExp.push(new Experience(value));     
                     addListExp(index + 1, value);
                 });
 
