@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/12</span>
+        <span class='fraction'>3/21</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">0% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>0/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>0/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">25% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/12</span>
+        <span class='fraction'>3/21</span>
       </div>
     </div>
   </div>
@@ -61,7 +61,34 @@
 16
 17
 18
-19</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -70,7 +97,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -84,15 +138,42 @@
 <span class="fstat-no" title="function not covered" >function experience_service() {</span>
 <span class="cstat-no" title="statement not covered" >    this.getAllExperienceByCVId = <span class="fstat-no" title="function not covered" >function (params, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var e = new experience();</span>
-<span class="cstat-no" title="statement not covered" >        e.getAllByIdCV(params.CV_Id, callback);</span>
+<span class="cstat-no" title="statement not covered" >        e.getAllExperienceByCVId(params, callback);</span>
     }
 <span class="cstat-no" title="statement not covered" >    this.saveExperience = <span class="fstat-no" title="function not covered" >function (params, callback) {</span></span>
-<span class="cstat-no" title="statement not covered" >        var e = new experience();</span>
-<span class="cstat-no" title="statement not covered" >        e.saveExperience(params, callback);</span>
+<span class="cstat-no" title="statement not covered" >        var e = new experience(params.Company,</span>
+        params.Designation,
+        params.FromDate,
+        params.ToDate,
+        params.Details,
+        params.CV_Id);
+<span class="cstat-no" title="statement not covered" >        var valid = e.checkValidation();</span>
+<span class="cstat-no" title="statement not covered" >        if(valid){</span>
+<span class="cstat-no" title="statement not covered" >            e.saveExperience(e.attribute, callback);</span>
+        }
+        else{
+<span class="cstat-no" title="statement not covered" >            callback(0, e.attrvalidate);</span>
+        }
     }
-<span class="cstat-no" title="statement not covered" >    this.deleteExperience = <span class="fstat-no" title="function not covered" >function(id, callback){</span></span>
+<span class="cstat-no" title="statement not covered" >    this.updateExperience = <span class="fstat-no" title="function not covered" >function (params, callback){</span></span>
+<span class="cstat-no" title="statement not covered" >        var e = new experience(params.Company,</span>
+        params.Designation,
+        params.FromDate,
+        params.ToDate,
+        params.Details,
+        params.CV_Id);
+<span class="cstat-no" title="statement not covered" >        var valid = e.checkValidation();</span>
+<span class="cstat-no" title="statement not covered" >         if(valid){</span>
+<span class="cstat-no" title="statement not covered" >            e.updateExperience(params.Id, callback);</span>
+        }
+        else{
+<span class="cstat-no" title="statement not covered" >            callback(0, e.attrvalidate);</span>
+        }
+&nbsp;
+    }
+<span class="cstat-no" title="statement not covered" >    this.deleteExperience = <span class="fstat-no" title="function not covered" >function(params, callback){</span></span>
 <span class="cstat-no" title="statement not covered" >        var e = new experience();</span>
-<span class="cstat-no" title="statement not covered" >        e.deleteExperience(id, callback);</span>
+<span class="cstat-no" title="statement not covered" >        e.deleteExperience(params, callback);</span>
     }
 }
 &nbsp;
@@ -103,7 +184,7 @@ module.exports = experience_service;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Jun 05 2016 13:17:32 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 06 2016 09:11:29 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
