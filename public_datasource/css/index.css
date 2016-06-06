@@ -1,0 +1,25 @@
+
+  .carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      width:35%;
+      margin: auto;
+      height:500px;
+      }
+  .carousel-indicators li {
+    background-color: #999;
+    background-color: rgba(70,70,70,.25);
+  }
+  .carousel-indicators .active {
+    background-color: #444;
+  }
+  .container {
+      background: url(img/demo/index-landing.jpg) no-repeat center center fixed;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+  }
+  .row {
+      margin-left:0px;
+      margin-right:0px;
+  }
