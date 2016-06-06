@@ -1,3 +1,4 @@
+
 var listExp = [];
 //set attribute for class Experience
 function Experience(attribute) {
@@ -134,7 +135,9 @@ $('#btnSaveEditExp').click(function() {
         savedexprerience.Id = listExp[indexCurrentExp].attribute.Id;
         savedexprerience.CV_Id = listExp[indexCurrentExp].attribute.CV_Id;
         var urlpost = window.location.href + '/experience/update';
+        debugger;
         $.blockUI();
+        debugger;
         $.ajax({
             type: "POST",
             url: urlpost,
@@ -175,7 +178,6 @@ function getExperience() {
         return;
     }
     var urlget = window.location.href + "/experience/getall";
-    $.blockUI();
     $.ajax({
         type: "GET",
         url: urlget,
@@ -183,7 +185,6 @@ function getExperience() {
         async: false,
         contentType: 'application/json; charset=utf-8',
         success: function(res) {
-            $.unblockUI();
             if (res.flag == 1) {
                 clickedExperience = true;
                 $('#list-experience tbody > tr').remove();
