@@ -56,17 +56,44 @@
                             var licertification = '<li value="'+ data[5].Section_Id +'" draggable="true"><a href="#certification" id="activeCertificationSection" data-toggle="tab"><i class="fa fa-copy"></i> Certification <span class="glyphicon glyphicon-move  mousemove"></a></li>';
                             var lieducation = '<li value="'+ data[6].Section_Id +'" draggable="true"><a href="#education" data-toggle="tab" onclick="getEducation()"><i class="fa fa-graduation-cap"></i> Education <span class="glyphicon glyphicon-move  mousemove"></a></li>';
                             var listarray = [licontactinfo,lisummary,liexperience,liproject,liskill,licertification,lieducation];
-                            
+                            function printList(){
+                                    for(var i = 2; i < data.length; i++){
+                                    $(listarray[data[i].Order-1]).appendTo("#myTab3");
+                                }
+                            }
+                            //printList();
                             for(var i = 2; i < data.length; i++){
                                 $(listarray[data[i].Order-1]).appendTo("#myTab3");
                             }
                             var dragSrcEl = null;
 
-                            function handleDragStart(e) {
-                            // Target (this) element is the source node.
-                            dragSrcEl = this;
-                            e.dataTransfer.effectAllowed = 'move';
-                            e.dataTransfer.setData('text/html', this.innerHTML);
+                            function handleDragStart(e) {                         
+                                // check du lieu
+                                var urlget = window.location.href + "/cv_section/getall";
+                                $.ajax({
+                                    type: "GET",
+                                    //the url where you want to sent the userName and password to
+                                    url: urlget,
+                                    dataType: 'json',
+                                    async: false,
+                                    contentType: 'application/json; charset=utf-8',
+                                    //json object to sent to the authentication url /img/default_avatar.jpg
+                                    success: function(res) {
+                                        if(res.flag==1){
+                                            var length = res.resdata.length;
+                                            for(var i = 0; i < length; i++){
+                                                if(data[i].Order != res.resdata[i].Order){
+                                                    location.reload();
+                                                }
+                                            }
+                                        }
+                                    }});
+                                
+                                // Target (this) element is the source node.
+                                dragSrcEl = this;
+                                e.dataTransfer.effectAllowed = 'move';
+                                e.dataTransfer.setData('text/html', this.innerHTML);
+                                return false;
                             }
 
                             function handleDragOver(e) {
@@ -91,9 +118,9 @@
                                 if (e.stopPropagation) {
                                     e.stopPropagation(); // Stops some browsers from redirecting.
                                 }
-                                    [].forEach.call(cols, function (col) {
-                                            col.classList.remove('over');
-                                        });
+                                [].forEach.call(cols, function (col) {
+                                        col.classList.remove('over');
+                                    });
                                 // Don't do anything if dropping the same column we're dragging.
                                 if (dragSrcEl != this) {
                                     // Set the source column's HTML to the HTML of the column we dropped on.
@@ -116,9 +143,13 @@
                                         }
                                         datasend1.Order = thisvalue;
                                         datasend2.Order = dragSrcElvalue;
-                                        dragSrcEl.innerHTML = this.innerHTML;
+                                        var innerHTMLThis = this.innerHTML;
+                                        var innerDragSrcEl = e.dataTransfer.getData('text/html');
+                                        dragSrcEl.innerHTML = innerHTMLThis;
+                                        this.innerHTML = innerDragSrcEl;
+                                        //dragSrcEl.innerHTML = this.innerHTML;
                                         //dragSrcEl.value = thisvalue;
-                                        this.innerHTML = e.dataTransfer.getData('text/html');
+                                        //this.innerHTML = e.dataTransfer.getData('text/html');
                                         //this.value = dragSrcElvalue;
                                         var urlpost = window.location.href + '/cv_section/update';
                                         $.ajax({
@@ -134,9 +165,9 @@
                                                 showAnnoucement(1, 'layout', 'updated');
                                             }else{
                                                 showAnnoucement(0, 'layout', 'updated');
+                                                dragSrcEl.innerHTML = innerDragSrcEl;
+                                                this.innerHTML = innerHTMLThis;
                                             }
-                                            
-                                            //showAnnoucement(res.flag, 'skill', 'edited');
                                         },
                                         error: function(x,e){
                                             
@@ -147,7 +178,11 @@
                             }
 
                             function handleDragEnd(e) {
-
+                                if (e.preventDefault) {
+                                    e.preventDefault(); // Necessary. Allows us to drop.
+                                }
+                                //e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+                                return false;
                             }
                             
                             var cols = document.querySelectorAll('#myTab3 li[draggable="true"]');
@@ -159,8 +194,6 @@
                                 col.addEventListener('drop', handleDrop, false);
                                 col.addEventListener('dragend', handleDragEnd, false);
                             });
-                            
-      
                         </script>
                     <% } %>  
                     </ul>

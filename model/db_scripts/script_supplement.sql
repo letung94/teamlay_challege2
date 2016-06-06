@@ -1,3 +1,6 @@
+drop database cv_maker
+create database cv_maker
+use cv_maker
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: cv_maker
