@@ -57,7 +57,6 @@ app.use(bodyparser.urlencoded({
     extended: true
 }));
 app.use(session({
-    maxAge: 60000000,
     secret: 'vidyapathaisalwaysrunning',
     resave: true,
     saveUninitialized: true
@@ -104,7 +103,8 @@ app.get('/', function(req, res) {
 
 
 app.use('/cv', authenticate.requireAuthenticated, ctrlcv);
-app.use('/template', ctrlTemplate);
+app.use('/admin/main', authenticate.requireAdminAuthenticated, ctrladmin);
+app.use('/template',authenticate.requireAuthenticated, ctrlTemplate);
 
 app.use('/update-profile', authenticate.requireAuthenticated);
 app.use('/change-password', authenticate.requireAuthenticated);

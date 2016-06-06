@@ -244,17 +244,6 @@ function CV(name, createddate, isdeleted, urlslug, userid, id) {
             cv.killConnection();
         });
     }
-    
-    self.countCVBelongToUser = function (userId, callback) {
-        var temp = new Cv();
-        temp.find('count',{where: "userId = "+userId},function(err,result){
-           if(err)
-            callback(-1,result);
-            else{
-                callback(1,result);
-            }
-        });
-    }
 }
 
 module.exports = CV;
