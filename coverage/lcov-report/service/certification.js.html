@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">20% </span>
+        <span class="strong">53.33% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>3/15</span>
+        <span class='fraction'>8/15</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
@@ -30,18 +30,18 @@
         <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/4</span>
+        <span class='fraction'>2/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">20% </span>
+        <span class="strong">53.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>3/15</span>
+        <span class='fraction'>8/15</span>
       </div>
     </div>
   </div>
-  <div class='status-line low'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -75,28 +75,28 @@
 30
 31</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -104,13 +104,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var certification = require('../model/certification');
-<span class="fstat-no" title="function not covered" >function certificate_service(){</span>
-<span class="cstat-no" title="statement not covered" >    this.getAllCertificationByCVId = <span class="fstat-no" title="function not covered" >function(param, cb){</span></span>
-<span class="cstat-no" title="statement not covered" >        var c = new certification();</span>
-<span class="cstat-no" title="statement not covered" >        c.getAllCertificationByCVId(param, cb);</span>
+function certificate_service(){
+    this.getAllCertificationByCVId = function(param, cb){
+        var c = new certification();
+        c.getAllCertificationByCVId(param, cb);
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.saveCertification = <span class="fstat-no" title="function not covered" >function(param, cb){</span></span>
+    this.saveCertification = <span class="fstat-no" title="function not covered" >function(param, cb){</span>
 <span class="cstat-no" title="statement not covered" >        var c = new certification(</span>
             param.Title,
             param.CertificateAuthority,
@@ -126,7 +126,7 @@
         }
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.deleteCertification = <span class="fstat-no" title="function not covered" >function(id, cb){</span></span>
+    this.deleteCertification = <span class="fstat-no" title="function not covered" >function(id, cb){</span>
 <span class="cstat-no" title="statement not covered" >        var c = new certification();</span>
 <span class="cstat-no" title="statement not covered" >        c.deleteCertification(id, cb);</span>
     }
@@ -139,7 +139,7 @@ module.exports = certificate_service;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 06 2016 09:11:29 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 07 2016 06:22:22 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
