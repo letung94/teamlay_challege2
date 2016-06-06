@@ -35,7 +35,7 @@
 <a class="navbar-brand" href="#">
 <large>
 <i class="fa fa-file-text-o"></i>
-LẦY Resume
+CV Builder
 </large>
 </a>
 
@@ -51,24 +51,17 @@ LẦY Resume
 </li>
 <!-- END Button Dashboard -->
 
-<!-- BEGIN Button Dashboard -->
-<li class="hidden-xs">
-<a href="#">
-<i class="fa fa-comments-o anim-swing"> </i>
- Contact Us
-</a>
-</li>
 <!-- END Button Dashboard -->
 
 <!-- BEGIN Button User -->
-<li class="user-profile">
+<li class="user-profile text-right">
 <a data-toggle="dropdown" href="#" class="user-menu dropdown-toggle">
-<img class="nav-user-photo" src="img/demo/avatar/avatar1.jpg" alt="Penny's Photo">
+<i class="glyphicon glyphicon-user"  ></i>
 <span id="user_info">
 <% if (user.Firstname.length > 0  && user.Lastname.length > 0) { %>
- <%= `${user.Firstname[0]}${user.Lastname[0]}` %>
+ <%= 'Hi, ' + `${user.Firstname[0]}${user.Lastname[0]}` %>
 <% } else { %>
-  Lay-er
+  Hi, Lay-er
 <% }%>
 </span>
 <i class="fa fa-caret-down"></i>
@@ -76,10 +69,6 @@ LẦY Resume
 
 <!-- BEGIN User Dropdown -->
 <ul class="dropdown-menu dropdown-navbar" id="user_menu">
-<li class="nav-header">
-<i class="fa fa-clock-o"></i>
-Logined From 20:45
-</li>
 
 <li>
 <a href="/update-profile">
@@ -95,12 +84,6 @@ Change Password
 </a>
 </li>
 
-<li>
-<a href="#">
-<i class="fa fa-question"></i>
-Help
-</a>
-</li>
 
 <li class="divider visible-xs"></li>
 

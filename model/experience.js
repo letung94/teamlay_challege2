@@ -14,7 +14,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
             this.valid = false;
             this.required = true;
             this.min = 2;
-            this.max = 99;
+            this.max = 100;
             if(company !=null || company !== ""){
                     var length = company.length;
                     if(length >= this.min && length <= this.max ){
@@ -27,7 +27,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
     }, {
         validate: function(designation) {
         this.valid = false;
-        this.max = 49;
+        this.max = 100;
         if(designation !=null || designation !== ""){
                     var length = designation.length;
                     if(length <= this.max ){
