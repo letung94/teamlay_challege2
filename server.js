@@ -63,7 +63,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(cookieParser());
 module.exports = app;
 
 // Routing
@@ -133,7 +133,7 @@ app.use('/cv/:idcv', ctrleducation);
 
 /*experience*/
 var ctrlexperience = require('./controller/ctrlexperience');
-app.use('/cv/:idcv', cv_user, ctrlexperience);
+app.use('/cv/:idcv', ctrlexperience);
 
 /*certification*/
 var ctrlcertification = require('./controller/ctrlcertification');
@@ -141,7 +141,7 @@ app.use('/cv/:idcv', ctrlcertification);
 
 /*project*/
 var ctrlproject = require('./controller/ctrlproject');
-app.use('/cv/:idcv', cv_user, ctrlproject);
+app.use('/cv/:idcv', ctrlproject);
 
 /*
 // skill
