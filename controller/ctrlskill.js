@@ -22,7 +22,7 @@ router.get('/skill/getall',cv_user,function(req,res){
         res.send({flag: err, resdata: rows});
     });
 })
-router.post('/skill/update', function(req, res) {
+router.post('/skill/update', cv_user,function(req, res) {
     var cv_id = req.baseUrl.split("/")[2];
     req.body.CV_Id = cv_id;
     var skill_update = new skill_service();
@@ -37,10 +37,10 @@ router.post('/skill/update', function(req, res) {
     });
     
 });
-router.post('/skill/delete', function(req, res) {
+router.post('/skill/delete',cv_user, function(req, res) {
     var skill_delete = new skill_service();
     skill_delete.delete(req.body.Id,function(err,data){
-        res.send({flag: err, resdata: data});  
+        res.send({flag: err, resdata: data});
     });
 });
 module.exports = router;

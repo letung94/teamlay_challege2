@@ -115,8 +115,6 @@ app.use('/', ctrladmin);
 
 app.use('/cv', authenticate.requireAuthenticated, ctrlcv);
 
-var cv_user = require('./middleware/checkcv_user').isBlong;
-
 /*contact info */
 var ctrlcontact_info = require('./controller/ctrlcontact_info');
 app.use('/cv/:idcv', ctrlcontact_info);
