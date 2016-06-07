@@ -66,7 +66,6 @@
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 300px;">Email</th>
                             <th class="sorting" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 300px;">State</th>
                             <th class="sorting text-center" role="columnheader" tabindex="0" aria-controls="table1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 300px;">Num of CV</th>
-                            <th class="text-center"></th>
                         </tr>
                     </thead>
 
@@ -84,7 +83,6 @@
                                     <td><span class="text-primary">Confirmed</span></td>
                                 <% } %>
                                 <td class="text-center"><%= users[i].CV %></td>
-                                <td><button class="btn btn-danger btn-xs btn-block" title="Block this user" user-id="<%= users[i].Id %>">Block</button></td>
                             </tr>
                         <% } %>
                     </tbody>

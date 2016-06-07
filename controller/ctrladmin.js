@@ -16,8 +16,10 @@ router.get('/admin/main', function (req, res) {
         });
     })
 });
-
 router.get('/admin/login', function (req, res) {
+    if(req.isAuthenticated()){
+        return res.redirect('/');
+    }
     res.render('pages/admin_login', { errorMessage: req.flash('error'), backdata: req.body });
 });
 
@@ -47,11 +49,14 @@ router.post('/admin/login', function (req, res, next) {
                 service.getUserRoleByUsername(user.Username, function (flag, err, data) {
                     if (flag == -1)
                         return res.render('server_error/500');
-                    if (flag == 0 || data == 'user')
-                        return res.render('pages/admin_login', { backdata: req.body, errorMessage: 'This account is not have permission to continue.' });
+                    if (flag == 0 || data == 'user'){
+                        res.render('pages/admin_login', { backdata: req.body, errorMessage: 'This account does not have permission to continue.' });
+                        req.logOut();
+                        req.session.destroy();
+                        return;
+                    }
                     return res.redirect('/admin/main');
-                })
-
+                });
             }
         });
     })(req, res, next);

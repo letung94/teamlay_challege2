@@ -22,18 +22,13 @@ passport.use(new LocalStrategy(
                     message: 'Invalid username or password'
                 });
             } else {
-                if (!user) {
-                    return done(null, false, {
-                        message: 'Invalid username or password'
-                    });
-                }
-                if (!bcrypt.compareSync(password, user.PasswordHash)) {
+                if (!user || !bcrypt.compareSync(password, user.PasswordHash)) {
                     return done(null, false, {
                         message: 'Invalid username or password'
                     });
                 }
             }
-            
+
             return done(null, user);
         });
     }

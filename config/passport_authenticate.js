@@ -3,7 +3,7 @@ var passport = require('passport');
 var user_model = di.resolve('user');
 var LocalStrategy = require('passport-local').Strategy;
 var bcrypt = require('bcrypt-nodejs');
-
+var jsesc = require('jsesc');
 // Passport config
 passport.serializeUser(function (user, done) {
     done(null, user.Username);
@@ -23,6 +23,8 @@ passport.use('local', new LocalStrategy({
 },
     function (req, username, password, done) {
         var model = new user_model();
+        username = jsesc(username);
+        password = jsesc(password);
         model.getByUsername(username, function (err, data) {
             
             var user = data;
