@@ -32,8 +32,6 @@
 //         });
 //     });
 
-// });     });
-//     });
 //     it('(save) - should save correct object that we want', function() {
 
 //         contact_info_save.save({
