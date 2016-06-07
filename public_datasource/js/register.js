@@ -1,4 +1,11 @@
 $(document).ready(function() {
+    $('#show-term-and-condition').click(function(){
+        BootstrapDialog.show({
+            title: 'Terms of Service',
+            message: $('#term-and-condition').html() || ''
+        });
+    })
+
     $.validator.addMethod("regex", function(value, element, regexpr) {
         var patt = new RegExp(regexpr);
         return patt.test(value);
@@ -20,6 +27,7 @@ $(document).ready(function() {
                 required: true
             },
             username: {
+                regex: '^[_.a-zA-Z1-9]{1,500}$',
                 required: true,
                 minlength: 6
             },
@@ -55,7 +63,8 @@ $(document).ready(function() {
             },
             username: {
                 required: "Please enter a username",
-                minlength: "Your username must consist of at least 6 character"
+                minlength: "Your username must consist of at least 6 character",
+                regex: 'Username can only contain letter number "." and "_".'
             },
             password: {
                 required: "Please provide a password",

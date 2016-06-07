@@ -18,7 +18,7 @@
     <!--flaty css styles-->
     <link rel="stylesheet" href="css/flaty.css">
     <link rel="stylesheet" href="css/flaty-responsive.css">
-
+    <link rel="stylesheet" type="text/css" href="assets/bootstrap-dialog/css/bootstrap-dialog.css" />
     <link rel="shortcut icon" href="img/favicon.html">
     <!--basic scripts-->
     <!-- <script src="../../ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
@@ -28,6 +28,7 @@
 
 
     <script type="text/javascript" src="assets/jquery-validation/dist/jquery.validate.js"></script>
+     <script type="text/javascript" src="assets/bootstrap-dialog/js/bootstrap-dialog.js"></script>
     <script type="text/javascript" src="js/register.js"></script>
 </head>
 <body class="login-page">
@@ -80,7 +81,7 @@
             <div class="form-group">
                 <div class="controls">
                     <label class="checkbox">
-                        <input type="checkbox" id="accept" name="accept" value="accept" /> I accept the <a href="#">user aggrement</a>
+                        <input type="checkbox" id="accept" name="accept" value="accept" /> I accept the <a href="#" id="show-term-and-condition">user aggrement</a>
                     </label>
                     <label id="accept_error-message" class="text-danger" style="display: none"></label>
                 </div>
@@ -101,6 +102,14 @@
     <!-- END Main Content -->
 
 </body>
+<div style="display: none" id='term-and-condition'>
+    <b>Terms & Privacy Policy</b>
+    The CV Builder Privacy Policy statement discloses the privacy practices employed by CV Builder. To learn more about CV Builder's privacy policy please read the information listed below. The protection of privacy and the safeguarding of our Clients personal information is our highest precedence. Please view the following Privacy Statement which clearly explains how CV Builder collects, processes, stores and protects your information. By using this website or opening an account, you hereby give CV Builder your consent to such processing, collection, storage and use of personal information by CV Builder as explained below. This policy covers how CV Builder treats personal information that we may collect and receive, including information related to your past use of our services and products. Identification like your name, address, email address, or phone number, and that which is not otherwise publicly available is considered to be personal information. By no means does this policy apply to the practices of companies that CV Builder doesn't control or own or to individuals that CV Builder does not manage.
 
+    CV Builder allows people to generate resumes online based on the data provided by them.
+
+    <b>Changes and Terms to this Privacy Statement</b>
+    CV Builder reserves the right to modify this agreement at any time. Your continued use of CV Builder following any such modification constitutes your agreement to be bound by and your acceptance of the agreement as so modified. Your continual use of the site indicates your acquiesce to any changes and constitutes your agreement to be bound by and your acceptance of the agreement as so modified. If you have any questions or feedback regarding this policy, please contact info@cvmkr.com and make sure to put “CV Builder Privacy Policy” in the subject line of the email. You are hereby responsible for reviewing this Privacy Policy sporadically to make certain that you are aware of any changes to it.
+</div>
 <!-- Mirrored from shamsoft.net/flaty/extra_login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 25 Sep 2015 07:26:32 GMT -->
 </html>
