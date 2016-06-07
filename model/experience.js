@@ -87,7 +87,7 @@ function Experience(company, designation, fromdate, todate, details, cv_id) {
     self.getAllExperienceByCVId = function(reqdata, callback) {
             var temp = new experience();
             temp.find('all', {
-                where: "CV_Id = " + reqdata, order: "ToDate",
+                where: "CV_Id = " + reqdata, order: "ToDate", orderDESC: true 
             }, function(err, rows, fields) {
                 temp.killConnection();
                 if (err) {

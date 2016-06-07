@@ -33,7 +33,7 @@ function getValueExp() {
 
 function sortListExpByToDate(){
     listExp.sort(function(a,b) { 
-       return new Date(a.attribute.ToDate) > new Date(b.attribute.ToDate);     
+       return new Date(a.attribute.ToDate) < new Date(b.attribute.ToDate);     
     });
 }
 /*Add Button Click Event for Add List Experience */
