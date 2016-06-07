@@ -1,0 +1,56 @@
+// var chai = require('chai');
+// var assert = require('chai').assert;
+// var expect = require('chai').expect;
+
+
+// var project_service = require('../../config/test_config').resolve('project');
+
+// var sinon = require('sinon');
+// var project_getAllProjectByCVId, project_save;
+
+
+// describe('TEST--SERVICE--PROJECT - (getByIdCV) && (save) functions!', function() {
+
+//     before(function() {
+//         getAllProjectByCVId = new project_service();
+//         project_save = new project_service();
+//     });
+
+//     it('(getByIdCV) - should get correct object that we need', function() {
+
+//         getAllProjectByCVId.getAllProjectByCVId({
+//             "CV_Id": 1
+//         }, function(err, data) {
+//             if (err) {
+
+//             } else {
+//                 // /expect(rows.Headline).to.equal('Headline1');
+//             }
+//             expect(data.Name).to.equal('Nodejs');
+//             expect(data.Expertise).to.equal('5');
+//             expect(data.Experience).to.equal('6');
+//             expect(data.LastYearUsed).to.equal('2015');
+//         });
+//     });
+//     it('(save) - should save correct object that we want', function() {
+
+//         skill_save.save({
+//             "Name": "Nodejs",
+//             "Expertise": "5",
+//             "Experience": "6",
+//             "LastYearUsed": "2015",
+//             "CV_Id": 1
+//         }, function(err, data) {
+//             if (err) {
+
+//             } else {
+//                 expect(data.Name).to.equal('Nodejs');
+//                 expect(data.Expertise).to.equal('5');
+//                 expect(data.Experience).to.equal('6');
+//                 expect(data.LastYearUsed).to.equal('2015');
+//             }
+//         });
+
+//     });
+
+// });
