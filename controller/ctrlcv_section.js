@@ -7,9 +7,9 @@ router.post('/cv_section/save', function(req, res) {
     
 });
 router.get('/cv_section/getall',function(req,res){
-    var skill_getAllByIdCV = new skill_service();
-    var idcv = req.baseUrl.split("/")[2];
-    skill_getAllByIdCV.getAllSkillByCVId(idcv,function(err,rows){
+    var cv_section_getAllByIdCV = new cv_section_service();
+    var cv_id = req.baseUrl.split("/")[2];
+    cv_section_getAllByIdCV.getAllByCVId(cv_id,function(err,rows){
         res.send({flag: err, resdata: rows});
     });
 })

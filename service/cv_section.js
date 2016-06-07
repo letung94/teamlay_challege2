@@ -1,10 +1,11 @@
 var cv_section = require('../model/cv_section');
 
 function cv_section_service() {
-    /*this.getAllSkillByCVId = function (params, callback) {
-        var s = new skill();
-        s.getAllByIdCV(params, callback);
+    this.getAllByCVId = function (params, callback) {
+        var s = new cv_section();
+        s.getAllByCVId(params, callback);
     }
+    /*
     this.save = function(params,callback){
     	var skill_save = new skill(params.Name,
 	    params.Expertise,

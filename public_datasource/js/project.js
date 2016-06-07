@@ -56,7 +56,8 @@ $(document).ready(function(){
             html+= '<td colspan="6" align="center"> No data available </td>';
         }
         $.each(self.listProject, function(index, value){
-            html +=`<tr style="font-size:13px"><td>` + value.Title + '</td>' + '<td>' + value.Url + '</td>' + '<td>' + value.FromDate + " - " + value.ToDate + '</td>' +
+            let tempUrl = value.Url || 'None';
+            html +=`<tr style="font-size:13px"><td>` + value.Title + '</td>' + '<td>' + tempUrl + '</td>' + '<td>' + value.FromDate + " - " + value.ToDate + '</td>' +
             '<td><button class="btn btn-warning btn-sm btn-edit-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button> ' +
             '<button class="btn btn-danger btn-sm btn-delete-project" project_id= "' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
         })
@@ -301,6 +302,7 @@ $(document).ready(function(){
     $("#validation_form_project").validate({
         errorClass: 'text-danger',
         focusInvalid: true,
+        ignore: ":hidden:not(textarea)",
         rules: {
             project_title: {
                 required: true,
@@ -313,7 +315,9 @@ $(document).ready(function(){
                 required: true,
                 isBeforeTodayExp: true,
                 notEqFromToDate: true
-                //isBeforeToday: true
+            },
+            project_details:{
+                required: true
             }
         },
         errorPlacement: function(error, element) {

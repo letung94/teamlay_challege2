@@ -2,8 +2,9 @@ var education = require('../model/education');
 var di = require('../config/config');
 var express = require('express');
 var router = express.Router();
+var cv_user = require('../middleware/checkcv_user').isBlong;
 
-router.get('/education/getall', function(req, res) {
+router.get('/education/getall', [cv_user], function(req, res) {
     var education_service = di.resolve('education');
     var education_service_ins = new education_service();
     var idcv = req.baseUrl.split("/")[2];
@@ -15,7 +16,7 @@ router.get('/education/getall', function(req, res) {
     });
 })
 
-router.post('/education/save', function(req, res) {
+router.post('/education/save', [cv_user], function(req, res) {
     var education_service = di.resolve('education');
     var education_service_ins = new education_service();
     var idcv = req.baseUrl.split("/")[2];
@@ -35,7 +36,7 @@ router.post('/education/save', function(req, res) {
     });
 });
 
-router.post('/education/update', function(req, res) {
+router.post('/education/update', [cv_user], function(req, res) {
     var education_service = di.resolve('education');
     var education_service_ins = new education_service();
     education_service_ins.updateEducation({
@@ -53,10 +54,10 @@ router.post('/education/update', function(req, res) {
         });
     });
 });
-router.post('/education/delete', function(req, res) {
+router.post('/education/delete', [cv_user], function(req, res) {
     var education_service = di.resolve('education');
     var education_service_ins = new education_service();
-    education_service_ins.deleteEducation(req.body.Id,function(flag,resdata){
+    education_service_ins.deleteEducation(req.body.Id, function(flag, resdata) {
         res.send({
             flag: flag,
             resdata: resdata

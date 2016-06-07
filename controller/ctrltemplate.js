@@ -150,11 +150,15 @@ router.get('/template_list/:cv_id', function (req, res) {
 });
 
 router.get('/download/:name/:cv_id', function (req, res) {
+	/* Server request to server so we don't have any cookie in here
+	* which we have to get current cookie (from client) and send it to pdf helper*/
+	var cookie = req.cookies;
 	var name = req.params.name; /* Template file name. */
 	var cv_id = req.params.cv_id;
 	var source =  req.headers.host + '/template/templateReview/' + name + '/' + cv_id; /* Get from template review page. */
 	var destination = path.join(__dirname + '/../tmp/', uuid.v1()+ '.pdf'); /* Declare temporarily save folder. */
 	var options = {
+		cookie: cookie,
 		format:req.query.format,
 		orientation: req.query.orientation,
 		zoom : req.query.zoom,
