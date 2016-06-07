@@ -8,7 +8,6 @@ if (process.platform !== 'darwin') {
     pdfExecutable = path.resolve(path.join('bin', pdfExecutable));
 }
 var savePDFfromHTML = function (source, destination, options, cb) {
-    /*Valid format is A0,A1,A2,A3,A4,A5,Letter*/
     if(!options.format ||  !(options.format == 'A4' || options.format == 'A1' || options.format == 'A2' || options.format == 'A3' || options.format == 'A0' || options.format == 'A5' || options.format.toLowerCase() == 'letter')){
         options.format = 'A4';
     }
@@ -37,8 +36,8 @@ var savePDFfromHTML = function (source, destination, options, cb) {
     options.marginRight = options.marginRight + 'mm';
     options.marginBottom = options.marginBottom + 'mm';
     options.marginLeft = options.marginLeft + 'mm';
-
     var execOptions = [
+        '--cookie', 'connect.sid', options.cookie["connect.sid"] || '',
         '-s', options.format || 'A4', // A0 A1 A2 A3 A4 Letter
         '-L', options.marginLeft || '2mm',
         '-B', options.marginBottom || '2mm',
@@ -52,11 +51,13 @@ var savePDFfromHTML = function (source, destination, options, cb) {
     ];
     var pdfProcess = spawn(pdfExecutable, execOptions);
     pdfProcess.on('error', function (err) {
-        // console.log('spawn error:', err);
+        /*console.log('spawn error:', err);*/
         pdfProcess.kill();
         cb(-1, err);
     });
-    pdfProcess.on('close', function (code) {
+    pdfProcess.on('close', function (code, msg) {
+        /*console.log('spawn close:', code);
+        console.log(msg);*/
         cb(code, destination);
     });
 
