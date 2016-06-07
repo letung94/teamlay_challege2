@@ -32,7 +32,7 @@ CREATE TABLE `certification` (
   PRIMARY KEY (`Id`),
   KEY `FK_Certification_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_Certification_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `certification` (
 
 LOCK TABLES `certification` WRITE;
 /*!40000 ALTER TABLE `certification` DISABLE KEYS */;
-INSERT INTO `certification` VALUES (1,'English','ETL','2015-04-04','TOIEC 800',1),(2,'Japanese','JLTP','2016-03-03','N3',1);
+INSERT INTO `certification` VALUES (1,'English','ETL','2015-04-04','TOIEC 800',1),(2,'Japanese','JLTP','2016-03-03','N3',1),(3,'AJAX 101','WWW3school','2014-05-04','this is certification',1),(4,'AJAX 101','WWW3school','2014-05-04','this is certification',1),(5,'AJAX 101','WWW3school','2014-05-04','this is certification',1),(6,'AJAX 101','WWW3school','2014-05-04','this is certification',1),(7,'AJAX 101','WWW3school','2014-05-04','this is certification',1),(8,'AJAX 101','WWW3school','2014-05-04','this is certification',1),(9,'AJAX 101','WWW3school','2014-05-04','this is certification',1);
 /*!40000 ALTER TABLE `certification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `contact_info` (
   PRIMARY KEY (`Id`),
   KEY `FK_ContactInfo_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_ContactInfo_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,6 +74,7 @@ CREATE TABLE `contact_info` (
 
 LOCK TABLES `contact_info` WRITE;
 /*!40000 ALTER TABLE `contact_info` DISABLE KEYS */;
+INSERT INTO `contact_info` VALUES (1,'Duy','Bui','DuyBui@gmail.com','+84166883438','www.google.com','ha noi',1,'/img/default_avatar.jpg');
 /*!40000 ALTER TABLE `contact_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +95,7 @@ CREATE TABLE `curriculum_vitae` (
   PRIMARY KEY (`Id`),
   KEY `UserId_idx` (`UserId`),
   CONSTRAINT `FK_CV_UserId` FOREIGN KEY (`UserId`) REFERENCES `user` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -103,7 +104,7 @@ CREATE TABLE `curriculum_vitae` (
 
 LOCK TABLES `curriculum_vitae` WRITE;
 /*!40000 ALTER TABLE `curriculum_vitae` DISABLE KEYS */;
-INSERT INTO `curriculum_vitae` VALUES (1,'Programmer','2016-06-03',0,NULL,1);
+INSERT INTO `curriculum_vitae` VALUES (1,'Programmer','2016-06-03',0,NULL,1),(2,'Manager','2016-07-02',0,NULL,1);
 /*!40000 ALTER TABLE `curriculum_vitae` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +156,7 @@ CREATE TABLE `education` (
   PRIMARY KEY (`Id`),
   KEY `FK_Education_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_Education_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,6 +165,7 @@ CREATE TABLE `education` (
 
 LOCK TABLES `education` WRITE;
 /*!40000 ALTER TABLE `education` DISABLE KEYS */;
+INSERT INTO `education` VALUES (1,'UOS','BA','2010-10-10','2014-10-10','Good',1);
 /*!40000 ALTER TABLE `education` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,7 +217,7 @@ CREATE TABLE `project` (
   PRIMARY KEY (`Id`),
   KEY `FK_Project_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_Project_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -224,6 +226,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
+INSERT INTO `project` VALUES (1,'Angular',NULL,'2015-10-10','2016-05-02','website',1);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,7 +295,7 @@ CREATE TABLE `skill` (
   PRIMARY KEY (`Id`),
   KEY `FK_Skill_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_Skill_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -301,6 +304,7 @@ CREATE TABLE `skill` (
 
 LOCK TABLES `skill` WRITE;
 /*!40000 ALTER TABLE `skill` DISABLE KEYS */;
+INSERT INTO `skill` VALUES (1,'Nodejs',5,'6',2015,1);
 /*!40000 ALTER TABLE `skill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,7 +332,7 @@ CREATE TABLE `summary` (
 
 LOCK TABLES `summary` WRITE;
 /*!40000 ALTER TABLE `summary` DISABLE KEYS */;
-INSERT INTO `summary` VALUES (1,'Headline1','Pro1',1);
+INSERT INTO `summary` VALUES (1,'Headline2','Pro2',1);
 /*!40000 ALTER TABLE `summary` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -403,4 +407,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-07  6:26:24
+-- Dump completed on 2016-06-07 16:29:16

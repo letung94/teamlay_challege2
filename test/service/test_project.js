@@ -1,56 +1,59 @@
-// var chai = require('chai');
-// var assert = require('chai').assert;
-// var expect = require('chai').expect;
+var chai = require('chai');
+var assert = require('chai').assert;
+var expect = require('chai').expect;
 
 
-// var project_service = require('../../config/test_config').resolve('project');
+var project_service = require('../../config/test_config').resolve('project');
 
-// var sinon = require('sinon');
-// var project_getAllProjectByCVId, project_save;
+var sinon = require('sinon');
+var project_getAllProjectByCVId, project_save;
 
 
-// describe('TEST--SERVICE--PROJECT - (getByIdCV) && (save) functions!', function() {
+describe('TEST--SERVICE--PROJECT - (getByIdCV) && (save) functions!', function() {
 
-//     before(function() {
-//         getAllProjectByCVId = new project_service();
-//         project_save = new project_service();
-//     });
+    before(function() {
+        project_getAllProjectByCVId = new project_service();
+        project_save = new project_service();
+    });
 
-//     it('(getByIdCV) - should get correct object that we need', function() {
+    it('(getByIdCV) - should get correct object that we need', function() {
 
-//         getAllProjectByCVId.getAllProjectByCVId({
-//             "CV_Id": 1
-//         }, function(err, data) {
-//             if (err) {
+        project_getAllProjectByCVId.getAllProjectByCVId({
+            "CV_Id": 1
+        }, function(err, data) {
+            if (err) {
 
-//             } else {
-//                 // /expect(rows.Headline).to.equal('Headline1');
-//             }
-//             expect(data.Name).to.equal('Nodejs');
-//             expect(data.Expertise).to.equal('5');
-//             expect(data.Experience).to.equal('6');
-//             expect(data.LastYearUsed).to.equal('2015');
-//         });
-//     });
-//     it('(save) - should save correct object that we want', function() {
+            } else {
+                // /expect(rows.Headline).to.equal('Headline1');
+            }
+            expect(data.Title).to.equal('Angular');
+            expect(data.Url).to.equal(null);
+            expect(data.FromDate).to.equal('2015-10-10');
+            expect(data.ToDate).to.equal('2016-05-02');
+            expect(data.Detail).to.equal('website');
+        });
+    });
+    it('(save) - should save correct object that we want', function() {
 
-//         skill_save.save({
-//             "Name": "Nodejs",
-//             "Expertise": "5",
-//             "Experience": "6",
-//             "LastYearUsed": "2015",
-//             "CV_Id": 1
-//         }, function(err, data) {
-//             if (err) {
+        skill_save.save({
+            "Title": "Nodejs",
+            "Url": "",
+            "FromDate": "2013-10-10",
+            "ToDate": "2014-10-10",
+            "Detail": "website",
+            "CV_Id": 1,
+        }, function(err, data) {
+            if (err) {
 
-//             } else {
-//                 expect(data.Name).to.equal('Nodejs');
-//                 expect(data.Expertise).to.equal('5');
-//                 expect(data.Experience).to.equal('6');
-//                 expect(data.LastYearUsed).to.equal('2015');
-//             }
-//         });
+            } else {
+                expect(data.Title).to.equal('Nodejs');
+                expect(data.Url).to.equal('');
+                expect(data.FromDate).to.equal('2013-10-10');
+                expect(data.ToDate).to.equal('2014-10-10');
+                expect(data.Detail).to.equal('website');
+            }
+        });
 
-//     });
+    });
 
-// });
+});

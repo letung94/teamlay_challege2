@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for PROJECTS_02\middleware\checkcv_user.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">PROJECTS_02/middleware/</a> checkcv_user.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.67% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/8</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">6.67% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/15</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var cv_service = require('../config/test_config').resolve('curriculum_vitae');
+&nbsp;
+<span class="cstat-no" title="statement not covered" >var isBlong = <span class="fstat-no" title="function not covered" >function(req, res, next) {</span></span>
+<span class="cstat-no" title="statement not covered" >    var cv_id = req.baseUrl.split("/")[2];</span>
+<span class="cstat-no" title="statement not covered" >    if (req.params.idcv) {</span>
+<span class="cstat-no" title="statement not covered" >        cv_id = req.params.idcv;</span>
+    }
+<span class="cstat-no" title="statement not covered" >    var userId = req.user.Id;</span>
+    //var cvService = di.resolve('curriculum_vitae');
+<span class="cstat-no" title="statement not covered" >    var cvServiceIns = new cv_service();</span>
+<span class="cstat-no" title="statement not covered" >    cvServiceIns.checkCVBelongToUser(cv_id, userId, <span class="fstat-no" title="function not covered" >function(flag, data) {</span></span>
+<span class="cstat-no" title="statement not covered" >        if (flag == 1) {</span>
+<span class="cstat-no" title="statement not covered" >            if (data == true) { /*This cv_id belong to this user*/</span>
+<span class="cstat-no" title="statement not covered" >                next();</span>
+            } else { /*This cv_id not belong to this user*/
+<span class="cstat-no" title="statement not covered" >                return res.json({</span>
+                    flag: flag,
+                    msg: 'The CV you send belong to other user.'
+                });
+            }
+        } else <span class="cstat-no" title="statement not covered" >if (flag == -1) { /*Somethong wrong with server*/</span>
+<span class="cstat-no" title="statement not covered" >            return res.json({</span>
+                flag: flag,
+                msg: ''
+            });
+        }
+    })
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered" >module.exports = {</span>
+    isBlong: isBlong
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 07 2016 15:54:35 GMT+0700 (SE Asia Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
