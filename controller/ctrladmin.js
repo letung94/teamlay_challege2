@@ -1,35 +1,60 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt-nodejs');
-var authenticate = require('../middleware/authenticate');
-var di = require('../config/config');
-var passport = require('../config/passport_authenticate');
-var user_model = di.resolve('user');
-var uuid = require('node-uuid');
-var mailer = require('express-mailer');
-var app = require('../server');
-var flash = require('express-flash');
-var async = require('async');
+var admin_service = require('../config/config').resolve('admin');
+var login_service = require('../config/config').resolve('login_service');
 
-
-
-router.get('/admin', function(req, res) {
-
-    var user = new user_model();
-    user.getAllUser(function(err, data) {
-        console.log(typeof(data));
+router.get('/admin/main', function (req, res) {
+    var service = new admin_service();
+    service.getAllUser(function (flag, err, data) {
+        if (flag == -1) {
+            return res.render('server_error/500');
+        }
         var data_json = JSON.stringify(data);
-        var json = JSON.parse(data_json);
-        console.log(typeof(json));
+        var temp_json = JSON.parse(data_json);
         res.render('pages/admin', {
-            jsonData: json
+            users: temp_json
         });
     })
-
-
-    // console.log('entered!');
-
 });
 
+router.get('/admin/login', function (req, res) {
+    res.render('pages/admin_login', { errorMessage: req.flash('error'), backdata: req.body });
+});
+
+router.post('/admin/login', function (req, res, next) {
+    login_service.authenticate('local', {
+        failureFlash: true
+    }, function (err, user, info) {
+        if (err) {
+            return res.render('pages/admin_login', {
+                errorMessage: err.message,
+                backdata: req.body
+            });
+        }
+
+        if (!user) {
+            return res.render('pages/admin_login', {
+                errorMessage: info.message,
+                backdata: req.body
+            });
+        }
+        return req.logIn(user, function (err) {
+            if (err) {
+                req.flash('error', err.message);
+                return res.redirect('/admin/login');
+            } else {
+                var service = new admin_service();
+                service.getUserRoleByUsername(user.Username, function (flag, err, data) {
+                    if (flag == -1)
+                        return res.render('server_error/500');
+                    if (flag == 0 || data == 'user')
+                        return res.render('pages/admin_login', { backdata: req.body, errorMessage: 'This account is not have permission to continue.' });
+                    return res.redirect('/admin/main');
+                })
+
+            }
+        });
+    })(req, res, next);
+});
 
 module.exports = router;

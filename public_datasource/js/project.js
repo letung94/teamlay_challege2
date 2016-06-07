@@ -2,14 +2,22 @@ $(document).ready(function(){
     useWysihtml5("#validation_form_project textarea[name=project_details]");
     var self = this;
     self.listProject = [];
+    self.FirstTime = true;
     var today = new Date();
     self.compareMilli = function(a,b){
         return new Date(b.ToDate) - new Date(a.ToDate);       
     }
+    
+    $('#projectSection').click(function(){
+       if(self.FirstTime){
+           self.getAllProject();
+       } 
+    });
     /*Get All Project belong to this CV.*/
     self.getAllProject = function(){        
         var url = window.location.href + "/project/getall";
         $.get(url, function(resp){
+            self.FirstTime = false;
             console.log(resp);
             if(resp.code == 1){
                 $.each(resp.rows, function(index, value){
@@ -317,6 +325,4 @@ $(document).ready(function(){
         }
     });
 
-        /*initialize*/
-        self.getAllProject();
 });

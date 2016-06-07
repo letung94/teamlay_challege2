@@ -33,7 +33,6 @@ router.post('/certification/edit', function (req, res) {
 	var cerServiceIns = new cerService();
 	var entity = req.body.entity;
 	entity.CV_Id = cv_id;
-	console.log(entity);
 	cerServiceIns.saveCertification(entity, function(cerFlag, rows){
 		return res.json({flag: cerFlag, rows: rows});
 	})

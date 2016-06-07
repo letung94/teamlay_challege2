@@ -1,8 +1,8 @@
 var skill_service = require('../config/config').resolve('skill');
 var express = require('express');
 var router = express.Router();
-
-router.post('/skill/save', function(req, res) {
+var cv_user = require('../middleware/checkcv_user').isBlong;
+router.post('/skill/save', cv_user,function(req, res) {
     var cv_id = req.baseUrl.split("/")[2];
     req.body.CV_Id = cv_id;
     var skill_save = new skill_service();
@@ -15,7 +15,7 @@ router.post('/skill/save', function(req, res) {
         res.send({flag: err, resdata: data});
     });
 });
-router.get('/skill/getall',function(req,res){
+router.get('/skill/getall',cv_user,function(req,res){
     var skill_getAllByIdCV = new skill_service();
     var cv_id = req.baseUrl.split("/")[2];
     skill_getAllByIdCV.getAllSkillByCVId(cv_id,function(err,rows){

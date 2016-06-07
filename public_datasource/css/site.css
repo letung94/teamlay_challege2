@@ -198,6 +198,7 @@ img#preview:hover {opacity: 0.7;}
     top: 5px;
 }
 
+
 [draggable=true] {
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -207,3 +208,8 @@ img#preview:hover {opacity: 0.7;}
   -khtml-user-drag: element;
   -webkit-user-drag: element;
 }
+
+.box .box-content{
+    padding: 10px 0px; 
+  }
+

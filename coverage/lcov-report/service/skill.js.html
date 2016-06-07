@@ -84,8 +84,7 @@
 39
 40
 41
-42
-43</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+42</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -126,56 +125,54 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var skill = require('../model/skill');
+<span class="cline-any cline-yes">1×</span></td><td class="text"><pre class="prettyprint lang-js">var skill = require('../model/skill');
 &nbsp;
 <span class="fstat-no" title="function not covered" >function skill_service() {</span>
-<span class="cstat-no" title="statement not covered" >    this.getAllSkillByCVId = <span class="fstat-no" title="function not covered" >function (params, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >    this.getAllSkillByCVId = <span class="fstat-no" title="function not covered" >function(params, callback) {</span></span>
 <span class="cstat-no" title="statement not covered" >        var s = new skill();</span>
 <span class="cstat-no" title="statement not covered" >        s.getAllByIdCV(params, callback);</span>
     }
-<span class="cstat-no" title="statement not covered" >    this.save = <span class="fstat-no" title="function not covered" >function(params,callback){</span></span>
-<span class="cstat-no" title="statement not covered" >    	var skill_save = new skill(params.Name,</span>
-	    params.Expertise,
-	    params.Experience,
-	    params.LastYearUsed,
-	    params.CV_Id);
-<span class="cstat-no" title="statement not covered" >	    var valid = skill_save.checkValidation();</span>
-<span class="cstat-no" title="statement not covered" >	    if(valid){</span>
-<span class="cstat-no" title="statement not covered" >	        skill_save.save(skill_save.attribute, callback);</span>
-	    }else{
+<span class="cstat-no" title="statement not covered" >    this.save = <span class="fstat-no" title="function not covered" >function(params, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var skill_save = new skill(params.Name,</span>
+            params.Expertise,
+            params.Experience,
+            params.LastYearUsed,
+            params.CV_Id);
+<span class="cstat-no" title="statement not covered" >        var valid = skill_save.checkValidation();</span>
+<span class="cstat-no" title="statement not covered" >        if (valid) {</span>
+<span class="cstat-no" title="statement not covered" >            skill_save.save(skill_save.attribute, callback);</span>
+        } else {
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	        callback(0, skill_save.attrvalidate);</span>
-	    }
+<span class="cstat-no" title="statement not covered" >            callback(0, skill_save.attrvalidate);</span>
+        }
     }
-<span class="cstat-no" title="statement not covered" >    this.update = <span class="fstat-no" title="function not covered" >function(params,callback){</span></span>
-<span class="cstat-no" title="statement not covered" >    	var skill_update = new skill(params.Name,</span>
-	    params.Expertise,
-	    params.Experience,
-	    params.LastYearUsed,
-	    params.CV_Id);
-<span class="cstat-no" title="statement not covered" >	    var valid = skill_update.checkValidation();</span>
-<span class="cstat-no" title="statement not covered" >	    if(valid){</span>
-<span class="cstat-no" title="statement not covered" >	        skill_update.update(params.Id, callback);</span>
-	    }else{
+<span class="cstat-no" title="statement not covered" >    this.update = <span class="fstat-no" title="function not covered" >function(params, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var skill_update = new skill(params.Name,</span>
+            params.Expertise,
+            params.Experience,
+            params.LastYearUsed,
+            params.CV_Id);
+<span class="cstat-no" title="statement not covered" >        var valid = skill_update.checkValidation();</span>
+<span class="cstat-no" title="statement not covered" >        if (valid) {</span>
+<span class="cstat-no" title="statement not covered" >            skill_update.update(params.Id, callback);</span>
+        } else {
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	        callback(0, skill_update.attrvalidate);</span>
-	    }
+<span class="cstat-no" title="statement not covered" >            callback(0, skill_update.attrvalidate);</span>
+        }
     }
-<span class="cstat-no" title="statement not covered" >    this.delete = <span class="fstat-no" title="function not covered" >function(params,callback){</span></span>
-<span class="cstat-no" title="statement not covered" >    	var skill_delete = new skill();</span>
+<span class="cstat-no" title="statement not covered" >    this.delete = <span class="fstat-no" title="function not covered" >function(params, callback) {</span></span>
+<span class="cstat-no" title="statement not covered" >        var skill_delete = new skill();</span>
 <span class="cstat-no" title="statement not covered" >        skill_delete.delete(params, callback);</span>
     }
 }
 &nbsp;
-module.exports = skill_service;
-&nbsp;</pre></td></tr>
+module.exports = skill_service;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Mon Jun 06 2016 09:11:29 GMT+0700 (SE Asia Standard Time)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Jun 07 2016 06:22:22 GMT+0700 (SE Asia Standard Time)
 </div>
 </div>
 <script src="../prettify.js"></script>
