@@ -1,5 +1,4 @@
 var express = require('express');
-var ejs = require('ejs');
 var helper = require('../helper/helper')
 var di = require('../config/config');
 
@@ -36,7 +35,6 @@ router.post('/', function(req, res) {
         Name: req.body.cvname,
         UserId: req.user.Id
     }, function(flag, data) {
-        // TUNG CODE FOR ADDING LIST SECTION FOR CV
         var createlistcv_section = new cv_section_service();
         createlistcv_section.createlistCV_Section_CV_Id(data.Id, function(err, count) {
             if (err && count < 7) {
