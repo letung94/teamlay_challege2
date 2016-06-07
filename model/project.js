@@ -23,6 +23,15 @@ function ProjectModel(Title, Url, FromDate, ToDate, Details, CV_Id) {
             }
             return this.valid;
         }, attrname: "Title"},
+        {validate: function(details){
+            this.valid = false;
+            this.required = true;
+            this.min = 1;
+            if(details !=null || details !== ""){
+                this.valid = true;
+            }
+            return this.valid;
+        }, attrname: "Details"},        
         {validate: function(url){
             this.valid = false;
             if (url.length == 0){

@@ -16,8 +16,6 @@ $(function() {
         //json object to sent to the authentication url /img/default_avatar.jpg
         success: function(res) {
             $.unblockUI();
-            
-            
             if (res.flag == 1) {
                 contact_info = new Contact_Info(res.resdata);
                 $('#contact_info-form #btnSubmit').prop('disabled', false);
@@ -47,8 +45,6 @@ $(function() {
 
         }
     });
-
-
 });
 
 function showAnnoucement(flag, section, action) {

@@ -97,7 +97,7 @@ function CV_Section(cv_id,section_id,isdeleted, order, id) {
         })
     }
     
-    self.getSectionByIdCV = function(reqdata,callback){
+    self.getAllByCVId = function(reqdata,callback){
             var temp = new cv_section();
             //fields:['Id','CV_Id', 'Section_Id', 'IsDeleted', 'Order'],
             temp.find('all', {
