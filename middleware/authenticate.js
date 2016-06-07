@@ -4,11 +4,9 @@ var flash = require('express-flash');
 // Require user authenticated
 var requireAuthenticated = function (req, res, next) {
     if (!req.isAuthenticated()) {
-        req.flash('error', 'You must be login to continue.');
-        return res.redirect('/login');
-    } else {
-        return next();
+        return res.render('pages/login', { errorMessage: 'You must be login to continue.' });
     }
+    return next();
 }
 // Require admin authenticated
 var requireAdminAuthenticated = function (req, res, next) {

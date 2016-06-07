@@ -102,7 +102,7 @@ app.get('/', function(req, res) {
 
 
 
-app.use('/cv', authenticate.requireAuthenticated, ctrlcv);
+
 app.use('/admin/main', authenticate.requireAdminAuthenticated, ctrladmin);
 app.use('/template',authenticate.requireAuthenticated, ctrlTemplate);
 
@@ -113,9 +113,7 @@ app.use('/', ctrlAccount);
 
 app.use('/', ctrladmin);
 
-app.get('/cv', function(req, res) {
-    res.render('pages/cv_index');
-})
+app.use('/cv', authenticate.requireAuthenticated, ctrlcv);
 
 var cv_user = require('./middleware/checkcv_user').isBlong;
 
