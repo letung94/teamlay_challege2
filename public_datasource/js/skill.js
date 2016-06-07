@@ -140,7 +140,7 @@ function Skill(attribute){
 function addlistskill(index,row){
     // create edit & button acction
     var editAction = '<button class="btn btn-warning btn-sm btnEditSkill"><span class="glyphicon glyphicon-pencil"></span></button>';
-    var deleteAction = '<button class="btn btn-danger btn-sm btnDeleteSkill"><span class="glyphicon glyphicon-remove"></span></button>';
+    var deleteAction = ' <button class="btn btn-danger btn-sm btnDeleteSkill"><span class="glyphicon glyphicon-remove"></span></button>';
     // add value of each attribute to row 
                       
     var rowname =  '<img  src="/img/default_avatar.jpg" class="default_avatar" /> <div class="form-group row">' + row.Name + '</div>';

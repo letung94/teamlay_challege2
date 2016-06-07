@@ -1,12 +1,22 @@
 $(document).ready(function() {
+    $.validator.addMethod("regex", function(value, element, regexpr) {
+        var patt = new RegExp(regexpr);
+        return patt.test(value);
+    }, "Wrong Regular Expression.");
     // validate register form on keyup and sumit
     $("#form-register").validate({
         errorClass: 'text-danger',
         rules: {
             firstname: {
-                required: true
+                regex: '^[a-zA-Z ]{1,500}$',
+                minlength:1,
+                maxlength:50,
+                required: true,
             },
             lastname: {
+                regex: '^[a-zA-Z ]{1,500}$',
+                minlength:1,
+                maxlength:50,
                 required: true
             },
             username: {
@@ -31,8 +41,18 @@ $(document).ready(function() {
             }
         },
         messages: {
-            firstname: "Please enter your firstname",
-            lastname: "Please enter your lastname",
+            firstname: {
+                required: "Please enter your firstname",
+                minlength:"Your firstname must consist of at least 1 character.",
+                maxlength:"Your firstname must consist of less than 50 characters.",
+                regex: 'Alphabet only'
+            },
+            lastname: {
+                required: "Please enter your lastname",
+                minlength:"Your lastname must consist of at least 1 character.",
+                maxlength:"Your lastname must consist of less than 50 characters.",
+                regex: 'Alphabet only'
+            },
             username: {
                 required: "Please enter a username",
                 minlength: "Your username must consist of at least 6 character"

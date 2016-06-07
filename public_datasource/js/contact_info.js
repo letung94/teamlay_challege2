@@ -78,7 +78,12 @@ $(document).ready(function() {
     },
         "Please enter a valid phone."
     );
-    
+
+    $.validator.addMethod("regex", function(value, element, regexpr) {
+        var patt = new RegExp(regexpr);
+        return patt.test(value);
+    }, "Wrong Regular Expression.");
+
     $('#contact_info-form').validate({
         errorClass: 'text-danger',
         focusInvalid: false,
@@ -87,12 +92,14 @@ $(document).ready(function() {
             firstname: {
                 required: true,
                 minlength:1,
-                maxlength:50
+                maxlength:50,
+                regex:  '^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{1,500}$'
             },
             lastname: {
                 required: true,
                 minlength:1,
-                maxlength:50
+                maxlength:50,
+                regex: '^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{1,500}$'
             },
             email: {
                 required: true,
@@ -114,12 +121,14 @@ $(document).ready(function() {
             firstname: {
                 required: "Please enter your firstname.",
                 minlength:"Your username must consist of at least 1 character.",
-                maxlength:"Your username must consist of less than 50 characters."
+                maxlength:"Your username must consist of less than 50 characters.",
+                regex: 'Alphabet only'
             },
             lastname: {
                 required: "Please enter your lastname.",
                 minlength:"Your username must consist of at least 1 character.",
-                maxlength:"Your username must consist of less than 50 characters."
+                maxlength:"Your username must consist of less than 50 characters.",
+                regex: 'Alphabet only'
             },
             email: {
                 required: "Please enter your email.",
@@ -192,13 +201,13 @@ $('#contact_info-form #btnSaveContact_Info').click(function() {
                 }
             },
             error: function(x,e){
-                
+
             }
         });
     }
-    
+
     return false;
-    
+
 });
 
 /*
@@ -229,7 +238,7 @@ span.click(function(){
 
 $(window).click(function(e){
        if(e.target.id != "preview" && e.target.id != "img01"){
-           modal.css("display","none"); 
+           modal.css("display","none");
        }
 });
 

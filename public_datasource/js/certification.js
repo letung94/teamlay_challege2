@@ -63,7 +63,7 @@ $(document).ready(function(){
             $.each(self.listCertification, function(index, value){
                 html +='<tr><td>' + value.Title + '</td>' + '<td>' + value.CertificateAuthority + '</td>' + '<td>' + value.Date  +
                 '</td><td><button class="btn btn-warning btn-sm btn-edit-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-pencil"></span></button>' +
-                '<button class="btn btn-danger btn-sm btn-delete-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
+                ' <button class="btn btn-danger btn-sm btn-delete-certification" certification-id="' + value.Id + '"><span class="glyphicon glyphicon-remove"></span></button></td></tr>';
             })
             $('#certification_list').html(html);
         }
