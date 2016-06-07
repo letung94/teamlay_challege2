@@ -21,10 +21,12 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             this.required = true;
             this.min = 1;
             this.max = 50;
+            this.regex =  /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{1,500}$/;
             if(firstname !=null || firstname !== ""){
                     var length = firstname.length;
                     if(length >= this.min && length <= this.max ){
                         this.valid = true;
+                        this.valid &= this.regex.test(firstname);
                     }
             }
             return this.valid;
@@ -34,10 +36,12 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             this.required = true;
             this.min = 1;
             this.max = 50;
+            this.regex =  /^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ ]{1,500}$/;
             if(lastname !=null || lastname !== ""){
                     var length = lastname.length;
                     if(length >= this.min && length <= this.max ){
                         this.valid = true;
+                        this.valid &= this.regex.test(lastname);
                     }
             }
             return this.valid;
@@ -73,15 +77,15 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
                         var data = image.replace(/^data:image\/\w+;base64,/, '');
                         return new Buffer(data, 'base64');
                     }
-                    
-                    
+
+
                     function makestringrandom(){
                         var uuid = require('node-uuid');
                         var text = uuid.v1();
                         return text;
                     }
-                    
-                    
+
+
                     self.attribute["Avatar"] = "avatars/" + makestringrandom() + getextension(avatar);
                     var imageBuffer = decodeBase64Image(avatar);
                     var fs = require('fs');
@@ -140,7 +144,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
             return this.valid;
         },attrname: "Address"},
         {validate: null,attrname: "CV_Id"}];
-        
+
 
         /*
     // return true if all attribute are valid if not false;
@@ -184,7 +188,7 @@ function Contact_Info(firstname, lastname, avatar, email, phone, website, addres
         var gettemp = new contact_info();
         var savetemp = new contact_info(reqdata);
         gettemp.find('first', {fields: ['Id'], where: "CV_Id = " + reqdata.CV_Id},function(err,row,fields){
-            
+
             var id = null;
             if(row != null){
                 id = row.Id;
