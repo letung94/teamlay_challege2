@@ -2,8 +2,8 @@
 var expService = require('../config/config').resolve('experience');
 var express = require('express');
 var router = express.Router();
-
-router.get('/experience/getall', function(req, res) {
+var cv_user = require('../middleware/checkcv_user').isBlong;
+router.get('/experience/getall', cv_user,  function(req, res) {
     var cv_id = req.baseUrl.split("/")[2];
     var expServiceGetAll = new expService();
     expServiceGetAll.getAllExperienceByCVId(cv_id, function(err, rows) {
@@ -14,7 +14,7 @@ router.get('/experience/getall', function(req, res) {
     });
 });
 
-router.post('/experience/save', function(req, res) {
+router.post('/experience/save', cv_user, function(req, res) {
     var cv_id = req.baseUrl.split("/")[2];
     req.body.CV_Id = cv_id;
     var expServiceSave = new expService();
@@ -32,7 +32,7 @@ router.post('/experience/save', function(req, res) {
     });  
 });
 
-router.post('/experience/update', function(req, res) {
+router.post('/experience/update', cv_user, function(req, res) {
     var cv_id = req.baseUrl.split("/")[2];
     req.body.CV_Id = cv_id; 
     var expServiceUpdate = new expService();
@@ -51,7 +51,7 @@ router.post('/experience/update', function(req, res) {
     });
 });
 
-router.post('/experience/delete', function(req, res) {
+router.post('/experience/delete', cv_user, function(req, res) {
     var cv_id = req.baseUrl.split("/")[2];
     var expServiceDelete = new expService();
     expServiceDelete.deleteExperience(req.body.Id, function (err,data){
