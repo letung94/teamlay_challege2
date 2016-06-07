@@ -12,7 +12,6 @@ var async = require('async');
 var login_service = require('../config/config').resolve('login_service');
 var account_service = require('../config/config').resolve('account_service');
 
-
 /*
     *LogIn GET
 */
@@ -33,6 +32,7 @@ router.post('/login', function (req, res, next) {
     login_service.authenticate('local', {
         failureFlash: true
     }, function (err, user, info) {
+
         if (err) {
             return res.render('pages/login', {
                 errorMessage: err.message

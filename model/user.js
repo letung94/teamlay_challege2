@@ -227,8 +227,9 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
     this.getAllUserWithNumOfCV = function (callback) {
         user = new User();
         var query = 'SELECT u.Id, u.Firstname, u.Lastname, u.Username, u.Email, u.CreatedDate, u.IsConfirmed, u.IsBlocked, COUNT(c.UserId) as CV' +
-            ' FROM user u, curriculum_vitae c' +
-            ' WHERE u.Id = c.UserId' +
+            ' FROM user u' +
+            ' LEFT JOIN curriculum_vitae c' +
+            ' ON u.Id = c.UserId'+
             ' GROUP BY c.UserId';
         user.query(query, function (err, data) {
             user.killConnection();

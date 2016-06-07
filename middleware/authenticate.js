@@ -1,35 +1,33 @@
-var di = require('../config/config');
-var user_model = di.resolve('user');
+var account_service = require('../config/config').resolve('admin');
 var flash = require('express-flash');
 
-var isAvailable = function (req, res, next) {
-    if (req.user.IsConfirmed !== 1) {
-        req.flash('error', 'Please confirm your email!');
-        return res.redirect('/login');
-    }
-    next();
-}
 // Require user authenticated
 var requireAuthenticated = function (req, res, next) {
     if (!req.isAuthenticated()) {
-        req.flash('error','You must be login to continue.');
+        req.flash('error', 'You must be login to continue.');
         return res.redirect('/login');
     } else {
         return next();
     }
 }
 // Require admin authenticated
-var requireAdminAuthenticated = function(req,res,next){
+var requireAdminAuthenticated = function (req, res, next) {
     if (!req.isAuthenticated()) {
-        req.flash('error','You must be login to continue.');
+        req.flash('error', 'You must be login to continue.');
         return res.redirect('/admin/login');
     } else {
-        return next();
+        var service = new account_service();
+        service.getUserRoleByUsername(req.user.Username, function (flag, err, data) {
+            if (flag == -1)
+                return res.render('server_error/500');
+            if (flag == 0 || data == 'user')
+                return res.redirect('/');
+            return next();
+        });
     }
 }
 
 module.exports = {
     requireAuthenticated: requireAuthenticated,
-    requireAdminAuthenticated: requireAdminAuthenticated,
-    isAvailable: isAvailable
+    requireAdminAuthenticated: requireAdminAuthenticated
 };
