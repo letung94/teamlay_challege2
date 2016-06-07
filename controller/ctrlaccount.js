@@ -18,7 +18,8 @@ var account_service = require('../config/config').resolve('account_service');
 router.get('/login', function (req, res) {
     if (req.isAuthenticated()) {
         res.redirect('/cv');
-    } else res.render('pages/login', {
+    } else 
+    res.render('pages/login', {
         errorMessage: req.flash('error'),
         successMessage: req.flash('success')
     });

@@ -230,6 +230,10 @@ function userModel(firstName, lastName, username, email, password, createdDate, 
             ' FROM user u' +
             ' LEFT JOIN curriculum_vitae c' +
             ' ON u.Id = c.UserId'+
+            ' WHERE u.Id NOT IN('+
+            ' SELECT UserId'+
+            ' FROM user_role'+
+            ' WHERE RoleId = 1)'+
             ' GROUP BY c.UserId';
         user.query(query, function (err, data) {
             user.killConnection();
