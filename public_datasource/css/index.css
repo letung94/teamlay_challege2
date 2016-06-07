@@ -22,4 +22,20 @@
   .row {
       margin-left:0px;
       margin-right:0px;
+      margin-top:0px;
   }
+   .section {
+    margin-top:10px;
+  }
+  
+  .carousel{
+    margin-bottom:65px;
+  }
+
+h1 {
+  margin:0px;
+}
+
+h4 {
+  margin:0px;
+}

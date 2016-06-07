@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var di = require('../config/config');
 var helper = require('../helper/helper');
-
-router.get('/project/getAll', function (req,res, next) {
+var cv_user = require('../middleware/checkcv_user').isBlong;
+router.get('/project/getAll',cv_user, function (req,res, next) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var userId = req.user.Id;    
     var projectService = di.resolve('project');
@@ -19,7 +19,7 @@ router.get('/project/getAll', function (req,res, next) {
 
 });
 
-router.post('/project/add', function (req, res) {
+router.post('/project/add', cv_user,function (req, res) {
     var projectService = di.resolve('project');
     var projectInstance = new projectService();
 	var idcv = req.baseUrl.split("/")[2];
@@ -31,7 +31,7 @@ router.post('/project/add', function (req, res) {
     });      
 });
 
-router.post('/project/update', function (req, res) {
+router.post('/project/update', cv_user, function (req, res) {
  	var cv_id = req.baseUrl.split("/")[2];
 	var userId = req.user.Id;  
     var projectService = di.resolve('project');
@@ -42,7 +42,7 @@ router.post('/project/update', function (req, res) {
     });     
 });
 
-router.post('/project/delete', function (req, res) {
+router.post('/project/delete',cv_user, function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var userId = req.user.Id;
     var projectService = di.resolve('project');
