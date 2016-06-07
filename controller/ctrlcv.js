@@ -94,7 +94,7 @@ router.post('/:idcv/disable', [check_cv_user], function(req, res) {
     })
 });
 
-router.get('/:idcv', [check_cv_user], function(req, res) {
+router.get('/:idcv', function(req, res) {
     var param = {
         idcv: req.params.idcv,
         userid: req.user.Id
