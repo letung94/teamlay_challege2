@@ -1,3 +1,4 @@
+
 var listExp = [];
 //set attribute for class Experience
 function Experience(attribute) {
@@ -29,6 +30,12 @@ function getValueExp() {
     return experience.attribute;
 
 }
+
+function sortListExpByToDate(){
+    listExp.sort(function(a,b) { 
+       return new Date(a.attribute.ToDate) > new Date(b.attribute.ToDate);     
+    });
+}
 /*Add Button Click Event for Add List Experience */
 $('#btnAddListExp').click(function() {
     //check valid on click
@@ -50,13 +57,16 @@ $('#btnAddListExp').click(function() {
                 if (res.flag == 1) {
                     listExp.push(new Experience(res.resdata));
                     $("#list-experience tbody > tr").remove();
+                    sortListExpByToDate();
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
+                        
                     });
                     switchModeExp("add");
                    
                 }
                  $("#experience-form")[0].reset();
+                 $("#experience-form textarea[name='detail']").data('wysihtml5').editor.setValue('');
                 showAnnoucement(res.flag, 'experience', 'added');
             },
             error: function(x, e) {
@@ -67,7 +77,6 @@ $('#btnAddListExp').click(function() {
 });
 /*Delete Button Click Event for Delete Value */
 $('#list-experience').on('click', '.btnDeleteExp', function(e) {
-    e.preventDefault();
     var deletedexperience = new Experience();
     //get current index on row click
     indexCurrentExp = $(this).closest("tr").index();
@@ -93,6 +102,7 @@ $('#list-experience').on('click', '.btnDeleteExp', function(e) {
                             //remove value from array by index and update to table
                             listExp.splice(indexCurrentExp, 1);
                             $("#list-experience tbody > tr").remove();
+                            sortListExpByToDate();
                             $.each(listExp, function(index, value) {
                                 addListExp(index + 1, value.attribute);
                             });
@@ -114,18 +124,19 @@ $('#list-experience').on('click', '.btnDeleteExp', function(e) {
 });
 /*Edit Button Click Event to Edit Value*/
 $('#list-experience').on('click', '.btnEditExp', function(e) {
-    e.preventDefault();
     $('#experience-form').validate().resetForm();
     var cells = $(this).closest("tr").children("td");
+    //get current index on click
     indexCurrentExp = parseInt(cells.eq(0).text()) - 1;
+    //get value from cells and push to input
     $("#experience-form input[name='company']").val(cells.eq(1).text()).focus();
     $("#experience-form input[name='designation']").val(cells.eq(2).text());
     $("#experience-form input[name='date']").val(cells.eq(3).text());
     $("#experience-form textarea[name='detail']").data('wysihtml5').editor.setValue(listExp[indexCurrentExp].attribute.Details);
-    rowId = $(this).closest('td').parent()[0].sectionRowIndex;
     switchModeExp("edit");
     $('#experience-form').validate().resetForm();
 });
+/*Save Button Click Event to Save Value After Edit*/
 $('#btnSaveEditExp').click(function() {
     var isValid = $('#experience-form').valid();
     if (isValid) {
@@ -136,12 +147,10 @@ $('#btnSaveEditExp').click(function() {
         $.blockUI();
         $.ajax({
             type: "POST",
-            //the url where you want to sent the userName and password to
             url: urlpost,
             dataType: 'json',
             async: false,
             contentType: 'application/json; charset=utf-8',
-            //json object to sent to the authentication url
             data: JSON.stringify(savedexprerience),
             success: function(res) {
                 $.unblockUI();
@@ -149,12 +158,14 @@ $('#btnSaveEditExp').click(function() {
                     listExp.splice(indexCurrentExp, 1);
                     listExp.splice(indexCurrentExp, 0, new Experience(res.resdata));
                     $("#list-experience tbody > tr").remove();
+                    sortListExpByToDate();
                     $.each(listExp, function(index, value) {
                         addListExp(index + 1, value.attribute);
                     });
                     switchModeExp("add");                
                 }
                 $("#experience-form")[0].reset();
+                $("#experience-form textarea[name='detail']").data('wysihtml5').editor.setValue('');
                 showAnnoucement(res.flag, 'experience', 'edited');
             },
             error: function(x, e) {
@@ -169,13 +180,12 @@ $('#btnCancelEditExp').click(function() {
     $("#experience-form")[0].reset();
 });
 var clickedExperience = false;
-
+/*Get Experience On Section Click*/
 function getExperience() {
     if (clickedExperience == true) {
         return;
     }
     var urlget = window.location.href + "/experience/getall";
-    $.blockUI();
     $.ajax({
         type: "GET",
         url: urlget,
@@ -183,12 +193,11 @@ function getExperience() {
         async: false,
         contentType: 'application/json; charset=utf-8',
         success: function(res) {
-            $.unblockUI();
             if (res.flag == 1) {
                 clickedExperience = true;
                 $('#list-experience tbody > tr').remove();
                 $.each(res.resdata, function(index, value) {
-                    listExp.push(new Experience(value));
+                    listExp.push(new Experience(value));     
                     addListExp(index + 1, value);
                 });
 
@@ -221,20 +230,23 @@ function switchModeExp(mode) {
 /*Jquery Validation for #experience-form*/
 
 $(document).ready(function() {
-
+    /*Set Wysihtml5 for textarea*/
     useWysihtml5("#experience-form textarea[name='detail']");
+    /*Check ToDate Before Today */
     $.validator.addMethod("isBeforeTodayExp", function(value, element) {
         var today = new Date();
         var getTodate = value.split(" - ");
         var inputDate = new Date(getTodate[1]);
         return inputDate <= today;
     }, "The ToDate should be before today.");
+    /*Check From & ToDate is different */
     $.validator.addMethod("notEqFromToDateExp", function(value, element) {
         var splitDate = value.split(" - ");
         var toDate = new Date(splitDate[1]);
         var fromDate = new Date(splitDate[0]);
         return toDate - fromDate > 0;
     }, "The FromDate & ToDate should be different.");
+    /*Add validate for each field */
     $("#experience-form").validate({
         errorClass: 'text-danger',
         focusInvalid: true,

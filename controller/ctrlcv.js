@@ -1,10 +1,8 @@
 var express = require('express');
-var bodyparser = require('body-parser');
 var ejs = require('ejs');
 var helper = require('../helper/helper')
 var di = require('../config/config');
 
-var jsonparser = bodyparser.json();
 var router = express.Router();
 var check_cv_user = require('../middleware/checkcv_user').isBlong;
 
@@ -30,7 +28,7 @@ router.get('/', function(req, res) {
     });
 });
 
-router.post('/', [jsonparser], function(req, res) {
+router.post('/', function(req, res) {
     var cvService = di.resolve('curriculum_vitae');
     var cv_section_service = di.resolve('cv_section');
     cvServiceIns = new cvService();
@@ -54,7 +52,7 @@ router.post('/', [jsonparser], function(req, res) {
     });
 });
 
-router.post('/:idcv/update', [jsonparser, check_cv_user], function(req, res) {
+router.post('/:idcv/update', [check_cv_user], function(req, res) {
     var cvService = di.resolve('curriculum_vitae');
     cvServiceIns = new cvService();
     var paramObject = req.body;
@@ -79,7 +77,7 @@ router.post('/:idcv/update', [jsonparser, check_cv_user], function(req, res) {
     });
 });
 
-router.post('/:idcv/disable', [jsonparser, check_cv_user], function(req, res) {
+router.post('/:idcv/disable', [check_cv_user], function(req, res) {
     var param = {
         id: req.params.idcv
     };

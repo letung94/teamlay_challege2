@@ -1,18 +1,6 @@
--- -----------------------------------------------------
--- Schema cv_maker
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `test_cv_maker` ;
-
--- -----------------------------------------------------
--- Schema cv_maker
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `test_cv_maker` DEFAULT CHARACTER SET utf8 ;
-USE `test_cv_maker` ;
-
-
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: cv_maker
+-- Host: localhost    Database: test_cv_maker
 -- ------------------------------------------------------
 -- Server version	5.7.12-log
 
@@ -44,7 +32,7 @@ CREATE TABLE `certification` (
   PRIMARY KEY (`Id`),
   KEY `FK_Certification_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_Certification_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,6 +41,7 @@ CREATE TABLE `certification` (
 
 LOCK TABLES `certification` WRITE;
 /*!40000 ALTER TABLE `certification` DISABLE KEYS */;
+INSERT INTO `certification` VALUES (1,'English','ETL','2015-04-04','TOIEC 800',1),(2,'Japanese','JLTP','2016-03-03','N3',1);
 /*!40000 ALTER TABLE `certification` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -105,7 +94,7 @@ CREATE TABLE `curriculum_vitae` (
   PRIMARY KEY (`Id`),
   KEY `UserId_idx` (`UserId`),
   CONSTRAINT `FK_CV_UserId` FOREIGN KEY (`UserId`) REFERENCES `user` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +103,38 @@ CREATE TABLE `curriculum_vitae` (
 
 LOCK TABLES `curriculum_vitae` WRITE;
 /*!40000 ALTER TABLE `curriculum_vitae` DISABLE KEYS */;
+INSERT INTO `curriculum_vitae` VALUES (1,'Programmer','2016-06-03',0,NULL,1);
 /*!40000 ALTER TABLE `curriculum_vitae` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cv_section`
+--
+
+DROP TABLE IF EXISTS `cv_section`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cv_section` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `CV_Id` int(11) NOT NULL,
+  `Section_Id` tinyint(1) NOT NULL,
+  `IsDeleted` tinyint(1) unsigned DEFAULT '0',
+  `Order` tinyint(1) unsigned DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FK_CV_Id_idx` (`CV_Id`),
+  KEY `FK_Section_Id_idx` (`Section_Id`),
+  CONSTRAINT `FK_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_Section_Id` FOREIGN KEY (`Section_Id`) REFERENCES `section` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cv_section`
+--
+
+LOCK TABLES `cv_section` WRITE;
+/*!40000 ALTER TABLE `cv_section` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cv_section` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -218,7 +238,7 @@ CREATE TABLE `role` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `RoleName` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,6 +248,31 @@ CREATE TABLE `role` (
 LOCK TABLES `role` WRITE;
 /*!40000 ALTER TABLE `role` DISABLE KEYS */;
 /*!40000 ALTER TABLE `role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `section`
+--
+
+DROP TABLE IF EXISTS `section`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `section` (
+  `Id` tinyint(1) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(50) DEFAULT NULL,
+  `IsDeleted` tinyint(1) unsigned DEFAULT '0',
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `section`
+--
+
+LOCK TABLES `section` WRITE;
+/*!40000 ALTER TABLE `section` DISABLE KEYS */;
+INSERT INTO `section` VALUES (1,'contact infomation',0),(2,'summary',0),(3,'experience',0),(4,'project',0),(5,'skill',0),(6,'certification',0),(7,'education',0);
+/*!40000 ALTER TABLE `section` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -274,7 +319,7 @@ CREATE TABLE `summary` (
   PRIMARY KEY (`Id`),
   KEY `FK_Summary_CV_Id_idx` (`CV_Id`),
   CONSTRAINT `FK_Summary_CV_Id` FOREIGN KEY (`CV_Id`) REFERENCES `curriculum_vitae` (`Id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -283,6 +328,7 @@ CREATE TABLE `summary` (
 
 LOCK TABLES `summary` WRITE;
 /*!40000 ALTER TABLE `summary` DISABLE KEYS */;
+INSERT INTO `summary` VALUES (1,'Headline1','Pro1',1);
 /*!40000 ALTER TABLE `summary` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,9 +355,8 @@ CREATE TABLE `user` (
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Email_UNIQUE` (`Email`),
   UNIQUE KEY `Username_UNIQUE` (`Username`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
 
 --
 -- Dumping data for table `user`
@@ -319,6 +364,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'trinh','trinh','trinh','nguyenquoctrinhctt3@gmail.com','sakldhasofashld','2016-06-01',1,0,'asdlfjkhjkdasfhaskhk',NULL,NULL),(2,'duy','duy','duy','duybuithe@gmail.com','sdfasjfhasd;fhsd;','2016-05-12',1,0,'sjdasl;dhaZXMC,BS;DJLC;LASkldclasdf',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -357,4 +403,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-02 22:03:43
+-- Dump completed on 2016-06-07  6:26:24

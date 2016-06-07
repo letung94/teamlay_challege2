@@ -2,53 +2,72 @@ var chai = require('chai');
 var assert = require('chai').assert;
 var expect = require('chai').expect;
 
-var di = require('../../config/config');
+var di = require('../../config/test_config');
 var summaryModel = di.resolve('summary');
 
+var summary_service = require('../../config/test_config').resolve('summary');
+var temp;
 
 var sinon = require('sinon');
+var summary_getByIdCV, summary_save;
 
 
+// var test = function testSummary(flag, callback) {
+//     var summary_getByIdCV = new summary_service();
+//     summary_getByIdCV.getByIdCV({
+//         "CV_Id": 1
+//     }, function(err, rows) {
+//         if (err) {
+//             callback(-1, err);
+//         } else {
+//             if (rows == null) {
+//                 callback(0, null);
+//             } else {
+//                 callback(1, rows);
+//             }
+//         }
+//     });
+//     console.log('st');
+// };
 
-// var Firstname = "Trinh";
-// var Lastname = "Nguyen";
-// var Username = "Trinh.Nguyen";
-// var Email = "email@email.com";
-// var PasswordHash = "12asdasfasfqsf12e4asfdasf";
-// var CreatedDate = "2016-02-01";
-// var VerifyToken = "asdsaasdqww12323ewqedads1";
-// var IsConfirmed = "0";
-// var IsBlocked = "0";
-// var ResetPasswordToken = "";
-// var ResetPasswordExpire = "";
+describe('TEST--SERVICE--SUMMARY - (getByIdCV) && (save) functions!', function() {
 
-var Headline = "headline st";
-var ProfessionalSummary = "asdasfhasdlk";
-var CV_Id = "4";
-var Id = "1";
-
-
-
-describe('TEST summary!', function() {
-
-
-    // var summary_test = new summaryModel();
-
-    var summaryTest,
-        eventEmitterStub,
-        callbackSpy,
-        clock;
     before(function() {
-        summaryTest = new summaryModel(Headline, ProfessionalSummary, CV_Id, Id);
-        // summaryTest.getByIdCV
-        //clock = sinon.useFakeTimers();
-        //  eventEmitterStub = sinon.stub(calculator, 'emit');
-        callbackSpy = sinon.spy();
+        //    summaryTest = new summaryModel(Headline, ProfessionalSummary, CV_Id, Id);
+        //  callbackSpy = sinon.spy();
+        summary_getByIdCV = new summary_service();
+        summary_save = new summary_service();
     });
 
-    it('should summary', function() {
-        summaryTest.getByIdCV(summaryTest, callbackSpy);
-        assert.equal(callbackSpy.called, true);
+    it('(getByIdCV) - should get correct object that we need', function() {
+        summary_getByIdCV.getByIdCV({
+            "CV_Id": 1
+        }, function(err, rows) {
+            if (err) {
+
+            } else {
+                expect(rows.Headline).to.equal('Headline1');
+            }
+            expect(rows.Headline).to.equal('Headline1');
+            expect(rows.Professional).to.equal('Pro1');
+            expect(rows.CV_Id).to.equal('1');
+        });
+    });
+    it('(save) - should save correct object that we want', function() {
+        summary_save.save({
+            "Headline": "Headline2",
+            "ProfessionalSummary": "Pro2",
+            "CV_Id": "1",
+        }, function(err, data) {
+            if (err) {
+
+            } else {
+                expect(data.Headline).to.equal('Headline2');
+                expect(data.Professional).to.equal('Headline2');
+                expect(data.CV_Id).to.equal('1');
+            }
+        });
 
     });
+
 });

@@ -9,31 +9,27 @@ var isAvailable = function (req, res, next) {
     }
     next();
 }
-
-
+// Require user authenticated
 var requireAuthenticated = function (req, res, next) {
     if (!req.isAuthenticated()) {
-        console.log(1);
         req.flash('error','You must be login to continue.');
         return res.redirect('/login');
     } else {
-        console.log(2);
         return next();
     }
 }
-
-var requireNotAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        console.log(3);
-        res.redirect('/cv');
+// Require admin authenticated
+var requireAdminAuthenticated = function(req,res,next){
+    if (!req.isAuthenticated()) {
+        req.flash('error','You must be login to continue.');
+        return res.redirect('/admin/login');
     } else {
-        console.log(4);
         return next();
     }
 }
 
 module.exports = {
     requireAuthenticated: requireAuthenticated,
-    isAvailable: isAvailable,
-    requireNotAuthenticated: requireNotAuthenticated
+    requireAdminAuthenticated: requireAdminAuthenticated,
+    isAvailable: isAvailable
 };
