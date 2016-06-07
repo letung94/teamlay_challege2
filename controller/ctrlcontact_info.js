@@ -17,7 +17,7 @@ router.post('/contact_info/save', cv_user,function(req, res) {
         "CV_Id" : req.body.CV_Id}, function(err,data){
         res.send({flag: err, resdata: data});
     });
-    
+
 });
 router.get('/contact_info/get/:idcontact_info?',cv_user,function(req,res){
     var contact_info_getByIdCV = new contact_info_service();

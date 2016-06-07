@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var di = require('../config/config');
+var cv_user = require('../middleware/checkcv_user').isBlong;
 
 module.exports = router;
 
-router.get('/certification/getAll', function (req, res) {
+router.get('/certification/getAll', cv_user, function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var userId = req.user.Id;
 	var cerService = di.resolve('certification');
@@ -14,7 +15,7 @@ router.get('/certification/getAll', function (req, res) {
 	});
 });
 
-router.post('/certification/add', function (req, res) {
+router.post('/certification/add', cv_user, function (req, res) {
 	var idcv = req.baseUrl.split("/")[2];
 	var entity = req.body.entity;
 	var cerService = di.resolve('certification');
@@ -26,7 +27,7 @@ router.post('/certification/add', function (req, res) {
 	})
 });
 
-router.post('/certification/edit', function (req, res) {
+router.post('/certification/edit', cv_user, function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var userId = req.user.Id;
 	var cerService = di.resolve('certification');
@@ -38,7 +39,7 @@ router.post('/certification/edit', function (req, res) {
 	})
 });
 
-router.post('/certification/delete', function (req, res) {
+router.post('/certification/delete', cv_user, function (req, res) {
 	var cv_id = req.baseUrl.split("/")[2];
 	var userId = req.user.Id;
 	var cerService = di.resolve('certification');
