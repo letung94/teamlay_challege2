@@ -2,7 +2,7 @@ var dragSrcEl = null;
 var licontactinfo = '<li class="active"><a href="#contact-info" data-toggle="tab"><i class="fa fa-envelope"></i> Contact Information</a></li>';
 var lisummary = '<li><a href="#summary" data-toggle="tab" onclick="getSummary()"><i class="fa fa-list-ul"></i> Summary</a></li>';
 var liexperience = '<li value="'+ data[2].Section_Id +'" draggable="true"><a href="#experience" data-toggle="tab" onclick="getExperience()"><i class="fa fa-users"></i> Experience <span class="glyphicon glyphicon-move  mousemove"></a></li>';
-var liproject = '<li value="'+ data[3].Section_Id +'" draggable="true"><a href="#project" data-toggle="tab"><i class="fa fa-briefcase"></i> Project <span class="glyphicon glyphicon-move  mousemove"></a></li>';
+var liproject = '<li value="'+ data[3].Section_Id +'" draggable="true"><a href="#project" data-toggle="tab" id="projectSection"><i class="fa fa-briefcase"></i> Project <span class="glyphicon glyphicon-move  mousemove"></a></li>';
 var liskill = '<li value="'+ data[4].Section_Id +'"  draggable="true"><a href="#skill" data-toggle="tab" onclick="getSkill()"><i class="fa fa-thumbs-up"></i> Skill <span class="glyphicon glyphicon-move  mousemove"></a></li>'
 var licertification = '<li value="'+ data[5].Section_Id +'" draggable="true"><a href="#certification" id="activeCertificationSection" data-toggle="tab"><i class="fa fa-copy"></i> Certification <span class="glyphicon glyphicon-move  mousemove"></a></li>';
 var lieducation = '<li value="'+ data[6].Section_Id +'" draggable="true"><a href="#education" data-toggle="tab" onclick="getEducation()"><i class="fa fa-graduation-cap"></i> Education <span class="glyphicon glyphicon-move  mousemove"></a></li>';
